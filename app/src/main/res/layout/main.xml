@@ -59,7 +59,7 @@
             android:layout_marginTop="-50dp"
             android:fontFamily="@font/sf_pro_display_semibold"
             android:text="Mostly Clear"
-            android:textColor="#9AEBEBF5"
+            android:textColor="@color/sky"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -144,5 +144,69 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tabbar_back"
         app:srcCompat="@drawable/bulleted_list" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/segmented_control"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/segmented_control"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/forecast_background">
+
+<!--        <androidx.appcompat.widget.AppCompatImageView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="16dp"-->
+<!--            android:background="@drawable/white_blur_circle"-->
+<!--            android:layout_marginStart="64dp"-->
+<!--            android:layout_marginEnd="64dp"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"/>-->
+<!--&lt;!&ndash;            android:layout_marginTop="-30dp"&ndash;&gt;-->
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_hourly_forecast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="13dp"
+            android:background="#00FFFFFF"
+            android:fontFamily="@font/sf_pro_display_semibold"
+            android:text="Hourly Forecast"
+            android:textAllCaps="false"
+            android:textColor="@color/light_grey_purple"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_daily_forecast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="30dp"
+            android:background="#00FFFFFF"
+            android:fontFamily="@font/sf_pro_display_semibold"
+            android:text="Daily Forecast"
+            android:textAllCaps="false"
+            android:textColor="@color/light_grey_purple"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/underline"
+            android:layout_width="wrap_content"
+            android:layout_height="9dp"
+            android:layout_marginBottom="-4dp"
+            android:paddingBottom="3dp"
+            app:layout_constraintBottom_toBottomOf="@id/btn_hourly_forecast"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/underline" />
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
