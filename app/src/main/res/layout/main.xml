@@ -27,7 +27,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_city"
+            android:id="@+id/txt_home_city"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="-10dp"
@@ -40,7 +40,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_main_temp"
+            android:id="@+id/txt_home_temp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="-50dp"
@@ -50,10 +50,10 @@
             android:textSize="96sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_city" />
+            app:layout_constraintTop_toBottomOf="@id/txt_home_city" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_main_sky"
+            android:id="@+id/txt_home_sky"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="-50dp"
@@ -63,20 +63,50 @@
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_main_temp" />
+            app:layout_constraintTop_toBottomOf="@id/txt_home_temp" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_main_temp_details"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-15dp"
-            android:fontFamily="@font/sf_pro_display_semibold"
-            android:text="H:24°   L:18°"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_main_sky" />
+            android:layout_marginTop="-15dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_home_h_temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:fontFamily="@font/sf_pro_display_semibold"
+                android:text="H:24°   L:18°"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_home_l_temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_display_semibold"
+                android:text="L:18°"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--        <androidx.appcompat.widget.AppCompatTextView-->
+        <!--            android:id="@+id/txt_home_h_temp"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="-15dp"-->
+        <!--            android:fontFamily="@font/sf_pro_display_semibold"-->
+        <!--            android:text="H:24°   L:18°"-->
+        <!--            android:textColor="@color/white"-->
+        <!--            android:textSize="20sp"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/txt_home_sky" />-->
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -153,17 +183,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/modal">
-
-<!--        <androidx.appcompat.widget.AppCompatImageView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="16dp"-->
-<!--            android:background="@drawable/white_blur_circle"-->
-<!--            android:layout_marginStart="64dp"-->
-<!--            android:layout_marginEnd="64dp"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"/>-->
-<!--&lt;!&ndash;            android:layout_marginTop="-30dp"&ndash;&gt;-->
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_hourly_forecast"
