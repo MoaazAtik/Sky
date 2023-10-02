@@ -1,6 +1,8 @@
 package com.example.weatherapiapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.weatherapiapp.databinding.ActivityMainBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //#freeCodeCamp.org (YT) | REST API - Network Data
@@ -21,13 +24,35 @@ public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
 
+    private RecyclerView recyclerView;
+    private CityListAdapter adapter;
+    private List<WeatherReportModel> citiesList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
 //        setContentView(view);
-        setContentView(R.layout.main);
+
+        setContentView(R.layout.cities);
+        recyclerView = (RecyclerView) findViewById(R.id.rv_cities);
+        citiesList = new ArrayList<>();
+        adapter = new CityListAdapter(this, citiesList);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+
+        prepareData();
+
+        findViewById(R.id.btnclick).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addCity();
+            }
+        });
+
 
         WeatherDataService weatherDataService = new WeatherDataService(MainActivity.this);
 
@@ -121,4 +146,25 @@ public class MainActivity extends AppCompatActivity {
         });//setOnClickListener btn_getWeatherByName
 
     }//onCreate
+
+
+    private void prepareData() {
+        String[] times = new String[] {
+                "11", "222"
+        };
+
+        WeatherReportModel weatherReportModel = new WeatherReportModel();
+        weatherReportModel.setTime(times[0]);
+        citiesList.add(weatherReportModel);
+
+        adapter.notifyDataSetChanged();
+    }
+
+    private void addCity() {
+        WeatherReportModel weatherReportModel = new WeatherReportModel();
+        weatherReportModel.setTime("333");
+        citiesList.add(weatherReportModel);
+
+        adapter.notifyDataSetChanged();
+    }
 }
