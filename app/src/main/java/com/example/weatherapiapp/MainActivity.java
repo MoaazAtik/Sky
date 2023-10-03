@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         prepareData();
 
-        findViewById(R.id.btnclick).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btn_cities_add_city).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 addCity();
