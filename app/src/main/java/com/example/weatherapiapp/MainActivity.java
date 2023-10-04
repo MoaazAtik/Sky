@@ -34,25 +34,25 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
 //        setContentView(view);
-//        setContentView(R.layout.main);
+        setContentView(R.layout.main);
 
-        setContentView(R.layout.cities);
-        recyclerView = (RecyclerView) findViewById(R.id.rv_cities);
-        citiesList = new ArrayList<>();
-        adapter = new CityListAdapter(this, citiesList);
-
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-
-        prepareData();
-
-        findViewById(R.id.btn_cities_add_city).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addCity();
-            }
-        });
+//        setContentView(R.layout.cities);
+//        recyclerView = (RecyclerView) findViewById(R.id.rv_cities);
+//        citiesList = new ArrayList<>();
+//        adapter = new CityListAdapter(this, citiesList);
+//
+//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+//        recyclerView.setLayoutManager(layoutManager);
+//        recyclerView.setAdapter(adapter);
+//
+//        prepareData();
+//
+//        findViewById(R.id.btn_cities_add_city).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                addCity();
+//            }
+//        });
 
 
         WeatherDataService weatherDataService = new WeatherDataService(MainActivity.this);

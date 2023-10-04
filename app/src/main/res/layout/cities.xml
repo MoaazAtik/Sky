@@ -20,8 +20,8 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_back"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:background="@drawable/arrow_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -38,10 +38,18 @@
             app:layout_constraintStart_toEndOf="@id/btn_back"
             app:layout_constraintTop_toTopOf="@id/btn_back" />
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_cities_add_city"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/add_circle"
+            app:layout_constraintTop_toTopOf="@id/btn_back"
+            app:layout_constraintEnd_toEndOf="parent" />
+
         <androidx.appcompat.widget.AppCompatEditText
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/search_field"
             android:drawableStart="@drawable/search"
             android:drawablePadding="8dp"
@@ -97,24 +105,24 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/city_tabbar_front"
-        android:layout_width="258dp"
-        android:layout_height="100dp"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/tabbar_front" />
+<!--    <androidx.appcompat.widget.AppCompatImageView-->
+<!--        android:id="@+id/city_tabbar_front"-->
+<!--        android:layout_width="258dp"-->
+<!--        android:layout_height="100dp"-->
+<!--        android:scaleType="fitXY"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:srcCompat="@drawable/tabbar_front" />-->
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_cities_add_city"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="-10dp"
-        android:background="@drawable/plus_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/city_tabbar_front" />
+<!--    <androidx.appcompat.widget.AppCompatButton-->
+<!--        android:id="@+id/btn_cities_add_city"-->
+<!--        android:layout_width="120dp"-->
+<!--        android:layout_height="120dp"-->
+<!--        android:layout_marginTop="-10dp"-->
+<!--        android:background="@drawable/plus_button"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="@id/city_tabbar_front" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
