@@ -20,8 +20,8 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_back"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:background="@drawable/arrow_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -29,30 +29,31 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
+            android:layout_marginStart="6dp"
             android:fontFamily="@font/sf_pro_display_regular"
             android:text="Weather"
             android:textColor="@color/white"
-            android:textSize="26sp"
+            android:textSize="32sp"
             app:layout_constraintBottom_toBottomOf="@id/btn_back"
             app:layout_constraintStart_toEndOf="@id/btn_back"
             app:layout_constraintTop_toTopOf="@id/btn_back" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/search_field"
             android:drawableStart="@drawable/search"
-            android:drawablePadding="4dp"
-            android:focusedByDefault="false"
+            android:drawablePadding="8dp"
             android:hint="Search for a city"
-            android:paddingStart="4dp"
-            android:paddingEnd="4dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:textColor="@color/white"
             android:textColorHint="@color/pale_blue_back_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_back" />
+        <!--            android:focusedByDefault="false"-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView

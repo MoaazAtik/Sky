@@ -13,7 +13,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ll_main_temp"
         app:srcCompat="@drawable/house" />
-    <!--        android:foreground="#6638103F"-->
 
     <LinearLayout
         android:id="@+id/ll_main_temp"
@@ -92,21 +91,7 @@
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <!--        <androidx.appcompat.widget.AppCompatTextView-->
-        <!--            android:id="@+id/txt_home_h_temp"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginTop="-15dp"-->
-        <!--            android:fontFamily="@font/sf_pro_display_semibold"-->
-        <!--            android:text="H:24°   L:18°"-->
-        <!--            android:textColor="@color/white"-->
-        <!--            android:textSize="20sp"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@id/txt_home_sky" />-->
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -120,7 +105,7 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/modal"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="325dp"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -224,7 +209,6 @@
             app:layout_constraintBottom_toBottomOf="@id/btn_hourly_forecast"
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/underline" />
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <HorizontalScrollView
@@ -233,6 +217,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:contentDescription="Hourly and daily forecast"
+        android:overScrollMode="never"
+        android:requiresFadingEdge="horizontal"
         android:scrollbars="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -240,8 +226,9 @@
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="168dp"
+            android:orientation="horizontal"
+            android:paddingTop="10dp">
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/hourly_forecast"
@@ -250,14 +237,14 @@
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="76dp"
-                    android:layout_height="150dp"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/temperature_light_component"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="-20dp"
+                    android:layout_marginTop="-8dp"
+                    android:background="@drawable/temperature_pale_widget"
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
-                    android:paddingStart="-10dp"
-                    android:paddingTop="21dp">
+                    android:paddingTop="36dp">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/hour_0_time"
@@ -286,14 +273,14 @@
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="76dp"
-                    android:layout_height="150dp"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/temperature_dark_component"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="-34dp"
+                    android:layout_marginTop="-8dp"
+                    android:background="@drawable/temperature_colorful_widget"
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
-                    android:paddingStart="-10dp"
-                    android:paddingTop="21dp">
+                    android:paddingTop="36dp">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/hour_1_time"
@@ -322,14 +309,14 @@
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="76dp"
-                    android:layout_height="150dp"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/temperature_light_component"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="-34dp"
+                    android:layout_marginTop="-8dp"
+                    android:background="@drawable/temperature_pale_widget"
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
-                    android:paddingStart="-10dp"
-                    android:paddingTop="21dp">
+                    android:paddingTop="36dp">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/hour_2_time"
@@ -367,14 +354,14 @@
                 android:visibility="visible">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="76dp"
-                    android:layout_height="150dp"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/temperature_light_component"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="-20dp"
+                    android:layout_marginTop="-8dp"
+                    android:background="@drawable/temperature_pale_widget"
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
-                    android:paddingStart="-10dp"
-                    android:paddingTop="21dp">
+                    android:paddingTop="36dp">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/day_0_time"
@@ -403,14 +390,14 @@
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="76dp"
-                    android:layout_height="150dp"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/temperature_dark_component"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="-34dp"
+                    android:layout_marginTop="-8dp"
+                    android:background="@drawable/temperature_colorful_widget"
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
-                    android:paddingStart="-10dp"
-                    android:paddingTop="21dp">
+                    android:paddingTop="36dp">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/day_1_time"
@@ -439,14 +426,14 @@
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="76dp"
-                    android:layout_height="150dp"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/temperature_light_component"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="-34dp"
+                    android:layout_marginTop="-8dp"
+                    android:background="@drawable/temperature_pale_widget"
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
-                    android:paddingStart="-10dp"
-                    android:paddingTop="21dp">
+                    android:paddingTop="36dp">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/day_2_time"

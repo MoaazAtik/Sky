@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
 //        setContentView(view);
+//        setContentView(R.layout.main);
 
         setContentView(R.layout.cities);
         recyclerView = (RecyclerView) findViewById(R.id.rv_cities);
