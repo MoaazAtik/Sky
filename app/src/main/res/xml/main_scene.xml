@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+    <!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--    xmlns:motion="urn:oasis:names:tc:xliff:document:1.2"-->
+    <!--    xmlns:motion="http://schemas.android.com/tools"-->
+
+    <!--    Start constraint set-->
+    <ConstraintSet android:id="@+id/start">
+
+        <!--        <Constraint-->
+        <!--            android:id="@+id/modal"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="325dp"-->
+        <!--            motion:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            motion:layout_constraintEnd_toEndOf="parent"-->
+        <!--            motion:layout_constraintStart_toStartOf="parent" />-->
+    </ConstraintSet>
+
+
+    <!--    End constraint set-->
+    <ConstraintSet android:id="@+id/end">
+
+        <Constraint
+            android:id="@+id/modal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
+        <Constraint
+            android:id="@+id/modal_background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
+    </ConstraintSet>
+
+    <Transition
+        motion:constraintSetEnd="@id/end"
+        motion:constraintSetStart="@+id/start">
+
+        <OnSwipe
+            motion:dragDirection="dragUp"
+            motion:touchRegionId="@drawable/modal"/>
+        <!--            motion:touchAnchorId="@drawable/modal"-->
+        <!--            motion:touchAnchorSide="top"-->
+
+        <KeyFrameSet>
+            <KeyAttribute
+                motion:motionTarget="@+id/modal"
+                android:alpha="1"
+                motion:framePosition="0"/>
+            <KeyAttribute
+                motion:motionTarget="@+id/modal"
+                android:alpha="0"
+                motion:framePosition="1"/>
+        </KeyFrameSet>
+    </Transition>
+</MotionScene>
