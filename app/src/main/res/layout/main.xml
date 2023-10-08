@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    app:layoutDescription="@xml/main_scene">
+    app:layoutDescription="@xml/main_scene"
+    app:showPaths="true">
     <!--    xmlns:motion="http://schemas.android.com/apk/res-auto"-->
     <!--    motion:layoutDescription="@xml/main_scene">-->
 
@@ -110,6 +111,43 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/modal_collapsed_background"
+        android:layout_width="match_parent"
+        android:layout_height="325dp"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/modal"
+        app:srcCompat="@drawable/modal"
+        />
+<!--        android:background="#3E51396E"-->
+<!--        android:backgroundTint="#3E51396E"-->
+<!--        android:backgroundTintMode="add"-->
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/modal_open_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/bottom_sheet_background"
+        android:alpha="0"
+        />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/segmented_control_modal_open_background"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:alpha="0"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/modal"
+        app:srcCompat="@drawable/home_indicator" />
+
     <!--    Bottom sheet-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/modal"
@@ -118,38 +156,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
+<!--        android:background="@drawable/modal_body"-->
 <!--        android:scaleType="fitXY"-->
 <!--        android:backgroundTint="#6D51396E"-->
 <!--        android:backgroundTintMode="src_in"-->
-<!--        android:background="@drawable/modal_body"-->
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/modal_background"
-                android:layout_width="match_parent"
-                android:layout_height="325dp"
-                android:scaleType="fitXY"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="@id/modal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:srcCompat="@drawable/modal" />
-
-        <!--    <com.google.android.material.bottomsheet.BottomSheetDragHandleView-->
-        <!--        android:id="@+id/modal"-->
-        <!--        android:layout_width="match_parent"-->
-        <!--        android:layout_height="400dp"-->
-        <!--        android:background="@drawable/modal"-->
-        <!--        app:layout_constraintStart_toStartOf="parent"-->
-        <!--        app:layout_constraintEnd_toEndOf="parent"-->
-        <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--        />-->
-
-        <!--    <androidx.core.widget.NestedScrollView-->
-        <!--        android:id="@+id/modal"-->
-        <!--        android:layout_width="match_parent"-->
-        <!--        android:layout_height="300dp"-->
-        <!--        android:background="@drawable/modal"-->
-        <!--        app:layout_behavoir-->
 
         <!--    Segmented control-->
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -475,16 +486,18 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
         </HorizontalScrollView>
 
-
-        <include
-            layout="@layout/bottom_sheet_full_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/hourly_daily_forecast"
-            />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include
+        layout="@layout/bottom_sheet_full_layout"
+        android:id="@+id/bottom_sheet"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/modal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+<!--        app:layout_constraintTop_toTopOf="parent"-->
 
     <!--    Tab bar-->
     <androidx.constraintlayout.widget.ConstraintLayout
