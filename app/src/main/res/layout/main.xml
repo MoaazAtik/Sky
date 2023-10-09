@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    app:layoutDescription="@xml/main_scene"
-    app:showPaths="true">
+    app:layoutDescription="@xml/main_scene">
     <!--    xmlns:motion="http://schemas.android.com/apk/res-auto"-->
     <!--    motion:layoutDescription="@xml/main_scene">-->
 
@@ -111,6 +110,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
+    <!--    Background collapsed modal-->
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/modal_collapsed_background"
         android:layout_width="match_parent"
@@ -119,24 +119,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/modal"
-        app:srcCompat="@drawable/modal"
-        />
-<!--        android:background="#3E51396E"-->
-<!--        android:backgroundTint="#3E51396E"-->
-<!--        android:backgroundTintMode="add"-->
+        app:srcCompat="@drawable/modal" />
 
+    <!--    Background open modal-->
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/modal_open_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:alpha="0"
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/bottom_sheet_background"
-        android:alpha="0"
-        />
+        app:srcCompat="@drawable/bottom_sheet_background" />
 
+    <!--    Background segmented control in open modal-->
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/segmented_control_modal_open_background"
         android:layout_width="match_parent"
@@ -156,10 +153,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
-<!--        android:background="@drawable/modal_body"-->
-<!--        android:scaleType="fitXY"-->
-<!--        android:backgroundTint="#6D51396E"-->
-<!--        android:backgroundTintMode="src_in"-->
 
 
         <!--    Segmented control-->
@@ -171,7 +164,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/modal">
-<!--            android:background="@drawable/segmented_control_home"-->
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/underline"
@@ -488,16 +480,18 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!--    Content of bottom sheet starting from below forecast-->
     <include
-        layout="@layout/bottom_sheet_full_layout"
         android:id="@+id/bottom_sheet"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/modal"
+        layout="@layout/bottom_sheet_full_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
-<!--        app:layout_constraintTop_toTopOf="parent"-->
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/modal" />
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="0dp"-->
+    <!--    set height here to 0 or 1 or set visibility to gone -->
 
     <!--    Tab bar-->
     <androidx.constraintlayout.widget.ConstraintLayout

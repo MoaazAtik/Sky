@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:motion="http://schemas.android.com/apk/res-auto">
-<!--        xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--        xmlns:app="http://schemas.android.com/apk/res-auto"-->
     <!--    xmlns:motion="urn:oasis:names:tc:xliff:document:1.2"-->
     <!--    xmlns:motion="http://schemas.android.com/tools"-->
 
@@ -21,47 +21,48 @@
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintTop_toTopOf="parent" />
-<!--            android:layout_height="325dp"  this is working. The key of removing Bottom to bottom of parent-->
 
         <Constraint
             android:id="@+id/modal_collapsed_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:alpha="0"
+            motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintBottom_toBottomOf="parent"
-            android:alpha="0"
-            motion:layout_constraintTop_toTopOf="@id/modal"/>
+            motion:layout_constraintTop_toTopOf="@id/modal" />
 
         <Constraint
             android:id="@+id/modal_open_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:alpha="1"
-            />
+            android:alpha="1" />
+
         <Constraint
             android:id="@+id/segmented_control_modal_open_background"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:alpha="1"
-            motion:layout_constraintTop_toTopOf="@id/modal"
+            motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintEnd_toEndOf="parent" />
+            motion:layout_constraintTop_toTopOf="@id/modal" />
+
         <Constraint
             android:id="@+id/tabbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            motion:layout_constraintTop_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintEnd_toEndOf="parent" />
+            motion:layout_constraintTop_toBottomOf="parent" />
+
         <Constraint
             android:id="@+id/bottom_sheet"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             motion:layout_constraintEnd_toEndOf="parent"
-            motion:layout_constraintTop_toBottomOf="@id/modal"
             motion:layout_constraintStart_toStartOf="parent"
-            />
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintTop_toBottomOf="@id/modal" />
     </ConstraintSet>
 
     <Transition
@@ -71,36 +72,6 @@
         <OnSwipe
             motion:dragDirection="dragUp"
             motion:touchAnchorSide="top"
-            motion:touchRegionId="@id/modal"
-            />
-<!--            motion:touchAnchorId="@+id/modal"-->
-        <!--                not working because of @drawable-->
-        <!--            motion:touchRegionId="@drawable/modal"-->
-        <!--            motion:touchAnchorId="@drawable/modal"-->
-        <KeyFrameSet >
-<!--            <KeyAttribute-->
-<!--                motion:motionTarget="@+id/modal"-->
-<!--                motion:framePosition="100"-->
-<!--                android:alpha="0" />-->
-<!--                app:framePosition="100" />-->
-<!--            <KeyAttribute-->
-<!--                motion:motionTarget="@+id/modal"-->
-<!--                motion:framePosition="0"-->
-<!--                android:alpha="0.5" />-->
-        </KeyFrameSet>
-
-
-<!--        <KeyFrameSet>-->
-<!--            <KeyAttribute-->
-<!--                android:alpha="1"-->
-<!--                motion:framePosition="0"-->
-<!--                motion:motionTarget="@+id/modal_background" />-->
-<!--            <KeyAttribute-->
-<!--                android:alpha="0"-->
-<!--                motion:framePosition="1"-->
-<!--                motion:motionTarget="@+id/modal_background" />-->
-<!--        </KeyFrameSet>-->
-
-<!--        <OnSwipe motion:touchAnchorId="@+id/modal" />-->
+            motion:touchRegionId="@id/modal" />
     </Transition>
 </MotionScene>
