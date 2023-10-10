@@ -1,31 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/black"
-    android:orientation="vertical">
-    <!--    android:layout_height="match_parent"-->
-    <!--    android:background="@drawable/bottom_sheet_background"-->
+    android:orientation="vertical"
+    android:padding="32dp"
+    tools:background="@drawable/bottom_sheet_background">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/im1"
-            android:layout_width="match_parent"
-            android:layout_height="500dp"
+        <!--        UV index widget-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/uv_index"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginEnd="14dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/bottom_sheet_widgets"
+            android:padding="14dp"
+            app:layout_constraintEnd_toStartOf="@id/sunrise_sunset"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/expand" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="match_parent"
-            android:layout_height="500dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/im1"
-            app:srcCompat="@drawable/expand" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/sun"
+                android:drawablePadding="7dp"
+                android:fontFamily="@font/sf_pro_display_regular"
+                android:gravity="center_vertical"
+                android:text="UV Index"
+                android:textAllCaps="true"
+                android:textColor="@color/gray_widget_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_uv_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_display_regular"
+                android:includeFontPadding="false"
+                android:text="4"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toTopOf="@id/txt_uv_status"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_uv_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_display_regular"
+                android:includeFontPadding="false"
+                android:text="Moderate"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@id/seekbar_uv_index"
+                app:layout_constraintStart_toStartOf="@id/txt_uv_value" />
+
+            <androidx.appcompat.widget.AppCompatSeekBar
+                android:id="@+id/seekbar_uv_index"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/txt_uv_status" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--        Sunrise and sunset widget-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/sunrise_sunset"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:background="@drawable/bottom_sheet_widgets"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/uv_index"
+            app:layout_constraintTop_toTopOf="@id/uv_index">
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--        <androidx.appcompat.widget.AppCompatImageView-->
+        <!--            android:id="@+id/im1"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="500dp"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent"-->
+        <!--            app:srcCompat="@drawable/expand" />-->
+
+        <!--        <androidx.appcompat.widget.AppCompatImageView-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="500dp"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/im1"-->
+        <!--            app:srcCompat="@drawable/expand" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

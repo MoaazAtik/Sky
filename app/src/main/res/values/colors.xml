@@ -14,4 +14,6 @@
     <color name="transparent">#00FFFFFF</color>
     <color name="pale_purple_city_hl_temp">#AFA2D9</color>
     <color name="pale_blue_back_btn">#99EBEBF5</color>
+    <color name="dark_purple_widget_border">#413480</color>
+    <color name="gray_widget_title">#9494A8</color>
 </resources>
