@@ -16,4 +16,7 @@
     <color name="pale_blue_back_btn">#99EBEBF5</color>
     <color name="dark_purple_widget_border">#413480</color>
     <color name="gray_widget_title">#9494A8</color>
+    <color name="dark_blue_sunrise_mountain">#FF0D265C</color>
+    <color name="middle_blue_sunrise_mountain">#FF4B6293</color>
+    <color name="light_blue_sunrise_mountain">#FF8AA0CB</color>
 </resources>

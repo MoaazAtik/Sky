@@ -18,7 +18,6 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginEnd="14dp"
-            android:layout_marginBottom="12dp"
             android:background="@drawable/bottom_sheet_widgets"
             android:padding="14dp"
             app:layout_constraintEnd_toStartOf="@id/sunrise_sunset"
@@ -73,7 +72,7 @@
                 android:max="10"
                 android:progress="5"
                 android:progressDrawable="@drawable/uv_index_bar"
-                android:thumbTint="@color/white"
+                android:thumb="@drawable/thumb_uv_progress"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -81,11 +80,12 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!--        Sunrise and sunset widget-->
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.constraintlayout.motion.widget.MotionLayout
             android:id="@+id/sunrise_sunset"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:background="@drawable/bottom_sheet_widgets"
+            app:layoutDescription="@xml/sunrise_sunset_scene"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/uv_index"
             app:layout_constraintTop_toTopOf="@id/uv_index">
@@ -110,29 +110,50 @@
                 android:id="@+id/txt_sun_time_primary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
+                android:layout_marginBottom="8dp"
                 android:fontFamily="@font/sf_pro_display_regular"
                 android:includeFontPadding="false"
                 android:text="5:28 AM"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textSize="30sp"
-                app:layout_constraintBottom_toTopOf="@id/seekbar_sunset"
+                app:layout_constraintBottom_toTopOf="@id/mountain_sunrise_progress"
                 app:layout_constraintStart_toStartOf="@id/widget_sunrise_title" />
 
-            <SeekBar
-                android:id="@+id/seekbar_sunset"
+            <!--            Mountain sunrise progress-->
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/mountain_sunrise_progress"
                 android:layout_width="180dp"
                 android:layout_height="36dp"
                 android:layout_marginBottom="4dp"
-                android:clickable="false"
-                android:max="10"
-                android:progress="5"
-                android:progressDrawable="@drawable/sunrise_mountain"
-                android:thumbTint="@color/white"
+                android:scaleX="1.2"
                 app:layout_constraintBottom_toTopOf="@id/txt_sun_time_secondary"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/sunrise_mountain_progress" />
+
+            <!--            Moon - Thumb night of sunrise progress -->
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/thumb_night"
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:layout_marginBottom="-1.7dp"
+                app:layout_constraintBottom_toBottomOf="@id/mountain_sunrise_progress"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/thumb_night_sunrise_bar" />
+
+            <!--            Sunshine - Thumb day of sunrise progress -->
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/thumb_day"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:alpha="0"
+                app:layout_constraintBottom_toBottomOf="@id/thumb_night"
+                app:layout_constraintEnd_toEndOf="@id/thumb_night"
+                app:layout_constraintStart_toStartOf="@id/thumb_night"
+                app:layout_constraintTop_toTopOf="@id/thumb_night"
+                app:srcCompat="@drawable/thumb_day_sunrise_bar"
+                tools:alpha="1" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txt_sun_time_secondary"
@@ -146,6 +167,74 @@
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@id/widget_sunrise_title" />
+
+        </androidx.constraintlayout.motion.widget.MotionLayout>
+
+        <!--        Wind widget-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/wind"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginEnd="14dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bottom_sheet_widgets"
+            android:padding="14dp"
+            app:layout_constraintEnd_toStartOf="@id/sunrise_sunset"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/uv_index">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/sun"
+                android:drawablePadding="7dp"
+                android:fontFamily="@font/sf_pro_display_regular"
+                android:gravity="center_vertical"
+                android:text="Wind"
+                android:textAllCaps="true"
+                android:textColor="@color/gray_widget_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+<!--            <androidx.appcompat.widget.AppCompatTextView-->
+<!--                android:id="@+id/txt_uv_value"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:fontFamily="@font/sf_pro_display_regular"-->
+<!--                android:includeFontPadding="false"-->
+<!--                android:text="4"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="30sp"-->
+<!--                app:layout_constraintBottom_toTopOf="@id/txt_uv_status"-->
+<!--                app:layout_constraintStart_toStartOf="parent" />-->
+
+<!--            <androidx.appcompat.widget.AppCompatTextView-->
+<!--                android:id="@+id/txt_uv_status"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="10dp"-->
+<!--                android:fontFamily="@font/sf_pro_display_regular"-->
+<!--                android:includeFontPadding="false"-->
+<!--                android:text="Moderate"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="18sp"-->
+<!--                app:layout_constraintBottom_toTopOf="@id/seekbar_uv_index"-->
+<!--                app:layout_constraintStart_toStartOf="@id/txt_uv_value" />-->
+
+<!--            <SeekBar-->
+<!--                android:id="@+id/seekbar_uv_index"-->
+<!--                android:layout_width="140dp"-->
+<!--                android:layout_height="6dp"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:layout_marginBottom="14dp"-->
+<!--                android:clickable="false"-->
+<!--                android:max="10"-->
+<!--                android:progress="5"-->
+<!--                android:progressDrawable="@drawable/uv_index_bar"-->
+<!--                android:thumb="@drawable/thumb_uv_progress"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent" />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
