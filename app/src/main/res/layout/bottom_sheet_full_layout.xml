@@ -171,22 +171,25 @@
         </androidx.constraintlayout.motion.widget.MotionLayout>
 
         <!--        Wind widget-->
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.constraintlayout.motion.widget.MotionLayout
             android:id="@+id/wind"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_marginEnd="14dp"
             android:layout_marginTop="12dp"
+            android:layout_marginEnd="14dp"
             android:background="@drawable/bottom_sheet_widgets"
-            android:padding="14dp"
+            app:layoutDescription="@xml/wind_scene"
             app:layout_constraintEnd_toStartOf="@id/sunrise_sunset"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/uv_index">
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/widget_wind_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/sun"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="14dp"
+                android:drawableStart="@drawable/wind"
                 android:drawablePadding="7dp"
                 android:fontFamily="@font/sf_pro_display_regular"
                 android:gravity="center_vertical"
@@ -196,47 +199,57 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-<!--            <androidx.appcompat.widget.AppCompatTextView-->
-<!--                android:id="@+id/txt_uv_value"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:fontFamily="@font/sf_pro_display_regular"-->
-<!--                android:includeFontPadding="false"-->
-<!--                android:text="4"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:textSize="30sp"-->
-<!--                app:layout_constraintBottom_toTopOf="@id/txt_uv_status"-->
-<!--                app:layout_constraintStart_toStartOf="parent" />-->
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/wind_compass"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_marginTop="-6dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/widget_wind_title"
+                app:srcCompat="@drawable/compass" />
+            <!--                android:tint="@color/gray_widget_title"-->
 
-<!--            <androidx.appcompat.widget.AppCompatTextView-->
-<!--                android:id="@+id/txt_uv_status"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginBottom="10dp"-->
-<!--                android:fontFamily="@font/sf_pro_display_regular"-->
-<!--                android:includeFontPadding="false"-->
-<!--                android:text="Moderate"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:textSize="18sp"-->
-<!--                app:layout_constraintBottom_toTopOf="@id/seekbar_uv_index"-->
-<!--                app:layout_constraintStart_toStartOf="@id/txt_uv_value" />-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_wind_speed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:fontFamily="@font/sf_pro_display_regular"
+                android:includeFontPadding="false"
+                android:text="9.7"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="@id/wind_compass"
+                app:layout_constraintStart_toStartOf="@id/wind_compass"
+                app:layout_constraintTop_toTopOf="@id/wind_compass" />
 
-<!--            <SeekBar-->
-<!--                android:id="@+id/seekbar_uv_index"-->
-<!--                android:layout_width="140dp"-->
-<!--                android:layout_height="6dp"-->
-<!--                android:layout_marginTop="8dp"-->
-<!--                android:layout_marginBottom="14dp"-->
-<!--                android:clickable="false"-->
-<!--                android:max="10"-->
-<!--                android:progress="5"-->
-<!--                android:progressDrawable="@drawable/uv_index_bar"-->
-<!--                android:thumb="@drawable/thumb_uv_progress"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent" />-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_wind_unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_display_regular"
+                android:includeFontPadding="false"
+                android:text="km/h"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@id/txt_wind_speed"
+                app:layout_constraintStart_toStartOf="@id/txt_wind_speed"
+                app:layout_constraintTop_toBottomOf="@id/txt_wind_speed" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/wind_direction_indicator"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:tint="@color/dark_purple_widget_border"
+                android:tintMode="multiply"
+                app:layout_constraintEnd_toEndOf="@id/wind_compass"
+                app:layout_constraintStart_toStartOf="@id/wind_compass"
+                app:layout_constraintTop_toTopOf="@id/wind_compass"
+                app:srcCompat="@drawable/wind_direction_indicator" />
+
+        </androidx.constraintlayout.motion.widget.MotionLayout>
 
         <!--        <androidx.appcompat.widget.AppCompatImageView-->
         <!--            android:id="@+id/im1"-->
