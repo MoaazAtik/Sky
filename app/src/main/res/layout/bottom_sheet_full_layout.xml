@@ -440,7 +440,7 @@
             android:layout_marginTop="12dp"
             android:layout_marginEnd="14dp"
             android:background="@drawable/bottom_sheet_widgets"
-            app:layout_constraintEnd_toStartOf="@id/humidity"
+            app:layout_constraintEnd_toStartOf="@id/logo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/feels_like">
 
@@ -474,20 +474,73 @@
                 app:layout_constraintStart_toStartOf="@id/widget_visibility_title"
                 app:layout_constraintTop_toBottomOf="@id/widget_visibility_title" />
 
-<!--            <androidx.appcompat.widget.AppCompatTextView-->
-<!--                android:id="@+id/txt_feels_like_description"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginBottom="14dp"-->
-<!--                android:fontFamily="@font/sf_pro_display_thin"-->
-<!--                android:includeFontPadding="false"-->
-<!--                android:paddingStart="14dp"-->
-<!--                android:paddingEnd="14dp"-->
-<!--                android:text="Similar to the actual temperature."-->
-<!--                android:textColor="@color/white"-->
-<!--                android:textSize="14sp"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="@id/widget_visibility_title" />-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_visibility_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                android:fontFamily="@font/sf_pro_display_thin"
+                android:includeFontPadding="false"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:text="Dense fog"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/widget_visibility_title" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--        Logo-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/logo"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/visibility"
+            app:layout_constraintTop_toTopOf="@id/visibility">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/widget_logo_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/sf_pro_display_regular"
+                android:gravity="center_vertical"
+                android:text="Made by"
+                android:textAllCaps="true"
+                android:textColor="@color/gray_widget_title"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_logo_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="cursive"
+                android:gravity="center_horizontal"
+                android:includeFontPadding="false"
+                android:text="The White Wings"
+                android:textColor="@color/pale_purple_city_hl_temp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/img_logo"
+                app:layout_constraintEnd_toEndOf="@id/widget_logo_title"
+                app:layout_constraintStart_toStartOf="@id/widget_logo_title"
+                app:layout_constraintTop_toBottomOf="@id/widget_logo_title" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img_logo"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="-14dp"
+                app:layout_constraintEnd_toEndOf="@id/txt_logo_name"
+                app:layout_constraintStart_toStartOf="@id/txt_logo_name"
+                app:layout_constraintTop_toBottomOf="@id/txt_logo_name"
+                app:srcCompat="@drawable/logo" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!--        <androidx.appcompat.widget.AppCompatImageView-->
