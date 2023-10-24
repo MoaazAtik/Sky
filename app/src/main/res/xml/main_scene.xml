@@ -66,12 +66,18 @@
     </ConstraintSet>
 
     <Transition
+        android:id="@+id/transition1"
         motion:constraintSetEnd="@id/end"
         motion:constraintSetStart="@id/start">
 
         <OnSwipe
-            motion:dragDirection="dragUp"
-            motion:touchAnchorSide="top"
-            motion:touchRegionId="@id/modal" />
+            motion:touchAnchorId="@id/modal"
+            />
+<!--            motion:touchRegionId="@id/segmented_control_modal_open_background"-->
+
+<!--            motion:touchAnchorSide="top"-->
+<!--            motion:dragDirection="dragUp"-->
+<!--            motion:touchRegionId="@id/modal"-->
+<!--            motion:touchAnchorId="@id/bottom_sheet_scrollview"-->
     </Transition>
 </MotionScene>

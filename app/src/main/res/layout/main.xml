@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.example.weatherapiapp.ModifiedMotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_motion_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    app:layoutDescription="@xml/main_scene">
+    app:layoutDescription="@xml/main_scene"
+    app:showPaths="true">
     <!--    xmlns:motion="http://schemas.android.com/apk/res-auto"-->
     <!--    motion:layoutDescription="@xml/main_scene">-->
 
@@ -146,13 +148,24 @@
         app:srcCompat="@drawable/home_indicator" />
 
     <!--    Bottom sheet-->
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/modal"
         android:layout_width="match_parent"
         android:layout_height="325dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottom_sheet_scrollviewno"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+<!--        android:layout_height="325dp"-->
+
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
 
 
         <!--    Segmented control-->
@@ -163,7 +176,8 @@
             android:background="@drawable/segmented_control"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/modal">
+            app:layout_constraintTop_toTopOf="@id/bottom_sheet_scrollviewno">
+<!--            app:layout_constraintTop_toTopOf="@id/modal">-->
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/underline"
@@ -478,20 +492,26 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
         </HorizontalScrollView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <!--    Content of bottom sheet starting from below forecast-->
+        <include
+            android:id="@+id/bottom_sheet"
+            layout="@layout/bottom_sheet_full_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/hourly_daily_forecast"
+            />
+<!--            android:layout_height="wrap_content"-->
+        <!--        app:layout_constraintTop_toBottomOf="@id/bottom_sheet_scrollview"-->
+        <!--        app:layout_constraintTop_toBottomOf="@id/modal"-->
 
-    <!--    Content of bottom sheet starting from below forecast-->
-    <include
-        android:id="@+id/bottom_sheet"
-        layout="@layout/bottom_sheet_full_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/modal" />
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="0dp"-->
-    <!--    set height here to 0 or 1 or set visibility to gone -->
+        <!--        android:layout_width="0dp"-->
+        <!--        android:layout_height="0dp"-->
+        <!--    set height here to 0 or 1 or set visibility to gone -->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <!--    Tab bar-->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -553,4 +573,4 @@
             app:srcCompat="@drawable/bulleted_list" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.motion.widget.MotionLayout>
+</com.example.weatherapiapp.ModifiedMotionLayout>
