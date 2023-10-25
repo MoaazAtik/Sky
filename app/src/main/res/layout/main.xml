@@ -152,6 +152,9 @@
         android:id="@+id/nsv_bottom_sheet"
         android:layout_width="match_parent"
         android:layout_height="325dp"
+        android:overScrollMode="never"
+        android:requiresFadingEdge="vertical"
+        android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
