@@ -69,9 +69,12 @@ public class MainActivity extends AppCompatActivity {
         // MotionLayout TransitionListener
         mainMotionLayout.setTransitionListener(new MotionLayout.TransitionListener() {
             @Override
-            public void onTransitionStarted(MotionLayout motionLayout, int startId, int endId) {}
+            public void onTransitionStarted(MotionLayout motionLayout, int startId, int endId) {
+            }
+
             @Override
-            public void onTransitionChange(MotionLayout motionLayout, int startId, int endId, float progress) {}
+            public void onTransitionChange(MotionLayout motionLayout, int startId, int endId, float progress) {
+            }
 
             @Override
             public void onTransitionCompleted(MotionLayout motionLayout, int currentId) {
@@ -87,7 +90,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onTransitionTrigger(MotionLayout motionLayout, int triggerId, boolean positive, float progress) {}
+            public void onTransitionTrigger(MotionLayout motionLayout, int triggerId, boolean positive, float progress) {
+            }
         });
 
 
@@ -206,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Cities layout methods
     private void prepareData() {
-        String[] times = new String[] {
+        String[] times = new String[]{
                 "11", "222"
         };
 
