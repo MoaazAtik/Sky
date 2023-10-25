@@ -2,20 +2,16 @@
 <MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:motion="http://schemas.android.com/apk/res-auto">
     <!--        xmlns:app="http://schemas.android.com/apk/res-auto"-->
-    <!--    xmlns:motion="urn:oasis:names:tc:xliff:document:1.2"-->
-    <!--    xmlns:motion="http://schemas.android.com/tools"-->
 
     <!--    Start constraint set-->
-    <ConstraintSet android:id="@+id/start">
-
-    </ConstraintSet>
+    <ConstraintSet android:id="@+id/start" />
 
 
     <!--    End constraint set-->
     <ConstraintSet android:id="@+id/end">
 
         <Constraint
-            android:id="@+id/modal"
+            android:id="@+id/nsv_bottom_sheet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             motion:layout_constraintEnd_toEndOf="parent"
@@ -30,7 +26,7 @@
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintTop_toTopOf="@id/modal" />
+            motion:layout_constraintTop_toTopOf="@id/nsv_bottom_sheet" />
 
         <Constraint
             android:id="@+id/modal_open_background"
@@ -45,7 +41,7 @@
             android:alpha="1"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintTop_toTopOf="@id/modal" />
+            motion:layout_constraintTop_toTopOf="@id/nsv_bottom_sheet" />
 
         <Constraint
             android:id="@+id/tabbar"
@@ -56,28 +52,22 @@
             motion:layout_constraintTop_toBottomOf="parent" />
 
         <Constraint
-            android:id="@+id/bottom_sheet"
+            android:id="@+id/lower_bottom_sheet"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintBottom_toBottomOf="parent"
-            motion:layout_constraintTop_toBottomOf="@id/modal" />
+            motion:layout_constraintTop_toBottomOf="@id/nsv_bottom_sheet" />
     </ConstraintSet>
 
     <Transition
-        android:id="@+id/transition1"
         motion:constraintSetEnd="@id/end"
         motion:constraintSetStart="@id/start">
 
         <OnSwipe
-            motion:touchAnchorId="@id/modal"
-            />
-<!--            motion:touchRegionId="@id/segmented_control_modal_open_background"-->
-
-<!--            motion:touchAnchorSide="top"-->
-<!--            motion:dragDirection="dragUp"-->
-<!--            motion:touchRegionId="@id/modal"-->
-<!--            motion:touchAnchorId="@id/bottom_sheet_scrollview"-->
+            motion:maxVelocity="0.8"
+            motion:touchAnchorId="@id/nsv_bottom_sheet"
+            motion:touchAnchorSide="top" />
     </Transition>
 </MotionScene>
