@@ -44,7 +44,7 @@
             motion:layout_constraintTop_toTopOf="@id/nsv_bottom_sheet" />
 
         <Constraint
-            android:id="@+id/tabbar"
+            android:id="@+id/tab_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             motion:layout_constraintEnd_toEndOf="parent"

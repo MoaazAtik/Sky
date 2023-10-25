@@ -45,24 +45,31 @@ public class MainActivity extends AppCompatActivity {
         sunriseMotionLayout = findViewById(R.id.sunrise_sunset);
         windMotionLayout = findViewById(R.id.wind);
 
-        ConstraintLayout tabbar = findViewById(R.id.tabbar);
+        AppCompatButton btnHourlyForecast = findViewById(R.id.btn_hourly_forecast);
+        AppCompatButton btnDailyForecast = findViewById(R.id.btn_daily_forecast);
+        ConstraintLayout tabBar = findViewById(R.id.tab_bar);
+        AppCompatButton btnHomePlus = findViewById(R.id.btn_home_plus);
+        AppCompatButton btnHomeExpand = findViewById(R.id.btn_home_expand);
+        AppCompatButton btnHomeCitiesList = findViewById(R.id.btn_home_cities_list);
+
+        // btnHourlyForecast OnClickListener
+        btnHourlyForecast.setOnClickListener(v -> {
+            Log.d(TAG, "onClick: btnHourlyForecast");
+        });
+
+        // btnDailyForecast OnClickListener
+        btnDailyForecast.setOnClickListener(v -> {
+            Log.d(TAG, "onClick: btnDailyForecast");
+        });
+
         /*
         I added an OnTouchListener and returned 'true' to allow the tab bar to consume the touch,
         preventing the bottom sheet from opening when swiping the tab bar.
          */
-        tabbar.setOnTouchListener(new View.OnTouchListener() {
+        tabBar.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 return true;
-            }
-        });
-
-        // btnDailyForecast OnClickListener
-        AppCompatButton btnDailyForecast = findViewById(R.id.btn_daily_forecast);
-        btnDailyForecast.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG, "onClick: daily btn");
             }
         });
 
@@ -94,6 +101,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // btnHomePlus OnClickListener
+        btnHomePlus.setOnClickListener(v -> {
+            Log.d(TAG, "onClick btnHomePlus");
+        });
+        
+        // btnHomeExpand OnClickListener
+        btnHomeExpand.setOnClickListener(v -> {
+            Log.d(TAG, "onClick btnHomeExpand");
+        });
+
+        // btnHomeCitiesList OnClickListener
+        btnHomeCitiesList.setOnClickListener(v -> {
+            Log.d(TAG, "onClick btnHomeCitiesList");
+        });
 
         //cities layout
 //        setContentView(R.layout.cities);

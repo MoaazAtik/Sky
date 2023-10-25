@@ -106,7 +106,7 @@
     </ScrollView>
 
 <!--    <androidx.appcompat.widget.AppCompatImageView-->
-<!--        android:id="@+id/city_tabbar_front"-->
+<!--        android:id="@+id/city_tab_bar_front"-->
 <!--        android:layout_width="258dp"-->
 <!--        android:layout_height="100dp"-->
 <!--        android:scaleType="fitXY"-->
@@ -123,6 +123,6 @@
 <!--        android:background="@drawable/plus_button"-->
 <!--        app:layout_constraintEnd_toEndOf="parent"-->
 <!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="@id/city_tabbar_front" />-->
+<!--        app:layout_constraintTop_toTopOf="@id/city_tab_bar_front" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
