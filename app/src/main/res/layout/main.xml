@@ -220,612 +220,612 @@
             <HorizontalScrollView
                 android:id="@+id/hourly_forecast_sv"
                 android:layout_width="match_parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_height="wrap_content"
                 android:overScrollMode="never"
-                android:requiresFadingEdge="horizontal"
-                android:scrollbars="none"
-                app:layout_constraintStart_toStartOf="parent"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
+                android:requiresFadingEdge="horizontal"
+                android:scrollbars="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/segmented_control">
 
 
-                    <!--            Hourly forecast-->
+                <!--            Hourly forecast-->
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/hourly_forecast"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!--                Hour 0 forecast (the first hour)-->
                     <androidx.appcompat.widget.LinearLayoutCompat
-                        android:id="@+id/hourly_forecast"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_marginStart="-20dp"
+                        android:layout_marginTop="-8dp"
+                        android:background="@drawable/temperature_pale_widget"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:paddingTop="36dp">
 
-                        <!--                Hour 0 forecast (the first hour)-->
-                        <androidx.appcompat.widget.LinearLayoutCompat
+                        <!--                    Hour 0 time-->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/hour_0_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="-20dp"
-                            android:layout_marginTop="-8dp"
-                            android:background="@drawable/temperature_pale_widget"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical"
-                            android:paddingTop="36dp">
+                            android:layout_marginBottom="6dp"
+                            android:text="12 AM"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            app:fontFamily="@font/sf_pro_display_semibold" />
 
-                            <!--                    Hour 0 time-->
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/hour_0_time"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="6dp"
-                                android:text="12 AM"
-                                android:textColor="@color/white"
-                                android:textSize="15sp"
-                                app:fontFamily="@font/sf_pro_display_semibold" />
+                        <!--                    Hour 0 condition-->
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/hour_0_sky"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            app:srcCompat="@drawable/mid_rain" />
 
-                            <!--                    Hour 0 condition-->
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:id="@+id/hour_0_sky"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                app:srcCompat="@drawable/mid_rain" />
-
-                            <!--                    Hour 0 temperature-->
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/hour_0_temp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="19°"
-                                android:textColor="@color/white"
-                                android:textSize="20sp"
-                                app:fontFamily="@font/sf_pro_display_regular" />
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-
-                        <!--                Hour 1 forecast-->
-                        <androidx.appcompat.widget.LinearLayoutCompat
+                        <!--                    Hour 0 temperature-->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/hour_0_temp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="-34dp"
-                            android:layout_marginTop="-8dp"
-                            android:background="@drawable/temperature_colorful_widget"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical"
-                            android:paddingTop="36dp">
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/hour_1_time"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="6dp"
-                                android:text="NOW"
-                                android:textColor="@color/white"
-                                android:textSize="15sp"
-                                app:fontFamily="@font/sf_pro_display_semibold" />
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:id="@+id/hour_1_sky"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                app:srcCompat="@drawable/mid_rain" />
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/hour_1_temp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="1°"
-                                android:textColor="@color/white"
-                                android:textSize="20sp"
-                                app:fontFamily="@font/sf_pro_display_regular" />
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-
-                        <!--                Hour 2 forecast-->
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="-34dp"
-                            android:layout_marginTop="-8dp"
-                            android:background="@drawable/temperature_pale_widget"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical"
-                            android:paddingTop="36dp">
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/hour_2_time"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="6dp"
-                                android:text="2 PM"
-                                android:textColor="@color/white"
-                                android:textSize="15sp"
-                                app:fontFamily="@font/sf_pro_display_semibold" />
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:id="@+id/hour_2_sky"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                app:srcCompat="@drawable/mid_rain" />
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/hour_2_temp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="-10°"
-                                android:textColor="@color/white"
-                                android:textSize="20sp"
-                                app:fontFamily="@font/sf_pro_display_regular" />
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-
-                        <!--                Hour 3 forecast-->
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="-34dp"
-                            android:layout_marginTop="-8dp"
-                            android:background="@drawable/temperature_pale_widget"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical"
-                            android:paddingTop="36dp">
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/hour_3_time"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="6dp"
-                                android:text="3 PM"
-                                android:textColor="@color/white"
-                                android:textSize="15sp"
-                                app:fontFamily="@font/sf_pro_display_semibold" />
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:id="@+id/hour_3_sky"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                app:srcCompat="@drawable/mid_rain" />
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/hour_3_temp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="-10°"
-                                android:textColor="@color/white"
-                                android:textSize="20sp"
-                                app:fontFamily="@font/sf_pro_display_regular" />
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-
-                        <!--                Hour 4 forecast-->
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="-34dp"
-                            android:layout_marginTop="-8dp"
-                            android:background="@drawable/temperature_pale_widget"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical"
-                            android:paddingTop="36dp">
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/hour_4_time"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="6dp"
-                                android:text="4 PM"
-                                android:textColor="@color/white"
-                                android:textSize="15sp"
-                                app:fontFamily="@font/sf_pro_display_semibold" />
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:id="@+id/hour_4_sky"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                app:srcCompat="@drawable/mid_rain" />
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/hour_4_temp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="-10°"
-                                android:textColor="@color/white"
-                                android:textSize="20sp"
-                                app:fontFamily="@font/sf_pro_display_regular" />
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-
-                        <!--                Hour 5 forecast-->
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="-34dp"
-                            android:layout_marginTop="-8dp"
-                            android:background="@drawable/temperature_pale_widget"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical"
-                            android:paddingTop="36dp">
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/hour_5_time"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="6dp"
-                                android:text="5 PM"
-                                android:textColor="@color/white"
-                                android:textSize="15sp"
-                                app:fontFamily="@font/sf_pro_display_semibold" />
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:id="@+id/hour_5_sky"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                app:srcCompat="@drawable/mid_rain" />
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/hour_5_temp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="-10°"
-                                android:textColor="@color/white"
-                                android:textSize="20sp"
-                                app:fontFamily="@font/sf_pro_display_regular" />
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-
-                        <!--                Hour 6 forecast-->
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="-34dp"
-                            android:layout_marginTop="-8dp"
-                            android:background="@drawable/temperature_pale_widget"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical"
-                            android:paddingTop="36dp">
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/hour_6_time"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="6dp"
-                                android:text="6 PM"
-                                android:textColor="@color/white"
-                                android:textSize="15sp"
-                                app:fontFamily="@font/sf_pro_display_semibold" />
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:id="@+id/hour_6_sky"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                app:srcCompat="@drawable/mid_rain" />
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/hour_6_temp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="-10°"
-                                android:textColor="@color/white"
-                                android:textSize="20sp"
-                                app:fontFamily="@font/sf_pro_display_regular" />
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-
-                        <!--                Hour 7 forecast-->
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="-34dp"
-                            android:layout_marginTop="-8dp"
-                            android:layout_marginEnd="-16dp"
-                            android:background="@drawable/temperature_pale_widget"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical"
-                            android:paddingTop="36dp">
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/hour_7_time"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="6dp"
-                                android:text="7 PM"
-                                android:textColor="@color/white"
-                                android:textSize="15sp"
-                                app:fontFamily="@font/sf_pro_display_semibold" />
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:id="@+id/hour_7_sky"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                app:srcCompat="@drawable/mid_rain" />
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/hour_7_temp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="-10°"
-                                android:textColor="@color/white"
-                                android:textSize="20sp"
-                                app:fontFamily="@font/sf_pro_display_regular" />
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-
+                            android:text="19°"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            app:fontFamily="@font/sf_pro_display_regular" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <!--                Hour 1 forecast-->
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="-34dp"
+                        android:layout_marginTop="-8dp"
+                        android:background="@drawable/temperature_colorful_widget"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:paddingTop="36dp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/hour_1_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="6dp"
+                            android:text="NOW"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            app:fontFamily="@font/sf_pro_display_semibold" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/hour_1_sky"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            app:srcCompat="@drawable/mid_rain" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/hour_1_temp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1°"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            app:fontFamily="@font/sf_pro_display_regular" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <!--                Hour 2 forecast-->
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="-34dp"
+                        android:layout_marginTop="-8dp"
+                        android:background="@drawable/temperature_pale_widget"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:paddingTop="36dp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/hour_2_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="6dp"
+                            android:text="2 PM"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            app:fontFamily="@font/sf_pro_display_semibold" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/hour_2_sky"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            app:srcCompat="@drawable/mid_rain" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/hour_2_temp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="-10°"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            app:fontFamily="@font/sf_pro_display_regular" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <!--                Hour 3 forecast-->
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="-34dp"
+                        android:layout_marginTop="-8dp"
+                        android:background="@drawable/temperature_pale_widget"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:paddingTop="36dp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/hour_3_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="6dp"
+                            android:text="3 PM"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            app:fontFamily="@font/sf_pro_display_semibold" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/hour_3_sky"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            app:srcCompat="@drawable/mid_rain" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/hour_3_temp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="-10°"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            app:fontFamily="@font/sf_pro_display_regular" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <!--                Hour 4 forecast-->
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="-34dp"
+                        android:layout_marginTop="-8dp"
+                        android:background="@drawable/temperature_pale_widget"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:paddingTop="36dp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/hour_4_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="6dp"
+                            android:text="4 PM"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            app:fontFamily="@font/sf_pro_display_semibold" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/hour_4_sky"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            app:srcCompat="@drawable/mid_rain" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/hour_4_temp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="-10°"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            app:fontFamily="@font/sf_pro_display_regular" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <!--                Hour 5 forecast-->
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="-34dp"
+                        android:layout_marginTop="-8dp"
+                        android:background="@drawable/temperature_pale_widget"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:paddingTop="36dp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/hour_5_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="6dp"
+                            android:text="5 PM"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            app:fontFamily="@font/sf_pro_display_semibold" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/hour_5_sky"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            app:srcCompat="@drawable/mid_rain" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/hour_5_temp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="-10°"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            app:fontFamily="@font/sf_pro_display_regular" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <!--                Hour 6 forecast-->
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="-34dp"
+                        android:layout_marginTop="-8dp"
+                        android:background="@drawable/temperature_pale_widget"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:paddingTop="36dp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/hour_6_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="6dp"
+                            android:text="6 PM"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            app:fontFamily="@font/sf_pro_display_semibold" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/hour_6_sky"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            app:srcCompat="@drawable/mid_rain" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/hour_6_temp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="-10°"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            app:fontFamily="@font/sf_pro_display_regular" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <!--                Hour 7 forecast-->
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="-34dp"
+                        android:layout_marginTop="-8dp"
+                        android:layout_marginEnd="-16dp"
+                        android:background="@drawable/temperature_pale_widget"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:paddingTop="36dp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/hour_7_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="6dp"
+                            android:text="7 PM"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            app:fontFamily="@font/sf_pro_display_semibold" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/hour_7_sky"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            app:srcCompat="@drawable/mid_rain" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/hour_7_temp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="-10°"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            app:fontFamily="@font/sf_pro_display_regular" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
             </HorizontalScrollView>
 
-                    <!-- Daily forecast scroll view -->
+            <!-- Daily forecast scroll view -->
             <HorizontalScrollView
                 android:id="@+id/daily_forecast_sv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:overScrollMode="never"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:overScrollMode="never"
                 android:requiresFadingEdge="horizontal"
                 android:scrollbars="none"
                 android:visibility="gone"
                 app:layout_constraintStart_toEndOf="@id/hourly_forecast_sv"
                 app:layout_constraintTop_toBottomOf="@id/segmented_control">
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                        android:id="@+id/daily_forecast"
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/daily_forecast"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!--                Day 0 forecast (the first day)-->
+                    <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_marginStart="-20dp"
+                        android:layout_marginTop="-8dp"
+                        android:background="@drawable/temperature_pale_widget"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:paddingTop="36dp">
 
-                        <!--                Day 0 forecast (the first day)-->
-                        <androidx.appcompat.widget.LinearLayoutCompat
+                        <!--                    Day 0 name-->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/day_0_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="-20dp"
-                            android:layout_marginTop="-8dp"
-                            android:background="@drawable/temperature_pale_widget"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical"
-                            android:paddingTop="36dp">
+                            android:layout_marginBottom="6dp"
+                            android:text="MON"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            app:fontFamily="@font/sf_pro_display_semibold" />
 
-                            <!--                    Day 0 name-->
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/day_0_time"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="6dp"
-                                android:text="MON"
-                                android:textColor="@color/white"
-                                android:textSize="15sp"
-                                app:fontFamily="@font/sf_pro_display_semibold" />
+                        <!--                    Day 0 condition-->
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/day_0_sky"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            app:srcCompat="@drawable/mid_rain" />
 
-                            <!--                    Day 0 condition-->
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:id="@+id/day_0_sky"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                app:srcCompat="@drawable/mid_rain" />
-
-                            <!--                    Day 0 temperature-->
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/day_0_temp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="19°"
-                                android:textColor="@color/white"
-                                android:textSize="20sp"
-                                app:fontFamily="@font/sf_pro_display_regular" />
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-
-                        <!--                Day 1 forecast-->
-                        <androidx.appcompat.widget.LinearLayoutCompat
+                        <!--                    Day 0 temperature-->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/day_0_temp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="-34dp"
-                            android:layout_marginTop="-8dp"
-                            android:background="@drawable/temperature_colorful_widget"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical"
-                            android:paddingTop="36dp">
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/day_1_time"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="6dp"
-                                android:text="TUE"
-                                android:textColor="@color/white"
-                                android:textSize="15sp"
-                                app:fontFamily="@font/sf_pro_display_semibold" />
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:id="@+id/day_1_sky"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                app:srcCompat="@drawable/mid_rain" />
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/day_1_temp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="1°"
-                                android:textColor="@color/white"
-                                android:textSize="20sp"
-                                app:fontFamily="@font/sf_pro_display_regular" />
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-
-                        <!--                Day 2 forecast-->
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="-34dp"
-                            android:layout_marginTop="-8dp"
-                            android:background="@drawable/temperature_pale_widget"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical"
-                            android:paddingTop="36dp">
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/day_2_time"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="6dp"
-                                android:text="WED"
-                                android:textColor="@color/white"
-                                android:textSize="15sp"
-                                app:fontFamily="@font/sf_pro_display_semibold" />
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:id="@+id/day_2_sky"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                app:srcCompat="@drawable/mid_rain" />
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/day_2_temp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="-10°"
-                                android:textColor="@color/white"
-                                android:textSize="20sp"
-                                app:fontFamily="@font/sf_pro_display_regular" />
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-
-                        <!--                Day 3 forecast-->
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="-34dp"
-                            android:layout_marginTop="-8dp"
-                            android:background="@drawable/temperature_pale_widget"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical"
-                            android:paddingTop="36dp">
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/day_3_time"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="6dp"
-                                android:text="THUR"
-                                android:textColor="@color/white"
-                                android:textSize="15sp"
-                                app:fontFamily="@font/sf_pro_display_semibold" />
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:id="@+id/day_3_sky"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                app:srcCompat="@drawable/mid_rain" />
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/day_3_temp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="-10°"
-                                android:textColor="@color/white"
-                                android:textSize="20sp"
-                                app:fontFamily="@font/sf_pro_display_regular" />
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-
-                        <!--                Day 4 forecast-->
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="-34dp"
-                            android:layout_marginTop="-8dp"
-                            android:background="@drawable/temperature_pale_widget"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical"
-                            android:paddingTop="36dp">
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/day_4_time"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="6dp"
-                                android:text="FRI"
-                                android:textColor="@color/white"
-                                android:textSize="15sp"
-                                app:fontFamily="@font/sf_pro_display_semibold" />
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:id="@+id/day_4_sky"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                app:srcCompat="@drawable/mid_rain" />
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/day_4_temp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="-10°"
-                                android:textColor="@color/white"
-                                android:textSize="20sp"
-                                app:fontFamily="@font/sf_pro_display_regular" />
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-
-                        <!--                Day 5 forecast-->
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="-34dp"
-                            android:layout_marginTop="-8dp"
-                            android:background="@drawable/temperature_pale_widget"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical"
-                            android:paddingTop="36dp">
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/day_5_time"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="6dp"
-                                android:text="SAT"
-                                android:textColor="@color/white"
-                                android:textSize="15sp"
-                                app:fontFamily="@font/sf_pro_display_semibold" />
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:id="@+id/day_5_sky"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                app:srcCompat="@drawable/mid_rain" />
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/day_5_temp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="-10°"
-                                android:textColor="@color/white"
-                                android:textSize="20sp"
-                                app:fontFamily="@font/sf_pro_display_regular" />
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-
-                        <!--                Day 6 forecast-->
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="-34dp"
-                            android:layout_marginTop="-8dp"
-                            android:layout_marginEnd="-16dp"
-                            android:background="@drawable/temperature_pale_widget"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical"
-                            android:paddingTop="36dp">
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/day_6_time"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="6dp"
-                                android:text="SUN"
-                                android:textColor="@color/white"
-                                android:textSize="15sp"
-                                app:fontFamily="@font/sf_pro_display_semibold" />
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:id="@+id/day_6_sky"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                app:srcCompat="@drawable/mid_rain" />
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/day_6_temp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="-10°"
-                                android:textColor="@color/white"
-                                android:textSize="20sp"
-                                app:fontFamily="@font/sf_pro_display_regular" />
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-
+                            android:text="19°"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            app:fontFamily="@font/sf_pro_display_regular" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
-        </HorizontalScrollView>
+
+                    <!--                Day 1 forecast-->
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="-34dp"
+                        android:layout_marginTop="-8dp"
+                        android:background="@drawable/temperature_colorful_widget"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:paddingTop="36dp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/day_1_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="6dp"
+                            android:text="TUE"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            app:fontFamily="@font/sf_pro_display_semibold" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/day_1_sky"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            app:srcCompat="@drawable/mid_rain" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/day_1_temp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1°"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            app:fontFamily="@font/sf_pro_display_regular" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <!--                Day 2 forecast-->
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="-34dp"
+                        android:layout_marginTop="-8dp"
+                        android:background="@drawable/temperature_pale_widget"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:paddingTop="36dp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/day_2_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="6dp"
+                            android:text="WED"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            app:fontFamily="@font/sf_pro_display_semibold" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/day_2_sky"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            app:srcCompat="@drawable/mid_rain" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/day_2_temp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="-10°"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            app:fontFamily="@font/sf_pro_display_regular" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <!--                Day 3 forecast-->
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="-34dp"
+                        android:layout_marginTop="-8dp"
+                        android:background="@drawable/temperature_pale_widget"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:paddingTop="36dp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/day_3_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="6dp"
+                            android:text="THUR"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            app:fontFamily="@font/sf_pro_display_semibold" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/day_3_sky"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            app:srcCompat="@drawable/mid_rain" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/day_3_temp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="-10°"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            app:fontFamily="@font/sf_pro_display_regular" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <!--                Day 4 forecast-->
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="-34dp"
+                        android:layout_marginTop="-8dp"
+                        android:background="@drawable/temperature_pale_widget"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:paddingTop="36dp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/day_4_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="6dp"
+                            android:text="FRI"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            app:fontFamily="@font/sf_pro_display_semibold" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/day_4_sky"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            app:srcCompat="@drawable/mid_rain" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/day_4_temp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="-10°"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            app:fontFamily="@font/sf_pro_display_regular" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <!--                Day 5 forecast-->
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="-34dp"
+                        android:layout_marginTop="-8dp"
+                        android:background="@drawable/temperature_pale_widget"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:paddingTop="36dp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/day_5_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="6dp"
+                            android:text="SAT"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            app:fontFamily="@font/sf_pro_display_semibold" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/day_5_sky"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            app:srcCompat="@drawable/mid_rain" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/day_5_temp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="-10°"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            app:fontFamily="@font/sf_pro_display_regular" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <!--                Day 6 forecast-->
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="-34dp"
+                        android:layout_marginTop="-8dp"
+                        android:layout_marginEnd="-16dp"
+                        android:background="@drawable/temperature_pale_widget"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:paddingTop="36dp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/day_6_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="6dp"
+                            android:text="SUN"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            app:fontFamily="@font/sf_pro_display_semibold" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/day_6_sky"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            app:srcCompat="@drawable/mid_rain" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/day_6_temp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="-10°"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            app:fontFamily="@font/sf_pro_display_regular" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </HorizontalScrollView>
 
             <!--    Lower bottom sheet-->
             <include

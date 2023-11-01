@@ -71,7 +71,9 @@ public class MainActivity extends AppCompatActivity {
 
             animator.addListener(new Animator.AnimatorListener() {
                 @Override
-                public void onAnimationStart(@NonNull Animator animation) {}
+                public void onAnimationStart(@NonNull Animator animation) {
+                }
+
                 @Override
                 public void onAnimationEnd(@NonNull Animator animation) {
                     int durationTranslation = 700;
@@ -93,10 +95,14 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
                 }
+
                 @Override
-                public void onAnimationCancel(@NonNull Animator animation) {}
+                public void onAnimationCancel(@NonNull Animator animation) {
+                }
+
                 @Override
-                public void onAnimationRepeat(@NonNull Animator animation) {}
+                public void onAnimationRepeat(@NonNull Animator animation) {
+                }
             });
         });
 
@@ -119,7 +125,9 @@ public class MainActivity extends AppCompatActivity {
 
             animator.addListener(new Animator.AnimatorListener() {
                 @Override
-                public void onAnimationStart(@NonNull Animator animation) {}
+                public void onAnimationStart(@NonNull Animator animation) {
+                }
+
                 @Override
                 public void onAnimationEnd(@NonNull Animator animation) {
                     /*
@@ -135,10 +143,14 @@ public class MainActivity extends AppCompatActivity {
                             .translationX(-widthScreen).alpha(1)
                             .setDuration(durationTranslation).setInterpolator(new LinearInterpolator());
                 }
+
                 @Override
-                public void onAnimationCancel(@NonNull Animator animation) {}
+                public void onAnimationCancel(@NonNull Animator animation) {
+                }
+
                 @Override
-                public void onAnimationRepeat(@NonNull Animator animation) {}
+                public void onAnimationRepeat(@NonNull Animator animation) {
+                }
             });
         });
 
@@ -185,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
         btnHomePlus.setOnClickListener(v -> {
             Log.d(TAG, "onClick btnHomePlus");
         });
-        
+
         // btnHomeExpand OnClickListener
         btnHomeExpand.setOnClickListener(v -> {
             Log.d(TAG, "onClick btnHomeExpand");
