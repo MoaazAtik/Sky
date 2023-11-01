@@ -3,33 +3,18 @@ package com.example.weatherapiapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.constraintlayout.motion.widget.MotionLayout;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.animation.Animator;
-import android.animation.LayoutTransition;
 import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
-import android.graphics.Interpolator;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.AnticipateInterpolator;
-import android.view.animation.AnticipateOvershootInterpolator;
-import android.view.animation.BounceInterpolator;
-import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
-import android.view.animation.OvershootInterpolator;
 import android.widget.HorizontalScrollView;
 
 import com.example.weatherapiapp.databinding.ActivityMainBinding;
@@ -67,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
 
         AppCompatButton btnHourlyForecast = findViewById(R.id.btn_hourly_forecast);
         AppCompatButton btnDailyForecast = findViewById(R.id.btn_daily_forecast);
+        HorizontalScrollView horizontalScrollViewHourly = findViewById(R.id.hourly_forecast_sv);
+        HorizontalScrollView horizontalScrollViewDaily = findViewById(R.id.daily_forecast_sv);
         ConstraintLayout tabBar = findViewById(R.id.tab_bar);
         AppCompatButton btnHomePlus = findViewById(R.id.btn_home_plus);
         AppCompatButton btnHomeExpand = findViewById(R.id.btn_home_expand);
@@ -74,246 +61,85 @@ public class MainActivity extends AppCompatActivity {
 
         // btnHourlyForecast OnClickListener
         btnHourlyForecast.setOnClickListener(v -> {
-            Log.d(TAG, "onClick: btnHourlyForecast");
-        });
-
-        LinearLayoutCompat hourlyForecast = findViewById(R.id.hourly_forecast);
-        LinearLayoutCompat dailyForecast = findViewById(R.id.daily_forecast);
-//        LinearLayoutCompat hourlyDailyll = findViewById(R.id.hourly_daily_ll);
-
-        Animation translateHourlyOutAnimation = AnimationUtils.loadAnimation(this, R.anim.translate_hourly_out);
-        Animation translateDailyInAnimation = AnimationUtils.loadAnimation(this, R.anim.translate_daily_in);
-
-//        LayoutTransition layoutTransition = hourlyDailyll.getLayoutTransition();
-//        layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
-//        layoutTransition.enableTransitionType(LayoutTransition.CHANGE_APPEARING);
-//        layoutTransition.enableTransitionType(LayoutTransition.CHANGE_DISAPPEARING);
-//        layoutTransition.enableTransitionType(LayoutTransition.APPEARING);
-//        layoutTransition.enableTransitionType(LayoutTransition.DISAPPEARING);
-
-//        HorizontalScrollView horizontalScrollView = findViewById(R.id.hourly_daily_forecast);
-        HorizontalScrollView horizontalScrollViewHourly = findViewById(R.id.hourly_forecast_sv);
-        HorizontalScrollView horizontalScrollViewDaily = findViewById(R.id.daily_forecast_sv);
-//        horizontalScrollView.setSmoothScrollingEnabled(true);
-//        horizontalScrollView.smoothScrollBy();
-//        horizontalScrollView.scrollTo();
-//        horizontalScrollView.scrollBy(30,0);
-//        horizontalScrollView.scrollBy(hourlyForecast.getWidth(),0);
-
-        btnHourlyForecast.setOnClickListener(v -> {
-//            Log.d(TAG, "onCreate: " + v);
-//            hourlyDailyll.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGE_APPEARING);
-//            ConstraintLayout.LayoutParams hourlyForecastLayoutParams = (ConstraintLayout.LayoutParams) hourlyForecast.getLayoutParams();
-//            hourlyForecastLayoutParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID;
-//            hourlyForecast.setLayoutParams(hourlyForecastLayoutParams);
-//
-//            ConstraintLayout.LayoutParams dailyForecastLayoutParams = (ConstraintLayout.LayoutParams) dailyForecast.getLayoutParams();
-//            dailyForecastLayoutParams.startToEnd = ConstraintLayout.LayoutParams.PARENT_ID; // This sets the view's left edge to the start of the parent.
-//            dailyForecast.setLayoutParams(dailyForecastLayoutParams);
-
-//            dailyForecast.setVisibility(View.GONE);
-//            hourlyForecast.setVisibility(View.VISIBLE);
-
-            float widthScreen = getResources().getDisplayMetrics().widthPixels;
-            int widthDailyLL = horizontalScrollViewDaily.getChildAt(0).getWidth();
-            Log.d(TAG, "child width widthDailyLL " + widthDailyLL); // 1443
-            int widthDailySV = horizontalScrollViewDaily.getWidth(); // in this case equals widthScreen
-            Log.d(TAG, "scrollview width widthDailySV "+ widthDailySV); // 1080
-            int maxScroll = widthDailyLL - widthDailySV;
-            Log.d(TAG, "max scroll " + maxScroll); // 363 // but actually reflected in currentScroll when the view is scrolled to end as 363 + padding px (42x2) = 447
-            int m = horizontalScrollViewDaily.getMaxScrollAmount();
-            Log.d(TAG, "getMaxScrollAmount m "+ m); //540
             int currentScroll = horizontalScrollViewDaily.getScrollX();
-            Log.d(TAG, "currentScroll " + currentScroll);
-
-//            int durationScrollAnimation = (int) (((maxScroll + 42) - currentScroll) * 1.5);
-            int durationScrollAnimation = (int) (currentScroll * 1.5);
-            Log.d(TAG, "durationScrollAnimation " + durationScrollAnimation); // max 670
+            // to avoid unexplained delay of moving hourly and daily views
+            int durationScrollAnimation = (int) (currentScroll * 1.1);
             ObjectAnimator animator = ObjectAnimator.ofInt(horizontalScrollViewDaily, "scrollX", 0);
-            animator.setDuration(durationScrollAnimation); // to avoid unexplained delay of moving hourly and daily views
-            animator.setInterpolator(new AccelerateInterpolator());
+            animator.setDuration(durationScrollAnimation)
+                    .setInterpolator(new AccelerateInterpolator());
             animator.start();
 
             animator.addListener(new Animator.AnimatorListener() {
                 @Override
-                public void onAnimationStart(@NonNull Animator animation) {
-
-                }
+                public void onAnimationStart(@NonNull Animator animation) {}
                 @Override
                 public void onAnimationEnd(@NonNull Animator animation) {
-//                    horizontalScrollViewHourly.setVisibility(View.VISIBLE);
-                    horizontalScrollViewDaily.animate().translationX(0).setDuration(900).setInterpolator(new LinearInterpolator());
-                    horizontalScrollViewHourly.animate().translationX(0).setDuration(900).setInterpolator(new LinearInterpolator());
+                    int durationTranslation = 700;
+                    horizontalScrollViewDaily.animate()
+                            .translationX(0).alpha(0)
+                            .setDuration(durationTranslation).setInterpolator(new LinearInterpolator());
+                    horizontalScrollViewHourly.animate()
+                            .translationX(0).alpha(1)
+                            .setDuration(durationTranslation).setInterpolator(new LinearInterpolator())
+                            /*
+                            horizontalScrollViewDaily was not visible after multiple transitions and scrolling hourly forecast
+                            until scrolling it by hand (and not with .scrollTo()).
+                            Setting its visibility Gone in here, and resetting it after a btnDaily click fixed this issue.
+                            */
+                            .withEndAction(new Runnable() {
+                                @Override
+                                public void run() {
+                                    horizontalScrollViewDaily.setVisibility(View.GONE);
+                                }
+                            });
                 }
                 @Override
-                public void onAnimationCancel(@NonNull Animator animation) {
-
-                }
+                public void onAnimationCancel(@NonNull Animator animation) {}
                 @Override
-                public void onAnimationRepeat(@NonNull Animator animation) {
-
-                }
+                public void onAnimationRepeat(@NonNull Animator animation) {}
             });
-
         });
+
         // btnDailyForecast OnClickListener
         btnDailyForecast.setOnClickListener(v -> {
-            Log.d(TAG, "onClick: btnDailyForecast");
-//            hourlyForecast.setTranslationX(10);
-//            btnHomeExpand.setTranslationX(0);
-//            btnHourlyForecast.animate().translationX(40).start();
-//            dailyForecast.setTranslationX(-100);
-//            dailyForecast.animate().translationXBy(-100);
-
-//            hourlyDailyll.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGE_DISAPPEARING);
-//            hourlyForecast.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
-//            dailyForecast.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
-
-//hourlyDailyll.startAnimation(tra);
-//            hourlyForecast.startAnimation(translateHourlyOutAnimation);
-//            dailyForecast.startAnimation(translateDailyInAnimation);
-
-//        horizontalScrollView.setSmoothScrollingEnabled(true);
-//        horizontalScrollView.smoothScrollBy();
-//        horizontalScrollView.scrollTo();
-//        horizontalScrollView.scrollBy(30,0);
-//        horizontalScrollView.scrollBy(hourlyForecast.getWidth(),0);
-
-//            hourlyDailyll.scrollBy(30,0); // can't be scrolled again by the user (wanted behavior), but can't be .smoothScrollTo
-//            horizontalScrollView.scrollBy(30,0); // can be scrolled again by use (unwanted behavior), but can be .smoothScrollTo
-//            horizontalScrollView.smoothScrollTo(90,0); // can be scrolled again by use (unwanted behavior)
-
-//            hourlyDailyll.scrollBy(90,0);
-//            horizontalScrollView.scrollTo(90,0);
-//            hourlyDailyll.scrollTo(90,0); // = .setScrollX(90)
-//            hourlyDailyll.setScrollX(90);
-
-
-//            horizontalScrollView.smoothScrollTo(hourlyForecast.getWidth(),0);
-//            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    hourlyForecast.setVisibility(View.GONE);
-//                    dailyForecast.setVisibility(View.VISIBLE);
-//                }
-//            },2000);
-
-            View bv = findViewById(R.id.whitev);
-
-            float marginStartHourly = 16;
-            float density = getResources().getDisplayMetrics().density;
-            float px = marginStartHourly * density;
-//            float a = (float) (horizontalScrollViewHourly.getWidth() + px);
             float widthScreen = getResources().getDisplayMetrics().widthPixels;
-//            Log.d(TAG, "Hourly a " + horizontalScrollViewHourly.getWidth());
-//            Log.d(TAG, "Hourly a " +horizontalScrollViewHourly.getMinimumWidth());
-//            Log.d(TAG, "Hourly a " +horizontalScrollViewHourly.getMeasuredWidth());
-////            Log.d(TAG, "onCreate: density " + density );
-////            Log.d(TAG, "onCreate: px " + px);
-//
-//            Log.d(TAG, "Daily " + horizontalScrollViewDaily.getWidth()); // 0
-//            Log.d(TAG, "Daily " + horizontalScrollViewDaily.getMinimumWidth());// 0
-//            Log.d(TAG, "Daily " + horizontalScrollViewDaily.getMeasuredWidth()); // 0
 
-//            float b =  (bv.getWidth());
-//            Log.d(TAG, "onCreate: b " + b);
-//            Log.d(TAG, "onCreate: b " + bv.getMinimumWidth());
-//            Log.d(TAG, "onCreate: b " + bv.getMeasuredWidth());
-//            float c = tabBar.getWidth();
-//            Log.d(TAG, "onCreate: c " + c);
-//            Log.d(TAG, "onCreate: c " + tabBar.getMinimumWidth());
-//            Log.d(TAG, "onCreate: c " + tabBar.getMeasuredWidth());
-//            Log.d(TAG, "onCreate: c " + tabBar.getMaxWidth());
-//            Log.d(TAG, "onCreate: c " + tabBar.getMeasuredWidthAndState());
-
-            // horizontalScrollViewDaily was not visible after the transition until scrolling
-            // it by hand and not with .scrollTo(). Setting its visibility at runtime here,
-            // and making its visibility gone in xml fixed this issue.
-            //horizontalScrollViewDaily.setVisibility(View.VISIBLE);
-
-            /*
-            After setting Start_toEndOf="@id/hourly_forecast_sv" to daily_forecast_sv,
-            with layout_width="match_parent", daily_forecast_sv was drawn on top of hourly_forecast_sv
-            when the app runs. Setting layout_width="0dp" fixed it.
-             */
-
-            //horizontalScrollViewHourly.animate().translationX(-a).setDuration(1100);
-//            Log.d(TAG, "Hourly a " + horizontalScrollViewHourly.getWidth());
-//            Log.d(TAG, "Hourly a " +horizontalScrollViewHourly.getMinimumWidth());
-//            Log.d(TAG, "Hourly a " +horizontalScrollViewHourly.getMeasuredWidth());
-//            Log.d(TAG, "Daily " + horizontalScrollViewDaily.getWidth()); // 0
-//            Log.d(TAG, "Daily " + horizontalScrollViewDaily.getMinimumWidth());// 0
-//            Log.d(TAG, "Daily " + horizontalScrollViewDaily.getMeasuredWidth()); // 0
-////            horizontalScrollViewDaily.setVisibility(View.VISIBLE);
-            //horizontalScrollViewDaily.animate().translationX(-a).setDuration(1100);
-////            horizontalScrollViewDaily.setVisibility(View.VISIBLE);
-//            Log.d(TAG, "Hourly a " + horizontalScrollViewHourly.getWidth());
-//            Log.d(TAG, "Hourly a " +horizontalScrollViewHourly.getMinimumWidth());
-//            Log.d(TAG, "Hourly a " +horizontalScrollViewHourly.getMeasuredWidth());
-//            // Why equals 0...(?)
-//            Log.d(TAG, "Daily " + horizontalScrollViewDaily.getWidth()); // Why equals 0...?
-//            Log.d(TAG, "Daily " + horizontalScrollViewDaily.getMinimumWidth());// 0
-//            Log.d(TAG, "Daily " + horizontalScrollViewDaily.getMeasuredWidth()); // 0
-
-//            horizontalScrollViewHourly.smoothScrollBy(horizontalScrollViewHourly.getMaxScrollAmount(), 0);
             int widthHourlyLL = horizontalScrollViewHourly.getChildAt(0).getWidth();
-            Log.d(TAG, "child width widthHourlyLL " + widthHourlyLL); // 1644
             int widthHourlySV = horizontalScrollViewHourly.getWidth();
-            Log.d(TAG, "scrollview width widthHourlySV "+ widthHourlySV); // 1080
             int maxScroll = widthHourlyLL - widthHourlySV;
             int actualMaxScroll = maxScroll + horizontalScrollViewHourly.getPaddingStart() + horizontalScrollViewHourly.getPaddingEnd();
-            Log.d(TAG, "max scroll " + maxScroll); // 564 // but actually 564 + padding px (42x2) = 648
-            Log.d(TAG, "paddingStart: "+ horizontalScrollViewHourly.getPaddingStart());
-            Log.d(TAG, "paddingEnd: "+ horizontalScrollViewHourly.getPaddingEnd());
-
-//            int m = horizontalScrollViewHourly.getMaxScrollAmount();
-//            Log.d(TAG, "getMaxScrollAmount m "+ m); //540
+            // to avoid unexplained delay of moving hourly and daily views
             int currentScroll = horizontalScrollViewHourly.getScrollX();
-            Log.d(TAG, "currentScroll " + currentScroll);
-            Log.d(TAG, "padding start 16 px " + px);//42
-//            Interpolator interpolator = new Interpolator(9);
-//            horizontalScrollViewHourly.smoothScrollTo(max+42, 0);
-//            ObjectAnimator.ofObject()
-//
-//            horizontalScrollViewDaily.setVisibility(View.VISIBLE);
-//            horizontalScrollViewHourly.animate().translationX(-a).setDuration(1100).setInterpolator(new AccelerateDecelerateInterpolator()).setStartDelay(700);
-//            horizontalScrollViewDaily.animate().translationX(-a).setDuration(1100).setInterpolator(new AccelerateDecelerateInterpolator()).setStartDelay(700);
-//            int ii = (max + 42) * 900;
-            int durationScrollAnimation = (int) ((actualMaxScroll - currentScroll) * 1.5);
-            Log.d(TAG, "durationScrollAnimation " + durationScrollAnimation); // max 910
+            int durationScrollAnimation = (int) ((actualMaxScroll - currentScroll) * 1.1);
+
             ObjectAnimator animator = ObjectAnimator.ofInt(horizontalScrollViewHourly, "scrollX", actualMaxScroll);
-            animator.setDuration(durationScrollAnimation); // to avoid unexplained delay of moving hourly and daily views
-            animator.setInterpolator(new AccelerateInterpolator());
+            animator.setDuration(durationScrollAnimation)
+                    .setInterpolator(new AccelerateInterpolator());
             animator.start();
 
             animator.addListener(new Animator.AnimatorListener() {
                 @Override
-                public void onAnimationStart(@NonNull Animator animation) {
-
-                }
+                public void onAnimationStart(@NonNull Animator animation) {}
                 @Override
                 public void onAnimationEnd(@NonNull Animator animation) {
+                    /*
+                    horizontalScrollViewDaily was not visible after the transition until scrolling it by hand (and not with .scrollTo()).
+                    Setting its visibility at runtime here, and making its visibility gone in xml fixed this issue.
+                    */
                     horizontalScrollViewDaily.setVisibility(View.VISIBLE);
-                    horizontalScrollViewHourly.animate().translationX(-widthScreen).setDuration(900).setInterpolator(new LinearInterpolator());
-                    horizontalScrollViewDaily.animate().translationX(-widthScreen).setDuration(900).setInterpolator(new LinearInterpolator());
+                    int durationTranslation = 700;
+                    horizontalScrollViewHourly.animate().
+                            translationX(-widthScreen).alpha(0)
+                            .setDuration(durationTranslation).setInterpolator(new LinearInterpolator());
+                    horizontalScrollViewDaily.animate()
+                            .translationX(-widthScreen).alpha(1)
+                            .setDuration(durationTranslation).setInterpolator(new LinearInterpolator());
                 }
                 @Override
-                public void onAnimationCancel(@NonNull Animator animation) {
-
-                }
+                public void onAnimationCancel(@NonNull Animator animation) {}
                 @Override
-                public void onAnimationRepeat(@NonNull Animator animation) {
-
-                }
+                public void onAnimationRepeat(@NonNull Animator animation) {}
             });
-
-            animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(@NonNull ValueAnimator animation) {
-
-                }
-            });
-
         });
 
         /*
