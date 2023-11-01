@@ -57,7 +57,7 @@
         app:layout_constraintStart_toStartOf="@id/txt_city_h_temp" />
 
     <TextView
-        android:id="@+id/txt_city_sky"
+        android:id="@+id/txt_city_condition"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
@@ -72,7 +72,7 @@
         android:id="@+id/img_city_condition"
         android:layout_width="160dp"
         android:layout_height="160dp"
-        android:src="@drawable/mid_rain"
+        android:src="@drawable/condition_mid_rain"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

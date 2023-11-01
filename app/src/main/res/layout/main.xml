@@ -5,7 +5,7 @@
     android:id="@+id/main_motion_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@drawable/home_background"
     app:layoutDescription="@xml/main_scene"
     app:showPaths="false">
     <!--    xmlns:motion="http://schemas.android.com/apk/res-auto"-->
@@ -70,13 +70,13 @@
             app:layout_constraintTop_toBottomOf="@id/txt_home_city" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/txt_home_sky"
+            android:id="@+id/txt_home_condition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="-50dp"
             android:fontFamily="@font/sf_pro_display_semibold"
             android:text="Mostly Clear"
-            android:textColor="@color/sky"
+            android:textColor="@color/condition"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -112,20 +112,20 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
-    <!--    Background collapsed modal-->
+    <!--    Background collapsed bottom sheet -->
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/modal_collapsed_background"
+        android:id="@+id/bg_collapsed_bottom_sheet"
         android:layout_width="match_parent"
         android:layout_height="325dp"
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/nsv_bottom_sheet"
-        app:srcCompat="@drawable/modal" />
+        app:srcCompat="@drawable/bottom_sheet_collapsed" />
 
-    <!--    Background open modal-->
+    <!--    Background open bottom sheet-->
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/modal_open_background"
+        android:id="@+id/bg_open_bottom_sheet"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:alpha="0"
@@ -133,11 +133,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/bottom_sheet_background" />
+        app:srcCompat="@drawable/bottom_sheet_open" />
 
-    <!--    Background segmented control in open modal-->
+    <!--    Background segmented control in open bottom sheet-->
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/segmented_control_modal_open_background"
+        android:id="@+id/bg_segmented_control_open_bottom_sheet"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:alpha="0"
@@ -145,7 +145,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/nsv_bottom_sheet"
-        app:srcCompat="@drawable/home_indicator" />
+        app:srcCompat="@drawable/segmented_control_open" />
 
     <!--    Bottom sheet NestedScrollView-->
     <androidx.core.widget.NestedScrollView
@@ -169,7 +169,7 @@
                 android:id="@+id/segmented_control"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/segmented_control"
+                android:background="@drawable/segmented_control_collapsed"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/bottom_sheet">
@@ -262,10 +262,10 @@
 
                         <!--                    Hour 0 condition-->
                         <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/hour_0_sky"
+                            android:id="@+id/hour_0_condition"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            app:srcCompat="@drawable/mid_rain" />
+                            app:srcCompat="@drawable/condition_mid_rain" />
 
                         <!--                    Hour 0 temperature-->
                         <androidx.appcompat.widget.AppCompatTextView
@@ -300,10 +300,10 @@
                             app:fontFamily="@font/sf_pro_display_semibold" />
 
                         <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/hour_1_sky"
+                            android:id="@+id/hour_1_condition"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            app:srcCompat="@drawable/mid_rain" />
+                            app:srcCompat="@drawable/condition_mid_rain" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/hour_1_temp"
@@ -337,10 +337,10 @@
                             app:fontFamily="@font/sf_pro_display_semibold" />
 
                         <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/hour_2_sky"
+                            android:id="@+id/hour_2_condition"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            app:srcCompat="@drawable/mid_rain" />
+                            app:srcCompat="@drawable/condition_mid_rain" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/hour_2_temp"
@@ -374,10 +374,10 @@
                             app:fontFamily="@font/sf_pro_display_semibold" />
 
                         <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/hour_3_sky"
+                            android:id="@+id/hour_3_condition"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            app:srcCompat="@drawable/mid_rain" />
+                            app:srcCompat="@drawable/condition_mid_rain" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/hour_3_temp"
@@ -411,10 +411,10 @@
                             app:fontFamily="@font/sf_pro_display_semibold" />
 
                         <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/hour_4_sky"
+                            android:id="@+id/hour_4_condition"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            app:srcCompat="@drawable/mid_rain" />
+                            app:srcCompat="@drawable/condition_mid_rain" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/hour_4_temp"
@@ -448,10 +448,10 @@
                             app:fontFamily="@font/sf_pro_display_semibold" />
 
                         <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/hour_5_sky"
+                            android:id="@+id/hour_5_condition"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            app:srcCompat="@drawable/mid_rain" />
+                            app:srcCompat="@drawable/condition_mid_rain" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/hour_5_temp"
@@ -485,10 +485,10 @@
                             app:fontFamily="@font/sf_pro_display_semibold" />
 
                         <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/hour_6_sky"
+                            android:id="@+id/hour_6_condition"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            app:srcCompat="@drawable/mid_rain" />
+                            app:srcCompat="@drawable/condition_mid_rain" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/hour_6_temp"
@@ -523,10 +523,10 @@
                             app:fontFamily="@font/sf_pro_display_semibold" />
 
                         <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/hour_7_sky"
+                            android:id="@+id/hour_7_condition"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            app:srcCompat="@drawable/mid_rain" />
+                            app:srcCompat="@drawable/condition_mid_rain" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/hour_7_temp"
@@ -585,10 +585,10 @@
 
                         <!--                    Day 0 condition-->
                         <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/day_0_sky"
+                            android:id="@+id/day_0_condition"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            app:srcCompat="@drawable/mid_rain" />
+                            app:srcCompat="@drawable/condition_mid_rain" />
 
                         <!--                    Day 0 temperature-->
                         <androidx.appcompat.widget.AppCompatTextView
@@ -623,10 +623,10 @@
                             app:fontFamily="@font/sf_pro_display_semibold" />
 
                         <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/day_1_sky"
+                            android:id="@+id/day_1_condition"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            app:srcCompat="@drawable/mid_rain" />
+                            app:srcCompat="@drawable/condition_mid_rain" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/day_1_temp"
@@ -660,10 +660,10 @@
                             app:fontFamily="@font/sf_pro_display_semibold" />
 
                         <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/day_2_sky"
+                            android:id="@+id/day_2_condition"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            app:srcCompat="@drawable/mid_rain" />
+                            app:srcCompat="@drawable/condition_mid_rain" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/day_2_temp"
@@ -697,10 +697,10 @@
                             app:fontFamily="@font/sf_pro_display_semibold" />
 
                         <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/day_3_sky"
+                            android:id="@+id/day_3_condition"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            app:srcCompat="@drawable/mid_rain" />
+                            app:srcCompat="@drawable/condition_mid_rain" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/day_3_temp"
@@ -734,10 +734,10 @@
                             app:fontFamily="@font/sf_pro_display_semibold" />
 
                         <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/day_4_sky"
+                            android:id="@+id/day_4_condition"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            app:srcCompat="@drawable/mid_rain" />
+                            app:srcCompat="@drawable/condition_mid_rain" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/day_4_temp"
@@ -771,10 +771,10 @@
                             app:fontFamily="@font/sf_pro_display_semibold" />
 
                         <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/day_5_sky"
+                            android:id="@+id/day_5_condition"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            app:srcCompat="@drawable/mid_rain" />
+                            app:srcCompat="@drawable/condition_mid_rain" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/day_5_temp"
@@ -809,10 +809,10 @@
                             app:fontFamily="@font/sf_pro_display_semibold" />
 
                         <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/day_6_sky"
+                            android:id="@+id/day_6_condition"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            app:srcCompat="@drawable/mid_rain" />
+                            app:srcCompat="@drawable/condition_mid_rain" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/day_6_temp"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="32dp"
-    tools:background="@drawable/bottom_sheet_background">
+    tools:background="@drawable/bottom_sheet_open">
 
     <!--        UV index widget-->
     <androidx.constraintlayout.widget.ConstraintLayout

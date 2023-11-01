@@ -19,7 +19,7 @@
             motion:layout_constraintTop_toTopOf="parent" />
 
         <Constraint
-            android:id="@+id/modal_collapsed_background"
+            android:id="@+id/bg_collapsed_bottom_sheet"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:alpha="0"
@@ -29,13 +29,13 @@
             motion:layout_constraintTop_toTopOf="@id/nsv_bottom_sheet" />
 
         <Constraint
-            android:id="@+id/modal_open_background"
+            android:id="@+id/bg_open_bottom_sheet"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:alpha="1" />
 
         <Constraint
-            android:id="@+id/segmented_control_modal_open_background"
+            android:id="@+id/bg_segmented_control_open_bottom_sheet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:alpha="1"
