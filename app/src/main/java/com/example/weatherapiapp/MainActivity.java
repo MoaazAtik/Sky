@@ -3,6 +3,7 @@ package com.example.weatherapiapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.constraintlayout.motion.widget.MotionLayout;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         AppCompatButton btnDailyForecast = findViewById(R.id.btn_daily_forecast);
         HorizontalScrollView horizontalScrollViewHourly = findViewById(R.id.hourly_forecast_sv);
         HorizontalScrollView horizontalScrollViewDaily = findViewById(R.id.daily_forecast_sv);
+        AppCompatImageView underline = findViewById(R.id.underline);
         ConstraintLayout tabBar = findViewById(R.id.tab_bar);
         AppCompatButton btnHomePlus = findViewById(R.id.btn_home_plus);
         AppCompatButton btnHomeExpand = findViewById(R.id.btn_home_expand);
@@ -88,12 +90,9 @@ public class MainActivity extends AppCompatActivity {
                             until scrolling it by hand (and not with .scrollTo()).
                             Setting its visibility Gone in here, and resetting it after a btnDaily click fixed this issue.
                             */
-                            .withEndAction(new Runnable() {
-                                @Override
-                                public void run() {
-                                    horizontalScrollViewDaily.setVisibility(View.GONE);
-                                }
-                            });
+                            .withEndAction(() -> horizontalScrollViewDaily.setVisibility(View.GONE));
+                    underline.animate().translationX(0)
+                            .setDuration(durationTranslation);
                 }
 
                 @Override
@@ -108,8 +107,6 @@ public class MainActivity extends AppCompatActivity {
 
         // btnDailyForecast OnClickListener
         btnDailyForecast.setOnClickListener(v -> {
-            float widthScreen = getResources().getDisplayMetrics().widthPixels;
-
             int widthHourlyLL = horizontalScrollViewHourly.getChildAt(0).getWidth();
             int widthHourlySV = horizontalScrollViewHourly.getWidth();
             int maxScroll = widthHourlyLL - widthHourlySV;
@@ -135,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
                     Setting its visibility at runtime here, and making its visibility gone in xml fixed this issue.
                     */
                     horizontalScrollViewDaily.setVisibility(View.VISIBLE);
+                    float widthScreen = getResources().getDisplayMetrics().widthPixels;
                     int durationTranslation = 700;
                     horizontalScrollViewHourly.animate().
                             translationX(-widthScreen).alpha(0)
@@ -142,6 +140,8 @@ public class MainActivity extends AppCompatActivity {
                     horizontalScrollViewDaily.animate()
                             .translationX(-widthScreen).alpha(1)
                             .setDuration(durationTranslation).setInterpolator(new LinearInterpolator());
+                    underline.animate().translationX((widthScreen / 2))
+                            .setDuration(durationTranslation);
                 }
 
                 @Override

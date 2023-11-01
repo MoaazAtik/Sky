@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     app:layoutDescription="@xml/main_scene"
-    app:showPaths="true">
+    app:showPaths="false">
     <!--    xmlns:motion="http://schemas.android.com/apk/res-auto"-->
     <!--    motion:layoutDescription="@xml/main_scene">-->
 
