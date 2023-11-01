@@ -6,6 +6,8 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.constraintlayout.motion.widget.MotionLayout;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.animation.Animator;
@@ -19,7 +21,10 @@ import android.view.animation.LinearInterpolator;
 import android.widget.HorizontalScrollView;
 
 import com.example.weatherapiapp.databinding.ActivityMainBinding;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //#freeCodeCamp.org (YT) | REST API - Network Data
@@ -34,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
 
+    private ConstraintLayout citiesLayout;
     private RecyclerView recyclerView;
     private CityListAdapter adapter;
     private List<WeatherReportModel> citiesList;
@@ -209,23 +215,27 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //cities layout
-//        setContentView(R.layout.cities);
-//        recyclerView = (RecyclerView) findViewById(R.id.rv_cities);
-//        citiesList = new ArrayList<>();
-//        adapter = new CityListAdapter(this, citiesList);
-//
-//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-//        recyclerView.setLayoutManager(layoutManager);
-//        recyclerView.setAdapter(adapter);
-//
-//        prepareData();
-//
-//        findViewById(R.id.btn_cities_add_city).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                addCity();
-//            }
-//        });
+        setContentView(R.layout.cities);
+        recyclerView = (RecyclerView) findViewById(R.id.rv_cities);
+        citiesList = new ArrayList<>();
+        adapter = new CityListAdapter(this, citiesList);
+        citiesLayout = findViewById(R.id.cities_layout);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+
+        ItemTouchHelper itemTouchHelper =  new ItemTouchHelper(callbackItemTouchHelper);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
+
+        prepareData();
+
+        findViewById(R.id.btn_cities_add_city).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addCity();
+            }
+        });
 
 
         WeatherDataService weatherDataService = new WeatherDataService(MainActivity.this);
@@ -341,4 +351,21 @@ public class MainActivity extends AppCompatActivity {
 
         adapter.notifyDataSetChanged();
     }
+
+    // Callback for recycler view ItemTouchHelper for onSwiped
+    ItemTouchHelper.Callback callbackItemTouchHelper = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.START) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            citiesList.remove(viewHolder.getAdapterPosition());
+            adapter.notifyDataSetChanged();
+            Snackbar snackbar = Snackbar.make(citiesLayout, "City Deleted!", BaseTransientBottomBar.LENGTH_LONG);
+            snackbar.show();
+        }
+    };
+
 }
