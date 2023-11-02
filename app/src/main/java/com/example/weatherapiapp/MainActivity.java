@@ -6,12 +6,16 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.constraintlayout.motion.widget.MotionLayout;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.animation.Animator;
+import android.animation.LayoutTransition;
 import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -21,6 +25,7 @@ import android.view.animation.LinearInterpolator;
 import android.widget.HorizontalScrollView;
 
 import com.example.weatherapiapp.databinding.ActivityMainBinding;
+import com.google.android.material.divider.MaterialDividerItemDecoration;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -39,10 +44,10 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
 
-    private ConstraintLayout citiesLayout;
-    private RecyclerView recyclerView;
-    private CityListAdapter adapter;
-    private List<WeatherReportModel> citiesList;
+//    private ConstraintLayout citiesLayout;
+//    private RecyclerView recyclerView;
+//    private CityListAdapter adapter;
+//    private List<WeatherReportModel> citiesList;
     private MotionLayout mainMotionLayout, sunriseMotionLayout, windMotionLayout;
 
     @Override
@@ -52,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
 //        View view = binding.getRoot();
 //        setContentView(view);
         setContentView(R.layout.main);
+
+        Intent citiesIntent = new Intent(MainActivity.this, CitiesActivity.class);
+        MainActivity.this.startActivity(citiesIntent);
 
         mainMotionLayout = findViewById(R.id.main_motion_layout);
         sunriseMotionLayout = findViewById(R.id.sunrise_sunset);
@@ -215,27 +223,26 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //cities layout
-        setContentView(R.layout.cities);
-        recyclerView = (RecyclerView) findViewById(R.id.rv_cities);
-        citiesList = new ArrayList<>();
-        adapter = new CityListAdapter(this, citiesList);
-        citiesLayout = findViewById(R.id.cities_layout);
-
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-
-        ItemTouchHelper itemTouchHelper =  new ItemTouchHelper(callbackItemTouchHelper);
-        itemTouchHelper.attachToRecyclerView(recyclerView);
-
-        prepareData();
-
-        findViewById(R.id.btn_cities_add_city).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addCity();
-            }
-        });
+//        setContentView(R.layout.cities);
+//        recyclerView = (RecyclerView) findViewById(R.id.rv_cities);
+//        citiesList = new ArrayList<>();
+//        adapter = new CityListAdapter(this, citiesList);
+//        citiesLayout = findViewById(R.id.cities_layout);
+//
+//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+//        recyclerView.setLayoutManager(layoutManager);
+//        recyclerView.setAdapter(adapter);
+//
+//        ItemTouchHelper itemTouchHelper =  new ItemTouchHelper(callbackItemTouchHelper);
+//        itemTouchHelper.attachToRecyclerView(recyclerView);
+//
+//        prepareData();
+//
+//        findViewById(R.id.btn_cities_add_city).setOnClickListener(view -> {
+//            addCity();
+//            Snackbar snackbar = Snackbar.make(citiesLayout, "City Added", BaseTransientBottomBar.LENGTH_LONG);
+//            snackbar.show();
+//        });
 
 
         WeatherDataService weatherDataService = new WeatherDataService(MainActivity.this);
@@ -332,40 +339,40 @@ public class MainActivity extends AppCompatActivity {
     }//onCreate
 
     // Cities layout methods
-    private void prepareData() {
-        String[] times = new String[]{
-                "11", "222"
-        };
-
-        WeatherReportModel weatherReportModel = new WeatherReportModel();
-        weatherReportModel.setTime(times[0]);
-        citiesList.add(weatherReportModel);
-
-        adapter.notifyDataSetChanged();
-    }
-
-    private void addCity() {
-        WeatherReportModel weatherReportModel = new WeatherReportModel();
-        weatherReportModel.setTime("333");
-        citiesList.add(weatherReportModel);
-
-        adapter.notifyDataSetChanged();
-    }
-
-    // Callback for recycler view ItemTouchHelper for onSwiped
-    ItemTouchHelper.Callback callbackItemTouchHelper = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.START) {
-        @Override
-        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-            return false;
-        }
-
-        @Override
-        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            citiesList.remove(viewHolder.getAdapterPosition());
-            adapter.notifyDataSetChanged();
-            Snackbar snackbar = Snackbar.make(citiesLayout, "City Deleted!", BaseTransientBottomBar.LENGTH_LONG);
-            snackbar.show();
-        }
-    };
+//    private void prepareData() {
+//        String[] times = new String[]{
+//                "11", "222"
+//        };
+//
+//        WeatherReportModel weatherReportModel = new WeatherReportModel();
+//        weatherReportModel.setTime(times[0]);
+//        citiesList.add(weatherReportModel);
+//
+//        adapter.notifyDataSetChanged();
+//    }
+//
+//    private void addCity() {
+//        WeatherReportModel weatherReportModel = new WeatherReportModel();
+//        weatherReportModel.setTime("333");
+//        citiesList.add(weatherReportModel);
+//
+//        adapter.notifyDataSetChanged();
+//    }
+//
+//    // Callback for recycler view ItemTouchHelper for onSwiped
+//    ItemTouchHelper.Callback callbackItemTouchHelper = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.START) {
+//        @Override
+//        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+//            return false;
+//        }
+//
+//        @Override
+//        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+//            citiesList.remove(viewHolder.getAdapterPosition());
+//            adapter.notifyDataSetChanged();
+//            Snackbar snackbar = Snackbar.make(citiesLayout, "City Deleted", BaseTransientBottomBar.LENGTH_LONG);
+//            snackbar.show();
+//        }
+//    };
 
 }

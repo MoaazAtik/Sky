@@ -44,13 +44,16 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:background="@drawable/add_circle"
+            app:layout_constraintBottom_toBottomOf="@id/et_add_city"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/btn_back" />
+            app:layout_constraintTop_toTopOf="@id/et_add_city" />
 
         <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_add_city"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="20dp"
+            android:layout_marginEnd="50dp"
             android:background="@drawable/search_field"
             android:drawableStart="@drawable/search"
             android:drawablePadding="8dp"
@@ -59,7 +62,6 @@
             android:paddingEnd="10dp"
             android:textColor="@color/white"
             android:textColorHint="@color/pale_blue_back_btn"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_back" />
         <!--            android:focusedByDefault="false"-->
