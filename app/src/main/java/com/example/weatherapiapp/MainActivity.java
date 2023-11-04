@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.motion.widget.MotionLayout;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -23,6 +24,7 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.HorizontalScrollView;
+import android.widget.Toast;
 
 import com.example.weatherapiapp.databinding.ActivityMainBinding;
 import com.google.android.material.divider.MaterialDividerItemDecoration;
@@ -31,6 +33,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 //#freeCodeCamp.org (YT) | REST API - Network Data
 public class MainActivity extends AppCompatActivity {
@@ -49,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
 //    private CityListAdapter adapter;
 //    private List<WeatherReportModel> citiesList;
     private MotionLayout mainMotionLayout, sunriseMotionLayout, windMotionLayout;
+    private AppCompatTextView txtMainCity, txtMainTemp, txtMainHTemp, txtMainLTemp, txtMainCondition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +62,8 @@ public class MainActivity extends AppCompatActivity {
 //        setContentView(view);
         setContentView(R.layout.main);
 
-        Intent citiesIntent = new Intent(MainActivity.this, CitiesActivity.class);
-        MainActivity.this.startActivity(citiesIntent);
+//        Intent citiesIntent = new Intent(MainActivity.this, CitiesActivity.class);
+//        MainActivity.this.startActivity(citiesIntent);
 
         mainMotionLayout = findViewById(R.id.main_motion_layout);
         sunriseMotionLayout = findViewById(R.id.sunrise_sunset);
@@ -74,6 +78,14 @@ public class MainActivity extends AppCompatActivity {
         AppCompatButton btnHomePlus = findViewById(R.id.btn_home_plus);
         AppCompatButton btnHomeExpand = findViewById(R.id.btn_home_expand);
         AppCompatButton btnHomeCitiesList = findViewById(R.id.btn_home_cities_list);
+
+        txtMainCity = findViewById(R.id.txt_home_city);
+        txtMainTemp = findViewById(R.id.txt_home_temp);
+        txtMainHTemp = findViewById(R.id.txt_home_h_temp);
+        txtMainLTemp = findViewById(R.id.txt_home_l_temp);
+        txtMainCondition = findViewById(R.id.txt_home_condition);
+
+        getForecastShort();
 
         // btnHourlyForecast OnClickListener
         btnHourlyForecast.setOnClickListener(v -> {
@@ -222,30 +234,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "onClick btnHomeCitiesList");
         });
 
-        //cities layout
-//        setContentView(R.layout.cities);
-//        recyclerView = (RecyclerView) findViewById(R.id.rv_cities);
-//        citiesList = new ArrayList<>();
-//        adapter = new CityListAdapter(this, citiesList);
-//        citiesLayout = findViewById(R.id.cities_layout);
-//
-//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-//        recyclerView.setLayoutManager(layoutManager);
-//        recyclerView.setAdapter(adapter);
-//
-//        ItemTouchHelper itemTouchHelper =  new ItemTouchHelper(callbackItemTouchHelper);
-//        itemTouchHelper.attachToRecyclerView(recyclerView);
-//
-//        prepareData();
-//
-//        findViewById(R.id.btn_cities_add_city).setOnClickListener(view -> {
-//            addCity();
-//            Snackbar snackbar = Snackbar.make(citiesLayout, "City Added", BaseTransientBottomBar.LENGTH_LONG);
-//            snackbar.show();
-//        });
 
-
-        WeatherDataService weatherDataService = new WeatherDataService(MainActivity.this);
 
         //Old buttons of activity_main (getWeather...)
 //        binding.btnGetCityLatL.setOnClickListener(new View.OnClickListener() {
@@ -337,5 +326,40 @@ public class MainActivity extends AppCompatActivity {
 //        });//setOnClickListener btn_getWeatherByName
 
     }//onCreate
+
+    // getForecastShort(). Get short forecast for the main weather details in the middle of the main screen.
+    private void getForecastShort() {
+
+        WeatherDataService weatherDataService = new WeatherDataService(MainActivity.this);
+
+        weatherDataService.getForecastByName("rio",
+                0, new WeatherDataService.ListenerGetForecastByLatL<WeatherReportModelShort>() {
+                    @Override
+                    public void onError(String message) {
+                        Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onResponse(List<WeatherReportModelShort> weatherReportModels) {
+
+                        Toast.makeText(MainActivity.this, "O  K", Toast.LENGTH_SHORT).show();
+                        WeatherReportModelShort weatherReportModelShort = weatherReportModels.get(0);
+
+                        String temp = (int) weatherReportModelShort.getTemperature_2m() + "°";
+                        txtMainTemp.setText(temp);
+                        String hTemp = "H:" + (int) weatherReportModelShort.getTemperature_2m_max() + "°";
+                        txtMainHTemp.setText(hTemp);
+                        String lTemp = "L:" + (int) weatherReportModelShort.getTemperature_2m_min() + "°";
+                        txtMainLTemp.setText(lTemp);
+                        String city = "cityy"; // = ....
+                        txtMainCity.setText(city);
+                        String condition = weatherReportModelShort.getWeathercode() + "";
+                        txtMainCondition.setText(condition);
+
+//                        citiesList.add(weatherReportModelShort);
+//                        adapter.notifyDataSetChanged();
+                    }
+                });
+    } // getForecastShort
 
 }
