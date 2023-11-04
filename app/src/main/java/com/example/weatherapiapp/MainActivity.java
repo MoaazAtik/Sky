@@ -338,41 +338,4 @@ public class MainActivity extends AppCompatActivity {
 
     }//onCreate
 
-    // Cities layout methods
-//    private void prepareData() {
-//        String[] times = new String[]{
-//                "11", "222"
-//        };
-//
-//        WeatherReportModel weatherReportModel = new WeatherReportModel();
-//        weatherReportModel.setTime(times[0]);
-//        citiesList.add(weatherReportModel);
-//
-//        adapter.notifyDataSetChanged();
-//    }
-//
-//    private void addCity() {
-//        WeatherReportModel weatherReportModel = new WeatherReportModel();
-//        weatherReportModel.setTime("333");
-//        citiesList.add(weatherReportModel);
-//
-//        adapter.notifyDataSetChanged();
-//    }
-//
-//    // Callback for recycler view ItemTouchHelper for onSwiped
-//    ItemTouchHelper.Callback callbackItemTouchHelper = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.START) {
-//        @Override
-//        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-//            return false;
-//        }
-//
-//        @Override
-//        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-//            citiesList.remove(viewHolder.getAdapterPosition());
-//            adapter.notifyDataSetChanged();
-//            Snackbar snackbar = Snackbar.make(citiesLayout, "City Deleted", BaseTransientBottomBar.LENGTH_LONG);
-//            snackbar.show();
-//        }
-//    };
-
 }
