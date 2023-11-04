@@ -64,7 +64,7 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.CityLi
         holder.txtLTemp.setText(lTemp);
         String cityCountry = "cityy"; // = ....
         holder.txtCityCountry.setText(cityCountry);
-        String condition = weatherReportModel.getWeathercode() + "";
+        String condition = weatherReportModel.getCondition();
         holder.txtCondition.setText(condition);
         Glide.with(mContext).load(R.drawable.plus_button).into(holder.imgCondition);
     }

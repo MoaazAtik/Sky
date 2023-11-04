@@ -7,14 +7,8 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.motion.widget.MotionLayout;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.animation.Animator;
-import android.animation.LayoutTransition;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,13 +21,8 @@ import android.widget.HorizontalScrollView;
 import android.widget.Toast;
 
 import com.example.weatherapiapp.databinding.ActivityMainBinding;
-import com.google.android.material.divider.MaterialDividerItemDecoration;
-import com.google.android.material.snackbar.BaseTransientBottomBar;
-import com.google.android.material.snackbar.Snackbar;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 //#freeCodeCamp.org (YT) | REST API - Network Data
 public class MainActivity extends AppCompatActivity {
@@ -62,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
 //        setContentView(view);
         setContentView(R.layout.main);
 
-//        Intent citiesIntent = new Intent(MainActivity.this, CitiesActivity.class);
-//        MainActivity.this.startActivity(citiesIntent);
+        Intent citiesIntent = new Intent(MainActivity.this, CitiesActivity.class);
+        MainActivity.this.startActivity(citiesIntent);
 
         mainMotionLayout = findViewById(R.id.main_motion_layout);
         sunriseMotionLayout = findViewById(R.id.sunrise_sunset);
@@ -353,7 +342,7 @@ public class MainActivity extends AppCompatActivity {
                         txtMainLTemp.setText(lTemp);
                         String city = "cityy"; // = ....
                         txtMainCity.setText(city);
-                        String condition = weatherReportModelShort.getWeathercode() + "";
+                        String condition = weatherReportModelShort.getCondition();
                         txtMainCondition.setText(condition);
 
 //                        citiesList.add(weatherReportModelShort);

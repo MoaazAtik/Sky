@@ -101,7 +101,8 @@ public class WeatherDataService {
 
                             WeatherReportModelShort one_day_weather = new WeatherReportModelShort();
                             one_day_weather.setTemperature_2m((float) current.getDouble("temperature_2m"));
-                            one_day_weather.setWeathercode(current.getInt("weathercode"));
+                            one_day_weather.setWeatherCode(current.getInt("weathercode"));
+                            one_day_weather.setCondition(current.getInt("weathercode"));
                             one_day_weather.setTemperature_2m_max(
                                     (float) response.getJSONObject("daily").getJSONArray("temperature_2m_max").getDouble(0));
                             one_day_weather.setTemperature_2m_min(
