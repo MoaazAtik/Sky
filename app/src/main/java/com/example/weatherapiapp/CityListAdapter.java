@@ -62,7 +62,7 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.CityLi
         holder.txtHTemp.setText(hTemp);
         String lTemp = "L:" + (int) weatherReportModel.getTemperature_2m_min() + "°";
         holder.txtLTemp.setText(lTemp);
-        String cityCountry = "cityy"; // = ....
+        String cityCountry = weatherReportModel.getCity() + ", " + weatherReportModel.getCountry();
         holder.txtCityCountry.setText(cityCountry);
         String condition = weatherReportModel.getCondition();
         holder.txtCondition.setText(condition);

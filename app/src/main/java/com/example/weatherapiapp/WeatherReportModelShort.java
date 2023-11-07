@@ -4,13 +4,21 @@ import androidx.annotation.NonNull;
 
 public class WeatherReportModelShort {
 
+    private float lat;
+    private float lon;
+    private String city;
+    private String country;
     private float temperature_2m;
     private int weatherCode;
     private float temperature_2m_max;
     private float temperature_2m_min;
     private String condition;
 
-    public WeatherReportModelShort(float temperature_2m, int weatherCode, float temperature_2m_max, float temperature_2m_min, String condition) {
+    public WeatherReportModelShort(float lat, float lon, String city, String country, float temperature_2m, int weatherCode, float temperature_2m_max, float temperature_2m_min, String condition) {
+        this.lat = lat;
+        this.lon = lon;
+        this.city = city;
+        this.country = country;
         this.temperature_2m = temperature_2m;
         this.weatherCode = weatherCode;
         this.temperature_2m_max = temperature_2m_max;
@@ -25,11 +33,47 @@ public class WeatherReportModelShort {
     @Override
     public String toString() {
 //        return super.toString();
-        return "Temperature: " + temperature_2m +
+        return "Latitude: " + lat +
+                ", Longitude: " + lon +
+                ", City: " + city +
+                ", Country: " + country +
+                ", Temperature: " + temperature_2m +
                 ", Weather Condition Code: " + weatherCode +
                 ", Max Temperature: " + temperature_2m_max +
                 ", Min Temperature: " + temperature_2m_min +
                 ", Condition: " + condition;
+    }
+
+    public float getLat() {
+        return lat;
+    }
+
+    public void setLat(float lat) {
+        this.lat = lat;
+    }
+
+    public float getLon() {
+        return lon;
+    }
+
+    public void setLon(float lon) {
+        this.lon = lon;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public float getTemperature_2m() {

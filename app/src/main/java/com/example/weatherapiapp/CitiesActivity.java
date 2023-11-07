@@ -53,7 +53,7 @@ public class CitiesActivity extends AppCompatActivity {
         findViewById(R.id.btn_cities_add_city).setOnClickListener(view -> {
 //            addCity();
             getForecastShort();
-            Snackbar snackbar = Snackbar.make(citiesLayout, "City Added", BaseTransientBottomBar.LENGTH_LONG);
+            Snackbar snackbar = Snackbar.make(citiesLayout, "City added", BaseTransientBottomBar.LENGTH_LONG);
             snackbar.show();
         });
 
@@ -186,7 +186,7 @@ public class CitiesActivity extends AppCompatActivity {
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             citiesList.remove(viewHolder.getAdapterPosition());
             adapter.notifyDataSetChanged();
-            Snackbar snackbar = Snackbar.make(citiesLayout, "City Deleted", BaseTransientBottomBar.LENGTH_LONG);
+            Snackbar snackbar = Snackbar.make(citiesLayout, "City deleted", BaseTransientBottomBar.LENGTH_LONG);
             snackbar.show();
         }
     };

@@ -340,7 +340,7 @@ public class MainActivity extends AppCompatActivity {
                         txtMainHTemp.setText(hTemp);
                         String lTemp = "L:" + (int) weatherReportModelShort.getTemperature_2m_min() + "°";
                         txtMainLTemp.setText(lTemp);
-                        String city = "cityy"; // = ....
+                        String city = weatherReportModelShort.getCity() + ", " + weatherReportModelShort.getCountry();
                         txtMainCity.setText(city);
                         String condition = weatherReportModelShort.getCondition();
                         txtMainCondition.setText(condition);
