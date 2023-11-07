@@ -1,20 +1,21 @@
 package com.example.weatherapiapp;
 
-public class WeatherReportModelLong {
+// Used in the Lower part of the bottom sheet
+public class WeatherReportModelDetailed {
 
     private String time;
     private float temperature_2m_max;
     private float temperature_2m_min;
     private float windspeed_10m_max;
 
-    public WeatherReportModelLong(String time, float temperature_2m_max, float temperature_2m_min, float windspeed_10m_max) {
+    public WeatherReportModelDetailed(String time, float temperature_2m_max, float temperature_2m_min, float windspeed_10m_max) {
         this.time = time;
         this.temperature_2m_max = temperature_2m_max;
         this.temperature_2m_min = temperature_2m_min;
         this.windspeed_10m_max = windspeed_10m_max;
     }
 
-    public WeatherReportModelLong() {
+    public WeatherReportModelDetailed() {
 
     }
 

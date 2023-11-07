@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         txtMainCondition = findViewById(R.id.txt_home_condition);
 
         getForecastShort();
+        getForecastHourly();
 
         // btnHourlyForecast OnClickListener
         btnHourlyForecast.setOnClickListener(v -> {
@@ -350,5 +351,22 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     } // getForecastShort
+
+    private void getForecastHourly() {
+        WeatherDataService weatherDataService = new WeatherDataService(MainActivity.this);
+//        WeatherDataService weatherDataService = new WeatherDataService(this);
+
+        weatherDataService.getForecastByName("rio", 1, new WeatherDataService.ListenerGetForecastByLatL<WeatherReportModelHourly>() {
+            @Override
+            public void onError(String message) {
+
+            }
+
+            @Override
+            public void onResponse(List<WeatherReportModelHourly> weatherReportModels) {
+                Log.d(TAG, "onResponse: main acativiy");
+            }
+        });
+    }
 
 }
