@@ -14,8 +14,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class WeatherDataService {
 
@@ -173,16 +178,60 @@ public class WeatherDataService {
                             JSONArray temperature_2m = hourly.getJSONArray("temperature_2m");
                             JSONArray precipitation_probability = hourly.getJSONArray("precipitation_probability");
                             JSONArray weather_code = hourly.getJSONArray("weather_code");
-                            for (int i = 0; i < 8; i++) {
+
+                            Date currentUnformattedTime = new Date();
+                            Log.d(TAG, "onResponse: currentUnformattedTime " + currentUnformattedTime);
+                            SimpleDateFormat sdFormat = new SimpleDateFormat("HH:mm aaa", Locale.getDefault());
+                            String currentTime = sdFormat.format(currentUnformattedTime);
+                            Log.d(TAG, "onResponse: currentTime " + currentTime);
+                            int firstTimeIndexForHourModels = 0;
+                            String parsedTime;
+                            String parsedTimeForComparing;
+                            String currentTimeForComparing = currentTime.substring(0, 2);
+                            Log.d(TAG, "onResponse: currentTimeForComparing " + currentTimeForComparing);
+                            String currentTimeForHourModel = currentTime.substring(0,2) + currentTime.substring(6);
+                            Log.d(TAG, "onResponse: currentTimeForModel " + currentTimeForHourModel);
+                            int firstIndexOfParsedTimeForComparing = 0;
+                            int lastIndexOfParsedTimeForComparing = 0;
+
+                            for (int x = 0; x < 24; x++) {
+                                parsedTime = time.getString(x);
+                                Log.d(TAG, "onResponse: parsed time full " + parsedTime);
+//                                parsedTimeForComparing = parsedTime.substring(parsedTime.indexOf('T') + 1, parsedTime.indexOf('T') + 3); ///
+//                                firstIndexOfParsedTimeForComparing = parsedTime.indexOf('T') + 1;
+//                                lastIndexOfParsedTimeForComparing = firstIndexOfParsedTimeForComparing + 2;
+//                                Log.d(TAG, "onResponse: firstIndexOfParsedTimeForComparing " + firstIndexOfParsedTimeForComparing);
+//                                Log.d(TAG, "onResponse: lastIndexOfParsedTimeForComparing " + lastIndexOfParsedTimeForComparing);
+//                                parsedTimeForComparing = parsedTime.substring(firstIndexOfParsedTimeForComparing, lastIndexOfParsedTimeForComparing);
+//                                parsedTimeForComparing = parsedTime.substring(11, 12); // -> gives one digit. 0 or 1 or 2
+                                parsedTimeForComparing = parsedTime.substring(11, 13); // -> gives one digit. 0 or 1 or 2
+                                Log.d(TAG, "onResponse: parsed time after sub " + parsedTime);
+                                Log.d(TAG, "onResponse: parsedTimeForComparing " + parsedTimeForComparing);
+                                if (currentTimeForComparing.equals(parsedTimeForComparing)) {
+                                    firstTimeIndexForHourModels = x - 1;
+//                                    firstTimeIndex = x ;
+                                    // todo: add the case when the current hour is 00:00 so the first index will be -1 :/
+                                    Log.d(TAG, "onResponse: fisttimeindex " + firstTimeIndexForHourModels);
+                                    break;
+                                }
+                                Log.d(TAG, "onResponse: x " + x);
+                            }
+
+                            // todo: add the case when the remaining hours of the day are less than 8
+//                            for (int i = 0; i < 8; i++) {
+//                            for (int i = firstTimeIndex; i < firstTimeIndex + 8; i++) {
+                            for (int i = firstTimeIndexForHourModels; i < firstTimeIndexForHourModels + 4; i++) {
                                 // TODO: manipulate the time string
-                                // I have to create a new model in every loop. otherwise all of the list will be filled at the end of the loops with only the last state of the model.
                                 WeatherReportModelHourly weatherReportModelHourly = new WeatherReportModelHourly();
+//                                weatherReportModelHourly.setTime(time.getString(i));
                                 weatherReportModelHourly.setTime(time.getString(i));
                                 weatherReportModelHourly.setTemperature_2m((float) temperature_2m.getDouble(i));
                                 weatherReportModelHourly.setPrecipitation_probability(precipitation_probability.getInt(i));
                                 weatherReportModelHourly.setWeather_code(weather_code.getInt(i));
                                 weatherReportModelHourly.setCondition(weather_code.getInt(i));
-                                weatherReportModels.add(i, weatherReportModelHourly);
+//                                weatherReportModels.add(i, weatherReportModelHourly);
+                                weatherReportModels.add(weatherReportModelHourly);
+                                Log.d(TAG, "onResponse: weatherReportModels " + weatherReportModels);
                             }
                             listenerGetForecastByLatL.onResponse(weatherReportModels);
                         } catch (JSONException e) {
