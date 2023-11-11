@@ -22,7 +22,9 @@ import android.widget.Toast;
 
 import com.example.weatherapiapp.databinding.ActivityMainBinding;
 
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Objects;
 
 //#freeCodeCamp.org (YT) | REST API - Network Data
 public class MainActivity extends AppCompatActivity {
@@ -42,6 +44,11 @@ public class MainActivity extends AppCompatActivity {
 //    private List<WeatherReportModel> citiesList;
     private MotionLayout mainMotionLayout, sunriseMotionLayout, windMotionLayout;
     private AppCompatTextView txtMainCity, txtMainTemp, txtMainHTemp, txtMainLTemp, txtMainCondition;
+    private AppCompatTextView hour0Time, hour1Time, hour2Time, hour3Time, hour4Time, hour5Time, hour6Time, hour7Time;
+    private AppCompatImageView hour0Condition, hour1Condition, hour2Condition, hour3Condition, hour4Condition, hour5Condition, hour6Condition, hour7Condition;
+    private AppCompatTextView hour0Precipitation, hour1Precipitation, hour2Precipitation, hour3Precipitation, hour4Precipitation, hour5Precipitation, hour6Precipitation, hour7Precipitation;
+    private AppCompatTextView hour0Temp, hour1Temp, hour2Temp, hour3Temp, hour4Temp, hour5Temp, hour6Temp, hour7Temp;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +58,9 @@ public class MainActivity extends AppCompatActivity {
 //        setContentView(view);
         setContentView(R.layout.main);
 
-        Intent citiesIntent = new Intent(MainActivity.this, CitiesActivity.class);
-        MainActivity.this.startActivity(citiesIntent);
+        // Open Cities Activity
+//        Intent citiesIntent = new Intent(MainActivity.this, CitiesActivity.class);
+//        MainActivity.this.startActivity(citiesIntent);
 
         mainMotionLayout = findViewById(R.id.main_motion_layout);
         sunriseMotionLayout = findViewById(R.id.sunrise_sunset);
@@ -74,6 +82,44 @@ public class MainActivity extends AppCompatActivity {
         txtMainLTemp = findViewById(R.id.txt_home_l_temp);
         txtMainCondition = findViewById(R.id.txt_home_condition);
 
+        hour0Time = findViewById(R.id.hour_0_time);
+        hour1Time = findViewById(R.id.hour_1_time);
+        hour2Time = findViewById(R.id.hour_2_time);
+        hour3Time = findViewById(R.id.hour_3_time);
+        hour4Time = findViewById(R.id.hour_4_time);
+        hour5Time = findViewById(R.id.hour_5_time);
+        hour6Time = findViewById(R.id.hour_6_time);
+        hour7Time = findViewById(R.id.hour_7_time);
+
+        hour0Precipitation = findViewById(R.id.hour_0_precipitation);
+        hour1Precipitation = findViewById(R.id.hour_1_precipitation);
+        hour2Precipitation = findViewById(R.id.hour_2_precipitation);
+        hour3Precipitation = findViewById(R.id.hour_3_precipitation);
+        hour4Precipitation = findViewById(R.id.hour_4_precipitation);
+        hour5Precipitation = findViewById(R.id.hour_5_precipitation);
+        hour6Precipitation = findViewById(R.id.hour_6_precipitation);
+        hour7Precipitation = findViewById(R.id.hour_7_precipitation);
+
+        hour0Condition = findViewById(R.id.hour_0_condition);
+        hour1Condition = findViewById(R.id.hour_1_condition);
+        hour2Condition = findViewById(R.id.hour_2_condition);
+        hour3Condition = findViewById(R.id.hour_3_condition);
+        hour4Condition = findViewById(R.id.hour_4_condition);
+        hour5Condition = findViewById(R.id.hour_5_condition);
+        hour6Condition = findViewById(R.id.hour_6_condition);
+        hour7Condition = findViewById(R.id.hour_7_condition);
+
+        hour0Temp = findViewById(R.id.hour_0_temp);
+        hour1Temp = findViewById(R.id.hour_1_temp);
+        hour2Temp = findViewById(R.id.hour_2_temp);
+        hour3Temp = findViewById(R.id.hour_3_temp);
+        hour4Temp = findViewById(R.id.hour_4_temp);
+        hour5Temp = findViewById(R.id.hour_5_temp);
+        hour6Temp = findViewById(R.id.hour_6_temp);
+        hour7Temp = findViewById(R.id.hour_7_temp);
+
+
+        Log.d(TAG, "onCreate: ");
         getForecastShort();
         getForecastHourly();
 
@@ -364,9 +410,215 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(List<WeatherReportModelHourly> weatherReportModels) {
-                Log.d(TAG, "onResponse: main acativiy");
-            }
+                Log.d(TAG, "onResponse: main activity " + "getForecastHourly");
+
+                getAndAssignHourlyOrDailyValues(0, weatherReportModels);
+
+            } // onResponse
         });
+    } // getForecastHourly
+
+    /**
+     *
+     * @param hourlyOrDaily 0 = hourly forecast, 1 = daily forecast
+     * @param weatherReportModels List of weatherReportModels
+     * @param <T> WeatherReportModelHourly or WeatherReportModelDaily
+     */
+//    private <T> void getAndAssignHourlyDailyForecast(int hourlyOrDaily, List<T> weatherReportModels, HourlyDailyFields fieldName) {
+    private <T> void getAndAssignHourlyOrDailyValues(int hourlyOrDaily, List<T> weatherReportModels) {
+
+        Object currentModel;
+        String time = null;
+        String condition = null;
+        String precipitation = null;
+        String temp = null;
+
+        String valueNameSuffix = null;
+        String valueProperty = null;
+        String value = null;
+
+        for (int i = 0; i < weatherReportModels.size(); i++) {
+
+            currentModel = (T) weatherReportModels.get(i); // do I need the casting?
+
+            if (hourlyOrDaily == 0) {
+
+//                String time = "L:" + weatherReportModelHourly.getTime();
+                time = "12 AM";
+                condition = ((WeatherReportModelHourly) currentModel).getCondition();
+                precipitation = (int) ((WeatherReportModelHourly) currentModel).getPrecipitation_probability() + "%";
+                temp = (int) ((WeatherReportModelHourly) currentModel).getTemperature_2m() + "°";
+                valueNameSuffix = "hour";
+
+            } else { //if (hourlyOrDaily == 1)
+
+//                String time = "L:" + weatherReportModelHourly.getTime();
+//                time = "12 AM";
+//                condition = ((WeatherReportModelDaily) currentModel).getCondition();
+//                precipitation = (int) ((WeatherReportModelDaily) currentModel).getPrecipitation_probability() + "%";
+//                temp = (int) ((WeatherReportModelDaily) currentModel).getTemperature_2m() + "°";
+//                valueNameSuffix = "day";
+
+            } // if statement
+
+            for (HourlyDailyFields field : HourlyDailyFields.values()) {
+                switch (field) {
+                    case TIME:
+                        valueProperty = "Time";
+                        value = time;
+                        break;
+                    case CONDITION:
+                        valueProperty = "Condition";
+                        value = condition;
+                        break;
+                    case PRECIPITATION:
+                        valueProperty = "Precipitation";
+                        value = precipitation;
+                        break;
+                    case TEMP:
+                        valueProperty = "Temp";
+                        value = temp;
+                        break;
+                } // switch
+                assignHourlyDailyValue(valueNameSuffix, i, valueProperty, value);
+            } // for (field)
+        } // for (weatherReportModels)
+    }
+
+    private void assignHourlyDailyValue(String valueNameSuffix, int position, String valueProperty, String value) {
+
+        String currentViewName;
+        Field field;
+
+        try {
+
+            if (Objects.equals(valueProperty, "Condition")) {
+
+                currentViewName = valueNameSuffix + position + valueProperty;
+                field = getClass().getDeclaredField(currentViewName);
+                AppCompatImageView currentConditionImage = (AppCompatImageView) field.get(this);
+//            currentConditionImage.setImageResource(R.drawable.arrow_back);
+//                Log.d(TAG, "assignHourlyDailyTextValues: current condition image");
+
+                return;
+            }
+
+            currentViewName = valueNameSuffix + position + valueProperty;
+            field = getClass().getDeclaredField(currentViewName);
+            AppCompatTextView currentView = (AppCompatTextView) field.get(this);
+            currentView.setText(value);
+//            Log.d(TAG, "assignHourlyDailyTextValues: " + currentViewName);
+
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+//        WeatherReportModelHourly weatherReportModelHourly = new WeatherReportModelHourly();
+//
+//    Object currentModel;
+//    WeatherReportModelHourly weatherReportModelHourly;
+//        switch (hourlyOrDaily) {
+//        case 0:
+////                currentModel = new WeatherReportModelHourly();
+//
+//            for (int i = 0; i < weatherReportModels.size(); i++) {
+////            weatherReportModelHourly = (WeatherReportModelHourly) weatherReportModels.get(i);
+//                currentModel = (WeatherReportModelHourly) weatherReportModels.get(i);
+//
+////                    String time = "L:" + weatherReportModelHourly.getTime();
+//                String time = "12 AM";
+//                String condition;
+//                condition = weatherReportModelHourly.getCondition();
+//                condition = weatherReportModelHourly.getCondition();
+//                String precipitation;
+//                precipitation = (int) weatherReportModelHourly.getPrecipitation_probability() + "%";
+//                T = weatherReportModelHourly;
+//                String temp = (int) weatherReportModelHourly T.getTemperature_2m() + "°";
+//                String currentViewName;
+//                Field field;
+//                AppCompatTextView currentView;
+//                AppCompatImageView currentConditionImage;
+//                try {
+//                    currentViewName = "hour" + i + "Time";
+//                    field = getClass().getDeclaredField(currentViewName);
+//                    currentView = (AppCompatTextView) field.get(this);
+//                    currentView.setText(time);
+//
+//                    currentViewName = "hour" + i + "Condition";
+//                    field = getClass().getDeclaredField(currentViewName);
+//                    currentConditionImage = (AppCompatImageView) field.get(this);
+//                    currentConditionImage.setImageResource(R.drawable.arrow_back);
+////                        currentConditionImage.setImageResource(R.drawable.arrow_back);
+//
+//                    currentViewName = "hour" + i + "Precipitation";
+//                    field = getClass().getDeclaredField(currentViewName);
+//                    currentView = (AppCompatTextView) field.get(this);
+//                    currentView.setText(precipitation);
+//
+//                    currentViewName = "hour" + i + "Temp";
+//                    field = getClass().getDeclaredField(currentViewName);
+//                    currentView = (AppCompatTextView) field.get(this);
+//                    currentView.setText(temp);
+//                } catch (NoSuchFieldException | IllegalAccessException e) {
+//                    throw new RuntimeException(e);
+//                }
+//
+//            } // for
+//            break;
+//        case 1:
+//            break;
+//    }
+
+
+//    currentViewName = valueNameSuffix + i + valueProperty;
+//    field = getClass().getDeclaredField(currentViewName);
+//    currentView = (AppCompatTextView) field.get(this);
+//                currentView.setText(time);
+//
+//    currentViewName = valueNameSuffix + i + valueProperty;
+//    field = getClass().getDeclaredField(currentViewName);
+//    currentConditionImage = (AppCompatImageView) field.get(this);
+//                currentConditionImage.setImageResource(R.drawable.arrow_back);
+////                        currentConditionImage.setImageResource(R.drawable.arrow_back);
+//
+//    currentViewName = valueNameSuffix + i + valueProperty;
+//    field = getClass().getDeclaredField(currentViewName);
+//    currentView = (AppCompatTextView) field.get(this);
+//                currentView.setText(precipitation);
+//
+//    currentViewName = valueNameSuffix + i + valueProperty;
+//    field = getClass().getDeclaredField(currentViewName);
+//    currentView = (AppCompatTextView) field.get(this);
+//                currentView.setText(temp);
+
+//
+//                switch (fieldName) {
+//        case TIME:
+//            valueProperty = "Time";
+//            value = time;
+//            break;
+//        case CONDITION:
+//            valueProperty = "Condition";
+//            value = condition;
+//            break;
+//        case PRECIPITATION:
+//            valueProperty = "Precipitation";
+//            value = precipitation;
+//            break;
+//        case TEMP:
+//            valueProperty = "Temp";
+//            value = temp;
+//            break;
+//    } // switch
+
+
+    private enum HourlyDailyFields {
+        TIME,
+        CONDITION,
+        PRECIPITATION,
+        TEMP
     }
 
 }

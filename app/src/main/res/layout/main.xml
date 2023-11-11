@@ -271,6 +271,18 @@
                             android:layout_height="40dp"
                             app:srcCompat="@drawable/condition_mid_rain" />
 
+                        <!--                    Hour 0 precipitation-->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/hour_0_precipitation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="30%"
+                            android:layout_marginTop="-4dp"
+                            android:includeFontPadding="false"
+                            android:textColor="@color/turquoise_blue_precipitation"
+                            android:textSize="13sp"
+                            app:fontFamily="@font/sf_pro_display_regular" />
+
                         <!--                    Hour 0 temperature-->
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/hour_0_temp"
@@ -309,6 +321,18 @@
                             android:layout_height="40dp"
                             app:srcCompat="@drawable/condition_mid_rain" />
 
+                        <!--                    Hour 1 precipitation-->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/hour_1_precipitation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="-4dp"
+                            android:includeFontPadding="false"
+                            android:textColor="@color/turquoise_blue_precipitation"
+                            android:textSize="13sp"
+                            app:fontFamily="@font/sf_pro_display_regular" />
+<!--                        todo: maybe I need to specify the height for when the text is empty  -->
+
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/hour_1_temp"
                             android:layout_width="wrap_content"
@@ -345,6 +369,18 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             app:srcCompat="@drawable/condition_mid_rain" />
+
+                        <!--                    Hour 2 precipitation-->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/hour_2_precipitation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="30%"
+                            android:layout_marginTop="-4dp"
+                            android:includeFontPadding="false"
+                            android:textColor="@color/turquoise_blue_precipitation"
+                            android:textSize="13sp"
+                            app:fontFamily="@font/sf_pro_display_regular" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/hour_2_temp"
@@ -383,6 +419,18 @@
                             android:layout_height="40dp"
                             app:srcCompat="@drawable/condition_mid_rain" />
 
+                        <!--                    Hour 3 precipitation-->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/hour_3_precipitation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="30%"
+                            android:layout_marginTop="-4dp"
+                            android:includeFontPadding="false"
+                            android:textColor="@color/turquoise_blue_precipitation"
+                            android:textSize="13sp"
+                            app:fontFamily="@font/sf_pro_display_regular" />
+
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/hour_3_temp"
                             android:layout_width="wrap_content"
@@ -419,6 +467,18 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             app:srcCompat="@drawable/condition_mid_rain" />
+
+                        <!--                    Hour 4 precipitation-->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/hour_4_precipitation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="30%"
+                            android:layout_marginTop="-4dp"
+                            android:includeFontPadding="false"
+                            android:textColor="@color/turquoise_blue_precipitation"
+                            android:textSize="13sp"
+                            app:fontFamily="@font/sf_pro_display_regular" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/hour_4_temp"
@@ -457,6 +517,18 @@
                             android:layout_height="40dp"
                             app:srcCompat="@drawable/condition_mid_rain" />
 
+                        <!--                    Hour 5 precipitation-->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/hour_5_precipitation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="30%"
+                            android:layout_marginTop="-4dp"
+                            android:includeFontPadding="false"
+                            android:textColor="@color/turquoise_blue_precipitation"
+                            android:textSize="13sp"
+                            app:fontFamily="@font/sf_pro_display_regular" />
+
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/hour_5_temp"
                             android:layout_width="wrap_content"
@@ -493,6 +565,18 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             app:srcCompat="@drawable/condition_mid_rain" />
+
+                        <!--                    Hour 6 precipitation-->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/hour_6_precipitation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="30%"
+                            android:layout_marginTop="-4dp"
+                            android:includeFontPadding="false"
+                            android:textColor="@color/turquoise_blue_precipitation"
+                            android:textSize="13sp"
+                            app:fontFamily="@font/sf_pro_display_regular" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/hour_6_temp"
@@ -531,6 +615,18 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             app:srcCompat="@drawable/condition_mid_rain" />
+
+                        <!--                    Hour 7 precipitation-->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/hour_7_precipitation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="30%"
+                            android:layout_marginTop="-4dp"
+                            android:includeFontPadding="false"
+                            android:textColor="@color/turquoise_blue_precipitation"
+                            android:textSize="13sp"
+                            app:fontFamily="@font/sf_pro_display_regular" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/hour_7_temp"

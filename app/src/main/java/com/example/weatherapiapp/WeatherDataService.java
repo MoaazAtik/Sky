@@ -152,14 +152,15 @@ public class WeatherDataService {
     }//getForecastByLatLShort
 
     // getForecastByLatLHourly(). Get hourly forecast for Upper bottom sheet.
-    public void getForecastByLatLHourly(WeatherReportModelShort weatherReportModelShort, ListenerGetForecastByLatL<WeatherReportModelHourly> listenerGetForecastByLatL) {
+//    public void getForecastByLatLHourly(WeatherReportModelShort weatherReportModelShort, ListenerGetForecastByLatL<WeatherReportModelHourly> listenerGetForecastByLatL) {
+    public void getForecastByLatLHourly(ListenerGetForecastByLatL<WeatherReportModelHourly> listenerGetForecastByLatL) {
 
         QUERY_FOR_FORECAST_BY_LATL_HOURLY =
                 "https://api.open-meteo.com/v1/forecast?latitude=" + cityLat + "&longitude=" + cityLon +
                         "&hourly=temperature_2m,precipitation_probability,weather_code" +
                         "&timezone=auto" +
                         "&forecast_days=1";
-
+        Log.d(TAG, "getForecastByLatLHourly: " + cityLat + cityLon);
         List<WeatherReportModelHourly> weatherReportModels = new ArrayList<>();
 
         JsonObjectRequest weatherRequest = new JsonObjectRequest(Request.Method.GET, QUERY_FOR_FORECAST_BY_LATL_HOURLY, null,
@@ -167,7 +168,6 @@ public class WeatherDataService {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            WeatherReportModelHourly weatherReportModelHourly = new WeatherReportModelHourly();
                             JSONObject hourly = response.getJSONObject("hourly");
                             JSONArray time = hourly.getJSONArray("time");
                             JSONArray temperature_2m = hourly.getJSONArray("temperature_2m");
@@ -175,16 +175,16 @@ public class WeatherDataService {
                             JSONArray weather_code = hourly.getJSONArray("weather_code");
                             for (int i = 0; i < 8; i++) {
                                 // TODO: manipulate the time string
+                                // I have to create a new model in every loop. otherwise all of the list will be filled at the end of the loops with only the last state of the model.
+                                WeatherReportModelHourly weatherReportModelHourly = new WeatherReportModelHourly();
                                 weatherReportModelHourly.setTime(time.getString(i));
                                 weatherReportModelHourly.setTemperature_2m((float) temperature_2m.getDouble(i));
                                 weatherReportModelHourly.setPrecipitation_probability(precipitation_probability.getInt(i));
                                 weatherReportModelHourly.setWeather_code(weather_code.getInt(i));
                                 weatherReportModelHourly.setCondition(weather_code.getInt(i));
-
                                 weatherReportModels.add(i, weatherReportModelHourly);
                             }
                             listenerGetForecastByLatL.onResponse(weatherReportModels);
-                            Log.d(TAG, "onResponse: " + weatherReportModels);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -252,7 +252,8 @@ public class WeatherDataService {
                         });//getForecastByLatLShort
                         break;
                     case 1:
-                        getForecastByLatLHourly(weatherReportModelShort, new ListenerGetForecastByLatL<WeatherReportModelHourly>() {
+//                        getForecastByLatLHourly(weatherReportModelShort, new ListenerGetForecastByLatL<WeatherReportModelHourly>() {
+                        getForecastByLatLHourly(new ListenerGetForecastByLatL<WeatherReportModelHourly>() {
                             @Override
                             public void onError(String message) {
                             }
@@ -264,6 +265,7 @@ public class WeatherDataService {
                         });
                         break;
                     case 2:
+//                        getForecastByLatLDaily(new ListenerGetForecastByLatL<WeatherReportModelDaily>() {
                         getForecastByLatLDaily(weatherReportModelShort, new ListenerGetForecastByLatL<WeatherReportModelDaily>() {
                             @Override
                             public void onError(String message) {
@@ -278,6 +280,7 @@ public class WeatherDataService {
                         break;
                     case 3:
                         getForecastByLatLDetailed(weatherReportModelShort, new ListenerGetForecastByLatL<WeatherReportModelDetailed>() {
+//                        getForecastByLatLDetailed(new ListenerGetForecastByLatL<WeatherReportModelDetailed>() {
                             @Override
                             public void onError(String message) {
 
