@@ -15,6 +15,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -179,37 +180,34 @@ public class WeatherDataService {
                             JSONArray precipitation_probability = hourly.getJSONArray("precipitation_probability");
                             JSONArray weather_code = hourly.getJSONArray("weather_code");
 
-                            Date currentUnformattedTime = new Date();
-                            Log.d(TAG, "onResponse: currentUnformattedTime " + currentUnformattedTime);
-                            SimpleDateFormat sdFormat = new SimpleDateFormat("HH:mm aaa", Locale.getDefault());
-                            String currentTime = sdFormat.format(currentUnformattedTime);
-                            Log.d(TAG, "onResponse: currentTime " + currentTime);
+//                            Date currentUnformattedTime = new Date();
+//                            Log.d(TAG, "onResponse: currentUnformattedTime " + currentUnformattedTime);
+//                            SimpleDateFormat sdFormat = new SimpleDateFormat("HH:mm aaa", Locale.getDefault());
+//                            String currentTime = sdFormat.format(currentUnformattedTime);
+//                            Log.d(TAG, "onResponse: currentTime " + currentTime);
+//
+//                            String currentTimeForComparing = currentTime.substring(0, 2);
+//                            Log.d(TAG, "onResponse: currentTimeForComparing " + currentTimeForComparing);
+                            String currentTime = getFormattedTime(0, null);
+
+//                            String currentTimeForHourModel = currentTime.substring(0,2) + currentTime.substring(6);
+//                            Log.d(TAG, "onResponse: currentTimeForModel " + currentTimeForHourModel);
+
                             int firstTimeIndexForHourModels = 0;
+
+//                            String parsedTime;
                             String parsedTime;
-                            String parsedTimeForComparing;
-                            String currentTimeForComparing = currentTime.substring(0, 2);
-                            Log.d(TAG, "onResponse: currentTimeForComparing " + currentTimeForComparing);
-                            String currentTimeForHourModel = currentTime.substring(0,2) + currentTime.substring(6);
-                            Log.d(TAG, "onResponse: currentTimeForModel " + currentTimeForHourModel);
-                            int firstIndexOfParsedTimeForComparing = 0;
-                            int lastIndexOfParsedTimeForComparing = 0;
+//                            String parsedTime;
 
                             for (int x = 0; x < 24; x++) {
-                                parsedTime = time.getString(x);
-                                Log.d(TAG, "onResponse: parsed time full " + parsedTime);
+//                                parsedTime = time.getString(x);
+//                                Log.d(TAG, "onResponse: parsed time full " + parsedTime);
 //                                parsedTimeForComparing = parsedTime.substring(parsedTime.indexOf('T') + 1, parsedTime.indexOf('T') + 3); ///
-//                                firstIndexOfParsedTimeForComparing = parsedTime.indexOf('T') + 1;
-//                                lastIndexOfParsedTimeForComparing = firstIndexOfParsedTimeForComparing + 2;
-//                                Log.d(TAG, "onResponse: firstIndexOfParsedTimeForComparing " + firstIndexOfParsedTimeForComparing);
-//                                Log.d(TAG, "onResponse: lastIndexOfParsedTimeForComparing " + lastIndexOfParsedTimeForComparing);
-//                                parsedTimeForComparing = parsedTime.substring(firstIndexOfParsedTimeForComparing, lastIndexOfParsedTimeForComparing);
-//                                parsedTimeForComparing = parsedTime.substring(11, 12); // -> gives one digit. 0 or 1 or 2
-                                parsedTimeForComparing = parsedTime.substring(11, 13); // -> gives one digit. 0 or 1 or 2
-                                Log.d(TAG, "onResponse: parsed time after sub " + parsedTime);
-                                Log.d(TAG, "onResponse: parsedTimeForComparing " + parsedTimeForComparing);
-                                if (currentTimeForComparing.equals(parsedTimeForComparing)) {
+//                                parsedTimeForComparing = getFormattedTime(1, time.getString(x)); ///
+                                parsedTime = getFormattedTime(1, time.getString(x));
+                                Log.d(TAG, "onResponse: parsedTimeForComparing " + parsedTime);
+                                if (currentTime.equals(parsedTime)) {
                                     firstTimeIndexForHourModels = x - 1;
-//                                    firstTimeIndex = x ;
                                     // todo: add the case when the current hour is 00:00 so the first index will be -1 :/
                                     Log.d(TAG, "onResponse: fisttimeindex " + firstTimeIndexForHourModels);
                                     break;
@@ -218,18 +216,15 @@ public class WeatherDataService {
                             }
 
                             // todo: add the case when the remaining hours of the day are less than 8
-//                            for (int i = 0; i < 8; i++) {
-//                            for (int i = firstTimeIndex; i < firstTimeIndex + 8; i++) {
                             for (int i = firstTimeIndexForHourModels; i < firstTimeIndexForHourModels + 4; i++) {
                                 // TODO: manipulate the time string
                                 WeatherReportModelHourly weatherReportModelHourly = new WeatherReportModelHourly();
 //                                weatherReportModelHourly.setTime(time.getString(i));
-                                weatherReportModelHourly.setTime(time.getString(i));
+                                weatherReportModelHourly.setTime(getFormattedTime(2, time.getString(i))); ///
                                 weatherReportModelHourly.setTemperature_2m((float) temperature_2m.getDouble(i));
                                 weatherReportModelHourly.setPrecipitation_probability(precipitation_probability.getInt(i));
                                 weatherReportModelHourly.setWeather_code(weather_code.getInt(i));
                                 weatherReportModelHourly.setCondition(weather_code.getInt(i));
-//                                weatherReportModels.add(i, weatherReportModelHourly);
                                 weatherReportModels.add(weatherReportModelHourly);
                                 Log.d(TAG, "onResponse: weatherReportModels " + weatherReportModels);
                             }
@@ -346,5 +341,59 @@ public class WeatherDataService {
         });//getCityLatL
     }//getForecastByName
 
+    /**
+     *
+     * @param usage 0 = Current time, 1 = Parsed time for comparing, 2 = Parsed time for hour model.
+     * @param time (Optional) Provide time to format.
+     * @return Formatted time.
+     */
+    private String getFormattedTime(int usage, String time) {
+
+        switch (usage) {
+            case 0:
+//                Date currentUnformattedTime = new Date();
+//                Log.d(TAG, "onResponse: currentUnformattedTime " + currentUnformattedTime);
+//                SimpleDateFormat sdFormat = new SimpleDateFormat("HH:mm aaa", Locale.getDefault());
+                SimpleDateFormat sdFormat = new SimpleDateFormat("HH", Locale.getDefault());
+//                String currentTime = sdFormat.format(currentUnformattedTime);
+//                String currentTime = sdFormat.format(new Date());
+//                Log.d(TAG, "getFormattedTime: currentTime " + currentTime);
+
+//                String currentTimeForComparing = currentTime.substring(0, 2);
+//                Log.d(TAG, "onResponse: currentTimeForComparing " + currentTimeForComparing);
+//                return currentTimeForComparing;
+//                return currentTime;
+                return sdFormat.format(new Date());
+//                break;
+            case 1:
+//                String parsedTimeForComparing = time.substring(time.indexOf('T') + 1, time.indexOf('T') + 3);
+                return time.substring(time.indexOf('T') + 1, time.indexOf('T') + 3);
+            case 2:
+
+//                // Time received from the API
+//                String apiTime = "2023-11-12T15:00";
+
+                // Parse the API time string
+                SimpleDateFormat parsedDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.getDefault());
+                Date date;
+                try {
+//                    date = parsedDateFormat.parse(apiTime);
+                    date = parsedDateFormat.parse(time);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+
+                // Format the date into '3 PM' format
+                SimpleDateFormat displayFormat = new SimpleDateFormat("h a", Locale.getDefault());
+//                String formattedTime = displayFormat.format(date).toUpperCase();
+//                Log.d(TAG, "getFormattedTime: formattedTime" + formattedTime);
+//                parsedTimeForHourModel
+
+//                return formattedTime;
+                return displayFormat.format(date).toUpperCase();
+        }
+        return null;
+    }
 
 }
