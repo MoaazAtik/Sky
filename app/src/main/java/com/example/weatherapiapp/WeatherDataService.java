@@ -161,17 +161,10 @@ public class WeatherDataService {
 //    public void getForecastByLatLHourly(WeatherReportModelShort weatherReportModelShort, ListenerGetForecastByLatL<WeatherReportModelHourly> listenerGetForecastByLatL) {
     public void getForecastByLatLHourly(ListenerGetForecastByLatL<WeatherReportModelHourly> listenerGetForecastByLatL) {
 
-        getQueryUrl();
-
-        QUERY_FOR_FORECAST_BY_LATL_HOURLY =
-                "https://api.open-meteo.com/v1/forecast?latitude=" + cityLat + "&longitude=" + cityLon +
-                        "&hourly=temperature_2m,precipitation_probability,weather_code" +
-                        "&timezone=auto" +
-                        "&forecast_days=1";
         Log.d(TAG, "getForecastByLatLHourly: " + cityLat + cityLon);
         List<WeatherReportModelHourly> weatherReportModels = new ArrayList<>();
 
-        JsonObjectRequest weatherRequest = new JsonObjectRequest(Request.Method.GET, QUERY_FOR_FORECAST_BY_LATL_HOURLY, null,
+        JsonObjectRequest weatherRequest = new JsonObjectRequest(Request.Method.GET, getQueryUrl(), null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -188,17 +181,14 @@ public class WeatherDataService {
 
                             for (int x = 0; x < 24; x++) {
                                 parsedTime = getFormattedTime(1, time.getString(x));
-                                Log.d(TAG, "onResponse: parsedTimeForComparing " + parsedTime);
                                 if (currentTime.equals(parsedTime)) {
                                     firstTimeIndexForHourModels = x - 1;
                                     // todo: add the case when the current hour is 00:00 so the first index will be -1 :/
                                     Log.d(TAG, "onResponse: fisttimeindex " + firstTimeIndexForHourModels);
                                     break;
                                 }
-                                Log.d(TAG, "onResponse: x " + x);
                             }
 
-                            // todo: add the case when the remaining hours of the day are less than 8
                             for (int i = firstTimeIndexForHourModels; i < firstTimeIndexForHourModels + 8; i++) {
                                 WeatherReportModelHourly weatherReportModelHourly = new WeatherReportModelHourly();
                                 weatherReportModelHourly.setTime(getFormattedTime(2, time.getString(i)));
@@ -324,7 +314,7 @@ public class WeatherDataService {
 
     /**
      *
-     * @param usage 0 = Current time, 1 = Parsed time for comparing, 2 = Parsed time for hour model.
+     * @param usage 0 = Current time (HH = 00 to 23), 1 = Parsed time for comparing, 2 = Parsed time for hour model.
      * @param time (Optional) Provide time to format.
      * @return Formatted time.
      */
@@ -349,6 +339,40 @@ public class WeatherDataService {
                 return displayFormat.format(date).toUpperCase();
         }
         return null;
+    }
+
+    /**
+     * Get the url of query for hourly forecast according to the current time. 3 days, or 1 day and 1 past day, or 1 day.
+     *
+     * @return QUERY_FOR_FORECAST_BY_LATL_HOURLY.
+     */
+    private String getQueryUrl() {
+
+        int currentHour = Integer.parseInt(getFormattedTime(0, null));
+
+        if (24 - currentHour < 7)
+            QUERY_FOR_FORECAST_BY_LATL_HOURLY =
+                    "https://api.open-meteo.com/v1/forecast?latitude=" + cityLat + "&longitude=" + cityLon +
+                            "&hourly=temperature_2m,precipitation_probability,weather_code" +
+                            "&timezone=auto" +
+                            "&forecast_days=" + "3";
+
+        else if (currentHour == 0)
+            QUERY_FOR_FORECAST_BY_LATL_HOURLY =
+                    "https://api.open-meteo.com/v1/forecast?latitude=" + cityLat + "&longitude=" + cityLon +
+                            "&hourly=temperature_2m,precipitation_probability,weather_code" +
+                            "&timezone=auto" +
+                            "&past_days=" + "1" +
+                            "&forecast_days=" + "1";
+
+        else
+            QUERY_FOR_FORECAST_BY_LATL_HOURLY =
+                    "https://api.open-meteo.com/v1/forecast?latitude=" + cityLat + "&longitude=" + cityLon +
+                            "&hourly=temperature_2m,precipitation_probability,weather_code" +
+                            "&timezone=auto" +
+                            "&forecast_days=" + "1";
+        Log.d(TAG, "getQueryUrl: " + QUERY_FOR_FORECAST_BY_LATL_HOURLY);
+        return QUERY_FOR_FORECAST_BY_LATL_HOURLY;
     }
 
 }
