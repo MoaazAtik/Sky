@@ -179,11 +179,17 @@ public class WeatherDataService {
                             String parsedTime;
                             int firstTimeIndexForHourModels = 0;
 
-                            for (int x = 0; x < 24; x++) {
+                            String currentDate = getFormattedTime(3, null);
+                            String parsedDate = getFormattedTime(4, null);
+
+                            /*
+                             When the current hour is 00:00, the Query will result in 1 past day and 1 day. So, I have to check for the date too because firstTimeIndexForHourModels should be 24 and not 0.
+                             I.e the 25th element which represents 00:00 of current day and not past day.
+                             */
+                            for (int x = 0; x < 25; x++) {
                                 parsedTime = getFormattedTime(1, time.getString(x));
-                                if (currentTime.equals(parsedTime)) {
+                                if (currentTime.equals(parsedTime) && currentDate.equals(parsedDate)) {
                                     firstTimeIndexForHourModels = x - 1;
-                                    // todo: add the case when the current hour is 00:00 so the first index will be -1 :/
                                     Log.d(TAG, "onResponse: fisttimeindex " + firstTimeIndexForHourModels);
                                     break;
                                 }
@@ -314,7 +320,7 @@ public class WeatherDataService {
 
     /**
      *
-     * @param usage 0 = Current time (HH = 00 to 23), 1 = Parsed time for comparing, 2 = Parsed time for hour model.
+     * @param usage 0: Current time (HH = 00 to 23), 1: Parsed time for comparing (e.g 21), 2: Parsed time for hour model (e.g 9 PM), 3: Current date (e.g 27), 4: Parsed date (e.g. 27).
      * @param time (Optional) Provide time to format.
      * @return Formatted time.
      */
@@ -327,16 +333,21 @@ public class WeatherDataService {
             case 1:
                 return time.substring(time.indexOf('T') + 1, time.indexOf('T') + 3);
             case 2:
-                SimpleDateFormat parsedDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.getDefault());
+                SimpleDateFormat parsedDateTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.getDefault());
                 Date date;
                 try {
-                    date = parsedDateFormat.parse(time);
+                    date = parsedDateTimeFormat.parse(time);
                 } catch (ParseException e) {
                     e.printStackTrace();
                     return null;
                 }
                 SimpleDateFormat displayFormat = new SimpleDateFormat("h a", Locale.getDefault());
                 return displayFormat.format(date).toUpperCase();
+            case 3:
+                SimpleDateFormat sdFormat2 = new SimpleDateFormat("dd", Locale.getDefault());
+                return sdFormat2.format(new Date());
+            case 4:
+                return time.substring(time.indexOf('T') - 2, time.indexOf('T'));
         }
         return null;
     }
