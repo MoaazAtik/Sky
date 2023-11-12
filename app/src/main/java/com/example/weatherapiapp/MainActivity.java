@@ -424,7 +424,6 @@ public class MainActivity extends AppCompatActivity {
      * @param weatherReportModels List of weatherReportModels
      * @param <T> WeatherReportModelHourly or WeatherReportModelDaily
      */
-//    private <T> void getAndAssignHourlyDailyForecast(int hourlyOrDaily, List<T> weatherReportModels, HourlyDailyFields fieldName) {
     private <T> void getAndAssignHourlyOrDailyValues(int hourlyOrDaily, List<T> weatherReportModels) {
 
         Object currentModel;
@@ -443,8 +442,7 @@ public class MainActivity extends AppCompatActivity {
 
             if (hourlyOrDaily == 0) {
 
-//                String time = "L:" + weatherReportModelHourly.getTime();
-                time = "12 AM";
+                time = ((WeatherReportModelHourly) currentModel).getTime();
                 condition = ((WeatherReportModelHourly) currentModel).getCondition();
                 precipitation = (int) ((WeatherReportModelHourly) currentModel).getPrecipitation_probability() + "%";
                 temp = (int) ((WeatherReportModelHourly) currentModel).getTemperature_2m() + "°";
@@ -514,104 +512,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-//        WeatherReportModelHourly weatherReportModelHourly = new WeatherReportModelHourly();
-//
-//    Object currentModel;
-//    WeatherReportModelHourly weatherReportModelHourly;
-//        switch (hourlyOrDaily) {
-//        case 0:
-////                currentModel = new WeatherReportModelHourly();
-//
-//            for (int i = 0; i < weatherReportModels.size(); i++) {
-////            weatherReportModelHourly = (WeatherReportModelHourly) weatherReportModels.get(i);
-//                currentModel = (WeatherReportModelHourly) weatherReportModels.get(i);
-//
-////                    String time = "L:" + weatherReportModelHourly.getTime();
-//                String time = "12 AM";
-//                String condition;
-//                condition = weatherReportModelHourly.getCondition();
-//                condition = weatherReportModelHourly.getCondition();
-//                String precipitation;
-//                precipitation = (int) weatherReportModelHourly.getPrecipitation_probability() + "%";
-//                T = weatherReportModelHourly;
-//                String temp = (int) weatherReportModelHourly T.getTemperature_2m() + "°";
-//                String currentViewName;
-//                Field field;
-//                AppCompatTextView currentView;
-//                AppCompatImageView currentConditionImage;
-//                try {
-//                    currentViewName = "hour" + i + "Time";
-//                    field = getClass().getDeclaredField(currentViewName);
-//                    currentView = (AppCompatTextView) field.get(this);
-//                    currentView.setText(time);
-//
-//                    currentViewName = "hour" + i + "Condition";
-//                    field = getClass().getDeclaredField(currentViewName);
-//                    currentConditionImage = (AppCompatImageView) field.get(this);
-//                    currentConditionImage.setImageResource(R.drawable.arrow_back);
-////                        currentConditionImage.setImageResource(R.drawable.arrow_back);
-//
-//                    currentViewName = "hour" + i + "Precipitation";
-//                    field = getClass().getDeclaredField(currentViewName);
-//                    currentView = (AppCompatTextView) field.get(this);
-//                    currentView.setText(precipitation);
-//
-//                    currentViewName = "hour" + i + "Temp";
-//                    field = getClass().getDeclaredField(currentViewName);
-//                    currentView = (AppCompatTextView) field.get(this);
-//                    currentView.setText(temp);
-//                } catch (NoSuchFieldException | IllegalAccessException e) {
-//                    throw new RuntimeException(e);
-//                }
-//
-//            } // for
-//            break;
-//        case 1:
-//            break;
-//    }
-
-
-//    currentViewName = valueNameSuffix + i + valueProperty;
-//    field = getClass().getDeclaredField(currentViewName);
-//    currentView = (AppCompatTextView) field.get(this);
-//                currentView.setText(time);
-//
-//    currentViewName = valueNameSuffix + i + valueProperty;
-//    field = getClass().getDeclaredField(currentViewName);
-//    currentConditionImage = (AppCompatImageView) field.get(this);
-//                currentConditionImage.setImageResource(R.drawable.arrow_back);
-////                        currentConditionImage.setImageResource(R.drawable.arrow_back);
-//
-//    currentViewName = valueNameSuffix + i + valueProperty;
-//    field = getClass().getDeclaredField(currentViewName);
-//    currentView = (AppCompatTextView) field.get(this);
-//                currentView.setText(precipitation);
-//
-//    currentViewName = valueNameSuffix + i + valueProperty;
-//    field = getClass().getDeclaredField(currentViewName);
-//    currentView = (AppCompatTextView) field.get(this);
-//                currentView.setText(temp);
-
-//
-//                switch (fieldName) {
-//        case TIME:
-//            valueProperty = "Time";
-//            value = time;
-//            break;
-//        case CONDITION:
-//            valueProperty = "Condition";
-//            value = condition;
-//            break;
-//        case PRECIPITATION:
-//            valueProperty = "Precipitation";
-//            value = precipitation;
-//            break;
-//        case TEMP:
-//            valueProperty = "Temp";
-//            value = temp;
-//            break;
-//    } // switch
 
 
     private enum HourlyDailyFields {

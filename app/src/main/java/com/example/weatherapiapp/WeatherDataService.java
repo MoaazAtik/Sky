@@ -161,6 +161,8 @@ public class WeatherDataService {
 //    public void getForecastByLatLHourly(WeatherReportModelShort weatherReportModelShort, ListenerGetForecastByLatL<WeatherReportModelHourly> listenerGetForecastByLatL) {
     public void getForecastByLatLHourly(ListenerGetForecastByLatL<WeatherReportModelHourly> listenerGetForecastByLatL) {
 
+        getQueryUrl();
+
         QUERY_FOR_FORECAST_BY_LATL_HOURLY =
                 "https://api.open-meteo.com/v1/forecast?latitude=" + cityLat + "&longitude=" + cityLon +
                         "&hourly=temperature_2m,precipitation_probability,weather_code" +
@@ -180,30 +182,11 @@ public class WeatherDataService {
                             JSONArray precipitation_probability = hourly.getJSONArray("precipitation_probability");
                             JSONArray weather_code = hourly.getJSONArray("weather_code");
 
-//                            Date currentUnformattedTime = new Date();
-//                            Log.d(TAG, "onResponse: currentUnformattedTime " + currentUnformattedTime);
-//                            SimpleDateFormat sdFormat = new SimpleDateFormat("HH:mm aaa", Locale.getDefault());
-//                            String currentTime = sdFormat.format(currentUnformattedTime);
-//                            Log.d(TAG, "onResponse: currentTime " + currentTime);
-//
-//                            String currentTimeForComparing = currentTime.substring(0, 2);
-//                            Log.d(TAG, "onResponse: currentTimeForComparing " + currentTimeForComparing);
                             String currentTime = getFormattedTime(0, null);
-
-//                            String currentTimeForHourModel = currentTime.substring(0,2) + currentTime.substring(6);
-//                            Log.d(TAG, "onResponse: currentTimeForModel " + currentTimeForHourModel);
-
+                            String parsedTime;
                             int firstTimeIndexForHourModels = 0;
 
-//                            String parsedTime;
-                            String parsedTime;
-//                            String parsedTime;
-
                             for (int x = 0; x < 24; x++) {
-//                                parsedTime = time.getString(x);
-//                                Log.d(TAG, "onResponse: parsed time full " + parsedTime);
-//                                parsedTimeForComparing = parsedTime.substring(parsedTime.indexOf('T') + 1, parsedTime.indexOf('T') + 3); ///
-//                                parsedTimeForComparing = getFormattedTime(1, time.getString(x)); ///
                                 parsedTime = getFormattedTime(1, time.getString(x));
                                 Log.d(TAG, "onResponse: parsedTimeForComparing " + parsedTime);
                                 if (currentTime.equals(parsedTime)) {
@@ -216,18 +199,16 @@ public class WeatherDataService {
                             }
 
                             // todo: add the case when the remaining hours of the day are less than 8
-                            for (int i = firstTimeIndexForHourModels; i < firstTimeIndexForHourModels + 4; i++) {
-                                // TODO: manipulate the time string
+                            for (int i = firstTimeIndexForHourModels; i < firstTimeIndexForHourModels + 8; i++) {
                                 WeatherReportModelHourly weatherReportModelHourly = new WeatherReportModelHourly();
-//                                weatherReportModelHourly.setTime(time.getString(i));
-                                weatherReportModelHourly.setTime(getFormattedTime(2, time.getString(i))); ///
+                                weatherReportModelHourly.setTime(getFormattedTime(2, time.getString(i)));
                                 weatherReportModelHourly.setTemperature_2m((float) temperature_2m.getDouble(i));
                                 weatherReportModelHourly.setPrecipitation_probability(precipitation_probability.getInt(i));
                                 weatherReportModelHourly.setWeather_code(weather_code.getInt(i));
                                 weatherReportModelHourly.setCondition(weather_code.getInt(i));
                                 weatherReportModels.add(weatherReportModelHourly);
-                                Log.d(TAG, "onResponse: weatherReportModels " + weatherReportModels);
                             }
+                            Log.d(TAG, "onResponse: weatherReportModels " + weatherReportModels);
                             listenerGetForecastByLatL.onResponse(weatherReportModels);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -351,46 +332,20 @@ public class WeatherDataService {
 
         switch (usage) {
             case 0:
-//                Date currentUnformattedTime = new Date();
-//                Log.d(TAG, "onResponse: currentUnformattedTime " + currentUnformattedTime);
-//                SimpleDateFormat sdFormat = new SimpleDateFormat("HH:mm aaa", Locale.getDefault());
                 SimpleDateFormat sdFormat = new SimpleDateFormat("HH", Locale.getDefault());
-//                String currentTime = sdFormat.format(currentUnformattedTime);
-//                String currentTime = sdFormat.format(new Date());
-//                Log.d(TAG, "getFormattedTime: currentTime " + currentTime);
-
-//                String currentTimeForComparing = currentTime.substring(0, 2);
-//                Log.d(TAG, "onResponse: currentTimeForComparing " + currentTimeForComparing);
-//                return currentTimeForComparing;
-//                return currentTime;
                 return sdFormat.format(new Date());
-//                break;
             case 1:
-//                String parsedTimeForComparing = time.substring(time.indexOf('T') + 1, time.indexOf('T') + 3);
                 return time.substring(time.indexOf('T') + 1, time.indexOf('T') + 3);
             case 2:
-
-//                // Time received from the API
-//                String apiTime = "2023-11-12T15:00";
-
-                // Parse the API time string
                 SimpleDateFormat parsedDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.getDefault());
                 Date date;
                 try {
-//                    date = parsedDateFormat.parse(apiTime);
                     date = parsedDateFormat.parse(time);
                 } catch (ParseException e) {
                     e.printStackTrace();
                     return null;
                 }
-
-                // Format the date into '3 PM' format
                 SimpleDateFormat displayFormat = new SimpleDateFormat("h a", Locale.getDefault());
-//                String formattedTime = displayFormat.format(date).toUpperCase();
-//                Log.d(TAG, "getFormattedTime: formattedTime" + formattedTime);
-//                parsedTimeForHourModel
-
-//                return formattedTime;
                 return displayFormat.format(date).toUpperCase();
         }
         return null;
