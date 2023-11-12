@@ -14,10 +14,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -161,7 +159,7 @@ public class WeatherDataService {
 //    public void getForecastByLatLHourly(WeatherReportModelShort weatherReportModelShort, ListenerGetForecastByLatL<WeatherReportModelHourly> listenerGetForecastByLatL) {
     public void getForecastByLatLHourly(ListenerGetForecastByLatL<WeatherReportModelHourly> listenerGetForecastByLatL) {
 
-        Log.d(TAG, "getForecastByLatLHourly: " + cityLat + cityLon);
+        Log.d(TAG, "getForecastByLatLHourly: " + cityLat + " " + cityLon);
         List<WeatherReportModelHourly> weatherReportModels = new ArrayList<>();
 
         JsonObjectRequest weatherRequest = new JsonObjectRequest(Request.Method.GET, getQueryUrl(), null,
@@ -175,19 +173,22 @@ public class WeatherDataService {
                             JSONArray precipitation_probability = hourly.getJSONArray("precipitation_probability");
                             JSONArray weather_code = hourly.getJSONArray("weather_code");
 
-                            String currentTime = getFormattedTime(0, null);
+                            String currentTime = getFormattedDateTime(0, null);
                             String parsedTime;
-                            int firstTimeIndexForHourModels = 0;
 
-                            String currentDate = getFormattedTime(3, null);
-                            String parsedDate = getFormattedTime(4, null);
+                            String currentDate = getFormattedDateTime(3, null);
+                            String parsedDate;
+                            String parsedDateTime;
+                            int firstTimeIndexForHourModels = 0;
 
                             /*
                              When the current hour is 00:00, the Query will result in 1 past day and 1 day. So, I have to check for the date too because firstTimeIndexForHourModels should be 24 and not 0.
                              I.e the 25th element which represents 00:00 of current day and not past day.
                              */
                             for (int x = 0; x < 25; x++) {
-                                parsedTime = getFormattedTime(1, time.getString(x));
+                                parsedDateTime = time.getString(x);
+                                parsedDate = getFormattedDateTime(4, parsedDateTime);
+                                parsedTime = getFormattedDateTime(1, parsedDateTime);
                                 if (currentTime.equals(parsedTime) && currentDate.equals(parsedDate)) {
                                     firstTimeIndexForHourModels = x - 1;
                                     Log.d(TAG, "onResponse: fisttimeindex " + firstTimeIndexForHourModels);
@@ -197,7 +198,7 @@ public class WeatherDataService {
 
                             for (int i = firstTimeIndexForHourModels; i < firstTimeIndexForHourModels + 8; i++) {
                                 WeatherReportModelHourly weatherReportModelHourly = new WeatherReportModelHourly();
-                                weatherReportModelHourly.setTime(getFormattedTime(2, time.getString(i)));
+                                weatherReportModelHourly.setTime(getFormattedDateTime(2, time.getString(i)));
                                 weatherReportModelHourly.setTemperature_2m((float) temperature_2m.getDouble(i));
                                 weatherReportModelHourly.setPrecipitation_probability(precipitation_probability.getInt(i));
                                 weatherReportModelHourly.setWeather_code(weather_code.getInt(i));
@@ -321,33 +322,35 @@ public class WeatherDataService {
     /**
      *
      * @param usage 0: Current time (HH = 00 to 23), 1: Parsed time for comparing (e.g 21), 2: Parsed time for hour model (e.g 9 PM), 3: Current date (e.g 27), 4: Parsed date (e.g. 27).
-     * @param time (Optional) Provide time to format.
+     * @param dateTime (Optional) Provide time to format.
      * @return Formatted time.
      */
-    private String getFormattedTime(int usage, String time) {
+    private String getFormattedDateTime(int usage, String dateTime) {
+
+        SimpleDateFormat sdFormat;
+        Date date = new Date();
 
         switch (usage) {
             case 0:
-                SimpleDateFormat sdFormat = new SimpleDateFormat("HH", Locale.getDefault());
-                return sdFormat.format(new Date());
+                sdFormat = new SimpleDateFormat("HH", Locale.getDefault());
+                return sdFormat.format(date);
             case 1:
-                return time.substring(time.indexOf('T') + 1, time.indexOf('T') + 3);
+                return dateTime.substring(dateTime.indexOf('T') + 1, dateTime.indexOf('T') + 3);
             case 2:
-                SimpleDateFormat parsedDateTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.getDefault());
-                Date date;
+                sdFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.getDefault()); // Parsed Date Time Format
                 try {
-                    date = parsedDateTimeFormat.parse(time);
+                    date = sdFormat.parse(dateTime);
                 } catch (ParseException e) {
                     e.printStackTrace();
                     return null;
                 }
-                SimpleDateFormat displayFormat = new SimpleDateFormat("h a", Locale.getDefault());
-                return displayFormat.format(date).toUpperCase();
+                sdFormat = new SimpleDateFormat("h a", Locale.getDefault());
+                return sdFormat.format(date).toUpperCase();
             case 3:
-                SimpleDateFormat sdFormat2 = new SimpleDateFormat("dd", Locale.getDefault());
-                return sdFormat2.format(new Date());
+                sdFormat = new SimpleDateFormat("dd", Locale.getDefault());
+                return sdFormat.format(date);
             case 4:
-                return time.substring(time.indexOf('T') - 2, time.indexOf('T'));
+                return dateTime.substring(dateTime.indexOf('T') - 2, dateTime.indexOf('T'));
         }
         return null;
     }
@@ -359,7 +362,7 @@ public class WeatherDataService {
      */
     private String getQueryUrl() {
 
-        int currentHour = Integer.parseInt(getFormattedTime(0, null));
+        int currentHour = Integer.parseInt(getFormattedDateTime(0, null));
 
         if (24 - currentHour < 7)
             QUERY_FOR_FORECAST_BY_LATL_HOURLY =
