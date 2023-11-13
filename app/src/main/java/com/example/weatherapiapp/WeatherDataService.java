@@ -155,7 +155,10 @@ public class WeatherDataService {
         MySingleton.getInstance(context).addToRequestQueue(weatherRequest);
     }//getForecastByLatLShort
 
-    // getForecastByLatLHourly(). Get hourly forecast for Upper bottom sheet.
+    /**
+     * Get Hourly forecast for Upper bottom sheet.
+     * @param listenerGetForecastByLatL
+     */
 //    public void getForecastByLatLHourly(WeatherReportModelShort weatherReportModelShort, ListenerGetForecastByLatL<WeatherReportModelHourly> listenerGetForecastByLatL) {
     public void getForecastByLatLHourly(ListenerGetForecastByLatL<WeatherReportModelHourly> listenerGetForecastByLatL) {
 
@@ -171,6 +174,7 @@ public class WeatherDataService {
                             JSONArray time = hourly.getJSONArray("time");
                             JSONArray temperature_2m = hourly.getJSONArray("temperature_2m");
                             JSONArray precipitation_probability = hourly.getJSONArray("precipitation_probability");
+                            JSONArray is_day = hourly.getJSONArray("is_day");
                             JSONArray weather_code = hourly.getJSONArray("weather_code");
 
                             String currentTime = getFormattedDateTime(0, null);
@@ -182,7 +186,8 @@ public class WeatherDataService {
                             int firstTimeIndexForHourModels = 0;
 
                             /*
-                             When the current hour is 00:00, the Query will result in 1 past day and 1 day. So, I have to check for the date too because firstTimeIndexForHourModels should be 24 and not 0.
+                             When the current hour is 00:00, the Query will result in 1 past day and 1 day.
+                             So, I have to check for the date too because firstTimeIndexForHourModels should be 24 and not 0.
                              I.e the 25th element which represents 00:00 of current day and not past day.
                              */
                             for (int x = 0; x < 25; x++) {
@@ -201,8 +206,8 @@ public class WeatherDataService {
                                 weatherReportModelHourly.setTime(getFormattedDateTime(2, time.getString(i)));
                                 weatherReportModelHourly.setTemperature_2m((float) temperature_2m.getDouble(i));
                                 weatherReportModelHourly.setPrecipitation_probability(precipitation_probability.getInt(i));
+                                weatherReportModelHourly.setIs_day(is_day.getInt(i));
                                 weatherReportModelHourly.setWeather_code(weather_code.getInt(i));
-                                weatherReportModelHourly.setCondition(weather_code.getInt(i));
                                 weatherReportModels.add(weatherReportModelHourly);
                             }
                             Log.d(TAG, "onResponse: weatherReportModels " + weatherReportModels);
@@ -319,11 +324,16 @@ public class WeatherDataService {
         });//getCityLatL
     }//getForecastByName
 
+
     /**
      *
-     * @param usage 0: Current time (HH = 00 to 23), 1: Parsed time for comparing (e.g 21), 2: Parsed time for hour model (e.g 9 PM), 3: Current date (e.g 27), 4: Parsed date (e.g. 27).
-     * @param dateTime (Optional) Provide time to format.
-     * @return Formatted time.
+     * @param usage 0: Current time (HH = 00 to 23),
+     *              1: Parsed time for comparing (e.g 21),
+     *              2: Parsed time for hour model (e.g 9 PM),
+     *              3: Current date (e.g 27),
+     *              4: Parsed date (e.g. 27).
+     * @param dateTime (Optional) Provide date and/or time to format.
+     * @return Formatted date or time.
      */
     private String getFormattedDateTime(int usage, String dateTime) {
 
@@ -367,14 +377,14 @@ public class WeatherDataService {
         if (24 - currentHour < 7)
             QUERY_FOR_FORECAST_BY_LATL_HOURLY =
                     "https://api.open-meteo.com/v1/forecast?latitude=" + cityLat + "&longitude=" + cityLon +
-                            "&hourly=temperature_2m,precipitation_probability,weather_code" +
+                            "&hourly=temperature_2m,precipitation_probability,is_day,weather_code" +
                             "&timezone=auto" +
                             "&forecast_days=" + "3";
 
         else if (currentHour == 0)
             QUERY_FOR_FORECAST_BY_LATL_HOURLY =
                     "https://api.open-meteo.com/v1/forecast?latitude=" + cityLat + "&longitude=" + cityLon +
-                            "&hourly=temperature_2m,precipitation_probability,weather_code" +
+                            "&hourly=temperature_2m,precipitation_probability,is_day,weather_code" +
                             "&timezone=auto" +
                             "&past_days=" + "1" +
                             "&forecast_days=" + "1";
@@ -382,7 +392,7 @@ public class WeatherDataService {
         else
             QUERY_FOR_FORECAST_BY_LATL_HOURLY =
                     "https://api.open-meteo.com/v1/forecast?latitude=" + cityLat + "&longitude=" + cityLon +
-                            "&hourly=temperature_2m,precipitation_probability,weather_code" +
+                            "&hourly=temperature_2m,precipitation_probability,is_day,weather_code" +
                             "&timezone=auto" +
                             "&forecast_days=" + "1";
         Log.d(TAG, "getQueryUrl: " + QUERY_FOR_FORECAST_BY_LATL_HOURLY);

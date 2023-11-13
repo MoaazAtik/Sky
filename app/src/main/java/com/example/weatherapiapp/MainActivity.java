@@ -10,7 +10,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -20,6 +19,7 @@ import android.view.animation.LinearInterpolator;
 import android.widget.HorizontalScrollView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.weatherapiapp.databinding.ActivityMainBinding;
 
 import java.lang.reflect.Field;
@@ -428,7 +428,7 @@ public class MainActivity extends AppCompatActivity {
 
         Object currentModel;
         String time = null;
-        String condition = null;
+        int conditionImageId = 0;
         String precipitation = null;
         String temp = null;
 
@@ -443,7 +443,7 @@ public class MainActivity extends AppCompatActivity {
             if (hourlyOrDaily == 0) {
 
                 time = ((WeatherReportModelHourly) currentModel).getTime();
-                condition = ((WeatherReportModelHourly) currentModel).getCondition();
+                conditionImageId = ((WeatherReportModelHourly) currentModel).getConditionImageId(); ///
                 precipitation = (int) ((WeatherReportModelHourly) currentModel).getPrecipitation_probability() + "%";
                 temp = (int) ((WeatherReportModelHourly) currentModel).getTemperature_2m() + "°";
                 valueNameSuffix = "hour";
@@ -467,7 +467,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case CONDITION:
                         valueProperty = "Condition";
-                        value = condition;
+                        value = String.valueOf(conditionImageId);
                         break;
                     case PRECIPITATION:
                         valueProperty = "Precipitation";
@@ -495,9 +495,8 @@ public class MainActivity extends AppCompatActivity {
                 currentViewName = valueNameSuffix + position + valueProperty;
                 field = getClass().getDeclaredField(currentViewName);
                 AppCompatImageView currentConditionImage = (AppCompatImageView) field.get(this);
-//            currentConditionImage.setImageResource(R.drawable.arrow_back);
-//                Log.d(TAG, "assignHourlyDailyTextValues: current condition image");
 
+                Glide.with(this).load(Integer.parseInt(value)).into(currentConditionImage);
                 return;
             }
 
@@ -505,7 +504,6 @@ public class MainActivity extends AppCompatActivity {
             field = getClass().getDeclaredField(currentViewName);
             AppCompatTextView currentView = (AppCompatTextView) field.get(this);
             currentView.setText(value);
-//            Log.d(TAG, "assignHourlyDailyTextValues: " + currentViewName);
 
         } catch (NoSuchFieldException | IllegalAccessException e) {
             throw new RuntimeException(e);
