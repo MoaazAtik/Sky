@@ -431,15 +431,14 @@ public class MainActivity extends AppCompatActivity {
                         String condition = weatherReportModelShort.getCondition();
                         txtMainConditionDescription.setText(condition);
 
-//                        citiesList.add(weatherReportModelShort);
-//                        adapter.notifyDataSetChanged();
+//            /            citiesList.add(weatherReportModelShort);
+//           /             adapter.notifyDataSetChanged();
                     }
                 });
     } // getForecastShort
 
     private void getForecastHourly() {
-        WeatherDataService weatherDataService = new WeatherDataService(MainActivity.this);
-//        WeatherDataService weatherDataService = new WeatherDataService(this);
+        WeatherDataService weatherDataService = new WeatherDataService(this);
 
         weatherDataService.getForecastByName("rio", 1, new WeatherDataService.ListenerGetForecastByLatL<WeatherReportModelHourly>() {
             @Override
@@ -458,8 +457,7 @@ public class MainActivity extends AppCompatActivity {
     } // getForecastHourly
 
     private void getForecastDaily() {
-        WeatherDataService weatherDataService = new WeatherDataService(MainActivity.this);
-//        WeatherDataService weatherDataService = new WeatherDataService(this);
+        WeatherDataService weatherDataService = new WeatherDataService(this);
 
         weatherDataService.getForecastByName("rio", 2, new WeatherDataService.ListenerGetForecastByLatL<WeatherReportModelDaily>() {
             @Override
@@ -498,7 +496,8 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i < weatherReportModels.size(); i++) {
 
-            currentModel = (T) weatherReportModels.get(i); // do I need the casting?
+//            currentModel = (T) weatherReportModels.get(i); // do I need the casting?
+            currentModel = weatherReportModels.get(i);
 
             if (hourlyOrDaily == 0) {
 
@@ -556,7 +555,6 @@ public class MainActivity extends AppCompatActivity {
                 AppCompatImageView currentConditionImage = (AppCompatImageView) field.get(this);
 
                 Glide.with(this).load(Integer.parseInt(value)).into(currentConditionImage);
-//                currentConditionImage.setImageResource(Integer.parseInt(value));
                 return;
             }
 
