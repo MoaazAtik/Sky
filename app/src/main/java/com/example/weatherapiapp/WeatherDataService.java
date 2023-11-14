@@ -66,7 +66,7 @@ public class WeatherDataService {
                             String displayName = cityInfo.getString("display_name");
                             String city = displayName.substring(0, displayName.indexOf(','));
                             String country = displayName.substring(displayName.lastIndexOf(',') + 2);
-                            Log.d(TAG, "onResponse: " + city + " - " + country);
+                            Log.d(TAG, "onResponse: getCityLatL " + city + " - " + country);
                             weatherReportModelShort.setCity(city);
                             weatherReportModelShort.setCountry(country);
                         } catch (JSONException e) {
@@ -197,7 +197,6 @@ public class WeatherDataService {
                                 parsedTime = getFormattedDateTime(1, parsedDateTime);
                                 if (currentTime.equals(parsedTime) && currentDate.equals(parsedDate)) {
                                     firstTimeIndexForHourModels = x - 1;
-                                    Log.d(TAG, "onResponse: fisttimeindex " + firstTimeIndexForHourModels);
                                     break;
                                 }
                             }
@@ -211,7 +210,7 @@ public class WeatherDataService {
                                 weatherReportModelHourly.setWeather_code(weather_code.getInt(i));
                                 weatherReportModels.add(weatherReportModelHourly);
                             }
-                            Log.d(TAG, "onResponse: weatherReportModels " + weatherReportModels);
+//                            Log.d(TAG, "onResponse: getForecastByLatLHourly Hourly weatherReportModels " + weatherReportModels);
                             listenerGetForecastByLatL.onResponse(weatherReportModels);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -233,6 +232,10 @@ public class WeatherDataService {
      * @param listenerGetForecastByLatL
      */
     public void getForecastByLatLDaily(ListenerGetForecastByLatL<WeatherReportModelDaily> listenerGetForecastByLatL) {
+
+        Log.d(TAG, "getForecastByLatLDaily: " + cityLat + " " + cityLon);
+        List<WeatherReportModelDaily> weatherReportModels = new ArrayList<>();
+
         QUERY_FOR_FORECAST_BY_LATL_DAILY =
                 "https://api.open-meteo.com/v1/forecast?latitude=" + cityLat + "&longitude=" + cityLon +
                         "&current=is_day" +
@@ -240,7 +243,43 @@ public class WeatherDataService {
                         "&timezone=auto" +
                         "&past_days=1";
 
+        JsonObjectRequest weatherRequest = new JsonObjectRequest(Request.Method.GET, QUERY_FOR_FORECAST_BY_LATL_DAILY, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONObject current = response.getJSONObject("current");
+                            JSONObject daily = response.getJSONObject("daily");
+                            JSONArray time = daily.getJSONArray("time");
+                            JSONArray temperature_2m_max = daily.getJSONArray("temperature_2m_max");
+                            JSONArray temperature_2m_min = daily.getJSONArray("temperature_2m_min");
+                            JSONArray precipitation_probability_max = daily.getJSONArray("precipitation_probability_max");
+                            JSONArray weather_code = daily.getJSONArray("weather_code");
 
+                            for (int i = 0; i < 7; i++) {
+                                WeatherReportModelDaily weatherReportModelDaily = new WeatherReportModelDaily();
+                                weatherReportModelDaily.setTime(getFormattedDateTime(5, time.getString(i)));
+                                weatherReportModelDaily.setTemperature_2m((float) temperature_2m_max.getDouble(i), (float) temperature_2m_min.getDouble(i));
+                                weatherReportModelDaily.setPrecipitation_probability_max(precipitation_probability_max.getInt(i));
+                                weatherReportModelDaily.setIs_day(current.getInt("is_day"));
+                                weatherReportModelDaily.setWeather_code(weather_code.getInt(i));
+                                weatherReportModels.add(weatherReportModelDaily);
+                            }
+//                            Log.d(TAG, "onResponse: getForecastByLatLDaily Daily weatherReportModels " + weatherReportModels);
+                            listenerGetForecastByLatL.onResponse(weatherReportModels);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.d(TAG, "onResponse: getForecastByLatLDaily " + e);
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context, error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        MySingleton.getInstance(context).addToRequestQueue(weatherRequest);
     }
 
     // getForecastByLatLDetailed(). Get detailed forecast for Lower bottom sheet.
@@ -299,7 +338,6 @@ public class WeatherDataService {
                         });
                         break;
                     case 2:
-//                        getForecastByLatLDaily(new ListenerGetForecastByLatL<WeatherReportModelDaily>() {
                         getForecastByLatLDaily(new ListenerGetForecastByLatL<WeatherReportModelDaily>() {
                             @Override
                             public void onError(String message) {
@@ -308,7 +346,7 @@ public class WeatherDataService {
 
                             @Override
                             public void onResponse(List<WeatherReportModelDaily> weatherReportModels) {
-
+                                listenerGetForecastByLatL.onResponse(weatherReportModels);
                             }
                         });
                         break;
@@ -336,9 +374,10 @@ public class WeatherDataService {
      *
      * @param usage 0: Current time (HH = 00 to 23),
      *              1: Parsed time for comparing (e.g 21),
-     *              2: Parsed time for hour model (e.g 9 PM),
-     *              3: Current date (e.g 27),
-     *              4: Parsed date (e.g. 27).
+     *              2: Parsed time for Hour Model (e.g 9 PM),
+     *              3: Current date for comparing (e.g 27),
+     *              4: Parsed date for comparing (e.g. 27).
+     *              5: Parsed day of week for Day Model (e.g. WED).
      * @param dateTime (Optional) Provide date and/or time to format.
      * @return Formatted date or time.
      */
@@ -354,7 +393,7 @@ public class WeatherDataService {
             case 1:
                 return dateTime.substring(dateTime.indexOf('T') + 1, dateTime.indexOf('T') + 3);
             case 2:
-                sdFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.getDefault()); // Parsed Date Time Format
+                sdFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.getDefault()); // Parsed Date Time Format "2023-11-14T00:00"
                 try {
                     date = sdFormat.parse(dateTime);
                 } catch (ParseException e) {
@@ -368,6 +407,16 @@ public class WeatherDataService {
                 return sdFormat.format(date);
             case 4:
                 return dateTime.substring(dateTime.indexOf('T') - 2, dateTime.indexOf('T'));
+            case 5:
+                sdFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()); // Parsed Date Time Format "2023-11-14"
+                try {
+                    date = sdFormat.parse(dateTime);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+                sdFormat = new SimpleDateFormat("EEE", Locale.getDefault());
+                return sdFormat.format(date).toUpperCase();
         }
         return null;
     }
@@ -402,7 +451,6 @@ public class WeatherDataService {
                             "&hourly=temperature_2m,precipitation_probability,is_day,weather_code" +
                             "&timezone=auto" +
                             "&forecast_days=" + "1";
-        Log.d(TAG, "getQueryUrl: " + QUERY_FOR_FORECAST_BY_LATL_HOURLY);
         return QUERY_FOR_FORECAST_BY_LATL_HOURLY;
     }
 

@@ -48,6 +48,11 @@ public class MainActivity extends AppCompatActivity {
     private AppCompatImageView hour0Condition, hour1Condition, hour2Condition, hour3Condition, hour4Condition, hour5Condition, hour6Condition, hour7Condition;
     private AppCompatTextView hour0Precipitation, hour1Precipitation, hour2Precipitation, hour3Precipitation, hour4Precipitation, hour5Precipitation, hour6Precipitation, hour7Precipitation;
     private AppCompatTextView hour0Temp, hour1Temp, hour2Temp, hour3Temp, hour4Temp, hour5Temp, hour6Temp, hour7Temp;
+    
+    private AppCompatTextView day0Time, day1Time, day2Time, day3Time, day4Time, day5Time, day6Time;
+    private AppCompatImageView day0Condition, day1Condition, day2Condition, day3Condition, day4Condition, day5Condition, day6Condition;
+    private AppCompatTextView day0Precipitation, day1Precipitation, day2Precipitation, day3Precipitation, day4Precipitation, day5Precipitation, day6Precipitation;
+    private AppCompatTextView day0Temp, day1Temp, day2Temp, day3Temp, day4Temp, day5Temp, day6Temp;
 
 
     @Override
@@ -119,9 +124,43 @@ public class MainActivity extends AppCompatActivity {
         hour7Temp = findViewById(R.id.hour_7_temp);
 
 
+        day0Time = findViewById(R.id.day_0_time);
+        day1Time = findViewById(R.id.day_1_time);
+        day2Time = findViewById(R.id.day_2_time);
+        day3Time = findViewById(R.id.day_3_time);
+        day4Time = findViewById(R.id.day_4_time);
+        day5Time = findViewById(R.id.day_5_time);
+        day6Time = findViewById(R.id.day_6_time);
+
+        day0Precipitation = findViewById(R.id.day_0_precipitation);
+        day1Precipitation = findViewById(R.id.day_1_precipitation);
+        day2Precipitation = findViewById(R.id.day_2_precipitation);
+        day3Precipitation = findViewById(R.id.day_3_precipitation);
+        day4Precipitation = findViewById(R.id.day_4_precipitation);
+        day5Precipitation = findViewById(R.id.day_5_precipitation);
+        day6Precipitation = findViewById(R.id.day_6_precipitation);
+
+        day0Condition = findViewById(R.id.day_0_condition);
+        day1Condition = findViewById(R.id.day_1_condition);
+        day2Condition = findViewById(R.id.day_2_condition);
+        day3Condition = findViewById(R.id.day_3_condition);
+        day4Condition = findViewById(R.id.day_4_condition);
+        day5Condition = findViewById(R.id.day_5_condition);
+        day6Condition = findViewById(R.id.day_6_condition);
+
+        day0Temp = findViewById(R.id.day_0_temp);
+        day1Temp = findViewById(R.id.day_1_temp);
+        day2Temp = findViewById(R.id.day_2_temp);
+        day3Temp = findViewById(R.id.day_3_temp);
+        day4Temp = findViewById(R.id.day_4_temp);
+        day5Temp = findViewById(R.id.day_5_temp);
+        day6Temp = findViewById(R.id.day_6_temp);
+
+
         Log.d(TAG, "onCreate: ");
         getForecastShort();
         getForecastHourly();
+        getForecastDaily();
 
         // btnHourlyForecast OnClickListener
         btnHourlyForecast.setOnClickListener(v -> {
@@ -410,7 +449,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(List<WeatherReportModelHourly> weatherReportModels) {
-                Log.d(TAG, "onResponse: main activity " + "getForecastHourly");
+                Log.d(TAG, "onResponse: " + "getForecastHourly");
 
                 getAndAssignHourlyOrDailyValues(0, weatherReportModels);
 
@@ -418,9 +457,30 @@ public class MainActivity extends AppCompatActivity {
         });
     } // getForecastHourly
 
+    private void getForecastDaily() {
+        WeatherDataService weatherDataService = new WeatherDataService(MainActivity.this);
+//        WeatherDataService weatherDataService = new WeatherDataService(this);
+
+        weatherDataService.getForecastByName("rio", 2, new WeatherDataService.ListenerGetForecastByLatL<WeatherReportModelDaily>() {
+            @Override
+            public void onError(String message) {
+
+            }
+
+            @Override
+            public void onResponse(List<WeatherReportModelDaily> weatherReportModels) {
+                Log.d(TAG, "onResponse: " + "getForecastDaily");
+
+                getAndAssignHourlyOrDailyValues(1, weatherReportModels);
+
+            } // onResponse
+        });
+    } // getForecastDaily
+
     /**
      *
-     * @param hourlyOrDaily 0 = hourly forecast, 1 = daily forecast
+     * @param hourlyOrDaily 0 = hourly forecast,
+     *                      1 = daily forecast.
      * @param weatherReportModels List of weatherReportModels
      * @param <T> WeatherReportModelHourly or WeatherReportModelDaily
      */
@@ -443,19 +503,18 @@ public class MainActivity extends AppCompatActivity {
             if (hourlyOrDaily == 0) {
 
                 time = ((WeatherReportModelHourly) currentModel).getTime();
-                conditionImageId = ((WeatherReportModelHourly) currentModel).getConditionImageId(); ///
+                conditionImageId = ((WeatherReportModelHourly) currentModel).getConditionImageId();
                 precipitation = (int) ((WeatherReportModelHourly) currentModel).getPrecipitation_probability() + "%";
                 temp = (int) ((WeatherReportModelHourly) currentModel).getTemperature_2m() + "°";
                 valueNameSuffix = "hour";
 
             } else { //if (hourlyOrDaily == 1)
 
-//                String time = "L:" + weatherReportModelHourly.getTime();
-//                time = "12 AM";
-//                condition = ((WeatherReportModelDaily) currentModel).getCondition();
-//                precipitation = (int) ((WeatherReportModelDaily) currentModel).getPrecipitation_probability() + "%";
-//                temp = (int) ((WeatherReportModelDaily) currentModel).getTemperature_2m() + "°";
-//                valueNameSuffix = "day";
+                time = ((WeatherReportModelDaily) currentModel).getTime();
+                conditionImageId = ((WeatherReportModelDaily) currentModel).getConditionImageId();
+                precipitation = (int) ((WeatherReportModelDaily) currentModel).getPrecipitation_probability_max() + "%";
+                temp = (int) ((WeatherReportModelDaily) currentModel).getTemperature_2m() + "°";
+                valueNameSuffix = "day";
 
             } // if statement
 
@@ -497,6 +556,7 @@ public class MainActivity extends AppCompatActivity {
                 AppCompatImageView currentConditionImage = (AppCompatImageView) field.get(this);
 
                 Glide.with(this).load(Integer.parseInt(value)).into(currentConditionImage);
+//                currentConditionImage.setImageResource(Integer.parseInt(value));
                 return;
             }
 
