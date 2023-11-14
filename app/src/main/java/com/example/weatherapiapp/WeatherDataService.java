@@ -157,6 +157,7 @@ public class WeatherDataService {
 
     /**
      * Get Hourly forecast for Upper bottom sheet.
+     * Gets city Latitude and Longitude from the fields cityLat and cityLon, which were assigned by calling getCityLatL.
      * @param listenerGetForecastByLatL
      */
 //    public void getForecastByLatLHourly(WeatherReportModelShort weatherReportModelShort, ListenerGetForecastByLatL<WeatherReportModelHourly> listenerGetForecastByLatL) {
@@ -226,14 +227,20 @@ public class WeatherDataService {
         MySingleton.getInstance(context).addToRequestQueue(weatherRequest);
     }
 
-    // getForecastByLatLDaily(). Get daily forecast for Upper bottom sheet.
-    public void getForecastByLatLDaily(WeatherReportModelShort weatherReportModelShort, ListenerGetForecastByLatL<WeatherReportModelDaily> listenerGetForecastByLatL) {
+    /**
+     * Get Daily forecast for Upper bottom sheet.
+     * Gets city Latitude and Longitude from the fields cityLat and cityLon, which were assigned by calling getCityLatL.
+     * @param listenerGetForecastByLatL
+     */
+    public void getForecastByLatLDaily(ListenerGetForecastByLatL<WeatherReportModelDaily> listenerGetForecastByLatL) {
         QUERY_FOR_FORECAST_BY_LATL_DAILY =
                 "https://api.open-meteo.com/v1/forecast?latitude=" + cityLat + "&longitude=" + cityLon +
-                        "&hourly=temperature_2m,precipitation_probability,weather_code" +
+                        "&current=is_day" +
                         "&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max" +
                         "&timezone=auto" +
                         "&past_days=1";
+
+
     }
 
     // getForecastByLatLDetailed(). Get detailed forecast for Lower bottom sheet.
@@ -293,7 +300,7 @@ public class WeatherDataService {
                         break;
                     case 2:
 //                        getForecastByLatLDaily(new ListenerGetForecastByLatL<WeatherReportModelDaily>() {
-                        getForecastByLatLDaily(weatherReportModelShort, new ListenerGetForecastByLatL<WeatherReportModelDaily>() {
+                        getForecastByLatLDaily(new ListenerGetForecastByLatL<WeatherReportModelDaily>() {
                             @Override
                             public void onError(String message) {
 
