@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 //    private CityListAdapter adapter;
 //    private List<WeatherReportModel> citiesList;
     private MotionLayout mainMotionLayout, sunriseMotionLayout, windMotionLayout;
-    private AppCompatTextView txtMainCity, txtMainTemp, txtMainHTemp, txtMainLTemp, txtMainCondition;
+    private AppCompatTextView txtMainCity, txtMainTemp, txtMainHTemp, txtMainLTemp, txtMainConditionDescription;
     private AppCompatTextView hour0Time, hour1Time, hour2Time, hour3Time, hour4Time, hour5Time, hour6Time, hour7Time;
     private AppCompatImageView hour0Condition, hour1Condition, hour2Condition, hour3Condition, hour4Condition, hour5Condition, hour6Condition, hour7Condition;
     private AppCompatTextView hour0Precipitation, hour1Precipitation, hour2Precipitation, hour3Precipitation, hour4Precipitation, hour5Precipitation, hour6Precipitation, hour7Precipitation;
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         txtMainTemp = findViewById(R.id.txt_home_temp);
         txtMainHTemp = findViewById(R.id.txt_home_h_temp);
         txtMainLTemp = findViewById(R.id.txt_home_l_temp);
-        txtMainCondition = findViewById(R.id.txt_home_condition);
+        txtMainConditionDescription = findViewById(R.id.txt_home_condition_description);
 
         hour0Time = findViewById(R.id.hour_0_time);
         hour1Time = findViewById(R.id.hour_1_time);
@@ -390,7 +390,7 @@ public class MainActivity extends AppCompatActivity {
                         String city = weatherReportModelShort.getCity() + ", " + weatherReportModelShort.getCountry();
                         txtMainCity.setText(city);
                         String condition = weatherReportModelShort.getCondition();
-                        txtMainCondition.setText(condition);
+                        txtMainConditionDescription.setText(condition);
 
 //                        citiesList.add(weatherReportModelShort);
 //                        adapter.notifyDataSetChanged();

@@ -70,7 +70,7 @@
             app:layout_constraintTop_toBottomOf="@id/txt_home_city" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/txt_home_condition"
+            android:id="@+id/txt_home_condition_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="-50dp"
@@ -690,6 +690,18 @@
                             android:layout_height="40dp"
                             app:srcCompat="@drawable/condition_mid_rain" />
 
+                        <!--                    Day 0 precipitation-->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/day_0_precipitation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="30%"
+                            android:layout_marginTop="-4dp"
+                            android:includeFontPadding="false"
+                            android:textColor="@color/turquoise_blue_precipitation"
+                            android:textSize="13sp"
+                            app:fontFamily="@font/sf_pro_display_regular" />
+
                         <!--                    Day 0 temperature-->
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/day_0_temp"
@@ -728,6 +740,18 @@
                             android:layout_height="40dp"
                             app:srcCompat="@drawable/condition_mid_rain" />
 
+                        <!--                    Day 1 precipitation-->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/day_1_precipitation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="30%"
+                            android:layout_marginTop="-4dp"
+                            android:includeFontPadding="false"
+                            android:textColor="@color/turquoise_blue_precipitation"
+                            android:textSize="13sp"
+                            app:fontFamily="@font/sf_pro_display_regular" />
+
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/day_1_temp"
                             android:layout_width="wrap_content"
@@ -764,6 +788,18 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             app:srcCompat="@drawable/condition_mid_rain" />
+
+                        <!--                    Day 2 precipitation-->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/day_2_precipitation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="30%"
+                            android:layout_marginTop="-4dp"
+                            android:includeFontPadding="false"
+                            android:textColor="@color/turquoise_blue_precipitation"
+                            android:textSize="13sp"
+                            app:fontFamily="@font/sf_pro_display_regular" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/day_2_temp"
@@ -802,6 +838,18 @@
                             android:layout_height="40dp"
                             app:srcCompat="@drawable/condition_mid_rain" />
 
+                        <!--                    Day 3 precipitation-->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/day_3_precipitation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="30%"
+                            android:layout_marginTop="-4dp"
+                            android:includeFontPadding="false"
+                            android:textColor="@color/turquoise_blue_precipitation"
+                            android:textSize="13sp"
+                            app:fontFamily="@font/sf_pro_display_regular" />
+
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/day_3_temp"
                             android:layout_width="wrap_content"
@@ -838,6 +886,18 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             app:srcCompat="@drawable/condition_mid_rain" />
+
+                        <!--                    Day 4 precipitation-->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/day_4_precipitation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="30%"
+                            android:layout_marginTop="-4dp"
+                            android:includeFontPadding="false"
+                            android:textColor="@color/turquoise_blue_precipitation"
+                            android:textSize="13sp"
+                            app:fontFamily="@font/sf_pro_display_regular" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/day_4_temp"
@@ -876,6 +936,18 @@
                             android:layout_height="40dp"
                             app:srcCompat="@drawable/condition_mid_rain" />
 
+                        <!--                    Day 5 precipitation-->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/day_5_precipitation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="30%"
+                            android:layout_marginTop="-4dp"
+                            android:includeFontPadding="false"
+                            android:textColor="@color/turquoise_blue_precipitation"
+                            android:textSize="13sp"
+                            app:fontFamily="@font/sf_pro_display_regular" />
+
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/day_5_temp"
                             android:layout_width="wrap_content"
@@ -913,6 +985,18 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             app:srcCompat="@drawable/condition_mid_rain" />
+
+                        <!--                    Day 6 precipitation-->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/day_6_precipitation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="30%"
+                            android:layout_marginTop="-4dp"
+                            android:includeFontPadding="false"
+                            android:textColor="@color/turquoise_blue_precipitation"
+                            android:textSize="13sp"
+                            app:fontFamily="@font/sf_pro_display_regular" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/day_6_temp"
