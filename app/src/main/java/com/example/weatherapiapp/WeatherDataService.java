@@ -104,7 +104,7 @@ public class WeatherDataService {
 //        float cityLon = weatherReportModelShort.getLon();
         QUERY_FOR_FORECAST_BY_LATL_SHORT =
                 "https://api.open-meteo.com/v1/forecast?latitude=" + cityLat + "&longitude=" + cityLon +
-                        "&current=temperature_2m,weather_code" +
+                        "&current=temperature_2m,is_day,weather_code" +
                         "&daily=temperature_2m_max,temperature_2m_min" +
                         "&timezone=auto" +
                         "&forecast_days=1";
@@ -129,12 +129,12 @@ public class WeatherDataService {
 //                            one_day_weather.setTemperature_2m_min(
 //                                    (float) response.getJSONObject("daily").getJSONArray("temperature_2m_min").getDouble(0));
                             weatherReportModelShort.setTemperature_2m((float) current.getDouble("temperature_2m"));
-                            weatherReportModelShort.setWeatherCode(current.getInt("weather_code"));
-                            weatherReportModelShort.setCondition(current.getInt("weather_code"));
                             weatherReportModelShort.setTemperature_2m_max(
                                     (float) daily.getJSONArray("temperature_2m_max").getDouble(0));
                             weatherReportModelShort.setTemperature_2m_min(
                                     (float) daily.getJSONArray("temperature_2m_min").getDouble(0));
+                            weatherReportModelShort.setIs_day(current.getInt("is_day"));
+                            weatherReportModelShort.setWeather_code(current.getInt("weather_code"));
 
 //                    weatherReportModels.add(i, one_day_weather);
                             // maybe i will use a single weatherReportModel instead of a list

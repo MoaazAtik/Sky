@@ -8,22 +8,26 @@ public class WeatherReportModelShort {
     private float lon;
     private String city;
     private String country;
-    private float temperature_2m;
-    private int weatherCode;
+    private float temperature_2m; // From Current weather.
     private float temperature_2m_max;
     private float temperature_2m_min;
-    private String condition;
+    private int is_day; // 0: Night, 1: Day. From Current weather.
+    private int weather_code; // WMO Weather Code
 
-    public WeatherReportModelShort(float lat, float lon, String city, String country, float temperature_2m, int weatherCode, float temperature_2m_max, float temperature_2m_min, String condition) {
+    private String conditionDescription;
+    private int conditionImageId;
+
+    public WeatherReportModelShort(float lat, float lon, String city, String country, float temperature_2m, float temperature_2m_max, float temperature_2m_min, int is_day, int weather_code, String conditionDescription) {
         this.lat = lat;
         this.lon = lon;
         this.city = city;
         this.country = country;
         this.temperature_2m = temperature_2m;
-        this.weatherCode = weatherCode;
         this.temperature_2m_max = temperature_2m_max;
         this.temperature_2m_min = temperature_2m_min;
-        this.condition = condition;
+        this.is_day = is_day;
+        this.weather_code = weather_code;
+        this.conditionDescription = conditionDescription;
     }
 
     public WeatherReportModelShort() {
@@ -38,10 +42,13 @@ public class WeatherReportModelShort {
                 ", City: " + city +
                 ", Country: " + country +
                 ", Temperature: " + temperature_2m +
-                ", Weather Condition Code: " + weatherCode +
                 ", Max Temperature: " + temperature_2m_max +
                 ", Min Temperature: " + temperature_2m_min +
-                ", Condition: " + condition;
+                ", is_day=" + is_day +
+                ", weather_code=" + weather_code +
+                ", conditionDescription='" + conditionDescription + '\'' +
+                ", conditionImageId=" + conditionImageId +
+                '}';
     }
 
     public float getLat() {
@@ -84,14 +91,6 @@ public class WeatherReportModelShort {
         this.temperature_2m = temperature_2m;
     }
 
-    public int getWeatherCode() {
-        return weatherCode;
-    }
-
-    public void setWeatherCode(int weatherCode) {
-        this.weatherCode = weatherCode;
-    }
-
     public float getTemperature_2m_max() {
         return temperature_2m_max;
     }
@@ -108,75 +107,198 @@ public class WeatherReportModelShort {
         this.temperature_2m_min = temperature_2m_min;
     }
 
-    public String getCondition() {
-        return condition;
+    public int getIs_day() {
+        return is_day;
     }
 
-    public void setCondition(int weatherCode) {
-        this.condition = convertWeatherCodeToDescription(weatherCode);
+    public void setIs_day(int is_day) {
+        this.is_day = is_day;
     }
 
-    // Convert the given weather code to its corresponding weather condition description
-    public String convertWeatherCodeToDescription(int weatherCode) {
+    public int getWeather_code() {
+        return weather_code;
+    }
+
+    /**
+     * Set Weather code, and call to set Condition Description and Condition Image Id.
+     *
+     * @param weather_code Parsed WMO Weather Code.
+     */
+    public void setWeather_code(int weather_code) {
+        this.weather_code = weather_code;
+        setConditionDescriptionAndImageId(weather_code);
+    }
+
+    public String getConditionDescription() {
+        return conditionDescription;
+    }
+
+    public int getConditionImageId() {
+        return conditionImageId;
+    }
+
+    /**
+     * Set Condition Description and Condition Image Resource Id according to the given Weather Code
+     *
+     * @param weatherCode Parsed WMO Weather code.
+     */
+    public void setConditionDescriptionAndImageId(int weatherCode) {
         switch (weatherCode) {
             case 0:
-                return "Clear Sky";
+                conditionDescription = "Clear Sky";
+                if (is_day == 1) conditionImageId = R.drawable.ic_condition_sun;
+                else conditionImageId = R.drawable.ic_condition_moon_stars;
+                break;
+
             case 1:
-                return "Mainly Clear";
+                conditionDescription = "Mainly Clear";
+                if (is_day == 1) conditionImageId = R.drawable.ic_condition_sun;
+                else conditionImageId = R.drawable.ic_condition_moon;
+                break;
+
             case 2:
-                return "Partly Cloudy";
+                conditionDescription = "Partly Cloudy";
+                if (is_day == 1) conditionImageId = R.drawable.ic_condition_sun_cloud;
+                else conditionImageId = R.drawable.ic_condition_moon_cloud;
+                break;
+
             case 3:
-                return "Overcast";
+                conditionDescription = "Overcast";
+                conditionImageId = R.drawable.ic_condition_cloud;
+                break;
+
             case 45:
-                return "Fog";
+                conditionDescription = "Fog";
+                conditionImageId = R.drawable.ic_condition_cloud;
+                break;
+
             case 48:
-                return "Depositing Rime Fog";
+                conditionDescription = "Depositing Rime Fog";
+                conditionImageId = R.drawable.ic_condition_cloud;
+                break;
+
             case 51:
-                return "Light Drizzle";
+                conditionDescription = "Light Drizzle";
+                conditionImageId = R.drawable.ic_condition_big_rain_drops;
+                break;
+
             case 53:
-                return "Moderate Drizzle";
+                conditionDescription = "Moderate Drizzle";
+                conditionImageId = R.drawable.ic_condition_big_rain_drops;
+                break;
+
             case 55:
-                return "Dense Drizzle";
+                conditionDescription = "Dense Drizzle";
+                conditionImageId = R.drawable.ic_condition_big_rain_drops;
+                break;
+
             case 56:
-                return "Light Freezing Drizzle";
+                conditionDescription = "Light Freezing Drizzle";
+                conditionImageId = R.drawable.ic_condition_big_rain_drops;
+                break;
+
             case 57:
-                return "Dense Freezing Drizzle";
+                conditionDescription = "Dense Freezing Drizzle";
+                conditionImageId = R.drawable.ic_condition_big_rain_drops;
+                break;
+
             case 61:
-                return "Slight Rain";
+                conditionDescription = "Slight Rain";
+                if (is_day == 1) conditionImageId = R.drawable.ic_condition_sun_cloud_little_rain;
+                else conditionImageId = R.drawable.ic_condition_moon_cloud_little_rain;
+                break;
+
             case 63:
-                return "Moderate Rain";
+                conditionDescription = "Moderate Rain";
+                if (is_day == 1) conditionImageId = R.drawable.ic_condition_sun_cloud_mid_rain;
+                else conditionImageId = R.drawable.ic_condition_moon_cloud_mid_rain;
+                break;
+
             case 65:
-                return "Heavy Rain";
+                conditionDescription = "Heavy Rain";
+                if (is_day == 1) conditionImageId = R.drawable.ic_condition_sun_cloud_big_rain;
+                else conditionImageId = R.drawable.ic_condition_moon_cloud_big_rain;
+                break;
+
             case 66:
-                return "Light Freezing Rain";
+                conditionDescription = "Light Freezing Rain";
+                conditionImageId = R.drawable.ic_condition_cloud_little_rain;
+                break;
+
             case 67:
-                return "Heavy Freezing Rain";
+                conditionDescription = "Heavy Freezing Rain";
+                conditionImageId = R.drawable.ic_condition_cloud_big_rain;
+                break;
+
             case 71:
-                return "Slight Snowfall";
+                conditionDescription = "Slight Snowfall";
+                if (is_day == 1) conditionImageId = R.drawable.ic_condition_sun_cloud_little_snow;
+                else conditionImageId = R.drawable.ic_condition_moon_cloud_little_snow;
+                break;
+
             case 73:
-                return "Moderate Snowfall";
+                conditionDescription = "Moderate Snowfall";
+                if (is_day == 1) conditionImageId = R.drawable.ic_condition_sun_cloud_mid_snow;
+                else conditionImageId = R.drawable.ic_condition_moon_cloud_mid_snow;
+                break;
+
             case 75:
-                return "Heavy Snowfall";
+                conditionDescription = "Heavy Snowfall";
+                if (is_day == 1) conditionImageId = R.drawable.ic_condition_sun_cloud_snow;
+                else conditionImageId = R.drawable.ic_condition_moon_cloud_snow;
+                break;
+
             case 77:
-                return "Snow Grains";
+                conditionDescription = "Snow Grains";
+                conditionImageId = R.drawable.ic_condition_big_snow_little_snow;
+                break;
+
             case 80:
-                return "Slight Rain Showers";
+                conditionDescription = "Slight Rain Showers";
+                if (is_day == 1) conditionImageId = R.drawable.ic_condition_sun_cloud_angled_rain;
+                else conditionImageId = R.drawable.ic_condition_moon_cloud_angled_rain;
+                break;
+
             case 81:
-                return "Moderate Rain Showers";
+                conditionDescription = "Moderate Rain Showers";
+                conditionImageId = R.drawable.ic_condition_cloud_angled_rain;
+                break;
+
             case 82:
-                return "Violent Rain Showers";
+                conditionDescription = "Violent Rain Showers";
+                conditionImageId = R.drawable.ic_condition_cloud_angled_rain_zap;
+                break;
+
             case 85:
-                return "Slight Snow Showers";
+                conditionDescription = "Slight Snow Showers";
+                conditionImageId = R.drawable.ic_condition_mid_snow_slow_winds;
+                break;
+
             case 86:
-                return "Heavy Snow Showers";
+                conditionDescription = "Heavy Snow Showers";
+                conditionImageId = R.drawable.ic_condition_mid_snow_fast_winds;
+                break;
+
             case 95:
-                return "Slight Thunderstorm";
+                conditionDescription = "Slight Thunderstorm";
+                conditionImageId = R.drawable.ic_condition_zaps;
+                break;
+
             case 96:
-                return "Thunderstorm • Slight Hail";
+                conditionDescription = "Thunderstorm • Slight Hail";
+                if (is_day == 1) conditionImageId = R.drawable.ic_condition_sun_cloud_hailstone;
+                else conditionImageId = R.drawable.ic_condition_moon_cloud_hailstone;
+                break;
+
             case 99:
-                return "Thunderstorm • Heavy Hail";
+                conditionDescription = "Thunderstorm • Heavy Hail";
+                conditionImageId = R.drawable.ic_condition_cloud_hailstone;
+                break;
+
             default:
-                return "";
+                conditionDescription = "";
+                conditionImageId = R.drawable.ic_condition_cloud;
+                break;
         }
     }
 

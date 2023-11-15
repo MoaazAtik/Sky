@@ -10,6 +10,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -64,8 +65,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main);
 
         // Open Cities Activity
-//        Intent citiesIntent = new Intent(MainActivity.this, CitiesActivity.class);
-//        MainActivity.this.startActivity(citiesIntent);
+        Intent citiesIntent = new Intent(MainActivity.this, CitiesActivity.class);
+        MainActivity.this.startActivity(citiesIntent);
 
         mainMotionLayout = findViewById(R.id.main_motion_layout);
         sunriseMotionLayout = findViewById(R.id.sunrise_sunset);
@@ -426,10 +427,10 @@ public class MainActivity extends AppCompatActivity {
                         txtMainHTemp.setText(hTemp);
                         String lTemp = "L:" + (int) weatherReportModelShort.getTemperature_2m_min() + "°";
                         txtMainLTemp.setText(lTemp);
-                        String city = weatherReportModelShort.getCity() + ", " + weatherReportModelShort.getCountry();
-                        txtMainCity.setText(city);
-                        String condition = weatherReportModelShort.getCondition();
-                        txtMainConditionDescription.setText(condition);
+                        String cityCountry = weatherReportModelShort.getCity() + ", " + weatherReportModelShort.getCountry();
+                        txtMainCity.setText(cityCountry);
+                        String conditionDescription = weatherReportModelShort.getConditionDescription();
+                        txtMainConditionDescription.setText(conditionDescription);
 
 //            /            citiesList.add(weatherReportModelShort);
 //           /             adapter.notifyDataSetChanged();
