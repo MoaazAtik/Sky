@@ -45,8 +45,13 @@ public class WeatherDataService {
         void onResponse(WeatherReportModelShort weatherReportModelShort);
     }
 
-    // getCityLatL(). Get city latitude and longitude.
+    /**
+     * Get city latitude and longitude.
+     * @param cityName Provided country, city, town name.
+     * @param listenerGetCityLatL
+     */
     public void getCityLatL(String cityName, ListenerGetCityLatL listenerGetCityLatL) {
+        Log.d(TAG, "getCityLatL: ");
         String url = QUERY_FOR_CITY_LATL + cityName;
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
@@ -71,9 +76,9 @@ public class WeatherDataService {
                             weatherReportModelShort.setCountry(country);
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            Log.d(TAG, "onResponse: getCityLatL " + e);
                         }
 
-//                        listenerGetCityLatL.onResponse(cityLat, cityLon);
                         listenerGetCityLatL.onResponse(weatherReportModelShort);
                         //↑ actually this is doing the job (passing cityLat received from the Api to the MainActivity's onClick)
                     }
@@ -81,6 +86,7 @@ public class WeatherDataService {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(context, "Something wrong happened :(", Toast.LENGTH_SHORT).show();
+                listenerGetCityLatL.onError(error.toString());
             }
         });
 
@@ -96,19 +102,21 @@ public class WeatherDataService {
         void onResponse(List<T> weatherReportModels);
     }
 
-    // getForecastByLatLShort(). Get short forecast for city widgets and main forecast.
-//    public void getForecastByLatLShort(float Latitude, float Longitude, ListenerGetForecastByLatL<WeatherReportModelShort> listenerGetForecastByLatL) {
+    /**
+     * Get Short forecast for Home screen, and City Widgets.
+     * Gets city Latitude and Longitude from the fields cityLat and cityLon, which were assigned by calling getCityLatL.
+     * @param listenerGetForecastByLatL
+     */
     public void getForecastByLatLShort(WeatherReportModelShort weatherReportModelShort, ListenerGetForecastByLatL<WeatherReportModelShort> listenerGetForecastByLatL) {
 
-//        float cityLat = weatherReportModelShort.getLat();
-//        float cityLon = weatherReportModelShort.getLon();
+        Log.d(TAG, "getForecastByLatLShort: ");
         QUERY_FOR_FORECAST_BY_LATL_SHORT =
                 "https://api.open-meteo.com/v1/forecast?latitude=" + cityLat + "&longitude=" + cityLon +
                         "&current=temperature_2m,is_day,weather_code" +
                         "&daily=temperature_2m_max,temperature_2m_min" +
                         "&timezone=auto" +
                         "&forecast_days=1";
-        Toast.makeText(context, "Lat " + String.valueOf(cityLat) + "\nLon: " + String.valueOf(cityLon), Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "Lat " + cityLat + "\nLon: " + cityLon, Toast.LENGTH_SHORT).show();
 
         List<WeatherReportModelShort> weatherReportModels = new ArrayList<>();
 
@@ -120,14 +128,6 @@ public class WeatherDataService {
                             JSONObject current = response.getJSONObject("current");
                             JSONObject daily = response.getJSONObject("daily");
 
-//                            WeatherReportModelShort one_day_weather = new WeatherReportModelShort();
-//                            one_day_weather.setTemperature_2m((float) current.getDouble("temperature_2m"));
-//                            one_day_weather.setWeatherCode(current.getInt("weather_code"));
-//                            one_day_weather.setCondition(current.getInt("weather_code"));
-//                            one_day_weather.setTemperature_2m_max(
-//                                    (float) response.getJSONObject("daily").getJSONArray("temperature_2m_max").getDouble(0));
-//                            one_day_weather.setTemperature_2m_min(
-//                                    (float) response.getJSONObject("daily").getJSONArray("temperature_2m_min").getDouble(0));
                             weatherReportModelShort.setTemperature_2m((float) current.getDouble("temperature_2m"));
                             weatherReportModelShort.setTemperature_2m_max(
                                     (float) daily.getJSONArray("temperature_2m_max").getDouble(0));
@@ -136,19 +136,20 @@ public class WeatherDataService {
                             weatherReportModelShort.setIs_day(current.getInt("is_day"));
                             weatherReportModelShort.setWeather_code(current.getInt("weather_code"));
 
-//                    weatherReportModels.add(i, one_day_weather);
                             // maybe i will use a single weatherReportModel instead of a list
 //                            weatherReportModels.add(one_day_weather);
                             weatherReportModels.add(weatherReportModelShort);
                             listenerGetForecastByLatL.onResponse(weatherReportModels);
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            Log.d(TAG, "onResponse: getForecastByLatLShort " + e);
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(context, error.toString(), Toast.LENGTH_SHORT).show();
+                listenerGetForecastByLatL.onError(error.toString());
             }
         });
 
@@ -160,7 +161,6 @@ public class WeatherDataService {
      * Gets city Latitude and Longitude from the fields cityLat and cityLon, which were assigned by calling getCityLatL.
      * @param listenerGetForecastByLatL
      */
-//    public void getForecastByLatLHourly(WeatherReportModelShort weatherReportModelShort, ListenerGetForecastByLatL<WeatherReportModelHourly> listenerGetForecastByLatL) {
     public void getForecastByLatLHourly(ListenerGetForecastByLatL<WeatherReportModelHourly> listenerGetForecastByLatL) {
 
         Log.d(TAG, "getForecastByLatLHourly: " + cityLat + " " + cityLon);
@@ -214,12 +214,14 @@ public class WeatherDataService {
                             listenerGetForecastByLatL.onResponse(weatherReportModels);
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            Log.d(TAG, "onResponse: getForecastByLatLHourly " + e);
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(context, error.toString(), Toast.LENGTH_SHORT).show();
+                listenerGetForecastByLatL.onError(error.toString() );
             }
         });
 
@@ -276,6 +278,7 @@ public class WeatherDataService {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(context, error.toString(), Toast.LENGTH_SHORT).show();
+                listenerGetForecastByLatL.onError(error.toString());
             }
         });
 

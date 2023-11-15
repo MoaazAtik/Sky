@@ -1,6 +1,7 @@
 package com.example.weatherapiapp;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
@@ -23,6 +24,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class CitiesActivity extends AppCompatActivity {
+
+    private static final String TAG = "CitiesActivity";
 
     private ConstraintLayout citiesLayout;
     private RecyclerView recyclerView;
@@ -57,87 +60,11 @@ public class CitiesActivity extends AppCompatActivity {
             snackbar.show();
         });
 
-
-//        binding.btnGetCityLatL.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                weatherDataService.getCityLatL(binding.etDataInput.getText().toString(), new WeatherDataService.ListenerGetCityLatL() {
-//                    @Override
-//                    public void onError(String message) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onResponse(float cityLat2, float cityLon) {
-//                        //↑ this doesn't do anything if it's not called from Api response
-//                        /*
-//                        public void getCityLatL(String cityName, ListenerGetCityLatL listenerGetCityLatL) {...
-//
-//                            JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
-//
-//                                @Override
-//                                public void onResponse(JSONArray response) {
-//
-//                           ***         listenerGetCityLatL.onResponse(cityLat, cityLon);
-//                         */
-//
-//                        Toast.makeText(MainActivity.this, "Lat: " + cityLat2 + "\nLon: " + cityLon, Toast.LENGTH_LONG).show();
-//                    }
-//                });
-//
-//
-//            }//onClick
-//        });//setOnClickListener btn_getCityLatL
-//
-//
-//        binding.btnGetWeatherByLatL.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                float cityLat = 0, cityLon = 0;
-//
-//                try {
-//                    cityLat = Float.parseFloat(binding.etDataInput.getText().toString().substring(0, binding.etDataInput.getText().toString().indexOf(",")).trim());
-//                    cityLon = Float.parseFloat(binding.etDataInput.getText().toString().substring(binding.etDataInput.getText().toString().indexOf(",") + 1).trim());
-//                } catch (Exception e) {
-//                    Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_LONG).show();
-//                }
-//
-//
-//                weatherDataService.getForecastByLatLShort(cityLat, cityLon, new WeatherDataService.ListenerGetForecastByLatL() {
-//                    @Override
-//                    public void onError(String message) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onResponse(List<WeatherReportModel> weatherReportModels) {
-//                        ArrayAdapter arrayAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, weatherReportModels);
-//                        binding.lvWeatherReports.setAdapter(arrayAdapter);
-//                    }
-//                });
-//
-//            }//onClick
-//        });//setOnClickListener  btn_getWeatherByLatL
-
-//        binding.btnGetWeatherByCityName.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-
-//            }
-//        });//setOnClickListener btn_getWeatherByName
-
     } //onCreate
 
     // Cities layout methods
     private void prepareData() {
-        String[] times = new String[]{
-                "11", "222"
-        };
-
         WeatherReportModelShort weatherReportModelShort = new WeatherReportModelShort();
-//        weatherReportModelShort.setTime(times[0]);
         citiesList.add(weatherReportModelShort);
 
         adapter.notifyDataSetChanged();
@@ -145,7 +72,6 @@ public class CitiesActivity extends AppCompatActivity {
 
     private void addCity() {
         WeatherReportModelShort weatherReportModelShort = new WeatherReportModelShort();
-//        weatherReportModelShort.setTime("333");
         citiesList.add(weatherReportModelShort);
 
         adapter.notifyDataSetChanged();
@@ -160,13 +86,12 @@ public class CitiesActivity extends AppCompatActivity {
                     @Override
                     public void onError(String message) {
                         Toast.makeText(CitiesActivity.this, message, Toast.LENGTH_LONG).show();
+                        Log.d(TAG, "onError: getForecastShort " + message);
                     }
 
                     @Override
                     public void onResponse(List<WeatherReportModelShort> weatherReportModels) {
-
                         Toast.makeText(CitiesActivity.this, "O  K", Toast.LENGTH_SHORT).show();
-
                         WeatherReportModelShort weatherReportModelShort = weatherReportModels.get(0);
                         citiesList.add(weatherReportModelShort);
 

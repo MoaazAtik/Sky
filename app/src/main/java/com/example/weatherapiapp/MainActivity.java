@@ -403,7 +403,9 @@ public class MainActivity extends AppCompatActivity {
 
     }//onCreate
 
-    // getForecastShort(). Get short forecast for the main weather details in the middle of the main screen.
+    /**
+     *  Get Short forecast for the main weather details in the middle of the home screen.
+     */
     private void getForecastShort() {
 
         WeatherDataService weatherDataService = new WeatherDataService(MainActivity.this);
@@ -413,6 +415,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onError(String message) {
                         Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+                        Log.d(TAG, "onError: getForecastShort " + message);
                     }
 
                     @Override
@@ -431,53 +434,52 @@ public class MainActivity extends AppCompatActivity {
                         txtMainCity.setText(cityCountry);
                         String conditionDescription = weatherReportModelShort.getConditionDescription();
                         txtMainConditionDescription.setText(conditionDescription);
-
-//            /            citiesList.add(weatherReportModelShort);
-//           /             adapter.notifyDataSetChanged();
                     }
                 });
     } // getForecastShort
 
+    /**
+     *  Get Hourly forecast for the upper bottom sheet.
+     */
     private void getForecastHourly() {
         WeatherDataService weatherDataService = new WeatherDataService(this);
 
         weatherDataService.getForecastByName("rio", 1, new WeatherDataService.ListenerGetForecastByLatL<WeatherReportModelHourly>() {
             @Override
             public void onError(String message) {
-
+                Log.d(TAG, "onError: getForecastHourly " + message);
             }
 
             @Override
             public void onResponse(List<WeatherReportModelHourly> weatherReportModels) {
                 Log.d(TAG, "onResponse: " + "getForecastHourly");
-
                 getAndAssignHourlyOrDailyValues(0, weatherReportModels);
-
             } // onResponse
         });
     } // getForecastHourly
 
+    /**
+     *  Get Daily forecast for the upper bottom sheet.
+     */
     private void getForecastDaily() {
         WeatherDataService weatherDataService = new WeatherDataService(this);
 
         weatherDataService.getForecastByName("rio", 2, new WeatherDataService.ListenerGetForecastByLatL<WeatherReportModelDaily>() {
             @Override
             public void onError(String message) {
-
+                Log.d(TAG, "onError: getForecastDaily " + message);
             }
 
             @Override
             public void onResponse(List<WeatherReportModelDaily> weatherReportModels) {
                 Log.d(TAG, "onResponse: " + "getForecastDaily");
-
                 getAndAssignHourlyOrDailyValues(1, weatherReportModels);
-
             } // onResponse
         });
     } // getForecastDaily
 
     /**
-     *
+     * getAndAssignHourlyOrDailyValues
      * @param hourlyOrDaily 0 = hourly forecast,
      *                      1 = daily forecast.
      * @param weatherReportModels List of weatherReportModels
@@ -565,6 +567,7 @@ public class MainActivity extends AppCompatActivity {
             currentView.setText(value);
 
         } catch (NoSuchFieldException | IllegalAccessException e) {
+            Log.d(TAG, "assignHourlyDailyValue: " + e);
             throw new RuntimeException(e);
         }
     }
