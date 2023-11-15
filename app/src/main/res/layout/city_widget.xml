@@ -72,7 +72,7 @@
         android:id="@+id/img_city_condition"
         android:layout_width="160dp"
         android:layout_height="160dp"
-        android:src="@drawable/condition_mid_rain"
+        android:src="@drawable/ic_condition_sun_cloud"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

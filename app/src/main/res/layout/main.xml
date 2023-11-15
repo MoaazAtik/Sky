@@ -269,7 +269,7 @@
                             android:id="@+id/hour_0_condition"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            app:srcCompat="@drawable/condition_mid_rain" />
+                            app:srcCompat="@drawable/ic_condition_sun_cloud" />
 
                         <!--                    Hour 0 precipitation-->
                         <androidx.appcompat.widget.AppCompatTextView
@@ -319,7 +319,7 @@
                             android:id="@+id/hour_1_condition"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            app:srcCompat="@drawable/condition_mid_rain" />
+                            app:srcCompat="@drawable/ic_condition_sun_cloud" />
 
                         <!--                    Hour 1 precipitation-->
                         <androidx.appcompat.widget.AppCompatTextView
@@ -368,7 +368,7 @@
                             android:id="@+id/hour_2_condition"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            app:srcCompat="@drawable/condition_mid_rain" />
+                            app:srcCompat="@drawable/ic_condition_sun_cloud" />
 
                         <!--                    Hour 2 precipitation-->
                         <androidx.appcompat.widget.AppCompatTextView
@@ -417,7 +417,7 @@
                             android:id="@+id/hour_3_condition"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            app:srcCompat="@drawable/condition_mid_rain" />
+                            app:srcCompat="@drawable/ic_condition_sun_cloud" />
 
                         <!--                    Hour 3 precipitation-->
                         <androidx.appcompat.widget.AppCompatTextView
@@ -466,7 +466,7 @@
                             android:id="@+id/hour_4_condition"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            app:srcCompat="@drawable/condition_mid_rain" />
+                            app:srcCompat="@drawable/ic_condition_sun_cloud" />
 
                         <!--                    Hour 4 precipitation-->
                         <androidx.appcompat.widget.AppCompatTextView
@@ -515,7 +515,7 @@
                             android:id="@+id/hour_5_condition"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            app:srcCompat="@drawable/condition_mid_rain" />
+                            app:srcCompat="@drawable/ic_condition_sun_cloud" />
 
                         <!--                    Hour 5 precipitation-->
                         <androidx.appcompat.widget.AppCompatTextView
@@ -564,7 +564,7 @@
                             android:id="@+id/hour_6_condition"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            app:srcCompat="@drawable/condition_mid_rain" />
+                            app:srcCompat="@drawable/ic_condition_sun_cloud" />
 
                         <!--                    Hour 6 precipitation-->
                         <androidx.appcompat.widget.AppCompatTextView
@@ -614,7 +614,7 @@
                             android:id="@+id/hour_7_condition"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            app:srcCompat="@drawable/condition_mid_rain" />
+                            app:srcCompat="@drawable/ic_condition_sun_cloud" />
 
                         <!--                    Hour 7 precipitation-->
                         <androidx.appcompat.widget.AppCompatTextView
@@ -688,7 +688,7 @@
                             android:id="@+id/day_0_condition"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            app:srcCompat="@drawable/condition_mid_rain" />
+                            app:srcCompat="@drawable/ic_condition_sun_cloud" />
 
                         <!--                    Day 0 precipitation-->
                         <androidx.appcompat.widget.AppCompatTextView
@@ -738,7 +738,7 @@
                             android:id="@+id/day_1_condition"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            app:srcCompat="@drawable/condition_mid_rain" />
+                            app:srcCompat="@drawable/ic_condition_sun_cloud" />
 
                         <!--                    Day 1 precipitation-->
                         <androidx.appcompat.widget.AppCompatTextView
@@ -787,7 +787,7 @@
                             android:id="@+id/day_2_condition"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            app:srcCompat="@drawable/condition_mid_rain" />
+                            app:srcCompat="@drawable/ic_condition_sun_cloud" />
 
                         <!--                    Day 2 precipitation-->
                         <androidx.appcompat.widget.AppCompatTextView
@@ -836,7 +836,7 @@
                             android:id="@+id/day_3_condition"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            app:srcCompat="@drawable/condition_mid_rain" />
+                            app:srcCompat="@drawable/ic_condition_sun_cloud" />
 
                         <!--                    Day 3 precipitation-->
                         <androidx.appcompat.widget.AppCompatTextView
@@ -885,7 +885,7 @@
                             android:id="@+id/day_4_condition"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            app:srcCompat="@drawable/condition_mid_rain" />
+                            app:srcCompat="@drawable/ic_condition_sun_cloud" />
 
                         <!--                    Day 4 precipitation-->
                         <androidx.appcompat.widget.AppCompatTextView
@@ -934,7 +934,7 @@
                             android:id="@+id/day_5_condition"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            app:srcCompat="@drawable/condition_mid_rain" />
+                            app:srcCompat="@drawable/ic_condition_sun_cloud" />
 
                         <!--                    Day 5 precipitation-->
                         <androidx.appcompat.widget.AppCompatTextView
@@ -984,7 +984,7 @@
                             android:id="@+id/day_6_condition"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            app:srcCompat="@drawable/condition_mid_rain" />
+                            app:srcCompat="@drawable/ic_condition_sun_cloud" />
 
                         <!--                    Day 6 precipitation-->
                         <androidx.appcompat.widget.AppCompatTextView
