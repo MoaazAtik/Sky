@@ -46,7 +46,7 @@ public class WeatherDataService {
     }
 
     /**
-     * Get city latitude and longitude.
+     * Get city latitude and longitude, and assign them to cityLat and cityLon fields.
      * @param cityName Provided country, city, town name.
      * @param listenerGetCityLatL
      */
@@ -94,17 +94,23 @@ public class WeatherDataService {
     }//getCityLatL
 
 
-    // Volley Response Listener. Callback for getForecastByLatLShort, getForecastByLatLSimple, getForecastByLatLDetailed and getForecastByName
+    /**
+     * Volley Response Listener Interface for Api Callback.
+     * Used by getForecastByLatLShort, getForecastByLatLHourly, getForecastByLatLDaily, getForecastByLatLDetailed, and getForecastByName.
+     *
+     * @param <T> WeatherReportModelShort, WeatherReportModelHourly, WeatherReportModelDaily, or WeatherReportModelDetailed
+     */
     public interface ListenerGetForecastByLatL<T> {
         void onError(String message);
 
-        // weatherReportModels can be a list of WeatherReportModelShort, WeatherReportModelHourly, or WeatherReportModelDetailed
         void onResponse(List<T> weatherReportModels);
     }
 
     /**
      * Get Short forecast for Home screen, and City Widgets.
-     * Gets city Latitude and Longitude from the fields cityLat and cityLon, which were assigned by calling getCityLatL.
+     * Gets city Latitude and Longitude from the fields cityLat and cityLon, which were assigned when getForecastByName called getCityLatL before calling getForecastByLatLShort.
+     *
+     * @param weatherReportModelShort Comes with city and country along with cityLat and cityLon fields filled which were assigned when getForecastByName called getCityLatL before calling getForecastByLatLHourly.
      * @param listenerGetForecastByLatL
      */
     public void getForecastByLatLShort(WeatherReportModelShort weatherReportModelShort, ListenerGetForecastByLatL<WeatherReportModelShort> listenerGetForecastByLatL) {
@@ -158,7 +164,8 @@ public class WeatherDataService {
 
     /**
      * Get Hourly forecast for Upper bottom sheet.
-     * Gets city Latitude and Longitude from the fields cityLat and cityLon, which were assigned by calling getCityLatL.
+     * Gets city Latitude and Longitude from the fields cityLat and cityLon, which were assigned when getForecastByName called getCityLatL before calling getForecastByLatLHourly.
+     *
      * @param listenerGetForecastByLatL
      */
     public void getForecastByLatLHourly(ListenerGetForecastByLatL<WeatherReportModelHourly> listenerGetForecastByLatL) {
@@ -230,7 +237,8 @@ public class WeatherDataService {
 
     /**
      * Get Daily forecast for Upper bottom sheet.
-     * Gets city Latitude and Longitude from the fields cityLat and cityLon, which were assigned by calling getCityLatL.
+     * Gets city Latitude and Longitude from the fields cityLat and cityLon, which were assigned when getForecastByName called getCityLatL before calling getForecastByLatLDaily.
+     *
      * @param listenerGetForecastByLatL
      */
     public void getForecastByLatLDaily(ListenerGetForecastByLatL<WeatherReportModelDaily> listenerGetForecastByLatL) {
@@ -285,24 +293,74 @@ public class WeatherDataService {
         MySingleton.getInstance(context).addToRequestQueue(weatherRequest);
     }
 
-    // getForecastByLatLDetailed(). Get detailed forecast for Lower bottom sheet.
-    public void getForecastByLatLDetailed(WeatherReportModelShort weatherReportModelShort, ListenerGetForecastByLatL<WeatherReportModelDetailed> listenerGetForecastByLatL) {
+    /**
+     * Get Detailed forecast for Lower bottom sheet.
+     * Gets city Latitude and Longitude from the fields cityLat and cityLon, which were assigned when getForecastByName called getCityLatL before calling getForecastByLatLDetailed.
+     *
+     * @param listenerGetForecastByLatL
+     */
+    public void getForecastByLatLDetailed(ListenerGetForecastByLatL<WeatherReportModelDetailed> listenerGetForecastByLatL) {
 
-//        float cityLat = weatherReportModelShort.getLat();
-//        float cityLon = weatherReportModelShort.getLon();
-//        QUERY_FOR_FORECAST_BY_LATL_DETAILED =
-//                "https://api.open-meteo.com/v1/forecast?latitude=" + cityLat + "&longitude=" + cityLon +
-//                        "&current=relative_humidity_2m,apparent_temperature,wind_speed_10m,wind_direction_10m" + ",dewpoint_2m,visibility" +
-//                        "&hourly=rain" +
-//                        "&daily=sunrise,sunset,uv_index_max,rain_sum" +
-//                        "&timezone=auto" +
-//                        "&past_days=1";
+        Log.d(TAG, "getForecastByLatLDetailed: ");
+        List<WeatherReportModelDetailed> weatherReportModels = new ArrayList<>();
+
+        QUERY_FOR_FORECAST_BY_LATL_DETAILED =
+                "https://api.open-meteo.com/v1/forecast?latitude=" + cityLat + "&longitude=" + cityLon +
+                        "&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,rain,wind_speed_10m,wind_direction_10m,dew_point_2m,visibility" +
+                        "&daily=sunrise,sunset,uv_index_max,rain_sum" +
+                        "&timezone=auto" +
+                        "&forecast_days=1";
+
+        JsonObjectRequest weatherRequest = new JsonObjectRequest(QUERY_FOR_FORECAST_BY_LATL_DETAILED, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONObject current = response.getJSONObject("current");
+                    JSONObject daily = response.getJSONObject("daily");
+
+                    WeatherReportModelDetailed weatherReportModelDetailed = new WeatherReportModelDetailed();
+                    weatherReportModelDetailed.setUv_index_max((float) daily.getJSONArray("uv_index_max").getDouble(0));
+                    weatherReportModelDetailed.setIs_day(current.getInt("is_day"));
+                    String parsedSunrise = daily.getJSONArray("sunrise").getString(0);
+                    weatherReportModelDetailed.setSunrise(getFormattedDateTime(6, parsedSunrise));
+                    String parsedSunset = daily.getJSONArray("sunset").getString(0);
+                    weatherReportModelDetailed.setSunset(getFormattedDateTime(6, parsedSunset));
+                    weatherReportModelDetailed.setSunTimeTitlePrimarySecondary();
+                    weatherReportModelDetailed.setWind_speed_10m((float) current.getDouble("wind_speed_10m"));
+                    weatherReportModelDetailed.setWind_direction_10m(current.getInt("wind_direction_10m"));
+                    weatherReportModelDetailed.setRain((float) current.getDouble("rain"));
+                    weatherReportModelDetailed.setRain_sum((float) daily.getJSONArray("rain_sum").getDouble(0));
+                    weatherReportModelDetailed.setApparent_temperature((float) current.getDouble("apparent_temperature"));
+                    weatherReportModelDetailed.setRelative_humidity_2m(current.getInt("relative_humidity_2m"));
+                    weatherReportModelDetailed.setDew_point_2m((float) current.getDouble("dew_point_2m"));
+                    weatherReportModelDetailed.setVisibility((float) current.getDouble("visibility"));
+                    weatherReportModels.add(weatherReportModelDetailed);
+
+                    listenerGetForecastByLatL.onResponse(weatherReportModels);
+
+                } catch (JSONException e) {
+//                    throw new RuntimeException(e);
+                    e.printStackTrace();
+                    Log.d(TAG, "onResponse: getForecastByLatLDetailed " + e);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                listenerGetForecastByLatL.onError(error.toString());
+            }
+        });
+
+        MySingleton.getInstance(context).addToRequestQueue(weatherRequest);
     }
 
     /**
      * getForecastByName(). Get forecast by city name.
      *
-     * @param forecastType 0 = short (for city widgets, and main forecast), 1 = hourly (for upper bottom sheet), 2 = daily (for upper bottom sheet), 3 = detailed (for lower bottom sheet)
+     * @param forecastType 0 = short (for city widgets, and main forecast),
+     *                     1 = hourly (for upper bottom sheet),
+     *                     2 = daily (for upper bottom sheet),
+     *                     3 = detailed (for lower bottom sheet)
      */
     public void getForecastByName(String cityName, int forecastType, ListenerGetForecastByLatL listenerGetForecastByLatL) {
         getCityLatL(cityName, new ListenerGetCityLatL() {
@@ -328,7 +386,6 @@ public class WeatherDataService {
                         });//getForecastByLatLShort
                         break;
                     case 1:
-//                        getForecastByLatLHourly(weatherReportModelShort, new ListenerGetForecastByLatL<WeatherReportModelHourly>() {
                         getForecastByLatLHourly(new ListenerGetForecastByLatL<WeatherReportModelHourly>() {
                             @Override
                             public void onError(String message) {
@@ -354,8 +411,7 @@ public class WeatherDataService {
                         });
                         break;
                     case 3:
-                        getForecastByLatLDetailed(weatherReportModelShort, new ListenerGetForecastByLatL<WeatherReportModelDetailed>() {
-//                        getForecastByLatLDetailed(new ListenerGetForecastByLatL<WeatherReportModelDetailed>() {
+                        getForecastByLatLDetailed(new ListenerGetForecastByLatL<WeatherReportModelDetailed>() {
                             @Override
                             public void onError(String message) {
 
@@ -363,7 +419,7 @@ public class WeatherDataService {
 
                             @Override
                             public void onResponse(List<WeatherReportModelDetailed> weatherReportModels) {
-
+                                listenerGetForecastByLatL.onResponse(weatherReportModels);
                             }
                         });
                         break;
@@ -379,8 +435,9 @@ public class WeatherDataService {
      *              1: Parsed time for comparing (e.g 21),
      *              2: Parsed time for Hour Model (e.g 9 PM),
      *              3: Current date for comparing (e.g 27),
-     *              4: Parsed date for comparing (e.g. 27).
-     *              5: Parsed day of week for Day Model (e.g. WED).
+     *              4: Parsed date for comparing (e.g. 27),
+     *              5: Parsed day of week for Day Model (e.g. WED),
+     *              6: Parsed time for Detailed Model (e.g 5:28 AM).
      * @param dateTime (Optional) Provide date and/or time to format.
      * @return Formatted date or time.
      */
@@ -401,6 +458,7 @@ public class WeatherDataService {
                     date = sdFormat.parse(dateTime);
                 } catch (ParseException e) {
                     e.printStackTrace();
+                    Log.d(TAG, "getFormattedDateTime: case 2 " + e);
                     return null;
                 }
                 sdFormat = new SimpleDateFormat("h a", Locale.getDefault());
@@ -416,9 +474,22 @@ public class WeatherDataService {
                     date = sdFormat.parse(dateTime);
                 } catch (ParseException e) {
                     e.printStackTrace();
+                    Log.d(TAG, "getFormattedDateTime: case 5 " + e);
                     return null;
                 }
                 sdFormat = new SimpleDateFormat("EEE", Locale.getDefault());
+                return sdFormat.format(date).toUpperCase();
+            case 6:
+                sdFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.getDefault()); // Parsed Date Time Format "2023-11-14T00:00"
+                try {
+                    date = sdFormat.parse(dateTime);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    Log.d(TAG, "getFormattedDateTime: case 6 " + e);
+                    return null;
+                }
+                sdFormat = new SimpleDateFormat("h:mm a", Locale.getDefault());
+                Log.d(TAG, "getFormattedDateTime: " + sdFormat.format(date).toUpperCase()); //delete
                 return sdFormat.format(date).toUpperCase();
         }
         return null;

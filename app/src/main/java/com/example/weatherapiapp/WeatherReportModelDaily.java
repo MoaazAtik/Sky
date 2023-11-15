@@ -118,6 +118,7 @@ public class WeatherReportModelDaily {
 
     /**
      * Set Condition Description and Condition Image Resource Id according to the given Weather Code
+     * Note: It should be called after is_day is assigned.
      *
      * @param weatherCode Parsed WMO Weather code.
      */

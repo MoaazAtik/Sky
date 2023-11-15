@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.HorizontalScrollView;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -55,6 +56,11 @@ public class MainActivity extends AppCompatActivity {
     private AppCompatTextView day0Precipitation, day1Precipitation, day2Precipitation, day3Precipitation, day4Precipitation, day5Precipitation, day6Precipitation;
     private AppCompatTextView day0Temp, day1Temp, day2Temp, day3Temp, day4Temp, day5Temp, day6Temp;
 
+    AppCompatTextView txtUvValue, txtUvStatus, txtWidgetSunTimeTitle, txtSunTimePrimary, txtSunTimeSecondary, txtWindSpeed, txtRainPrimary, txtRainSecondary, txtFeelsLikeTemp, txtFeelsLikeDescription, txtHumidityValue, txtHumidityDewPoint, txtVisibility, txtVisibilityDescription;
+    SeekBar seekBarUvIndex;
+
+    AppCompatImageView imgWidgetSunTimeThumbMoon, imgWindDirectionIndicator;
+    // These might not be needed because the Motion layouts are doing the job.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,6 +162,24 @@ public class MainActivity extends AppCompatActivity {
         day4Temp = findViewById(R.id.day_4_temp);
         day5Temp = findViewById(R.id.day_5_temp);
         day6Temp = findViewById(R.id.day_6_temp);
+
+
+        // Initialize Lower bottom sheet fields (except Motion Layouts)
+        txtUvValue = findViewById(R.id.txt_uv_value);
+        txtUvStatus = findViewById(R.id.txt_uv_status);
+        txtWidgetSunTimeTitle = findViewById(R.id.widget_sun_time_title);
+        txtSunTimePrimary = findViewById(R.id.txt_sun_time_primary);
+        txtSunTimeSecondary = findViewById(R.id.txt_sun_time_secondary);
+        txtWindSpeed = findViewById(R.id.txt_wind_speed);
+        txtRainPrimary = findViewById(R.id.txt_rain_primary);
+        txtRainSecondary = findViewById(R.id.txt_rain_secondary);
+        txtFeelsLikeTemp = findViewById(R.id.txt_feels_like_temp);
+        txtFeelsLikeDescription = findViewById(R.id.txt_feels_like_description);
+        txtHumidityValue = findViewById(R.id.txt_humidity_value);
+        txtHumidityDewPoint = findViewById(R.id.txt_humidity_dew_point);
+        txtVisibility = findViewById(R.id.txt_visibility);
+        txtVisibilityDescription = findViewById(R.id.txt_visibility_description);
+        seekBarUvIndex = findViewById(R.id.seekbar_uv_index);
 
 
         Log.d(TAG, "onCreate: ");
@@ -572,6 +596,56 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     *  Get Detailed forecast for the Lower bottom sheet.
+     */
+    private void getForecastDetailed() {
+        WeatherDataService weatherDataService = new WeatherDataService(this);
+        
+        weatherDataService.getForecastByName("rio", 3, new WeatherDataService.ListenerGetForecastByLatL<WeatherReportModelDetailed>() {
+            @Override
+            public void onError(String message) {
+                Log.d(TAG, "onError: getForecastDetailed");
+            }
+
+            @Override
+            public void onResponse(List<WeatherReportModelDetailed> weatherReportModels) {
+                Log.d(TAG, "onResponse: getForecastDetailed");
+                getAndAssignDetailedValues(weatherReportModels);
+            }
+        });
+    }
+
+
+    private <T> void getAndAssignDetailedValues(List<T> weatherReportModels) {
+//        txtUvValue, txtUvStatus, txtWidgetSunTimeTitle, txtSunTimePrimary, txtSunTimeSecondary,
+//        txtWindSpeed, txtRainPrimary, txtRainSecondary, txtFeelsLikeTemp, txtFeelsLikeDescription,
+//        txtHumidityValue, txtHumidityDewPoint,
+        WeatherReportModelDetailed weatherReportModelDetailed = (WeatherReportModelDetailed) weatherReportModels.get(0);
+
+        txtUvValue.setText(String.valueOf(weatherReportModelDetailed.getUv_index_max()));
+//        txtUvStatus.setText(String.valueOf(weatherReportModelDetailed.getUv_index_status()));
+        txtWidgetSunTimeTitle.setText(weatherReportModelDetailed.getSunTimeTitle());
+        txtSunTimePrimary.setText(weatherReportModelDetailed.getSunTimePrimary());
+        txtSunTimeSecondary.setText(weatherReportModelDetailed.getSunTimeSecondary());
+        txtWindSpeed.setText(String.valueOf(weatherReportModelDetailed.getWind_speed_10m()));
+        String rainPrimary = weatherReportModelDetailed.getRain() + " mm";
+        txtRainPrimary.setText(rainPrimary);
+        String rainSecondary = weatherReportModelDetailed.getRain_sum() + " mm expected in next 24h.";
+        txtRainSecondary.setText(rainSecondary);
+        String feelsLike = (int) weatherReportModelDetailed.getApparent_temperature() + "°";
+        txtFeelsLikeTemp.setText(feelsLike);
+        txtFeelsLikeDescription.setText(weatherReportModelDetailed.getApparent_temperatureDescription());
+        String humidityValue = weatherReportModelDetailed.getRelative_humidity_2m() + "%";
+        txtHumidityValue.setText(humidityValue);
+        String dewPoint = "The dew point is " + (int) weatherReportModelDetailed.getDew_point_2m() + " right now.";
+        txtHumidityDewPoint.setText(dewPoint);
+//        txtVisibility, txtVisibilityDescription;
+//   seekBarUvIndex
+        String visibility = (int) weatherReportModelDetailed.getVisibility() + " km";
+        txtVisibility.setText(visibility);
+
+    }
 
 
     private enum HourlyDailyFields {

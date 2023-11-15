@@ -86,7 +86,7 @@
         app:layout_constraintTop_toTopOf="@id/uv_index">
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/widget_sunrise_title"
+            android:id="@+id/widget_sun_time_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="14dp"
@@ -113,7 +113,7 @@
             android:textColor="@color/white"
             android:textSize="30sp"
             app:layout_constraintBottom_toTopOf="@id/mountain_sunrise_progress"
-            app:layout_constraintStart_toStartOf="@id/widget_sunrise_title" />
+            app:layout_constraintStart_toStartOf="@id/widget_sun_time_title" />
 
         <!--            Mountain sunrise progress-->
         <androidx.appcompat.widget.AppCompatImageView
@@ -162,7 +162,7 @@
             android:textColor="@color/white"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/widget_sunrise_title" />
+            app:layout_constraintStart_toStartOf="@id/widget_sun_time_title" />
 
     </androidx.constraintlayout.motion.widget.MotionLayout>
 
@@ -293,7 +293,7 @@
             android:layout_marginTop="-4dp"
             android:fontFamily="@font/sf_pro_display_regular"
             android:includeFontPadding="false"
-            android:text="in last hour"
+            android:text="in last quarter hour"
             android:textColor="@color/white"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@id/widget_rainfall_title"
@@ -401,7 +401,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/txt_humidity_percent"
+            android:id="@+id/txt_humidity_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sf_pro_display_regular"
