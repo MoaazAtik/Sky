@@ -1,11 +1,14 @@
 package com.example.weatherapiapp;
 
+import android.util.Log;
+
 // Used in the Lower part of the bottom sheet
 public class WeatherReportModelDetailed {
 
     private static final String TAG = "ModelDetailed";
 
     private float uv_index_max;
+    private String uvDescription; // Relative to uv_index_max
     private int is_day; // 0: Night, 1: Day. From Current weather.
     private String sunrise;
     private String sunset;
@@ -18,11 +21,11 @@ public class WeatherReportModelDetailed {
     private float rain_sum;
     private float temperature_2m;
     private float apparent_temperature; // Feels like
-    private String apparent_temperatureDescription;
+    private String apparent_temperatureDescription; // Relative to apparent_temperature
     private int relative_humidity_2m;
     private float dew_point_2m;
     private float visibility;
-    private String visibilityDescription;
+    private String visibilityDescription; // Relative to visibility
 
     public WeatherReportModelDetailed(float uv_index_max, int is_day, String sunrise, String sunset, float wind_speed_10m, int wind_direction_10m, float rain, float rain_sum, float temperature_2m, float apparent_temperature, int relative_humidity_2m, float dew_point_2m, float visibility) {
         this.uv_index_max = uv_index_max;
@@ -47,6 +50,7 @@ public class WeatherReportModelDetailed {
     public String toString() {
         return "WeatherReportModelDetailed{" +
                 "uv_index_max=" + uv_index_max +
+                ", uvDescription=" + uvDescription +
                 ", is_day=" + is_day +
                 ", sunrise='" + sunrise + '\'' +
                 ", sunset='" + sunset + '\'' +
@@ -72,6 +76,11 @@ public class WeatherReportModelDetailed {
 
     public void setUv_index_max(float uv_index_max) {
         this.uv_index_max = uv_index_max;
+        setUv_Description(uv_index_max);
+    }
+
+    public String getUvDescription() {
+        return uvDescription;
     }
 
     public int getIs_day() {
@@ -193,6 +202,30 @@ public class WeatherReportModelDetailed {
         setVisibilityDescription(visibility);
     }
 
+    public String getVisibilityDescription() {
+        return visibilityDescription;
+    }
+
+    /**
+     * Set UV Description relative to UV Index Max value according to the WHO.
+     * It will be automatically called by setUv_index_max after assigning uv_index_max.
+     * Note: it should be called after uv_index_max is assigned.
+     *
+     * @param uv_index_max Provided UV index value.
+     */
+    private void setUv_Description(float uv_index_max) {
+        if (uv_index_max <= 2)
+            uvDescription = "Low"; // Green
+        else if (3 <= uv_index_max && uv_index_max <= 5)
+            uvDescription = "Moderate"; // Yellow
+        else if (6 <= uv_index_max && uv_index_max <= 7)
+            uvDescription = "High"; // Orange
+        else if (8 <= uv_index_max && uv_index_max <= 10)
+            uvDescription = "Vary high"; // Red
+        else if (11 <= uv_index_max)
+            uvDescription = "Extreme"; // Purple
+    }
+
     /**
      * Set the values for the Sun time widget relative to is_day. Sun time Title, Primary sun time and Secondary sun time.
      * Note: It should be called to assign sunTimePrimary and sunTimeSecondary after is_day is assigned.
@@ -220,35 +253,39 @@ public class WeatherReportModelDetailed {
         else if (apparent_temperature > temperature_2m)
             apparent_temperatureDescription = "Warmer" + " than the actual temperature.";
         else // apparent_temperature == temperature_2m
-        apparent_temperatureDescription = "Similar to the actual temperature.";
+            apparent_temperatureDescription = "Similar to the actual temperature.";
     }
 
     /**
      * Set the description of the visibility.
      * It will be automatically called by setVisibility after assigning visibility.
      * Note: it should be called after visibility is assigned.
+     *
+     * @param visibility Visibility Range in meters.
      */
     public void setVisibilityDescription(float visibility) {
-//        int visibilityInt = (int) visibility;
-//
-//        if (visibilityInt < 0.050) {
-        if (visibility < 50) {
+
+        if (visibility < 50)
             visibilityDescription = "Dense fog";
-        } else if (50 <= visibility && visibility < 200) {
+        else if (50 <= visibility && visibility < 200)
             visibilityDescription = "Thick fog";
-        } else if (200 <= visibility && visibility < 500) {
-            visibilityDescription = "Dense fog";
-        } else if (500 <= visibility && visibility < 1000) { ///
-            visibilityDescription = "Dense fog";
-        }
-        } else if (1000 <= visibility && visibility < 2000) {
-            visibilityDescription = "Dense fog";
-        } else if (200 <= visibility && visibility < 500) {
-            visibilityDescription = "Dense fog";
-        } else if (200 <= visibility && visibility < 500) {
-            visibilityDescription = "Dense fog";
-        } else if (200 <= visibility && visibility < 500) {
-            visibilityDescription = "Dense fog";
-        }
+        else if (200 <= visibility && visibility < 500)
+            visibilityDescription = "Moderate fog";
+        else if (500 <= visibility && visibility < 1000)
+            visibilityDescription = "Light fog";
+        else if (1000 <= visibility && visibility < 2000)
+            visibilityDescription = "Thin fog";
+        else if (2000 <= visibility && visibility < 4000)
+            visibilityDescription = "Haze";
+        else if (4000 <= visibility && visibility < 10000)
+            visibilityDescription = "Light haze";
+        else if (10000 <= visibility && visibility < 20000)
+            visibilityDescription = "Clear";
+        else if (20000 <= visibility && visibility < 50000)
+            visibilityDescription = "Very clear";
+        else if (50000 <= visibility && visibility < 277000)
+            visibilityDescription = "Exceptionally clear";
+        else if (277000 <= visibility)
+            visibilityDescription = "Pure air";
     }
 }

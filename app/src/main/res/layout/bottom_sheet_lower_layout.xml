@@ -64,7 +64,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="14dp"
             android:clickable="false"
-            android:max="10"
+            android:max="11"
             android:progress="5"
             android:progressDrawable="@drawable/uv_index_bar"
             android:thumb="@drawable/thumb_uv_progress"
@@ -132,8 +132,8 @@
             android:id="@+id/thumb_night"
             android:layout_width="6dp"
             android:layout_height="6dp"
-            android:layout_marginBottom="-1.7dp"
             android:layout_marginStart="-11dp"
+            android:layout_marginBottom="-1.7dp"
             app:layout_constraintBottom_toBottomOf="@id/mountain_sunrise_progress"
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/thumb_night_sunrise_bar" />
@@ -290,14 +290,16 @@
             android:id="@+id/txt_rain_primary_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-4dp"
+            android:layout_marginTop="-8dp"
             android:fontFamily="@font/sf_pro_display_regular"
             android:includeFontPadding="false"
+            android:paddingEnd="14dp"
             android:text="in last quarter hour"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@id/widget_rainfall_title"
-            app:layout_constraintTop_toBottomOf="@id/txt_rain_primary" />
+            app:layout_constraintTop_toBottomOf="@id/txt_rain_primary"
+            app:lineHeight="16dp" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txt_rain_secondary"

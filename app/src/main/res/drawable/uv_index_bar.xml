@@ -1,13 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="oval">
-
-    <size
-        android:width="90dp"
-        android:height="4dp" />
-    <gradient
-        android:centerColor="#AB47BC"
-        android:endColor="#F06292"
-        android:startColor="#3F51B5" />
-
-</shape>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="100dp"
+    android:height="2dp"
+    android:viewportWidth="100"
+    android:viewportHeight="2">
+    <path
+        android:pathData="M50 0A50 1 0 1 0 50 2 50 1 0 1 0 50 0z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:endX="100"
+                android:startX="0"
+                android:type="linear"
+                android:tileMode="repeat">
+                <item
+                    android:color="#6D145A17"
+                    android:offset="0.0" />
+                <item
+                    android:color="#6D145A17"
+                    android:offset="0.18" />
+                <item
+                    android:color="#6DDFBB01"
+                    android:offset="0.26" />
+                <item
+                    android:color="#6DDFBB01"
+                    android:offset="0.42" />
+                <item
+                    android:color="#6DDF4701"
+                    android:offset="0.5" />
+                <item
+                    android:color="#6DDF4701"
+                    android:offset="0.62" />
+                <item
+                    android:color="#6DDF0101"
+                    android:offset="0.8" />
+                <item
+                    android:color="#6DDF0101"
+                    android:offset="0.84" />
+                <item
+                    android:color="#6DD001DF"
+                    android:offset="0.93" />
+                <item
+                    android:color="#6DD001DF"
+                    android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+</vector>

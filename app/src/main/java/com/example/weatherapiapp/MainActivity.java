@@ -6,6 +6,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.motion.widget.MotionLayout;
+import androidx.constraintlayout.motion.widget.MotionScene;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.animation.Animator;
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
 
-//    private ConstraintLayout citiesLayout;
+    //    private ConstraintLayout citiesLayout;
 //    private RecyclerView recyclerView;
 //    private CityListAdapter adapter;
 //    private List<WeatherReportModel> citiesList;
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private AppCompatImageView hour0Condition, hour1Condition, hour2Condition, hour3Condition, hour4Condition, hour5Condition, hour6Condition, hour7Condition;
     private AppCompatTextView hour0Precipitation, hour1Precipitation, hour2Precipitation, hour3Precipitation, hour4Precipitation, hour5Precipitation, hour6Precipitation, hour7Precipitation;
     private AppCompatTextView hour0Temp, hour1Temp, hour2Temp, hour3Temp, hour4Temp, hour5Temp, hour6Temp, hour7Temp;
-    
+
     private AppCompatTextView day0Time, day1Time, day2Time, day3Time, day4Time, day5Time, day6Time;
     private AppCompatImageView day0Condition, day1Condition, day2Condition, day3Condition, day4Condition, day5Condition, day6Condition;
     private AppCompatTextView day0Precipitation, day1Precipitation, day2Precipitation, day3Precipitation, day4Precipitation, day5Precipitation, day6Precipitation;
@@ -71,8 +72,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main);
 
         // Open Cities Activity
-        Intent citiesIntent = new Intent(MainActivity.this, CitiesActivity.class);
-        MainActivity.this.startActivity(citiesIntent);
+//        Intent citiesIntent = new Intent(MainActivity.this, CitiesActivity.class);
+//        MainActivity.this.startActivity(citiesIntent);
 
         mainMotionLayout = findViewById(R.id.main_motion_layout);
         sunriseMotionLayout = findViewById(R.id.sunrise_sunset);
@@ -186,6 +187,7 @@ public class MainActivity extends AppCompatActivity {
         getForecastShort();
         getForecastHourly();
         getForecastDaily();
+        getForecastDetailed();
 
         // btnHourlyForecast OnClickListener
         btnHourlyForecast.setOnClickListener(v -> {
@@ -335,7 +337,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
         //Old buttons of activity_main (getWeather...)
 //        binding.btnGetCityLatL.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -428,7 +429,7 @@ public class MainActivity extends AppCompatActivity {
     }//onCreate
 
     /**
-     *  Get Short forecast for the main weather details in the middle of the home screen.
+     * Get Short forecast for the main weather details in the middle of the home screen.
      */
     private void getForecastShort() {
 
@@ -463,7 +464,7 @@ public class MainActivity extends AppCompatActivity {
     } // getForecastShort
 
     /**
-     *  Get Hourly forecast for the upper bottom sheet.
+     * Get Hourly forecast for the upper bottom sheet.
      */
     private void getForecastHourly() {
         WeatherDataService weatherDataService = new WeatherDataService(this);
@@ -483,7 +484,7 @@ public class MainActivity extends AppCompatActivity {
     } // getForecastHourly
 
     /**
-     *  Get Daily forecast for the upper bottom sheet.
+     * Get Daily forecast for the upper bottom sheet.
      */
     private void getForecastDaily() {
         WeatherDataService weatherDataService = new WeatherDataService(this);
@@ -504,10 +505,11 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * getAndAssignHourlyOrDailyValues
-     * @param hourlyOrDaily 0 = hourly forecast,
-     *                      1 = daily forecast.
+     *
+     * @param hourlyOrDaily       0 = hourly forecast,
+     *                            1 = daily forecast.
      * @param weatherReportModels List of weatherReportModels
-     * @param <T> WeatherReportModelHourly or WeatherReportModelDaily
+     * @param <T>                 WeatherReportModelHourly or WeatherReportModelDaily
      */
     private <T> void getAndAssignHourlyOrDailyValues(int hourlyOrDaily, List<T> weatherReportModels) {
 
@@ -597,11 +599,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     *  Get Detailed forecast for the Lower bottom sheet.
+     * Get Detailed forecast for the Lower bottom sheet.
      */
     private void getForecastDetailed() {
         WeatherDataService weatherDataService = new WeatherDataService(this);
-        
+
         weatherDataService.getForecastByName("rio", 3, new WeatherDataService.ListenerGetForecastByLatL<WeatherReportModelDetailed>() {
             @Override
             public void onError(String message) {
@@ -618,13 +620,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     private <T> void getAndAssignDetailedValues(List<T> weatherReportModels) {
-//        txtUvValue, txtUvStatus, txtWidgetSunTimeTitle, txtSunTimePrimary, txtSunTimeSecondary,
-//        txtWindSpeed, txtRainPrimary, txtRainSecondary, txtFeelsLikeTemp, txtFeelsLikeDescription,
-//        txtHumidityValue, txtHumidityDewPoint,
+
         WeatherReportModelDetailed weatherReportModelDetailed = (WeatherReportModelDetailed) weatherReportModels.get(0);
 
-        txtUvValue.setText(String.valueOf(weatherReportModelDetailed.getUv_index_max()));
-//        txtUvStatus.setText(String.valueOf(weatherReportModelDetailed.getUv_index_status()));
+        txtUvValue.setText(String.valueOf((int) weatherReportModelDetailed.getUv_index_max()));
+        txtUvStatus.setText(weatherReportModelDetailed.getUvDescription());
+        seekBarUvIndex.setProgress((int) weatherReportModelDetailed.getUv_index_max());
         txtWidgetSunTimeTitle.setText(weatherReportModelDetailed.getSunTimeTitle());
         txtSunTimePrimary.setText(weatherReportModelDetailed.getSunTimePrimary());
         txtSunTimeSecondary.setText(weatherReportModelDetailed.getSunTimeSecondary());
@@ -640,10 +641,46 @@ public class MainActivity extends AppCompatActivity {
         txtHumidityValue.setText(humidityValue);
         String dewPoint = "The dew point is " + (int) weatherReportModelDetailed.getDew_point_2m() + " right now.";
         txtHumidityDewPoint.setText(dewPoint);
-//        txtVisibility, txtVisibilityDescription;
-//   seekBarUvIndex
         String visibility = (int) weatherReportModelDetailed.getVisibility() + " km";
         txtVisibility.setText(visibility);
+        txtVisibilityDescription.setText(weatherReportModelDetailed.getVisibilityDescription());
+
+//        sunriseMotionLayout.setProgress(0.35f);
+//        sunriseMotionLayout.transitionToEnd();
+//        sunriseMotionLayout.setInterpolatedProgress(0.35f);
+//        sunriseMotionLayout.transitionToEnd();
+//        MotionScene motionScene = R.xml.sunrise_sunset_scene;
+//        sunriseMotionLayout.getTransition(R.id.end)
+
+//        sunriseMotionLayout.transitionToEnd();
+        MotionLayout.TransitionListener transitionListener = new MotionLayout.TransitionListener() {
+            @Override
+            public void onTransitionStarted(MotionLayout motionLayout, int startId, int endId) {
+
+            }
+
+            @Override
+            public void onTransitionChange(MotionLayout motionLayout, int startId, int endId, float progress) {
+                if (progress > 0.35f) {
+                    sunriseMotionLayout.setProgress(0.35f);
+//                    sunriseMotionLayout.jumpToState(R.id.start);
+                }
+//                sunriseMotionLayout.transitionToEnd();
+            }
+
+            @Override
+            public void onTransitionCompleted(MotionLayout motionLayout, int currentId) {
+//        sunriseMotionLayout.getTransition(R.id.sun_time_transition).setEnabled(false);
+//                sunriseMotionLayout.jumpToState(R.id.start);
+                sunriseMotionLayout.transitionToEnd();
+            }
+
+            @Override
+            public void onTransitionTrigger(MotionLayout motionLayout, int triggerId, boolean positive, float progress) {
+
+            }
+        };
+        sunriseMotionLayout.setTransitionListener(transitionListener);
 
     }
 
