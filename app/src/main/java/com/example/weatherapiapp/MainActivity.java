@@ -6,13 +6,12 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.motion.widget.MotionLayout;
-import androidx.constraintlayout.motion.widget.MotionScene;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
-import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -57,8 +56,13 @@ public class MainActivity extends AppCompatActivity {
     private AppCompatTextView day0Precipitation, day1Precipitation, day2Precipitation, day3Precipitation, day4Precipitation, day5Precipitation, day6Precipitation;
     private AppCompatTextView day0Temp, day1Temp, day2Temp, day3Temp, day4Temp, day5Temp, day6Temp;
 
-    AppCompatTextView txtUvValue, txtUvStatus, txtWidgetSunTimeTitle, txtSunTimePrimary, txtSunTimeSecondary, txtWindSpeed, txtRainPrimary, txtRainSecondary, txtFeelsLikeTemp, txtFeelsLikeDescription, txtHumidityValue, txtHumidityDewPoint, txtVisibility, txtVisibilityDescription;
-    SeekBar seekBarUvIndex;
+    private AppCompatTextView txtUvValue, txtUvStatus, txtWidgetSunTimeTitle, txtSunTimePrimary, txtSunTimeSecondary, txtWindSpeed, txtRainPrimary, txtRainSecondary, txtFeelsLikeTemp, txtFeelsLikeDescription, txtHumidityValue, txtHumidityDewPoint, txtVisibility, txtVisibilityDescription;
+    private SeekBar seekBarUvIndex;
+
+    boolean firstFullSunTimeAnimation = true;
+    float sunTimeProgress;
+    private String sunTimePrimary;
+    private int windDirection;
 
     AppCompatImageView imgWidgetSunTimeThumbMoon, imgWindDirectionIndicator;
     // These might not be needed because the Motion layouts are doing the job.
@@ -307,12 +311,21 @@ public class MainActivity extends AppCompatActivity {
             public void onTransitionCompleted(MotionLayout motionLayout, int currentId) {
                 if (currentId == R.id.end) {
                     // Initial animation of sunrise and wind indicator
+                    Log.d(TAG, "onTransitionCompleted: main currentId " + "end");
+                    Log.d(TAG, "onTransitionCompleted: main firstFullSunTimeAnimation before " + firstFullSunTimeAnimation);
+                    firstFullSunTimeAnimation = true;
                     sunriseMotionLayout.transitionToEnd();
                     windMotionLayout.transitionToEnd();
+                    Log.d(TAG, "onTransitionCompleted: main firstFullSunTimeAnimation after " + firstFullSunTimeAnimation);
                 }
                 if (currentId == R.id.start) {
+                    Log.d(TAG, "onTransitionCompleted: main currentId " + "start");
+                    Log.d(TAG, "onTransitionCompleted: main firstFullSunTimeAnimation before jump " + firstFullSunTimeAnimation);
                     sunriseMotionLayout.jumpToState(R.id.start);
+//                    sunriseMotionLayout.setProgress(0);
                     windMotionLayout.jumpToState(R.id.start);
+                    Log.d(TAG, "onTransitionCompleted: main firstFullSunTimeAnimation after jump " + firstFullSunTimeAnimation);
+
                 }
             }
 
@@ -626,10 +639,13 @@ public class MainActivity extends AppCompatActivity {
         txtUvValue.setText(String.valueOf((int) weatherReportModelDetailed.getUv_index_max()));
         txtUvStatus.setText(weatherReportModelDetailed.getUvDescription());
         seekBarUvIndex.setProgress((int) weatherReportModelDetailed.getUv_index_max());
+        sunTimeProgress = weatherReportModelDetailed.getTimePercentage();
         txtWidgetSunTimeTitle.setText(weatherReportModelDetailed.getSunTimeTitle());
-        txtSunTimePrimary.setText(weatherReportModelDetailed.getSunTimePrimary());
+        sunTimePrimary = weatherReportModelDetailed.getSunTimePrimary();
+        txtSunTimePrimary.setText(sunTimePrimary);
         txtSunTimeSecondary.setText(weatherReportModelDetailed.getSunTimeSecondary());
         txtWindSpeed.setText(String.valueOf(weatherReportModelDetailed.getWind_speed_10m()));
+        windDirection = weatherReportModelDetailed.getWind_direction_10m();
         String rainPrimary = weatherReportModelDetailed.getRain() + " mm";
         txtRainPrimary.setText(rainPrimary);
         String rainSecondary = weatherReportModelDetailed.getRain_sum() + " mm expected in next 24h.";
@@ -645,45 +661,86 @@ public class MainActivity extends AppCompatActivity {
         txtVisibility.setText(visibility);
         txtVisibilityDescription.setText(weatherReportModelDetailed.getVisibilityDescription());
 
-//        sunriseMotionLayout.setProgress(0.35f);
-//        sunriseMotionLayout.transitionToEnd();
-//        sunriseMotionLayout.setInterpolatedProgress(0.35f);
-//        sunriseMotionLayout.transitionToEnd();
-//        MotionScene motionScene = R.xml.sunrise_sunset_scene;
-//        sunriseMotionLayout.getTransition(R.id.end)
-
-//        sunriseMotionLayout.transitionToEnd();
-        MotionLayout.TransitionListener transitionListener = new MotionLayout.TransitionListener() {
-            @Override
-            public void onTransitionStarted(MotionLayout motionLayout, int startId, int endId) {
-
-            }
-
-            @Override
-            public void onTransitionChange(MotionLayout motionLayout, int startId, int endId, float progress) {
-                if (progress > 0.35f) {
-                    sunriseMotionLayout.setProgress(0.35f);
-//                    sunriseMotionLayout.jumpToState(R.id.start);
-                }
-//                sunriseMotionLayout.transitionToEnd();
-            }
-
-            @Override
-            public void onTransitionCompleted(MotionLayout motionLayout, int currentId) {
-//        sunriseMotionLayout.getTransition(R.id.sun_time_transition).setEnabled(false);
-//                sunriseMotionLayout.jumpToState(R.id.start);
-                sunriseMotionLayout.transitionToEnd();
-            }
-
-            @Override
-            public void onTransitionTrigger(MotionLayout motionLayout, int triggerId, boolean positive, float progress) {
-
-            }
-        };
-        sunriseMotionLayout.setTransitionListener(transitionListener);
+        sunriseMotionLayout.setTransitionListener(sunTimeTransitionListener);
+        windMotionLayout.setTransitionListener(windTransitionListener);
 
     }
 
+    /**
+     * Transition Listener for Sun Time widget's animation.
+     * 1. The animation will be Full performed once when the bottom sheet is opened, aka. after mainMotionLayout's animation is complete.
+     * 2. Then the animation will start again from the beginning and its progress will stop relative to current Sun Time value in the weatherReportModelDetailed.
+     * 3. When the bottom sheet is collapsed the animation will jump to the starting position, so the previous behaviors will be achievable again.
+     */
+    private final MotionLayout.TransitionListener sunTimeTransitionListener = new MotionLayout.TransitionListener() {
+        @Override
+        public void onTransitionStarted(MotionLayout motionLayout, int startId, int endId) {
+        }
+
+        @Override
+        public void onTransitionChange(MotionLayout motionLayout, int startId, int endId, float progress) {
+            if (!firstFullSunTimeAnimation && progress > sunTimeProgress) {
+                sunriseMotionLayout.setProgress(sunTimeProgress);
+//                firstFullSunTimeAnimation = true;
+            }
+        }
+
+        @Override
+        public void onTransitionCompleted(MotionLayout motionLayout, int currentId) {
+            Log.d(TAG, "onTransitionCompleted: sunriseMotionLayout , currentId " + currentId);
+            Log.d(TAG, "onTransitionCompleted: sunriseMotionLayout ,before, firstFullSunTimeAnimation " + firstFullSunTimeAnimation);
+//            if (currentId == R.id.start) {
+//            Log.d(TAG, "onTransitionCompleted: sunriseMotionLayout 2, firstFullSunTimeAnimation " + firstFullSunTimeAnimation);
+                sunriseMotionLayout.jumpToState(R.id.start); // this is animation, while setProgress is not(?)
+                sunriseMotionLayout.transitionToEnd();
+                if (mainMotionLayout.getStartState() != R.id.end) {
+                    firstFullSunTimeAnimation = false; // This is competing with the transitionToEnd above. The transitionToEnd is starting, and before it's completed firstFullSunTimeAnimation is being set to false. (probably)
+                    Log.d(TAG, "onTransitionCompleted: iffff ");
+                }
+            Log.d(TAG, "onTransitionCompleted: sunriseMotionLayout ,after, firstFullSunTimeAnimation " + firstFullSunTimeAnimation);
+//            }
+        }
+
+        @Override
+        public void onTransitionTrigger(MotionLayout motionLayout, int triggerId, boolean positive, float progress) {
+        }
+    };
+
+    /**
+     * Transition Listener for Wind widget's animation.
+     * 1. The animation will be Full performed once when the bottom sheet is opened, aka. after mainMotionLayout's animation is complete.
+     * 2. Then the animation will start again from the beginning and its progress will stop relative to current Wind Angle value in the weatherReportModelDetailed.
+     * 3. When the bottom sheet is collapsed the animation will jump to the starting position, so the previous behaviors w`ill be achievable again.
+     */
+    private final MotionLayout.TransitionListener windTransitionListener = new MotionLayout.TransitionListener() {
+        @Override
+        public void onTransitionStarted(MotionLayout motionLayout, int startId, int endId) {
+        }
+
+        boolean firstFullAnimation = true;
+
+        @Override
+        public void onTransitionChange(MotionLayout motionLayout, int startId, int endId, float progress) {
+            if (!firstFullAnimation && progress > 0.35f) {
+                windMotionLayout.setProgress(0.35f);
+            }
+        }
+
+        @Override
+        public void onTransitionCompleted(MotionLayout motionLayout, int currentId) {
+            windMotionLayout.jumpToState(R.id.start);
+            windMotionLayout.transitionToEnd();
+            firstFullAnimation = false;
+        }
+
+        @Override
+        public void onTransitionTrigger(MotionLayout motionLayout, int triggerId, boolean positive, float progress) {
+        }
+    };
+
+    private void setWindProgress() {
+
+    }
 
     private enum HourlyDailyFields {
         TIME,

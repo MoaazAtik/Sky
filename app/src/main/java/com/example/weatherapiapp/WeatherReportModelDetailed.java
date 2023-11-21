@@ -10,6 +10,8 @@ public class WeatherReportModelDetailed {
     private float uv_index_max;
     private String uvDescription; // Relative to uv_index_max
     private int is_day; // 0: Night, 1: Day. From Current weather.
+    private String time; // Current Time for Sun Time Animation
+    private float timePercentage; // Current Time as Percentage Float for Sun Time Animation
     private String sunrise;
     private String sunset;
     private String sunTimeTitle; // Relative to is_day
@@ -17,6 +19,7 @@ public class WeatherReportModelDetailed {
     private String sunTimeSecondary; // Relative to is_day
     private float wind_speed_10m;
     private int wind_direction_10m;
+    private float windDirectionPercentage; // Wind Direction as Percentage Float for Wind Animation
     private float rain;
     private float rain_sum;
     private float temperature_2m;
@@ -27,7 +30,7 @@ public class WeatherReportModelDetailed {
     private float visibility;
     private String visibilityDescription; // Relative to visibility
 
-    public WeatherReportModelDetailed(float uv_index_max, int is_day, String sunrise, String sunset, float wind_speed_10m, int wind_direction_10m, float rain, float rain_sum, float temperature_2m, float apparent_temperature, int relative_humidity_2m, float dew_point_2m, float visibility) {
+    public WeatherReportModelDetailed(float uv_index_max, int is_day, String time, String sunrise, String sunset, float wind_speed_10m, int wind_direction_10m, float rain, float rain_sum, float temperature_2m, float apparent_temperature, int relative_humidity_2m, float dew_point_2m, float visibility) {
         this.uv_index_max = uv_index_max;
         this.sunrise = sunrise;
         this.sunset = sunset;
@@ -52,6 +55,8 @@ public class WeatherReportModelDetailed {
                 "uv_index_max=" + uv_index_max +
                 ", uvDescription=" + uvDescription +
                 ", is_day=" + is_day +
+                ", time=" + time +
+                ", timePercentage=" + timePercentage +
                 ", sunrise='" + sunrise + '\'' +
                 ", sunset='" + sunset + '\'' +
                 ", sunTimeTitle=" + sunTimeTitle +
@@ -59,6 +64,7 @@ public class WeatherReportModelDetailed {
                 ", sunTimeSecondary=" + sunTimeSecondary +
                 ", wind_speed_10m=" + wind_speed_10m +
                 ", wind_direction_10m=" + wind_direction_10m +
+                ", windDirectionPercentage=" + windDirectionPercentage +
                 ", rain=" + rain +
                 ", rain_sum=" + rain_sum +
                 ", temperature_2m=" + temperature_2m +
@@ -89,6 +95,15 @@ public class WeatherReportModelDetailed {
 
     public void setIs_day(int is_day) {
         this.is_day = is_day;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+        setTimePercentage();
     }
 
     public String getSunrise() {
@@ -133,6 +148,11 @@ public class WeatherReportModelDetailed {
 
     public void setWind_direction_10m(int wind_direction_10m) {
         this.wind_direction_10m = wind_direction_10m;
+        setWindDirectionPercentage();
+    }
+
+    public float getWindDirectionPercentage() {
+        return windDirectionPercentage;
     }
 
     public float getRain() {
@@ -200,6 +220,48 @@ public class WeatherReportModelDetailed {
     public void setVisibility(float visibility) {
         this.visibility = visibility / 1000;
         setVisibilityDescription(visibility);
+    }
+
+    public float getTimePercentage() {
+        return timePercentage;
+    }
+
+    /**
+     * Set Time as Percentage Float by converting Current 24-hour-based Time String to a Float (0.0 to 1.0).
+     * It will be automatically called by setTime after assigning time.<p>
+     * Note: it should be called after time is assigned.
+     * <p></p>
+     * 1. Convert the 24-based hours (00 to 23) to a 100-based number (0 to 100).
+     * 2. Convert the 60-based minutes (00 to 59) to a 100-based number (0 to 100)
+     * 3. Divide Converted Hours by 100, and Converted Minutes by 10000
+     * 4. Add Divided Converted Minutes to Divided Converted Hours to achieve a number from 0.0 to 1.0.
+     */
+    public void setTimePercentage() {
+        float timeHour = Integer.parseInt(time.substring(time.indexOf('T') + 1, time.indexOf(':')));
+        float timeMinute = Integer.parseInt(time.substring(time.indexOf(':') + 1));
+
+        timeHour = ((timeHour / 24) * 100) / 100;
+        timeMinute = ((timeMinute / 60) * 100) / 10000;
+        this.timePercentage = timeHour + timeMinute;
+    }
+
+    /**
+     * Set Wind Direction as Percentage Float by converting 360-degree-based Wind Direction int to a Float (0.0 to 1.0).
+     * It will be automatically called by setWind_direction_10m after assigning wind_direction_10m.<p>
+     * Note: it should be called after wind_direction_10m is assigned.
+     * <p></p>
+     * 1. Convert the 360-based degrees (0 to 359) to a 100-based number (0 to 100).
+     * 2. Divide Converted Degrees by 100 to achieve a number from 0.0 to 1.0.
+     */
+    public void setWindDirectionPercentage() {
+        // Created windFloat to avoid integer division in floating-point context
+        float windFloat = wind_direction_10m;
+        Log.d(TAG, "setWindDirectionPercentage: wind_direction_10m " + wind_direction_10m);
+        Log.d(TAG, "setWindDirectionPercentage: windFloat " + windFloat);
+        Log.d(TAG, "setWindDirectionPercentage: windDirectionPercentage " + windDirectionPercentage);
+        this.windDirectionPercentage = ((windFloat / 360) * 100) / 100;
+        Log.d(TAG, "setWindDirectionPercentage: windFloat " + windFloat);
+        Log.d(TAG, "setWindDirectionPercentage: windDirectionPercentage " + windDirectionPercentage);
     }
 
     public String getVisibilityDescription() {

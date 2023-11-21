@@ -321,6 +321,7 @@ public class WeatherDataService {
                     WeatherReportModelDetailed weatherReportModelDetailed = new WeatherReportModelDetailed();
                     weatherReportModelDetailed.setUv_index_max((float) daily.getJSONArray("uv_index_max").getDouble(0));
                     weatherReportModelDetailed.setIs_day(current.getInt("is_day"));
+                    weatherReportModelDetailed.setTime(current.getString("time"));
                     String parsedSunrise = daily.getJSONArray("sunrise").getString(0);
                     weatherReportModelDetailed.setSunrise(getFormattedDateTime(6, parsedSunrise));
                     String parsedSunset = daily.getJSONArray("sunset").getString(0);
@@ -435,9 +436,10 @@ public class WeatherDataService {
      *              1: Parsed time for comparing (e.g 21),
      *              2: Parsed time for Hour Model (e.g 9 PM),
      *              3: Current date for comparing (e.g 27),
-     *              4: Parsed date for comparing (e.g. 27),
+     *              4: Parsed date for comparing (e.g 27),
      *              5: Parsed day of week for Day Model (e.g. WED),
-     *              6: Parsed time for Detailed Model (e.g 5:28 AM).
+     *              6: Parsed time for Detailed Model (e.g 5:08 AM).
+     *
      * @param dateTime (Optional) Provide date and/or time to format.
      * @return Formatted date or time.
      */
@@ -489,7 +491,6 @@ public class WeatherDataService {
                     return null;
                 }
                 sdFormat = new SimpleDateFormat("h:mm a", Locale.getDefault());
-                Log.d(TAG, "getFormattedDateTime: " + sdFormat.format(date).toUpperCase()); //delete
                 return sdFormat.format(date).toUpperCase();
         }
         return null;
