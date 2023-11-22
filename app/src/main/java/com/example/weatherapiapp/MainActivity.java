@@ -11,7 +11,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -301,58 +300,26 @@ public class MainActivity extends AppCompatActivity {
         mainMotionLayout.setTransitionListener(new MotionLayout.TransitionListener() {
             @Override
             public void onTransitionStarted(MotionLayout motionLayout, int startId, int endId) {
-                Log.d(TAG, "onTransitionStarted: main lastState " + lastState);
-//                Log.d(TAG, "onTransitionStarted: main startId " + startId);
-//                Log.d(TAG, "onTransitionStarted: main endId " + endId);
-//                Log.d(TAG, "onTransitionStarted: main getCurrentState " + mainMotionLayout.getCurrentState());
             }
-int lastState = R.id.start;
+
             @Override
             public void onTransitionChange(MotionLayout motionLayout, int startId, int endId, float progress) {
             }
 
+            int lastStateOfMainMotionLayout = R.id.start;
+
             @Override
             public void onTransitionCompleted(MotionLayout motionLayout, int currentId) {
-//                if (currentId == R.id.end) {
-//                if (currentId == R.id.end && mainMotionLayout.getStartState() == R.id.start) {
-//                if (currentId == R.id.end && mainMotionLayout.getEndState() == R.id.end) {
-                Log.d(TAG, "onTransitionCompleted: main currentId " + currentId);
-                if (currentId == R.id.end && currentId != lastState) {
+                if (currentId == R.id.end && currentId != lastStateOfMainMotionLayout) {
                     // Initial animation of sunrise and wind indicator
-                    // R.id.start and R.id.end has multiple implementations. One in mainMotionLayout, one in sunriseMotionLayout, and one in windMotionLayout.
-                    // R.id.start = 2131296756
-                    // R.id.end = 2131296469
-//                    Log.d(TAG, "StartState main 1 " + mainMotionLayout.getStartState());
-//                    Log.d(TAG, "EndState main 1 " + mainMotionLayout.getEndState());
-//                    Log.d(TAG, "current main 1 " + mainMotionLayout.getCurrentState());
-//                    Log.d(TAG, "StartState sun 1 " + sunriseMotionLayout.getStartState());
-//                    Log.d(TAG, "EndState sun 1 " + sunriseMotionLayout.getEndState());
-//                    Log.d(TAG, "current sun 1 " + sunriseMotionLayout.getCurrentState());
-//                    Log.d(TAG, "onTransitionCompleted: 1 main getCurrentState " + mainMotionLayout.getCurrentState());
-//                    Log.d(TAG, "onTransitionCompleted: 1 main currentId " + currentId);
-//                    Log.d(TAG, "onTransitionCompleted: 1 main lastState " + lastState);
-                    lastState = currentId;
+                    lastStateOfMainMotionLayout = currentId;
                     firstFullSunTimeAnimation = true;
                     sunriseMotionLayout.transitionToEnd();
                     windMotionLayout.transitionToEnd();
-                    Log.d(TAG, "onTransitionCompleted: 1 main lastState after assigning " + lastState);
-                } else if (currentId == R.id.start && currentId != lastState) {
-//                } else if (currentId == R.id.start) {
-//                } else if (currentId == R.id.start && mainMotionLayout.getStartState() == R.id.end) {
-//                    Log.d(TAG, "StartState main 2 " + mainMotionLayout.getStartState());
-//                    Log.d(TAG, "EndState main 2 " + mainMotionLayout.getEndState());
-//                    Log.d(TAG, "current main 2 " + mainMotionLayout.getCurrentState());
-//                    Log.d(TAG, "StartState sun 2 " + sunriseMotionLayout.getStartState());
-//                    Log.d(TAG, "EndState sun 2 " + sunriseMotionLayout.getEndState());
-//                    Log.d(TAG, "current sun 2 " + sunriseMotionLayout.getCurrentState());
-//                    Log.d(TAG, "onTransitionCompleted: 2 main getCurrentState " + mainMotionLayout.getCurrentState());
-//                    Log.d(TAG, "onTransitionCompleted: 2 main currentId " + currentId);
-//                    Log.d(TAG, "onTransitionCompleted: 2 main lastState " + lastState);
-                    lastState = currentId;
+                } else if (currentId == R.id.start && currentId != lastStateOfMainMotionLayout) {
+                    lastStateOfMainMotionLayout = currentId;
                     sunriseMotionLayout.jumpToState(R.id.start);
-//                    sunriseMotionLayout.setProgress(0);
                     windMotionLayout.jumpToState(R.id.start);
-                    Log.d(TAG, "onTransitionCompleted: 2 main lastState after assigning " + lastState);
                 }
             }
 
@@ -702,7 +669,6 @@ int lastState = R.id.start;
     private final MotionLayout.TransitionListener sunTimeTransitionListener = new MotionLayout.TransitionListener() {
         @Override
         public void onTransitionStarted(MotionLayout motionLayout, int startId, int endId) {
-            Log.d(TAG, "onTransitionStarted: sun ");
         }
 
         @Override
@@ -714,9 +680,6 @@ int lastState = R.id.start;
 
         @Override
         public void onTransitionCompleted(MotionLayout motionLayout, int currentId) {
-            Log.d(TAG, "onTransitionCompleted: sun currentId " + currentId);
-            // transitionToEnd called onTransitionStarted then onTransitionCompleted. Then, setProgress(0.3) called onTransitionStarted Only, then jumpToState(R.id.start) or setProgress(0) called onTransitionCompleted.
-            // the issue were because of the second calling of onTransitionCompleted by jumpToState when bottom sheet is closed. That resulted in triggering the animation again with the lines below then stopping at progress sunTimeProgress again and not at progress 0.
             if (mainMotionLayout.getCurrentState() == R.id.end) {
                 sunriseMotionLayout.jumpToState(R.id.start);
                 sunriseMotionLayout.transitionToEnd();
