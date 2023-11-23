@@ -317,30 +317,13 @@ public class MainActivity extends AppCompatActivity {
                     lastStateOfMainMotionLayout = currentId;
                     firstFullSunTimeAnimation = true;
                     sunriseMotionLayout.transitionToEnd();
-
-//                    Log.d(TAG, "beforee getProgress()" + windMotionLayout.getProgress()); // 0
-                        Log.d(TAG, "interpolator " + windMotionLayout.getScene().getInterpolator());
-                    windMotionLayout.getTransition(R.id.wind_transition).setInterpolatorInfo(MotionScene.Transition.INTERPOLATE_LINEAR, null,0);
-                    Log.d(TAG, "interpolator " + windMotionLayout.getScene().getInterpolator());
                     windMotionLayout.transitionToEnd();
-//                    windMotionLayout.postDelayed(() -> { // works without transitionToEnd()
-//                    windMotionLayout.post(() -> { // works without transitionToEnd()
-//                        windMotionLayout.getScene().getPathPercent();
-//
-//                        windMotionLayout.setProgress(0.300000F);
-//                        windMotionLayout.setInterpolatedProgress(0.300000F);
 
-//                        new Handler().post(() -> { // works: gets the actual getProgress. similar to motionLayout.post()
-                        windMotionLayout.post(() -> { // works: gets the actual getProgress
-                            Log.d(TAG, "main latee getProgress() " + windMotionLayout.getProgress()); // 0
-                        });
-//                    }, 5000);
-//                    new Handler().postDelayed(()->{
+//                        windMotionLayout.getScene().getPathPercent();
                 } else if (currentId == R.id.start && currentId != lastStateOfMainMotionLayout) {
                     lastStateOfMainMotionLayout = currentId;
                     sunriseMotionLayout.jumpToState(R.id.start);
                     windMotionLayout.jumpToState(R.id.start);
-//                    windMotionLayout.setProgress(0);
                 }
             }
 
@@ -722,77 +705,28 @@ public class MainActivity extends AppCompatActivity {
     private final MotionLayout.TransitionListener windTransitionListener = new MotionLayout.TransitionListener() {
         @Override
         public void onTransitionStarted(MotionLayout motionLayout, int startId, int endId) {
-            Log.d(TAG, "onTransitionStarted: ");
-//            Log.d(TAG, "onTransitionStarted: getProgress() "+windMotionLayout.getProgress());
-//            new Handler().postDelayed(() -> {
-//                Log.d(TAG, "onTransitionStarted: late getProgress() "+windMotionLayout.getProgress());
-//            }, 6000);
         }
 
         @Override
         public void onTransitionChange(MotionLayout motionLayout, int startId, int endId, float progress) {
-//            if (!firstFullSunTimeAnimation && progress > windDirectionProgress) {
-//                windMotionLayout.setProgress(windDirectionProgress);
-
-            // old
-//            if (!firstAnimation && progress > windDirectionProgress) {
-//                windMotionLayout.setProgress(0.3f);
-////                windMotionLayout.setInterpolatedProgress(0.3f);
-//            }
-
-            // sun time's
-//            if (!firstFullSunTimeAnimation && progress > sunTimeProgress) {
-            if (progress > 0.6F && progress < 0.61f) {
-//            if (progress > 0.6F) {
-                Log.d(TAG, "onTransitionChange: progress " +progress);
-                Log.d(TAG, "onTransitionChange: getProgress " + windMotionLayout.getProgress());
-
-//                windMotionLayout.setTransition(R.id.start, R.id.end);
-                Log.d(TAG, "interpolator " + windMotionLayout.getScene().getInterpolator());;
-//                windMotionLayout.getTransition(R.id.wind_transition).setInterpolatorInfo(MotionScene.Transition.INTERPOLATE_LINEAR, null,0);
-//                Log.d(TAG, "interpolator " + windMotionLayout.getScene().getInterpolator());;
-
-                    windMotionLayout.post(() -> {
-                    windMotionLayout.setProgress(0.300000F);
-                        Log.d(TAG, "in post progress "+progress);
-                        Log.d(TAG, "in post getProgress() "+windMotionLayout.getProgress());
-                    });
+            if (!firstFullSunTimeAnimation && progress > windDirectionProgress) {
+                    windMotionLayout.setProgress(windDirectionProgress);
 
                 // try these
 //                    windMotionLayout.getScene().getInterpolator();
 //                    windMotionLayout.getScene().getPathPercent();
 //                    windMotionLayout.postInvalidateOnAnimation();
-
-
-//                windMotionLayout.postDelayed();
-//                new Handler().postDelayed(()->{
-//                }, 2000);
-//                windMotionLayout.updateState();
-//                windMotionLayout.postInvalidate();
-//                windMotionLayout.invalidate();
-//                    windMotionLayout.postInvalidateDelayed();
-                Log.d(TAG, "onTransitionChange: progress " +progress);
-                Log.d(TAG, "onTransitionChange: getProgress " + windMotionLayout.getProgress());
+//                    windMotionLayout.getScene().getPathPercent()
             }
         }
-//boolean firstAnimation = true;
+
         @Override
         public void onTransitionCompleted(MotionLayout motionLayout, int currentId) {
-            // old
-//            windMotionLayout.jumpToState(R.id.start);
-////            windMotionLayout.setProgress(0);
-//            windMotionLayout.transitionToEnd();
-////                firstFullSunTimeAnimation = false;
-//            firstAnimation = false;
-
-            // sun time's
-//            if (mainMotionLayout.getCurrentState() == R.id.end) {
-//                sunriseMotionLayout.jumpToState(R.id.start);
-//                sunriseMotionLayout.transitionToEnd();
-//                firstFullSunTimeAnimation = false;
-//            }
-            Log.d(TAG, "onTransitionCompleted: ");
-            Log.d(TAG, "onTransitionCompleted: getProgress() "+windMotionLayout.getProgress());
+            if (mainMotionLayout.getCurrentState() == R.id.end) {
+                windMotionLayout.jumpToState(R.id.start);
+                windMotionLayout.transitionToEnd();
+                firstFullSunTimeAnimation = false;
+            }
         }
 
         @Override

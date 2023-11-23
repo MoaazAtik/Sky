@@ -7,8 +7,8 @@
         motion:constraintSetEnd="@+id/end"
         motion:constraintSetStart="@id/start"
         motion:duration="4000"
+        motion:motionInterpolator="linear"
         motion:pathMotionArc="startHorizontal">
-<!--        motion:motionInterpolator="linear"-->
 <!--        motion:motionInterpolator="bounce"-->
 
         <KeyFrameSet>
