@@ -15,7 +15,7 @@
         android:layout_marginEnd="14dp"
         android:background="@drawable/bottom_sheet_widgets"
         android:padding="14dp"
-        app:layout_constraintEnd_toStartOf="@id/sunrise_sunset"
+        app:layout_constraintEnd_toStartOf="@id/sun_time"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -74,13 +74,13 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!--        Sunrise and sunset widget-->
+    <!--        Sun time widget-->
     <androidx.constraintlayout.motion.widget.MotionLayout
-        android:id="@+id/sunrise_sunset"
+        android:id="@+id/sun_time"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:background="@drawable/bottom_sheet_widgets"
-        app:layoutDescription="@xml/sunrise_sunset_scene"
+        app:layoutDescription="@xml/sun_time_scene"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/uv_index"
         app:layout_constraintTop_toTopOf="@id/uv_index">
@@ -112,12 +112,12 @@
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="30sp"
-            app:layout_constraintBottom_toTopOf="@id/mountain_sunrise_progress"
+            app:layout_constraintBottom_toTopOf="@id/mountain_sun_time_progress"
             app:layout_constraintStart_toStartOf="@id/widget_sun_time_title" />
 
-        <!--            Mountain sunrise progress-->
+        <!--            Mountain sun time progress-->
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/mountain_sunrise_progress"
+            android:id="@+id/mountain_sun_time_progress"
             android:layout_width="180dp"
             android:layout_height="36dp"
             android:layout_marginBottom="4dp"
@@ -125,20 +125,20 @@
             app:layout_constraintBottom_toTopOf="@id/txt_sun_time_secondary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/sunrise_mountain_progress" />
+            app:srcCompat="@drawable/sun_time_mountain_progress" />
 
-        <!--            Moon - Thumb night of sunrise progress -->
+        <!--            Moon - Thumb night of sun time progress -->
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/thumb_night"
             android:layout_width="6dp"
             android:layout_height="6dp"
             android:layout_marginStart="-11dp"
             android:layout_marginBottom="-1.7dp"
-            app:layout_constraintBottom_toBottomOf="@id/mountain_sunrise_progress"
+            app:layout_constraintBottom_toBottomOf="@id/mountain_sun_time_progress"
             app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/thumb_night_sunrise_bar" />
+            app:srcCompat="@drawable/thumb_night_sun_time_bar" />
 
-        <!--            Sunshine - Thumb day of sunrise progress -->
+        <!--            Sunshine - Thumb day of sun time progress -->
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/thumb_day"
             android:layout_width="24dp"
@@ -148,7 +148,7 @@
             app:layout_constraintEnd_toEndOf="@id/thumb_night"
             app:layout_constraintStart_toStartOf="@id/thumb_night"
             app:layout_constraintTop_toTopOf="@id/thumb_night"
-            app:srcCompat="@drawable/thumb_day_sunrise_bar"
+            app:srcCompat="@drawable/thumb_day_sun_time_bar"
             tools:alpha="1" />
 
         <androidx.appcompat.widget.AppCompatTextView

@@ -3,10 +3,9 @@
     xmlns:motion="http://schemas.android.com/apk/res-auto">
 
     <Transition
-        android:id="@+id/wind_transition"
         motion:constraintSetEnd="@+id/end"
         motion:constraintSetStart="@id/start"
-        motion:duration="4000"
+        motion:duration="3000"
         motion:motionInterpolator="linear"
         motion:pathMotionArc="startHorizontal">
 <!--        motion:motionInterpolator="bounce"-->

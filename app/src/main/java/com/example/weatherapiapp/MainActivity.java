@@ -6,13 +6,11 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.motion.widget.MotionLayout;
-import androidx.constraintlayout.motion.widget.MotionScene;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -41,11 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
 
-    //    private ConstraintLayout citiesLayout;
-//    private RecyclerView recyclerView;
-//    private CityListAdapter adapter;
-//    private List<WeatherReportModel> citiesList;
-    private MotionLayout mainMotionLayout, sunriseMotionLayout, windMotionLayout;
+    private MotionLayout mainMotionLayout, sunTimeMotionLayout, windMotionLayout;
     private AppCompatTextView txtMainCity, txtMainTemp, txtMainHTemp, txtMainLTemp, txtMainConditionDescription;
     private AppCompatTextView hour0Time, hour1Time, hour2Time, hour3Time, hour4Time, hour5Time, hour6Time, hour7Time;
     private AppCompatImageView hour0Condition, hour1Condition, hour2Condition, hour3Condition, hour4Condition, hour5Condition, hour6Condition, hour7Condition;
@@ -61,12 +55,10 @@ public class MainActivity extends AppCompatActivity {
     private SeekBar seekBarUvIndex;
 
     boolean firstFullSunTimeAnimation = true;
+    boolean firstFullWindAnimation = true;
     float sunTimeProgress;
     private String sunTimePrimary;
     float windDirectionProgress;
-
-    AppCompatImageView imgWidgetSunTimeThumbMoon, imgWindDirectionIndicator;
-    // These might not be needed because the Motion layouts are doing the job.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 //        MainActivity.this.startActivity(citiesIntent);
 
         mainMotionLayout = findViewById(R.id.main_motion_layout);
-        sunriseMotionLayout = findViewById(R.id.sunrise_sunset);
+        sunTimeMotionLayout = findViewById(R.id.sun_time);
         windMotionLayout = findViewById(R.id.wind);
 
         AppCompatButton btnHourlyForecast = findViewById(R.id.btn_hourly_forecast);
@@ -313,16 +305,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTransitionCompleted(MotionLayout motionLayout, int currentId) {
                 if (currentId == R.id.end && currentId != lastStateOfMainMotionLayout) {
-                    // Initial animation of sunrise and wind indicator
+                    // Initial animation of sun time and wind indicator
                     lastStateOfMainMotionLayout = currentId;
                     firstFullSunTimeAnimation = true;
-                    sunriseMotionLayout.transitionToEnd();
+                    firstFullWindAnimation = true;
+                    sunTimeMotionLayout.transitionToEnd();
                     windMotionLayout.transitionToEnd();
-
-//                        windMotionLayout.getScene().getPathPercent();
                 } else if (currentId == R.id.start && currentId != lastStateOfMainMotionLayout) {
                     lastStateOfMainMotionLayout = currentId;
-                    sunriseMotionLayout.jumpToState(R.id.start);
+                    sunTimeMotionLayout.jumpToState(R.id.start);
                     windMotionLayout.jumpToState(R.id.start);
                 }
             }
@@ -642,7 +633,7 @@ public class MainActivity extends AppCompatActivity {
         sunTimePrimary = weatherReportModelDetailed.getSunTimePrimary();
         txtSunTimePrimary.setText(sunTimePrimary);
         txtSunTimeSecondary.setText(weatherReportModelDetailed.getSunTimeSecondary());
-        txtWindSpeed.setText(String.valueOf(weatherReportModelDetailed.getWind_speed_10m()));
+        txtWindSpeed.setText(String.valueOf((int) weatherReportModelDetailed.getWind_speed_10m()));
         windDirectionProgress = weatherReportModelDetailed.getWindDirectionPercentage();
         String rainPrimary = weatherReportModelDetailed.getRain() + " mm";
         txtRainPrimary.setText(rainPrimary);
@@ -659,7 +650,7 @@ public class MainActivity extends AppCompatActivity {
         txtVisibility.setText(visibility);
         txtVisibilityDescription.setText(weatherReportModelDetailed.getVisibilityDescription());
 
-        sunriseMotionLayout.setTransitionListener(sunTimeTransitionListener);
+        sunTimeMotionLayout.setTransitionListener(sunTimeTransitionListener);
         windMotionLayout.setTransitionListener(windTransitionListener);
 
     }
@@ -678,15 +669,15 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onTransitionChange(MotionLayout motionLayout, int startId, int endId, float progress) {
             if (!firstFullSunTimeAnimation && progress > sunTimeProgress) {
-                sunriseMotionLayout.setProgress(sunTimeProgress);
+                sunTimeMotionLayout.setProgress(sunTimeProgress);
             }
         }
 
         @Override
         public void onTransitionCompleted(MotionLayout motionLayout, int currentId) {
             if (mainMotionLayout.getCurrentState() == R.id.end) {
-                sunriseMotionLayout.jumpToState(R.id.start);
-                sunriseMotionLayout.transitionToEnd();
+                sunTimeMotionLayout.jumpToState(R.id.start);
+                sunTimeMotionLayout.transitionToEnd();
                 firstFullSunTimeAnimation = false;
             }
         }
@@ -709,14 +700,14 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onTransitionChange(MotionLayout motionLayout, int startId, int endId, float progress) {
-            if (!firstFullSunTimeAnimation && progress > windDirectionProgress) {
+            /*
+             firstFullWindAnimation is needed instead of firstFullSunTimeAnimation because otherwise:
+             1. After one cycle of wind transition the wind indicator is blinking one time in the wanted wind angle before starting to animate to it.
+             2. If the wind transition duration is less than sun time's, sun time transition can't complete the first cycle
+             */
+            
+            if (!firstFullWindAnimation && progress > windDirectionProgress) {
                     windMotionLayout.setProgress(windDirectionProgress);
-
-                // try these
-//                    windMotionLayout.getScene().getInterpolator();
-//                    windMotionLayout.getScene().getPathPercent();
-//                    windMotionLayout.postInvalidateOnAnimation();
-//                    windMotionLayout.getScene().getPathPercent()
             }
         }
 
@@ -725,7 +716,7 @@ public class MainActivity extends AppCompatActivity {
             if (mainMotionLayout.getCurrentState() == R.id.end) {
                 windMotionLayout.jumpToState(R.id.start);
                 windMotionLayout.transitionToEnd();
-                firstFullSunTimeAnimation = false;
+                firstFullWindAnimation = false;
             }
         }
 
