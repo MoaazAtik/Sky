@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@id/start"
+        motion:duration="4000">
+
+        <KeyFrameSet>
+            <KeyPosition
+                motion:curveFit="spline"
+                motion:framePosition="50"
+                motion:keyPositionType="pathRelative"
+                motion:motionTarget="@+id/thumb_night"
+                motion:percentY="-0.28" />
+            <!--               motion:percentY="-0.229" />-->
+            <KeyPosition
+                motion:framePosition="50"
+                motion:keyPositionType="pathRelative"
+                motion:motionTarget="@+id/thumb_day"
+                motion:percentY="-0.28" />
+
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="8"
+                motion:motionTarget="@+id/thumb_day" />
+            <!--               motion:framePosition="16"-->
+            <KeyAttribute
+                android:alpha="1"
+                motion:framePosition="50"
+                motion:motionTarget="@+id/thumb_day" />
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="92"
+                motion:motionTarget="@+id/thumb_day" />
+        </KeyFrameSet>
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start"></ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@+id/thumb_night"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_marginBottom="-1.7dp"
+            android:layout_marginEnd="-10dp"
+            motion:layout_constraintBottom_toBottomOf="@id/mountain_sun_time_progress"
+            motion:layout_constraintEnd_toEndOf="parent" />
+    </ConstraintSet>
+</MotionScene>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+    <!--        xmlns:app="http://schemas.android.com/apk/res-auto"-->
+
+    <!--    Start constraint set-->
+    <ConstraintSet android:id="@+id/start" />
+
+
+    <!--    End constraint set-->
+    <ConstraintSet android:id="@+id/end">
+
+        <Constraint
+            android:id="@+id/nsv_bottom_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@+id/bg_collapsed_bottom_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="@id/nsv_bottom_sheet" />
+
+        <Constraint
+            android:id="@+id/bg_open_bottom_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="1" />
+
+        <Constraint
+            android:id="@+id/bg_segmented_control_open_bottom_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha="1"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="@id/nsv_bottom_sheet" />
+
+        <Constraint
+            android:id="@+id/tab_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="parent" />
+
+        <Constraint
+            android:id="@+id/lower_bottom_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@id/nsv_bottom_sheet" />
+    </ConstraintSet>
+
+    <Transition
+        motion:constraintSetEnd="@id/end"
+        motion:constraintSetStart="@id/start">
+
+        <OnSwipe
+            motion:maxVelocity="0.8"
+            motion:touchAnchorId="@id/nsv_bottom_sheet"
+            motion:touchAnchorSide="top" />
+    </Transition>
+</MotionScene>

@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="32dp"
+    tools:background="@drawable/bottom_sheet_open">
+
+    <!--        UV index widget-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/uv_index"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginEnd="14dp"
+        android:background="@drawable/bottom_sheet_widgets"
+        android:padding="14dp"
+        app:layout_constraintEnd_toStartOf="@id/sun_time"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/sun"
+            android:drawablePadding="7dp"
+            android:fontFamily="@font/sf_pro_display_regular"
+            android:gravity="center_vertical"
+            android:text="UV Index"
+            android:textAllCaps="true"
+            android:textColor="@color/gray_widget_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_uv_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_display_regular"
+            android:includeFontPadding="false"
+            android:text="4"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@id/txt_uv_status"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_uv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/sf_pro_display_regular"
+            android:includeFontPadding="false"
+            android:text="Moderate"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@id/seekbar_uv_index"
+            app:layout_constraintStart_toStartOf="@id/txt_uv_value" />
+
+        <SeekBar
+            android:id="@+id/seekbar_uv_index"
+            android:layout_width="140dp"
+            android:layout_height="6dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="14dp"
+            android:clickable="false"
+            android:max="11"
+            android:progress="5"
+            android:progressDrawable="@drawable/uv_index_bar"
+            android:thumb="@drawable/thumb_uv_progress"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--        Sun time widget-->
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/sun_time"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="@drawable/bottom_sheet_widgets"
+        app:layoutDescription="@xml/sun_time_scene"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/uv_index"
+        app:layout_constraintTop_toTopOf="@id/uv_index">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/widget_sun_time_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="14dp"
+            android:drawableStart="@drawable/sunrise"
+            android:drawablePadding="7dp"
+            android:fontFamily="@font/sf_pro_display_regular"
+            android:gravity="center_vertical"
+            android:text="Sunrise"
+            android:textAllCaps="true"
+            android:textColor="@color/gray_widget_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_sun_time_primary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/sf_pro_display_regular"
+            android:includeFontPadding="false"
+            android:text="5:28 AM"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@id/mountain_sun_time_progress"
+            app:layout_constraintStart_toStartOf="@id/widget_sun_time_title" />
+
+        <!--            Mountain sun time progress-->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/mountain_sun_time_progress"
+            android:layout_width="180dp"
+            android:layout_height="36dp"
+            android:layout_marginBottom="4dp"
+            android:scaleX="1.2"
+            app:layout_constraintBottom_toTopOf="@id/txt_sun_time_secondary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/sun_time_mountain_progress" />
+
+        <!--            Moon - Thumb night of sun time progress -->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/thumb_night"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_marginStart="-11dp"
+            android:layout_marginBottom="-1.7dp"
+            app:layout_constraintBottom_toBottomOf="@id/mountain_sun_time_progress"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/thumb_night_sun_time_bar" />
+
+        <!--            Sunshine - Thumb day of sun time progress -->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/thumb_day"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:alpha="0"
+            app:layout_constraintBottom_toBottomOf="@id/thumb_night"
+            app:layout_constraintEnd_toEndOf="@id/thumb_night"
+            app:layout_constraintStart_toStartOf="@id/thumb_night"
+            app:layout_constraintTop_toTopOf="@id/thumb_night"
+            app:srcCompat="@drawable/thumb_day_sun_time_bar"
+            tools:alpha="1" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_sun_time_secondary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="14dp"
+            android:fontFamily="@font/sf_pro_display_thin"
+            android:includeFontPadding="false"
+            android:text="Sunset • 7:25 PM"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/widget_sun_time_title" />
+
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+
+    <!--        Wind widget-->
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/wind"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="14dp"
+        android:background="@drawable/bottom_sheet_widgets"
+        app:layoutDescription="@xml/wind_scene"
+        app:layout_constraintEnd_toStartOf="@id/rainfall"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/uv_index"
+        tools:showPaths="true">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/widget_wind_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="14dp"
+            android:drawableStart="@drawable/wind"
+            android:drawablePadding="7dp"
+            android:fontFamily="@font/sf_pro_display_regular"
+            android:gravity="center_vertical"
+            android:text="Wind"
+            android:textAllCaps="true"
+            android:textColor="@color/gray_widget_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/wind_compass"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_marginTop="-6dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/widget_wind_title"
+            app:srcCompat="@drawable/compass" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_wind_speed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:fontFamily="@font/sf_pro_display_regular"
+            android:includeFontPadding="false"
+            android:text="9.7"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="@id/wind_compass"
+            app:layout_constraintStart_toStartOf="@id/wind_compass"
+            app:layout_constraintTop_toTopOf="@id/wind_compass" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_wind_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_display_regular"
+            android:includeFontPadding="false"
+            android:text="km/h"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@id/txt_wind_speed"
+            app:layout_constraintStart_toStartOf="@id/txt_wind_speed"
+            app:layout_constraintTop_toBottomOf="@id/txt_wind_speed" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/wind_direction_indicator"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="-4dp"
+            android:tint="@color/dark_purple_widget_border"
+            android:tintMode="multiply"
+            app:layout_constraintEnd_toEndOf="@id/wind_compass"
+            app:layout_constraintStart_toStartOf="@id/wind_compass"
+            app:layout_constraintTop_toTopOf="@id/wind_compass"
+            app:srcCompat="@drawable/wind_direction_indicator" />
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+
+    <!--        Rainfall widget-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rainfall"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="@drawable/bottom_sheet_widgets"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/wind"
+        app:layout_constraintTop_toTopOf="@id/wind">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/widget_rainfall_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="14dp"
+            android:drawableStart="@drawable/water_drop"
+            android:drawablePadding="7dp"
+            android:fontFamily="@font/sf_pro_display_regular"
+            android:gravity="center_vertical"
+            android:text="Rainfall"
+            android:textAllCaps="true"
+            android:textColor="@color/gray_widget_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_rain_primary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_display_regular"
+            android:includeFontPadding="false"
+            android:text="1.8 mm"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="@id/widget_rainfall_title"
+            app:layout_constraintTop_toBottomOf="@id/widget_rainfall_title" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_rain_primary_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-8dp"
+            android:fontFamily="@font/sf_pro_display_regular"
+            android:includeFontPadding="false"
+            android:paddingEnd="14dp"
+            android:text="in last quarter hour"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@id/widget_rainfall_title"
+            app:layout_constraintTop_toBottomOf="@id/txt_rain_primary"
+            app:lineHeight="16dp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_rain_secondary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/sf_pro_display_thin"
+            android:includeFontPadding="false"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:text="1.2 mm expected in next 24h."
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/widget_rainfall_title" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--        Feels like widget-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/feels_like"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="14dp"
+        android:background="@drawable/bottom_sheet_widgets"
+        app:layout_constraintEnd_toStartOf="@id/humidity"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/wind">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/widget_feels_like_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="14dp"
+            android:drawableStart="@drawable/thermostat_feels_like"
+            android:fontFamily="@font/sf_pro_display_regular"
+            android:gravity="center_vertical"
+            android:text="Feels Like"
+            android:textAllCaps="true"
+            android:textColor="@color/gray_widget_title"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_feels_like_temp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_display_regular"
+            android:includeFontPadding="false"
+            android:text="19°"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="@id/widget_feels_like_title"
+            app:layout_constraintTop_toBottomOf="@id/widget_feels_like_title" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_feels_like_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="14dp"
+            android:fontFamily="@font/sf_pro_display_thin"
+            android:includeFontPadding="false"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:text="Similar to the actual temperature."
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/widget_feels_like_title" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--        Humidity widget-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/humidity"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="@drawable/bottom_sheet_widgets"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/feels_like"
+        app:layout_constraintTop_toTopOf="@id/feels_like">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/widget_humidity_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="14dp"
+            android:drawableStart="@drawable/humidity"
+            android:drawablePadding="4dp"
+            android:fontFamily="@font/sf_pro_display_regular"
+            android:gravity="center_vertical"
+            android:text="Humidity"
+            android:textAllCaps="true"
+            android:textColor="@color/gray_widget_title"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_humidity_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_display_regular"
+            android:includeFontPadding="false"
+            android:text="99%"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="@id/widget_humidity_title"
+            app:layout_constraintTop_toBottomOf="@id/widget_humidity_title" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_humidity_dew_point"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="14dp"
+            android:fontFamily="@font/sf_pro_display_thin"
+            android:includeFontPadding="false"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:text="The dew point is 17 right now."
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/widget_humidity_title" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--        Visibility widget-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/visibility"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="14dp"
+        android:background="@drawable/bottom_sheet_widgets"
+        app:layout_constraintEnd_toStartOf="@id/logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/feels_like">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/widget_visibility_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="14dp"
+            android:drawableStart="@drawable/visibility_eye"
+            android:drawablePadding="4dp"
+            android:fontFamily="@font/sf_pro_display_regular"
+            android:gravity="center_vertical"
+            android:text="Visibility"
+            android:textAllCaps="true"
+            android:textColor="@color/gray_widget_title"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_visibility"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_display_regular"
+            android:includeFontPadding="false"
+            android:text="8 km"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="@id/widget_visibility_title"
+            app:layout_constraintTop_toBottomOf="@id/widget_visibility_title" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_visibility_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="14dp"
+            android:fontFamily="@font/sf_pro_display_thin"
+            android:includeFontPadding="false"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:text="Dense fog"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/widget_visibility_title" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--        Logo-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/logo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/visibility"
+        app:layout_constraintTop_toTopOf="@id/visibility">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/widget_logo_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/sf_pro_display_regular"
+            android:gravity="center_vertical"
+            android:text="Made by"
+            android:textAllCaps="true"
+            android:textColor="@color/gray_widget_title"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_logo_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="cursive"
+            android:gravity="center_horizontal"
+            android:includeFontPadding="false"
+            android:text="The White Wings"
+            android:textColor="@color/pale_purple_city_hl_temp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/img_logo"
+            app:layout_constraintEnd_toEndOf="@id/widget_logo_title"
+            app:layout_constraintStart_toStartOf="@id/widget_logo_title"
+            app:layout_constraintTop_toBottomOf="@id/widget_logo_title" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_logo"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="-14dp"
+            app:layout_constraintEnd_toEndOf="@id/txt_logo_name"
+            app:layout_constraintStart_toStartOf="@id/txt_logo_name"
+            app:layout_constraintTop_toBottomOf="@id/txt_logo_name"
+            app:srcCompat="@drawable/logo" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
