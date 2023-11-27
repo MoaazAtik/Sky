@@ -1,21 +1,30 @@
 package com.example.weatherapiapp;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.motion.widget.MotionLayout;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.DialogCompat;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.app.Dialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.LinearInterpolator;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.HorizontalScrollView;
 import android.widget.SeekBar;
 import android.widget.Toast;
@@ -68,9 +77,7 @@ public class MainActivity extends AppCompatActivity {
 //        setContentView(view);
         setContentView(R.layout.main);
 
-        // Open Cities Activity
-//        Intent citiesIntent = new Intent(MainActivity.this, CitiesActivity.class);
-//        MainActivity.this.startActivity(citiesIntent);
+        Log.d(TAG, "onCreate: ");
 
         mainMotionLayout = findViewById(R.id.main_motion_layout);
         sunTimeMotionLayout = findViewById(R.id.sun_time);
@@ -180,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
         seekBarUvIndex = findViewById(R.id.seekbar_uv_index);
 
 
-        Log.d(TAG, "onCreate: ");
+        showHomeCityDialog();
         getForecastShort();
         getForecastHourly();
         getForecastDaily();
@@ -429,6 +436,63 @@ public class MainActivity extends AppCompatActivity {
 //        });//setOnClickListener btn_getWeatherByName
 
     }//onCreate
+
+    //showHomeCityDialog()
+    private void showHomeCityDialog() {
+
+        // Check if the dialog should be shown based on the preference
+        SharedPreferences preferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        boolean shouldNotShowDialog = preferences.getBoolean("dontShowHomeCityDialog", false);
+
+        if (shouldNotShowDialog) {
+            Log.d(TAG, "shouldNotShowDialog " + shouldNotShowDialog);
+            return;
+        }
+
+
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.MyDialogTheme);
+
+        // Inflate a custom layout for the dialog content
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_home_city, null);
+        builder.setView(dialogView);
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        // Find the checkbox in the custom layout
+        CheckBox dontShowAgainCheckbox = dialogView.findViewById(R.id.checkbox_dont_show_again);
+
+        // Handle the positive button (btn_fix) in the custom layout
+        Button btnFix = (Button) dialogView.findViewById(R.id.btn_fix);
+        btnFix.setOnClickListener(v -> {
+            Intent citiesIntent = new Intent(MainActivity.this, CitiesActivity.class);
+            MainActivity.this.startActivity(citiesIntent);
+        });
+
+        // Handle the negative button (btn_cancel) in the custom layout
+        Button btnCancel = (Button) dialogView.findViewById(R.id.btn_cancel);
+        btnCancel.setOnClickListener(v -> {
+            // Check if the dialog should show again
+            if (dontShowAgainCheckbox.isChecked()) {
+                // Save a preference "dontShowHomeCityDialog" to not show the dialog again
+                SharedPreferences preferences1 = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                preferences1.edit().putBoolean("dontShowHomeCityDialog", true).apply();
+            }
+
+//            dialog.dismiss();
+        });
+
+//        // set OnDismissListener for the dialog
+//        // onDismiss will be called when btnCancel, device's back button, or outside the dialog box is clicked.
+//        // Eventually showMoreInformationDialog() is called in all situations even if btnFix is clicked.
+//        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+//            @Override
+//            public void onDismiss(DialogInterface dialog) {
+//                showMoreInformationDialog();
+//            }
+//        });
+    }
 
     /**
      * Get Short forecast for the main weather details in the middle of the home screen.

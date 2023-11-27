@@ -15,4 +15,20 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <!-- Theme of Home city dialog. -->
+    <style name="MyDialogTheme" parent="Theme.Material3.DayNight.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+<!--        <item name="android:windowIsTranslucent">true</item>-->
+    </style>
+    <!-- Theme of the checkbox of the Home city dialog. -->
+<!--    <style name="MyCheckboxTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">-->
+    <style name="MyCheckboxTheme" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorSecondary">#FFF</item>
+    </style>
+    <!-- Theme of 'Cancel' button of the Home city dialog. -->
+<!--    <style name="MyCancelTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">-->
+    <style name="MyCancelTheme" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">#FFF</item>
+    </style>
 </resources>
