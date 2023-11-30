@@ -1,9 +1,8 @@
 package com.example.weatherapiapp;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
-import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,7 +14,6 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.weatherapiapp.databinding.ActivityMainBinding;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -48,8 +46,13 @@ public class CitiesActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callbackItemTouchHelper);
+//        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callbackItemTouchHelper);
+//        itemTouchHelper.attachToRecyclerView(recyclerView);
+
+        MyItemTouchHandler itemTouchHandler = new MyItemTouchHandler(this, recyclerView, adapter, citiesList);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchHandler);
         itemTouchHelper.attachToRecyclerView(recyclerView);
+        recyclerView.addOnItemTouchListener(itemTouchHandler);
 
         prepareData();
 

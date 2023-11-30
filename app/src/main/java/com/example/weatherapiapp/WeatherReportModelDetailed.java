@@ -256,12 +256,7 @@ public class WeatherReportModelDetailed {
     public void setWindDirectionPercentage() {
         // Created windFloat to avoid integer division in floating-point context
         float windFloat = wind_direction_10m;
-        Log.d(TAG, "setWindDirectionPercentage: wind_direction_10m " + wind_direction_10m);
-        Log.d(TAG, "setWindDirectionPercentage: windFloat " + windFloat);
-        Log.d(TAG, "setWindDirectionPercentage: windDirectionPercentage " + windDirectionPercentage);
         this.windDirectionPercentage = ((windFloat / 360) * 100) / 100;
-        Log.d(TAG, "setWindDirectionPercentage: windFloat " + windFloat);
-        Log.d(TAG, "setWindDirectionPercentage: windDirectionPercentage " + windDirectionPercentage);
     }
 
     public String getVisibilityDescription() {
