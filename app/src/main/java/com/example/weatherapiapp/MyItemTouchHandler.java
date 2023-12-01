@@ -38,11 +38,13 @@ public class MyItemTouchHandler extends ItemTouchHelper.SimpleCallback implement
         gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
             @Override
             public void onLongPress(MotionEvent e) {
-                Log.d(TAG, "onLongPress: ");
                 View childView = recyclerView.findChildViewUnder(e.getX(), e.getY());
                 if (childView != null) {
                     int position = recyclerView.getChildAdapterPosition(childView);
                     showLongPressMessage(position);
+//                    recyclerView.contextgetContext()
+//                    onContextClick(e);
+//                    recyclerView.showContextMenuForChild(recyclerView, e.getX(), e.getY());
                 }
             }
         });
@@ -55,7 +57,6 @@ public class MyItemTouchHandler extends ItemTouchHelper.SimpleCallback implement
 
     @Override
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-        Log.d(TAG, "onSwiped: ");
         int position = viewHolder.getAdapterPosition();
         citiesList.remove(position);
         adapter.notifyItemRemoved(position);
@@ -64,11 +65,8 @@ public class MyItemTouchHandler extends ItemTouchHelper.SimpleCallback implement
 
     @Override
     public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-        Log.d(TAG, "onInterceptTouchEvent: ");
         gestureDetector.onTouchEvent(e);
         return false;
-//        return true;
-//        return super.onInterceptTouchEvent(recyclerView, e);
     }
 
     @Override

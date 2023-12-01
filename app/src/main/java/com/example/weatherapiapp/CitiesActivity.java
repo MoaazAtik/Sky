@@ -3,6 +3,9 @@ package com.example.weatherapiapp;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -46,13 +49,14 @@ public class CitiesActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
-//        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callbackItemTouchHelper);
-//        itemTouchHelper.attachToRecyclerView(recyclerView);
-
         MyItemTouchHandler itemTouchHandler = new MyItemTouchHandler(this, recyclerView, adapter, citiesList);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchHandler);
-        itemTouchHelper.attachToRecyclerView(recyclerView);
-        recyclerView.addOnItemTouchListener(itemTouchHandler);
+//        itemTouchHelper.attachToRecyclerView(recyclerView);
+//        recyclerView.addOnItemTouchListener(itemTouchHandler);
+
+//        registerForContextMenu(recyclerView.showContextMenuForChild());
+        registerForContextMenu(etCityInput);
+//        recyclerView.showContextMenuForChild(recyclerView);
 
         prepareData();
 
@@ -64,6 +68,28 @@ public class CitiesActivity extends AppCompatActivity {
         });
 
     } //onCreate
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+//        super.onCreateContextMenu(menu, v, menuInfo);
+        Log.d(TAG, "onCreateContextMenu: ");
+        menu.add("Set as home")
+                .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(@NonNull MenuItem item) {
+                        Log.d(TAG, "onMenuItemClick: 1");
+                        return false;
+                    }
+                });
+        menu.add("Remove city")
+                .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(@NonNull MenuItem item) {
+                        Log.d(TAG, "onMenuItemClick: 2");
+                        return false;
+                    }
+                });
+    }
 
     // Cities layout methods
     private void prepareData() {
