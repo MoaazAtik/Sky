@@ -1,5 +1,6 @@
 package com.example.weatherapiapp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -29,6 +30,8 @@ public class MyItemTouchHandler extends ItemTouchHelper.SimpleCallback implement
     private CityListAdapter adapter;
     private List<WeatherReportModelShort> citiesList;
 
+    private int currentViewPosition;
+
     public MyItemTouchHandler(Context context, RecyclerView recyclerView, CityListAdapter adapter, List<WeatherReportModelShort> citiesList) {
         super(0, ItemTouchHelper.START);
         this.recyclerView = recyclerView;
@@ -38,16 +41,28 @@ public class MyItemTouchHandler extends ItemTouchHelper.SimpleCallback implement
         gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
             @Override
             public void onLongPress(MotionEvent e) {
+                Log.d(TAG, "onLongPress: gesture");
                 View childView = recyclerView.findChildViewUnder(e.getX(), e.getY());
                 if (childView != null) {
                     int position = recyclerView.getChildAdapterPosition(childView);
                     showLongPressMessage(position);
-//                    recyclerView.contextgetContext()
-//                    onContextClick(e);
-//                    recyclerView.showContextMenuForChild(recyclerView, e.getX(), e.getY());
+                    setCurrentViewPosition(position);
+////                    recyclerView.contextgetContext()
+////                    onContextClick(e);
+////                   recyclerView.showContextMenuForChild(recyclerView, e.getX(), e.getY());
                 }
             }
         });
+
+        ((Activity) context).onContextItemSelected()
+    }
+
+    private void setCurrentViewPosition(int currentViewPosition) {
+        this.currentViewPosition = currentViewPosition;
+    }
+
+    public int getCurrentViewPosition() {
+        return currentViewPosition;
     }
 
     @Override

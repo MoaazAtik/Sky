@@ -1,6 +1,8 @@
 package com.example.weatherapiapp;
 
 import android.content.Context;
+import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +18,9 @@ import java.util.List;
 
 public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.CityListViewHolder> {
 
-    public class CityListViewHolder extends RecyclerView.ViewHolder {
+    private static final String TAG = "CityListAdapter";
+
+    public class CityListViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
 
         private TextView txtTemp;
         private TextView txtHTemp;
@@ -34,8 +38,30 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.CityLi
             txtCityCountry = itemView.findViewById(R.id.txt_city_country);
             txtCondition = itemView.findViewById(R.id.txt_city_condition);
             imgCondition = itemView.findViewById(R.id.img_city_condition);
+            itemView.setOnCreateContextMenuListener(this);
+        }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+//            menu.add(0, 0, getAdapterPosition(), "Set as home");
+//            menu.add(this.getAdapterPosition(), v.getId(), 0, "Call");
+//            menu.add("Set as home");
+//            menu.add("Remove city");
+            menu.add(0, 0, 0, "Set as home");
+            menu.add(0, 0, 1, "Remove city");
+            Log.d(TAG, "onCreateContextMenu: ");
+//            View childView = recyclerView.findChildViewUnder(e.getX(), e.getY());
+//            if (childView != null) {
+//                int position = recyclerView.getChildAdapterPosition(childView);
+            position = getAdapterPosition();
+
         }
     }
+    private int position;
+    public int getPosition() {
+        return position;
+    }
+
 
     private Context mContext;
     private List<WeatherReportModelShort> citiesList;
