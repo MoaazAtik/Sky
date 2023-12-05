@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,8 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.CityLi
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        MenuInflater menuInflater = new MenuInflater(mContext);
+            menuInflater.inflate(R.menu.contex_menu_recycler_view, menu);
 
             menu.add(0, 0, 0, "Set as home")
                     .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {

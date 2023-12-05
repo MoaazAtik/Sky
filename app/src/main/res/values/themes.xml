@@ -14,6 +14,37 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
+        <!-- Context Menu theme -->
+<!--        <item name="android:windowBackground">@drawable/background</item>-->
+<!--        <item name="android:progressBarStyle">@style/progressBar</item>-->
+<!--        <item name="android:buttonStyle">@style/greenButton</item>-->
+<!--        <item name="android:buttonStyleSmall">@style/greenButton</item>-->
+<!--        <item name="android:listViewStyle">@style/listView</item>-->
+<!--        <item name="android:itemBackground">@drawable/menu_selector</item>-->
+<!--        <item name="android:spinnerStyle">@style/spinner</item>-->
+
+<!--        <item name="android:windowBackground">@color/dark_purple_widget_border</item>-->
+<!--        <item name="android:progressBarStyle">@style/progressBar</item>-->
+<!--        <item name="android:buttonStyle">@style/greenButton</item>-->
+<!--        <item name="android:buttonStyleSmall">@style/greenButton</item>-->
+<!--        <item name="android:listViewStyle">@style/mystyle</item>-->
+<!--        <item name="android:itemBackground">@color/dark_purple_widget_border</item>-->
+<!--        <item name="android:spinnerStyle">@style/mystyle</item>-->
+<!--        <item name="android:popupMenuStyle">@style/mystyle</item>-->
+<!--        <item name="popupMenuStyle">@style/mystyle</item>-->
+<!--        <item name="android:contextPopupMenuStyle">@style/mystyle</item>-->
+<!--        <item name="menu">@style/mystyle</item>-->
+<!--        <item name="popupMenuBackground">@color/dark_purple_widget_border</item>-->
+        <item name="listPopupWindowStyle">@style/mystyle</item>
+    </style>
+<!--    <style name="mystyle" parent="Widget.Material3.PopupMenu.ContextMenu">-->
+    <style name="mystyle" >
+<!--        <item name="android:windowBackground">@color/dark_purple_widget_border</item>-->
+<!--        <item name="android:itemBackground">@color/dark_purple_widget_border</item>-->
+<!--        <item name="android:popupBackground">@color/dark_purple_widget_border</item>-->
+        <item name="popupMenuBackground">@color/dark_purple_widget_border</item>
+<!--        <item name="android:popupMenuBackground">@color/dark_purple_widget_border</item>-->
     </style>
 
     <!-- Theme of Home city dialog. -->
