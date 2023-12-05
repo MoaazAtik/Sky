@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -15,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -22,7 +23,6 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.CityLi
 
     private static final String TAG = "CityListAdapter";
 
-//    public class CityListViewHolder extends RecyclerView.ViewHolder {
     public class CityListViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
 
         private TextView txtTemp;
@@ -32,7 +32,6 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.CityLi
         private TextView txtCondition;
         private ImageView imgCondition;
 
-//        MyItemTouchHandler m = new MyItemTouchHandler()
         public CityListViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -43,15 +42,12 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.CityLi
             txtCondition = itemView.findViewById(R.id.txt_city_condition);
             imgCondition = itemView.findViewById(R.id.img_city_condition);
             itemView.setOnCreateContextMenuListener(this);
-//            itemView.setOnCreateContextMenuListener(mOnCreateContextMenuListener);
-            //            itemView.setOnCreateContextMenuListener((View.OnCreateContextMenuListener) new MyItemTouchHandler());
         }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
 
-            // take this to the handler or adapter/ no move it to the adapter
-            menu.add(0, 0, 0, "Setd as home")
+            menu.add(0, 0, 0, "Set as home")
                     .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(@NonNull MenuItem item) {
@@ -59,42 +55,18 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.CityLi
                             return true;
                         }
                     });
-            menu.add(0, 0, 1, "Removed city")
+            menu.add(0, 0, 1, "Remove city")
                     .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(@NonNull MenuItem item) {
                             Log.d(TAG, "onMenuItemClick: adapter 1");
-
-//                            int position = recyclerView.getChildAdapterPosition(childView);
-                            position = getAdapterPosition();
-                            Log.d(TAG, "onMenuItemClick: position " + position);
-                            removeItem(position);
+                            Log.d(TAG, "onMenuItemClick: position " + getAdapterPosition());
+                            removeItem(getAdapterPosition());
                             return true;
                         }
                     });
     }
-
-    //        @Override
-//        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-////            menu.add(0, 0, getAdapterPosition(), "Set as home");
-////            menu.add(this.getAdapterPosition(), v.getId(), 0, "Call");
-////            menu.add("Set as home");
-////            menu.add("Remove city");
-//            menu.add(0, 0, 0, "Set as home");
-//            menu.add(0, 0, 1, "Remove city");
-//            Log.d(TAG, "onCreateContextMenu: ");
-////            View childView = recyclerView.findChildViewUnder(e.getX(), e.getY());
-////            if (childView != null) {
-////                int position = recyclerView.getChildAdapterPosition(childView);
-//            position = getAdapterPosition();
-//
-//        }
     }
-    private int position;
-    public int getPosition() {
-        return position;
-    }
-
 
     private Context mContext;
     private List<WeatherReportModelShort> citiesList;
@@ -134,68 +106,13 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.CityLi
         return citiesList.size();
     }
 
-//
-//    private View.OnCreateContextMenuListener mOnCreateContextMenuListener = new View.OnCreateContextMenuListener() {
-//        @Override
-//        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-//            // take this to the handler or adapter/ no move it to the adapter
-//            menu.add(0, 0, 0, "Setd as home")
-//                    .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-//                        @Override
-//                        public boolean onMenuItemClick(@NonNull MenuItem item) {
-//                            Log.d(TAG, "onMenuItemClick: adapter 0");
-//                            return true;
-//                        }
-//                    });
-//            menu.add(0, 0, 1, "Removed city")
-//                    .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-//                        @Override
-//                        public boolean onMenuItemClick(@NonNull MenuItem item) {
-//                            Log.d(TAG, "onMenuItemClick: adapter 1");
-//
-////                            int position = recyclerView.getChildAdapterPosition(childView);
-//                            position = getAdapterPosition();
-//                            removeItem();
-//                            return true;
-//                        }
-//                    });
-//        }
-//    };
-////    @Override
-////    public boolean onMenuItemClick(@NonNull MenuItem item) {
-////        switch (item.getOrder()) {
-////            case 0:
-////                Log.d(TAG, "onContextItemSelected: 0");
-////                return true;
-////            case 1:
-////                Log.d(TAG, "onContextItemSelected: 1");
-//////                Log.d(TAG, "Current rv item position " + itemTouchHandler.getCurrentViewPosition());
-//////                removeItem(itemTouchHandler.getCurrentViewPosition());
-////                int p = adapter.getPosition();
-////                Log.d(TAG, "Current rv item position " + p);
-////                removeItem(p);
-////                return true;
-////        }
-////        Log.d(TAG, "onContextItemSelected: default");
-////        return false;
-////    }
     private void removeItem(int position) {
         citiesList.remove(position);
-//        adapter.notifyItemRemoved(position);
         notifyItemRemoved(position);
-        // Show a confirmation message or perform other actions
+//        this.notifyItemRemoved(position); // maybe I need this for Cities Activity onSwipe
+
+//        Snackbar snackbar = Snackbar.make(recyclerView, "City removed", BaseTransientBottomBar.LENGTH_LONG);
+//        snackbar.show();
     }
-//    //        holder.view.setOnCreateContextMenuListener { contextMenu, _, _ ->
-////                contextMenu.add("Add").setOnMenuItemClickListener {
-////            longToast("I'm pressed for the item at position => $position")
-////            true
-////        }
-////        }
-//    MenuItem.OnMenuItemClickListener m = new MenuItem.OnMenuItemClickListener() {
-//        @Override
-//        public boolean onMenuItemClick(@NonNull MenuItem item) {
-//            return false;
-//        }
-//    };
 
 }

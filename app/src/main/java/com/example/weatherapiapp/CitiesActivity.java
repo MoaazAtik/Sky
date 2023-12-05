@@ -3,9 +3,6 @@ package com.example.weatherapiapp;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -56,32 +53,6 @@ public class CitiesActivity extends AppCompatActivity {
 //        itemTouchHelper.attachToRecyclerView(recyclerView);
 //        recyclerView.addOnItemTouchListener(itemTouchHandler);
 
-
-////        registerForContextMenu(recyclerView.showContextMenuForChild());
-//        registerForContextMenu(etCityInput);
-////        recyclerView.showContextMenuForChild(recyclerView);
-
-//        registerForContextMenu(recyclerView);
-//        recyclerView.setOnCreateContextMenuListener(itemTouchHelper.m);
-//        recyclerView.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
-//            @Override
-//            public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-//                // take this to the handler or adapter
-//            }
-//        });
-////        holder.view.setOnCreateContextMenuListener { contextMenu, _, _ ->
-////                contextMenu.add("Add").setOnMenuItemClickListener {
-////            longToast("I'm pressed for the item at position => $position")
-////            true
-////        }
-////        }
-//        MenuItem.OnMenuItemClickListener m = new MenuItem.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(@NonNull MenuItem item) {
-//                return false;
-//            }
-//        };
-
         prepareData();
 
         findViewById(R.id.btn_cities_add_city).setOnClickListener(view -> {
@@ -92,28 +63,6 @@ public class CitiesActivity extends AppCompatActivity {
         });
 
     } //onCreate
-
-//    @Override
-//    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-////        super.onCreateContextMenu(menu, v, menuInfo);
-//        Log.d(TAG, "onCreateContextMenu: ");
-//        menu.add("Set as home")
-//                .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-//                    @Override
-//                    public boolean onMenuItemClick(@NonNull MenuItem item) {
-//                        Log.d(TAG, "onMenuItemClick: 1");
-//                        return false;
-//                    }
-//                });
-//        menu.add("Remove city")
-//                .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-//                    @Override
-//                    public boolean onMenuItemClick(@NonNull MenuItem item) {
-//                        Log.d(TAG, "onMenuItemClick: 2");
-//                        return false;
-//                    }
-//                });
-//    }
 
     // Cities layout methods
     private void prepareData() {
@@ -168,34 +117,6 @@ public class CitiesActivity extends AppCompatActivity {
             snackbar.show();
         }
     };
-
-
-//    @Override
-//    public boolean onContextItemSelected(@NonNull MenuItem item) {
-////        int position = item.getOrder();
-////        switch (item.getItemId()) {
-////        switch (position) {
-////        int position = recyclerView.getChildAdapterPosition(recyclerView.childgetFocusedChild());
-////        CityListAdapter adapter = (CityListAdapter) recyclerView.getAdapter();
-////        recyclerView.findChildViewUnder()
-////        adapter.vieho
-////        Log.d(TAG, "onContextItemSelected: position " + position);
-//        switch (item.getOrder()) {
-//            case 0:
-//                Log.d(TAG, "onContextItemSelected: 0");
-//                return true;
-//            case 1:
-//                Log.d(TAG, "onContextItemSelected: 1");
-////                Log.d(TAG, "Current rv item position " + itemTouchHandler.getCurrentViewPosition());
-////                removeItem(itemTouchHandler.getCurrentViewPosition());
-//                int p = adapter.getPosition();
-//                Log.d(TAG, "Current rv item position " + p);
-//                removeItem(p);
-//                return true;
-//        }
-//        Log.d(TAG, "onContextItemSelected: default");
-//        return super.onContextItemSelected(item);
-//    }
 
     private void removeItem(int position) {
         citiesList.remove(position);
