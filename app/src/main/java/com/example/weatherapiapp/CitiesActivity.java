@@ -30,7 +30,6 @@ public class CitiesActivity extends AppCompatActivity {
     private CityListAdapter adapter;
     private List<WeatherReportModelShort> citiesList;
     private AppCompatEditText etCityInput;
-    private MyItemTouchHandler itemTouchHandler;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,11 +46,8 @@ public class CitiesActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
-//        MyItemTouchHandler itemTouchHandler = new MyItemTouchHandler(this, recyclerView, adapter, citiesList);
-        itemTouchHandler = new MyItemTouchHandler(this, recyclerView, adapter, citiesList);
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchHandler);
-//        itemTouchHelper.attachToRecyclerView(recyclerView);
-//        recyclerView.addOnItemTouchListener(itemTouchHandler);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callbackItemTouchHelper);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
 
         prepareData();
 
@@ -102,8 +98,11 @@ public class CitiesActivity extends AppCompatActivity {
                 });
     } // getForecastShort
 
-    // Callback for recycler view ItemTouchHelper for onSwiped
-    ItemTouchHelper.Callback callbackItemTouchHelper = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.START) {
+    /**
+     * Callback of Recycler view's ItemTouchHelper to handle item swipes
+     */
+    ItemTouchHelper.Callback callbackItemTouchHelper =
+            new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.START) {
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
             return false;
@@ -112,16 +111,10 @@ public class CitiesActivity extends AppCompatActivity {
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             citiesList.remove(viewHolder.getAdapterPosition());
-            adapter.notifyDataSetChanged();
-            Snackbar snackbar = Snackbar.make(citiesLayout, "City deleted", BaseTransientBottomBar.LENGTH_LONG);
+            adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+            Snackbar snackbar = Snackbar.make(citiesLayout, "City removed", BaseTransientBottomBar.LENGTH_LONG);
             snackbar.show();
         }
     };
-
-    private void removeItem(int position) {
-        citiesList.remove(position);
-        adapter.notifyItemRemoved(position);
-        // Show a confirmation message or perform other actions
-    }
 
 }

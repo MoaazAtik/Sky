@@ -71,6 +71,13 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.CityLi
 
     private Context mContext;
     private List<WeatherReportModelShort> citiesList;
+    private RecyclerView mRecyclerView;
+
+    @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        mRecyclerView = recyclerView;
+    }
 
     public CityListAdapter(Context context, List<WeatherReportModelShort> citiesList) {
         this.mContext = context;
@@ -110,10 +117,8 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.CityLi
     private void removeItem(int position) {
         citiesList.remove(position);
         notifyItemRemoved(position);
-//        this.notifyItemRemoved(position); // maybe I need this for Cities Activity onSwipe
-
-//        Snackbar snackbar = Snackbar.make(recyclerView, "City removed", BaseTransientBottomBar.LENGTH_LONG);
-//        snackbar.show();
+        Snackbar snackbar = Snackbar.make(mRecyclerView, "City removed", BaseTransientBottomBar.LENGTH_LONG);
+        snackbar.show();
     }
 
 }
