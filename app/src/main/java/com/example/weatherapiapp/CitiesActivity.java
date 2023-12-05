@@ -53,8 +53,9 @@ public class CitiesActivity extends AppCompatActivity {
 //        MyItemTouchHandler itemTouchHandler = new MyItemTouchHandler(this, recyclerView, adapter, citiesList);
         itemTouchHandler = new MyItemTouchHandler(this, recyclerView, adapter, citiesList);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchHandler);
-        itemTouchHelper.attachToRecyclerView(recyclerView);
-        recyclerView.addOnItemTouchListener(itemTouchHandler);
+//        itemTouchHelper.attachToRecyclerView(recyclerView);
+//        recyclerView.addOnItemTouchListener(itemTouchHandler);
+
 
 ////        registerForContextMenu(recyclerView.showContextMenuForChild());
 //        registerForContextMenu(etCityInput);
