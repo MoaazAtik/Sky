@@ -24,6 +24,15 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.CityLi
 
     private static final String TAG = "CityListAdapter";
 
+    private Context mContext;
+    private List<WeatherReportModelShort> citiesList;
+    private RecyclerView mRecyclerView;
+
+    public CityListAdapter(Context context, List<WeatherReportModelShort> citiesList) {
+        this.mContext = context;
+        this.citiesList = citiesList;
+    }
+
     public class CityListViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
 
         private TextView txtTemp;
@@ -45,8 +54,8 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.CityLi
             itemView.setOnCreateContextMenuListener(this);
         }
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
 
             menu.add(0, 0, 0, "Set as home")
                     .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
@@ -66,22 +75,7 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.CityLi
                             return true;
                         }
                     });
-    }
-    }
-
-    private Context mContext;
-    private List<WeatherReportModelShort> citiesList;
-    private RecyclerView mRecyclerView;
-
-    @Override
-    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
-        mRecyclerView = recyclerView;
-    }
-
-    public CityListAdapter(Context context, List<WeatherReportModelShort> citiesList) {
-        this.mContext = context;
-        this.citiesList = citiesList;
+        }
     }
 
     @NonNull
@@ -107,6 +101,12 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.CityLi
         holder.txtCondition.setText(conditionDescription);
         int conditionImageId = weatherReportModel.getConditionImageId();
         Glide.with(mContext).load(conditionImageId).into(holder.imgCondition);
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        mRecyclerView = recyclerView;
     }
 
     @Override

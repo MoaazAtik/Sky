@@ -103,18 +103,18 @@ public class CitiesActivity extends AppCompatActivity {
      */
     ItemTouchHelper.Callback callbackItemTouchHelper =
             new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.START) {
-        @Override
-        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-            return false;
-        }
+                @Override
+                public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                    return false;
+                }
 
-        @Override
-        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            citiesList.remove(viewHolder.getAdapterPosition());
-            adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
-            Snackbar snackbar = Snackbar.make(citiesLayout, "City removed", BaseTransientBottomBar.LENGTH_LONG);
-            snackbar.show();
-        }
-    };
+                @Override
+                public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                    citiesList.remove(viewHolder.getAdapterPosition());
+                    adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+                    Snackbar snackbar = Snackbar.make(citiesLayout, "City removed", BaseTransientBottomBar.LENGTH_LONG);
+                    snackbar.show();
+                }
+            };
 
 }
