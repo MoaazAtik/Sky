@@ -47,27 +47,25 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.CityLi
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        MenuInflater menuInflater = new MenuInflater(mContext);
-            menuInflater.inflate(R.menu.contex_menu_recycler_view, menu);
 
-//            menu.add(0, 0, 0, "Set as home")
-//                    .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-//                        @Override
-//                        public boolean onMenuItemClick(@NonNull MenuItem item) {
-//                            Log.d(TAG, "onMenuItemClick: adapter 0");
-//                            return true;
-//                        }
-//                    });
-//            menu.add(0, 0, 1, "Remove city")
-//                    .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-//                        @Override
-//                        public boolean onMenuItemClick(@NonNull MenuItem item) {
-//                            Log.d(TAG, "onMenuItemClick: adapter 1");
-//                            Log.d(TAG, "onMenuItemClick: position " + getAdapterPosition());
-//                            removeItem(getAdapterPosition());
-//                            return true;
-//                        }
-//                    });
+            menu.add(0, 0, 0, "Set as home")
+                    .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(@NonNull MenuItem item) {
+                            Log.d(TAG, "onMenuItemClick: adapter 0");
+                            return true;
+                        }
+                    });
+            menu.add(0, 0, 1, "Remove city")
+                    .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(@NonNull MenuItem item) {
+                            Log.d(TAG, "onMenuItemClick: adapter 1");
+                            Log.d(TAG, "onMenuItemClick: position " + getAdapterPosition());
+                            removeItem(getAdapterPosition());
+                            return true;
+                        }
+                    });
     }
     }
 

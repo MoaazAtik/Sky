@@ -16,43 +16,10 @@
         <!-- Customize your theme here. -->
 
         <!-- Context Menu theme -->
-<!--        <item name="android:windowBackground">@drawable/background</item>-->
-<!--        <item name="android:progressBarStyle">@style/progressBar</item>-->
-<!--        <item name="android:buttonStyle">@style/greenButton</item>-->
-<!--        <item name="android:buttonStyleSmall">@style/greenButton</item>-->
-<!--        <item name="android:listViewStyle">@style/listView</item>-->
-<!--        <item name="android:itemBackground">@drawable/menu_selector</item>-->
-<!--        <item name="android:spinnerStyle">@style/spinner</item>-->
-
-<!--        <item name="android:windowBackground">@color/dark_purple_widget_border</item>-->
-<!--        <item name="android:progressBarStyle">@style/progressBar</item>-->
-<!--        <item name="android:buttonStyle">@style/greenButton</item>-->
-<!--        <item name="android:buttonStyleSmall">@style/greenButton</item>-->
-<!--        <item name="android:listViewStyle">@style/mystyle</item>-->
-<!--        <item name="android:itemBackground">@color/dark_purple_widget_border</item>-->
-<!--        <item name="android:spinnerStyle">@style/mystyle</item>-->
-<!--        <item name="android:popupMenuStyle">@style/mystyle</item>-->
-<!--        <item name="popupMenuStyle">@style/mystyle</item>-->
-<!--        <item name="android:contextPopupMenuStyle">@style/mystyle</item>-->
-<!--        <item name="menu">@style/mystyle</item>-->
-<!--        <item name="listPopupWindowStyle">@style/mystyle</item>-->
-
         <item name="popupMenuBackground">@drawable/context_menu_background</item>
-<!--        <item name="android:textAppearanceLargePopupMenu">textcolor</item>-->
         <item name="android:textColor">@color/white</item>
         <item name="fontFamily">@font/sf_pro_display_regular</item>
         <item name="android:fontFamily">@font/sf_pro_display_regular</item>
-    </style>
-<!--    <style name="mystyle" parent="Widget.Material3.PopupMenu.ContextMenu">-->
-<!--    <style name="mystyle" >-->
-    <style name="mystyle" parent="Widget.Material3.PopupMenu">
-        <item name="android:popupBackground">@drawable/context_menu_background</item>
-
-        <!--        <item name="android:windowBackground">@color/dark_purple_widget_border</item>-->
-<!--        <item name="android:itemBackground">@color/dark_purple_widget_border</item>-->
-<!--        <item name="android:popupBackground">@color/dark_purple_widget_border</item>-->
-<!--        <item name="android:popupMenuBackground">@color/dark_purple_widget_border</item>-->
-<!--        <item name="popupMenuBackground">@color/dark_purple_widget_border</item>-->
     </style>
 
     <!-- Theme of Home city dialog. -->
