@@ -20,7 +20,8 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.CityLi
 
     private static final String TAG = "CityListAdapter";
 
-    public class CityListViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
+//    public class CityListViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
+    public class CityListViewHolder extends RecyclerView.ViewHolder {
 
         private TextView txtTemp;
         private TextView txtHTemp;
@@ -29,6 +30,7 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.CityLi
         private TextView txtCondition;
         private ImageView imgCondition;
 
+//        MyItemTouchHandler m = new MyItemTouchHandler()
         public CityListViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -38,24 +40,25 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.CityLi
             txtCityCountry = itemView.findViewById(R.id.txt_city_country);
             txtCondition = itemView.findViewById(R.id.txt_city_condition);
             imgCondition = itemView.findViewById(R.id.img_city_condition);
-            itemView.setOnCreateContextMenuListener(this);
+//            itemView.setOnCreateContextMenuListener(this);
+//            itemView.setOnCreateContextMenuListener((View.OnCreateContextMenuListener) new MyItemTouchHandler());
         }
 
-        @Override
-        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-//            menu.add(0, 0, getAdapterPosition(), "Set as home");
-//            menu.add(this.getAdapterPosition(), v.getId(), 0, "Call");
-//            menu.add("Set as home");
-//            menu.add("Remove city");
-            menu.add(0, 0, 0, "Set as home");
-            menu.add(0, 0, 1, "Remove city");
-            Log.d(TAG, "onCreateContextMenu: ");
-//            View childView = recyclerView.findChildViewUnder(e.getX(), e.getY());
-//            if (childView != null) {
-//                int position = recyclerView.getChildAdapterPosition(childView);
-            position = getAdapterPosition();
-
-        }
+//        @Override
+//        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+////            menu.add(0, 0, getAdapterPosition(), "Set as home");
+////            menu.add(this.getAdapterPosition(), v.getId(), 0, "Call");
+////            menu.add("Set as home");
+////            menu.add("Remove city");
+//            menu.add(0, 0, 0, "Set as home");
+//            menu.add(0, 0, 1, "Remove city");
+//            Log.d(TAG, "onCreateContextMenu: ");
+////            View childView = recyclerView.findChildViewUnder(e.getX(), e.getY());
+////            if (childView != null) {
+////                int position = recyclerView.getChildAdapterPosition(childView);
+//            position = getAdapterPosition();
+//
+//        }
     }
     private int position;
     public int getPosition() {
