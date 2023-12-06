@@ -192,8 +192,8 @@ public class MainActivity extends AppCompatActivity {
         showHomeCityDialog();
 
         // Get current Home City Preference
-        SharedPreferences preferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        homeCity = preferences.getString("homeCity", "rio");
+        homeCity = getSharedPreferences("MyPrefs", MODE_PRIVATE)
+                .getString("homeCity", "Montreal");
 
         // btnHourlyForecast OnClickListener
         btnHourlyForecast.setOnClickListener(v -> {
@@ -444,8 +444,8 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         // Check if Home city Preference is changed after returning from Cities Activity
-        SharedPreferences preferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        String newHomeCity = preferences.getString("homeCity", "rio");
+        String newHomeCity = getSharedPreferences("MyPrefs", MODE_PRIVATE)
+                .getString("homeCity", "Montreal");
 
         if (firstWeatherParsing || !newHomeCity.equals(homeCity)) {
             homeCity = newHomeCity;
