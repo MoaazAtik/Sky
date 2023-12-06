@@ -188,10 +188,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         showHomeCityDialog();
-        getForecastShort();
-        getForecastHourly();
-        getForecastDaily();
-        getForecastDetailed();
+        getWeather();
+//        getForecastShort();
+//        getForecastHourly();
+//        getForecastDaily();
+//        getForecastDetailed();
 
         // btnHourlyForecast OnClickListener
         btnHourlyForecast.setOnClickListener(v -> {
@@ -494,14 +495,22 @@ public class MainActivity extends AppCompatActivity {
 //        });
     }
 
-    /**
-     * Get Short forecast for the main weather details in the middle of the home screen.
-     */
-    private void getForecastShort() {
+
+    private void getWeather() {
         // Check if there is a Home city stored in the Preferences
         SharedPreferences preferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         String homeCity = preferences.getString("homeCity", "rio");
 
+        getForecastShort(homeCity);
+        getForecastHourly(homeCity);
+        getForecastDaily(homeCity);
+        getForecastDetailed(homeCity);
+    }
+
+    /**
+     * Get Short forecast for the main weather details in the middle of the home screen.
+     */
+    private void getForecastShort(String homeCity) {
         WeatherDataService weatherDataService = new WeatherDataService(MainActivity.this);
         weatherDataService.getForecastByName(homeCity,
                 0, new WeatherDataService.ListenerGetForecastByLatL<WeatherReportModelShort>() {
@@ -534,11 +543,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Get Hourly forecast for the upper bottom sheet.
      */
-    private void getForecastHourly() {
-        // Check if there is a Home city stored in the Preferences
-        SharedPreferences preferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        String homeCity = preferences.getString("homeCity", "rio");
-
+    private void getForecastHourly(String homeCity) {
         WeatherDataService weatherDataService = new WeatherDataService(this);
         weatherDataService.getForecastByName(homeCity, 1, new WeatherDataService.ListenerGetForecastByLatL<WeatherReportModelHourly>() {
             @Override
@@ -557,11 +562,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Get Daily forecast for the upper bottom sheet.
      */
-    private void getForecastDaily() {
-        // Check if there is a Home city stored in the Preferences
-        SharedPreferences preferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        String homeCity = preferences.getString("homeCity", "rio");
-
+    private void getForecastDaily(String homeCity) {
         WeatherDataService weatherDataService = new WeatherDataService(this);
         weatherDataService.getForecastByName(homeCity, 2, new WeatherDataService.ListenerGetForecastByLatL<WeatherReportModelDaily>() {
             @Override
@@ -675,11 +676,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Get Detailed forecast for the Lower bottom sheet.
      */
-    private void getForecastDetailed() {
-        // Check if there is a Home city stored in the Preferences
-        SharedPreferences preferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        String homeCity = preferences.getString("homeCity", "rio");
-
+    private void getForecastDetailed(String homeCity) {
         WeatherDataService weatherDataService = new WeatherDataService(this);
         weatherDataService.getForecastByName(homeCity, 3, new WeatherDataService.ListenerGetForecastByLatL<WeatherReportModelDetailed>() {
             @Override
