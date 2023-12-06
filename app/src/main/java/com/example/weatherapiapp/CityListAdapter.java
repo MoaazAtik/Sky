@@ -1,6 +1,9 @@
 package com.example.weatherapiapp;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -62,6 +65,15 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.CityLi
                         @Override
                         public boolean onMenuItemClick(@NonNull MenuItem item) {
                             Log.d(TAG, "onMenuItemClick: adapter 0");
+                            // Save a preference "homeCity" to show to show it in the Main screen
+                            SharedPreferences preferences = mContext.getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                            CityListViewHolder holder = (CityListViewHolder) mRecyclerView.findViewHolderForAdapterPosition(getAdapterPosition());
+                            String cityCountryName = holder.txtCityCountry.getText().toString();
+                            preferences.edit()
+                                    .putString(
+                                            "homeCity",
+                                            cityCountryName)
+                                    .apply();
                             return true;
                         }
                     });
