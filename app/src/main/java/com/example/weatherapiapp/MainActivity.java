@@ -65,9 +65,11 @@ public class MainActivity extends AppCompatActivity {
 
     boolean firstFullSunTimeAnimation = true;
     boolean firstFullWindAnimation = true;
+    private boolean firstWeatherParsing = true;
     float sunTimeProgress;
     private String sunTimePrimary;
     float windDirectionProgress;
+    private String homeCity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -188,11 +190,10 @@ public class MainActivity extends AppCompatActivity {
 
 
         showHomeCityDialog();
-        getWeather();
-//        getForecastShort();
-//        getForecastHourly();
-//        getForecastDaily();
-//        getForecastDetailed();
+
+        // Get current Home City Preference
+        SharedPreferences preferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        homeCity = preferences.getString("homeCity", "rio");
 
         // btnHourlyForecast OnClickListener
         btnHourlyForecast.setOnClickListener(v -> {
@@ -438,6 +439,21 @@ public class MainActivity extends AppCompatActivity {
 
     }//onCreate
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Check if Home city Preference is changed after returning from Cities Activity
+        SharedPreferences preferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        String newHomeCity = preferences.getString("homeCity", "rio");
+
+        if (firstWeatherParsing || !newHomeCity.equals(homeCity)) {
+            homeCity = newHomeCity;
+            getWeather(homeCity);
+            firstWeatherParsing = false;
+        }
+    }
+
     //showHomeCityDialog()
     private void showHomeCityDialog() {
 
@@ -495,12 +511,11 @@ public class MainActivity extends AppCompatActivity {
 //        });
     }
 
-
-    private void getWeather() {
-        // Check if there is a Home city stored in the Preferences
-        SharedPreferences preferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        String homeCity = preferences.getString("homeCity", "rio");
-
+    /**
+     * Parse all Weather types for Home screen
+     * @param homeCity The Home city which its weather would be shown in all Home screen
+     */
+    private void getWeather(String homeCity) {
         getForecastShort(homeCity);
         getForecastHourly(homeCity);
         getForecastDaily(homeCity);
