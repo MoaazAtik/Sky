@@ -156,13 +156,14 @@ public class CitiesActivity extends AppCompatActivity {
                 @Override
                 public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                     int currentPosition = viewHolder.getAdapterPosition();
-                    String cityCountryName = citiesList.get(currentPosition).getCity() + " - " + citiesList.get(currentPosition).getCountry();
+                    String currentName = citiesList.get(currentPosition).getCity() + " - " + citiesList.get(currentPosition).getCountry()
+                            + " ; ";
                     citiesList.remove(currentPosition);
-//                    citiesCountriesNamesSet.remove(cityCountryName);
-//                    getSharedPreferences("MyPrefs", MODE_PRIVATE)
-//                            .edit()
-//                            .putStringSet("citiesCountries", citiesCountriesNamesSet)
-//                            .apply();
+                    citiesCountriesNames = citiesCountriesNames.replace(currentName, "");
+                    getSharedPreferences("MyPrefs", MODE_PRIVATE)
+                            .edit()
+                            .putString("citiesCountriesNames", citiesCountriesNames)
+                            .apply();
 
                     adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
                     Snackbar snackbar = Snackbar.make(citiesLayout, "City removed", BaseTransientBottomBar.LENGTH_LONG);
