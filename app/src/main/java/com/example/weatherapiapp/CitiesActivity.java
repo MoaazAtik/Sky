@@ -2,6 +2,8 @@ package com.example.weatherapiapp;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
+import android.os.SystemClock;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -18,8 +20,14 @@ import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 public class CitiesActivity extends AppCompatActivity {
 
@@ -30,6 +38,10 @@ public class CitiesActivity extends AppCompatActivity {
     private CityListAdapter adapter;
     private List<WeatherReportModelShort> citiesList;
     private AppCompatEditText etCityInput;
+    private Set<String> citiesCountriesNamesSet;
+//    private LinkedHashSet<String> citiesCountriesNamesSet;
+    private LinkedHashSet<String> linkedHashSet;
+//    private Set<String> linkedHashSet;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,7 +65,7 @@ public class CitiesActivity extends AppCompatActivity {
 
         findViewById(R.id.btn_cities_add_city).setOnClickListener(view -> {
 //            addCity();
-            getForecastShort();
+            getForecastShort(Objects.requireNonNull(etCityInput.getText()).toString());
             Snackbar snackbar = Snackbar.make(citiesLayout, "City added", BaseTransientBottomBar.LENGTH_LONG);
             snackbar.show();
         });
@@ -62,10 +74,60 @@ public class CitiesActivity extends AppCompatActivity {
 
     // Cities layout methods
     private void prepareData() {
-        WeatherReportModelShort weatherReportModelShort = new WeatherReportModelShort();
-        citiesList.add(weatherReportModelShort);
 
-        adapter.notifyDataSetChanged();
+        linkedHashSet = new LinkedHashSet<>();
+
+        // get the stored cities preferences set (citiesCountriesNamesSet). Otherwise, initialize a new one.
+        // Used LinkedHasSet instead of a HashSet of TreeSet to maintain the cities' order.
+        citiesCountriesNamesSet = getSharedPreferences("MyPrefs", MODE_PRIVATE)
+                .getStringSet(
+                        "citiesCountries",
+                        new LinkedHashSet<>());
+        citiesCountriesNamesSet = new LinkedHashSet<>();
+        Log.d(TAG, "prepareData: Set "+ citiesCountriesNamesSet);
+        Log.d(TAG, "prepareData: list " + citiesList);
+
+                for (String cityCountryName : citiesCountriesNamesSet) {
+                    getForecastShort(cityCountryName);
+                    Log.d(TAG, "handler");
+                    synchronized (this) {
+                        try {
+                            wait(80);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                }
+
+//        ExecutorService executor = Executors.newSingleThreadExecutor();
+//        executor.execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                String currentThreadName = Thread.currentThread().getName();
+//                Log.i(TAG, "This thread is: " + currentThreadName);
+//
+//                for (String cityCountryName : citiesCountriesNamesSet) {
+//                    getForecastShort(cityCountryName);
+//                    Log.d(TAG, "handler");
+//                    synchronized (this) {
+//                        try {
+//                            wait(80);
+//                        } catch (InterruptedException e) {
+//                            throw new RuntimeException(e);
+//                        }
+//                    }
+//                }
+//
+//            }
+//        });
+        Log.i(TAG, "thread " + Thread.currentThread().getName());
+        Log.d(TAG, "prepareData: Set " +citiesCountriesNamesSet);
+        Log.d(TAG, "prepareData: list " + citiesList);
+
+//        WeatherReportModelShort weatherReportModelShort = new WeatherReportModelShort();
+//        citiesList.add(weatherReportModelShort);
+//
+//        adapter.notifyDataSetChanged();
     }
 
     private void addCity() {
@@ -75,11 +137,12 @@ public class CitiesActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-    private void getForecastShort() {
+    private void getForecastShort(String cityCountry) {
 
+        Log.d(TAG, "getForecastShort: city " +cityCountry);
         WeatherDataService weatherDataService = new WeatherDataService(CitiesActivity.this);
 
-        weatherDataService.getForecastByName(Objects.requireNonNull(etCityInput.getText()).toString(),
+        weatherDataService.getForecastByName(cityCountry,
                 0, new WeatherDataService.ListenerGetForecastByLatL<WeatherReportModelShort>() {
                     @Override
                     public void onError(String message) {
@@ -92,6 +155,21 @@ public class CitiesActivity extends AppCompatActivity {
                         Toast.makeText(CitiesActivity.this, "O  K", Toast.LENGTH_SHORT).show();
                         WeatherReportModelShort weatherReportModelShort = weatherReportModels.get(0);
                         citiesList.add(weatherReportModelShort);
+
+                        citiesCountriesNamesSet.add(weatherReportModelShort.getCity() + " - " + weatherReportModelShort.getCountry());
+                        linkedHashSet.add(weatherReportModelShort.getCity() + " - " + weatherReportModelShort.getCountry());
+//                        Set<String> tempCitySet = new LinkedHashSet<>();
+//                        tempCitySet.addAll(citiesCountriesNamesSet);
+//                        Set<String> tempCitySet = new LinkedHashSet<>(citiesCountriesNamesSet);
+//                        Log.d(TAG, "onResponse: temp set " +tempCitySet);
+                        Log.d(TAG, "onResponse: linkedHashSet " +linkedHashSet);
+                        Log.d(TAG, "onResponse: set "+citiesCountriesNamesSet);
+
+                        getSharedPreferences("MyPrefs", MODE_PRIVATE)
+                                .edit()
+                                .putStringSet("citiesCountries", citiesCountriesNamesSet)
+                                .apply();
+                        Log.d(TAG, "onResponse: set "+citiesCountriesNamesSet);
 
                         adapter.notifyDataSetChanged();
                     }
@@ -110,7 +188,15 @@ public class CitiesActivity extends AppCompatActivity {
 
                 @Override
                 public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                    citiesList.remove(viewHolder.getAdapterPosition());
+                    int currentPosition = viewHolder.getAdapterPosition();
+                    String cityCountryName = citiesList.get(currentPosition).getCity() + " - " + citiesList.get(currentPosition).getCountry();
+                    citiesList.remove(currentPosition);
+                    citiesCountriesNamesSet.remove(cityCountryName);
+                    getSharedPreferences("MyPrefs", MODE_PRIVATE)
+                            .edit()
+                            .putStringSet("citiesCountries", citiesCountriesNamesSet)
+                            .apply();
+
                     adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
                     Snackbar snackbar = Snackbar.make(citiesLayout, "City removed", BaseTransientBottomBar.LENGTH_LONG);
                     snackbar.show();
