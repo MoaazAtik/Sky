@@ -1,9 +1,6 @@
 package com.example.weatherapiapp;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.SystemClock;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -20,14 +17,12 @@ import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
-import java.util.concurrent.Executor;
+import java.util.Queue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 
 public class CitiesActivity extends AppCompatActivity {
 
@@ -39,6 +34,7 @@ public class CitiesActivity extends AppCompatActivity {
     private List<WeatherReportModelShort> citiesList;
     private AppCompatEditText etCityInput;
     private String citiesCountriesNames;
+    private boolean queueIsIdle = true;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -87,18 +83,47 @@ public class CitiesActivity extends AppCompatActivity {
                 String tempNames = citiesCountriesNames;
                 citiesCountriesNames = ""; // to avoid Duplication after calling getForecastShort
                 String currentName;
+                Queue<String> namesQueue = new LinkedList<>();
+                long timeoutEnqueueingAndDequeueing = 2 * 60 * 1000; // 2 minutes
+                long startEnqueueingTime = System.currentTimeMillis();
                 while (!Objects.equals(tempNames, "")) {
                     int lastIndex = tempNames.indexOf(" ; ");
                     currentName = tempNames.substring(0, lastIndex);
                     tempNames = tempNames.substring(lastIndex + 3);
-                    getForecastShort(currentName);
+                    namesQueue.offer(currentName);
+                    long elapsedEnqueueingTime = System.currentTimeMillis() - startEnqueueingTime;
+                    if (elapsedEnqueueingTime > timeoutEnqueueingAndDequeueing) {
+                        Log.d(TAG, "Timeout reached. Breaking the Enqueueing loop.");
+                        Snackbar.make(recyclerView, "Timeout reached", BaseTransientBottomBar.LENGTH_LONG)
+                                .show();
+                        break;
+                    }
+                }
+
+                /*
+                Earlier Calls are not always providing earlier Responses which is Mixing the cities Order.
+                To fix this I utilized a Queue, created queueIsIdle boolean, and let the worker (background) Thread to Check repeatedly if the Queue is Idle API Calls.
+                This gives the calls some time to respond to ensures getting Responses in the order of Calling.
+                 */
+                long startDequeueingTime = System.currentTimeMillis();
+                while (!namesQueue.isEmpty()) {
+                    if (queueIsIdle) {
+                        queueIsIdle = false;
+                        getForecastShort(namesQueue.poll());
+                    }
                     synchronized (this) {
                         try {
-                            // Earlier Calls are not always providing earlier Responses which is Mixing the cities Order. To fix this I let the worker (background) Thread to Wait between API Calls. This gives the calls some time to respond to ensures getting Responses in the order of Calling.
-                            wait(500);
+                            wait(50);
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);
                         }
+                    }
+                    long elapsedDequeueingTime = System.currentTimeMillis() - startDequeueingTime;
+                    if (elapsedDequeueingTime > timeoutEnqueueingAndDequeueing) {
+                        Log.d(TAG, "Timeout reached. Breaking the Dequeueing loop.");
+                        Snackbar.make(recyclerView, "Timeout reached", BaseTransientBottomBar.LENGTH_LONG)
+                                .show();
+                        break;
                     }
                 }
             }
@@ -139,6 +164,7 @@ public class CitiesActivity extends AppCompatActivity {
                                 .apply();
 
                         adapter.notifyDataSetChanged();
+                        queueIsIdle = true;
                     }
                 });
     } // getForecastShort
