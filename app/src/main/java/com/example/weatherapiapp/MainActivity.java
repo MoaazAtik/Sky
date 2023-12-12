@@ -332,19 +332,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // btnHomePlus OnClickListener
+        /*
+        When 'Plus' Button is clicked open CitiesActivity and Focus the EditText
+         */
         btnHomePlus.setOnClickListener(v -> {
-            Log.d(TAG, "onClick btnHomePlus");
+            startActivity(
+                    new Intent(MainActivity.this, CitiesActivity.class)
+            );
         });
 
-        // btnHomeExpand OnClickListener
+        /*
+        When 'Expand' Button is clicked Expand the Bottom Sheet
+         */
         btnHomeExpand.setOnClickListener(v -> {
-            Log.d(TAG, "onClick btnHomeExpand");
+            mainMotionLayout.transitionToEnd();
         });
 
-        // btnHomeCitiesList OnClickListener
+        /*
+        When 'Cities List' Button is clicked open CitiesActivity
+         */
         btnHomeCitiesList.setOnClickListener(v -> {
-            Log.d(TAG, "onClick btnHomeCitiesList");
+            startActivity(
+                    new Intent(MainActivity.this, CitiesActivity.class)
+            );
         });
 
 
@@ -497,7 +507,7 @@ public class MainActivity extends AppCompatActivity {
                 preferences1.edit().putBoolean("dontShowHomeCityDialog", true).apply();
             }
 
-//            dialog.dismiss();
+            dialog.dismiss();
         });
 
 //        // set OnDismissListener for the dialog
