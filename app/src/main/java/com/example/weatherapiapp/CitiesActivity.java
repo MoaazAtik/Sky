@@ -57,15 +57,42 @@ public class CitiesActivity extends AppCompatActivity {
         prepareData();
 
         findViewById(R.id.btn_cities_add_city).setOnClickListener(view -> {
-//            addCity();
             getForecastShort(Objects.requireNonNull(etCityInput.getText()).toString());
-            Snackbar snackbar = Snackbar.make(citiesLayout, "City added", BaseTransientBottomBar.LENGTH_LONG);
-            snackbar.show();
+            Snackbar.make(citiesLayout, "City added", BaseTransientBottomBar.LENGTH_LONG)
+                    .show();
         });
 
     } //onCreate
 
-    // Cities layout methods
+    /**
+     * Get Forecast details for a City weather Widget.
+     * @param cityCountry Provided City and Country names to get the forecast details for.<p>
+     *                    Note: City name is enough, but providing Country name too (separated by a Space or Comma) is Recommended.
+     */
+    private void getForecastShort(String cityCountry) {
+
+        Log.d(TAG, "getForecastShort: Call City " + cityCountry);
+        WeatherDataService weatherDataService = new WeatherDataService(CitiesActivity.this);
+        weatherDataService.getForecastByName(
+                cityCountry,
+                0,
+                new WeatherDataService.ListenerGetForecastByLatL<WeatherReportModelShort>() {
+                    @Override
+                    public void onError(String message) {
+                        Toast.makeText(CitiesActivity.this, message, Toast.LENGTH_LONG).show();
+                        Log.d(TAG, "onError: getForecastShort " + message);
+                    }
+
+                    @Override
+                    public void onResponse(List<WeatherReportModelShort> weatherReportModels) {
+                        addCity(weatherReportModels);
+                    }
+                });
+    } // getForecastShort
+
+    /**
+     * Create City widgets at CitiesActivity Initialization based on Saved Shared Preferences. The work is done on a Background Thread.
+     */
     private void prepareData() {
 
         ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -130,44 +157,44 @@ public class CitiesActivity extends AppCompatActivity {
         });
     }
 
-    private void addCity() {
-        WeatherReportModelShort weatherReportModelShort = new WeatherReportModelShort();
+    /**
+     * Add city to Recycler View and Shared Preferences.
+     * @param weatherReportModels that was gotten from Response of getForecastShort.
+     */
+    private void addCity(List<WeatherReportModelShort> weatherReportModels) {
+        Toast.makeText(CitiesActivity.this, "O  K", Toast.LENGTH_SHORT).show();
+        WeatherReportModelShort weatherReportModelShort = weatherReportModels.get(0);
         citiesList.add(weatherReportModelShort);
+        citiesCountriesNames +=
+                weatherReportModelShort.getCity() + " - " + weatherReportModelShort.getCountry()
+                        + " ; ";
+        getSharedPreferences("MyPrefs", MODE_PRIVATE)
+                .edit()
+                .putString("citiesCountriesNames", citiesCountriesNames)
+                .apply();
 
         adapter.notifyDataSetChanged();
+        queueIsIdle = true;
     }
 
-    private void getForecastShort(String cityCountry) {
+    /**
+     * Remove city from Recycler View and Shared Preferences.
+     * @param position The position of City in Recycler View to be removed.
+     */
+    private void removeCity(int position) {
+        String currentName = citiesList.get(position).getCity() + " - " + citiesList.get(position).getCountry()
+                + " ; ";
+        citiesList.remove(position);
+        citiesCountriesNames = citiesCountriesNames.replace(currentName, "");
+        getSharedPreferences("MyPrefs", MODE_PRIVATE)
+                .edit()
+                .putString("citiesCountriesNames", citiesCountriesNames)
+                .apply();
 
-        Log.d(TAG, "getForecastShort: Call City " + cityCountry);
-        WeatherDataService weatherDataService = new WeatherDataService(CitiesActivity.this);
-
-        weatherDataService.getForecastByName(cityCountry,
-                0, new WeatherDataService.ListenerGetForecastByLatL<WeatherReportModelShort>() {
-                    @Override
-                    public void onError(String message) {
-                        Toast.makeText(CitiesActivity.this, message, Toast.LENGTH_LONG).show();
-                        Log.d(TAG, "onError: getForecastShort " + message);
-                    }
-
-                    @Override
-                    public void onResponse(List<WeatherReportModelShort> weatherReportModels) {
-                        Toast.makeText(CitiesActivity.this, "O  K", Toast.LENGTH_SHORT).show();
-                        WeatherReportModelShort weatherReportModelShort = weatherReportModels.get(0);
-                        citiesList.add(weatherReportModelShort);
-                        citiesCountriesNames +=
-                                weatherReportModelShort.getCity() + " - " + weatherReportModelShort.getCountry()
-                                + " ; ";
-                        getSharedPreferences("MyPrefs", MODE_PRIVATE)
-                                .edit()
-                                .putString("citiesCountriesNames", citiesCountriesNames)
-                                .apply();
-
-                        adapter.notifyDataSetChanged();
-                        queueIsIdle = true;
-                    }
-                });
-    } // getForecastShort
+        adapter.notifyItemRemoved(position);
+        Snackbar snackbar = Snackbar.make(citiesLayout, "City removed", BaseTransientBottomBar.LENGTH_LONG);
+        snackbar.show();
+    }
 
     /**
      * Callback of Recycler view's ItemTouchHelper to handle item swipes
@@ -181,19 +208,7 @@ public class CitiesActivity extends AppCompatActivity {
 
                 @Override
                 public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                    int currentPosition = viewHolder.getAdapterPosition();
-                    String currentName = citiesList.get(currentPosition).getCity() + " - " + citiesList.get(currentPosition).getCountry()
-                            + " ; ";
-                    citiesList.remove(currentPosition);
-                    citiesCountriesNames = citiesCountriesNames.replace(currentName, "");
-                    getSharedPreferences("MyPrefs", MODE_PRIVATE)
-                            .edit()
-                            .putString("citiesCountriesNames", citiesCountriesNames)
-                            .apply();
-
-                    adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
-                    Snackbar snackbar = Snackbar.make(citiesLayout, "City removed", BaseTransientBottomBar.LENGTH_LONG);
-                    snackbar.show();
+                    removeCity(viewHolder.getAdapterPosition());
                 }
             };
 

@@ -4,10 +4,8 @@ import static android.content.Context.MODE_PRIVATE;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,7 +62,6 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.CityLi
                     .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(@NonNull MenuItem item) {
-                            Log.d(TAG, "onMenuItemClick: adapter 0");
                             // Save a preference "homeCity" to show to show it in the Main screen
                             SharedPreferences preferences = mContext.getSharedPreferences("MyPrefs", MODE_PRIVATE);
                             CityListViewHolder holder = (CityListViewHolder) mRecyclerView.findViewHolderForAdapterPosition(getAdapterPosition());
@@ -81,9 +78,7 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.CityLi
                     .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(@NonNull MenuItem item) {
-                            Log.d(TAG, "onMenuItemClick: adapter 1");
-                            Log.d(TAG, "onMenuItemClick: position " + getAdapterPosition());
-                            removeItem(getAdapterPosition());
+                            removeCity(getAdapterPosition());
                             return true;
                         }
                     });
@@ -126,11 +121,14 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.CityLi
         return citiesList.size();
     }
 
-    private void removeItem(int position) {
+    /**
+     * Remove city from Recycler View and Shared Preferences.
+     * @param position The position of City in Recycler View to be removed.
+     */
+    private void removeCity(int position) {
         String currentName = citiesList.get(position).getCity() + " - " + citiesList.get(position).getCountry()
                 + " ; ";
         citiesList.remove(position);
-        Log.d(TAG, "removeItem: citiesList after "+citiesList);
 
         // get the stored cities preferences (citiesCountriesNames). Otherwise, initialize a new one.
         String citiesCountriesNames = mContext.getSharedPreferences("MyPrefs", MODE_PRIVATE)
@@ -138,14 +136,12 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.CityLi
                         "citiesCountriesNames",
                         ""
                 );
-        Log.d(TAG, "removeItem: citiesCountriesNames before "+citiesCountriesNames);
 
         citiesCountriesNames = citiesCountriesNames.replace(currentName, "");
         mContext.getSharedPreferences("MyPrefs", MODE_PRIVATE)
                 .edit()
                 .putString("citiesCountriesNames", citiesCountriesNames)
                 .apply();
-        Log.d(TAG, "removeItem: citiesCountriesNames after " + citiesCountriesNames);
 
         notifyItemRemoved(position);
         Snackbar.make(mRecyclerView, "City removed", BaseTransientBottomBar.LENGTH_LONG)
