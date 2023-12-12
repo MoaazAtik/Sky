@@ -324,25 +324,25 @@ public class WeatherReportModelDetailed {
 
         if (visibility < 50)
             visibilityDescription = "Dense fog";
-        else if (50 <= visibility && visibility < 200)
+        else if (visibility < 200) // && 50 <= visibility
             visibilityDescription = "Thick fog";
-        else if (200 <= visibility && visibility < 500)
+        else if (visibility < 500)
             visibilityDescription = "Moderate fog";
-        else if (500 <= visibility && visibility < 1000)
+        else if (visibility < 1000)
             visibilityDescription = "Light fog";
-        else if (1000 <= visibility && visibility < 2000)
+        else if (visibility < 2000)
             visibilityDescription = "Thin fog";
-        else if (2000 <= visibility && visibility < 4000)
+        else if (visibility < 4000)
             visibilityDescription = "Haze";
-        else if (4000 <= visibility && visibility < 10000)
+        else if (visibility < 10000)
             visibilityDescription = "Light haze";
-        else if (10000 <= visibility && visibility < 20000)
+        else if (visibility < 20000)
             visibilityDescription = "Clear";
-        else if (20000 <= visibility && visibility < 50000)
+        else if (visibility < 50000)
             visibilityDescription = "Very clear";
-        else if (50000 <= visibility && visibility < 277000)
+        else if (visibility < 277000)
             visibilityDescription = "Exceptionally clear";
-        else if (277000 <= visibility)
+        else // if (277000 <= visibility)
             visibilityDescription = "Pure air";
     }
 }
