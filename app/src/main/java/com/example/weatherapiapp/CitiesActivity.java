@@ -35,6 +35,7 @@ public class CitiesActivity extends AppCompatActivity {
     private AppCompatEditText etCityInput;
     private String citiesCountriesNames;
     private boolean queueIsIdle = true;
+    private boolean addingNewCity = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,9 +58,8 @@ public class CitiesActivity extends AppCompatActivity {
         prepareData();
 
         findViewById(R.id.btn_cities_add_city).setOnClickListener(view -> {
+            addingNewCity = true;
             getForecastShort(Objects.requireNonNull(etCityInput.getText()).toString());
-            Snackbar.make(citiesLayout, "City added", BaseTransientBottomBar.LENGTH_LONG)
-                    .show();
         });
 
     } //onCreate
@@ -164,6 +164,17 @@ public class CitiesActivity extends AppCompatActivity {
     private void addCity(List<WeatherReportModelShort> weatherReportModels) {
         Toast.makeText(CitiesActivity.this, "O  K", Toast.LENGTH_SHORT).show();
         WeatherReportModelShort weatherReportModelShort = weatherReportModels.get(0);
+
+        /*
+         Entering Invalid city name results in Catching 'JSONException: Index 0 out of range' in getCityLatL when Trying 'response.getJSONObject(0)' in WeatherDataService.
+         This Check is to avoid such scenarios.
+         */
+        if (weatherReportModelShort.getCity() == null) {
+            Snackbar.make(recyclerView, "Check city name", BaseTransientBottomBar.LENGTH_LONG)
+                    .show();
+            return;
+        }
+
         citiesList.add(weatherReportModelShort);
         citiesCountriesNames +=
                 weatherReportModelShort.getCity() + " - " + weatherReportModelShort.getCountry()
@@ -174,7 +185,11 @@ public class CitiesActivity extends AppCompatActivity {
                 .apply();
 
         adapter.notifyDataSetChanged();
-        queueIsIdle = true;
+        if (addingNewCity)
+            Snackbar.make(citiesLayout, "City added", BaseTransientBottomBar.LENGTH_LONG)
+                    .show();
+        else // Preparing data at Activity Initialization
+            queueIsIdle = true;
     }
 
     /**
