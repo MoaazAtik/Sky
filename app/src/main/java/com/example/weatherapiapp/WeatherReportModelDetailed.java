@@ -265,19 +265,19 @@ public class WeatherReportModelDetailed {
 
     /**
      * Set UV Description relative to UV Index Max value according to the WHO.
-     * It will be automatically called by setUv_index_max after assigning uv_index_max.
+     * It will be automatically called by setUv_index_max after assigning uv_index_max.<p>
      * Note: it should be called after uv_index_max is assigned.
      *
      * @param uv_index_max Provided UV index value.
      */
     private void setUv_Description(float uv_index_max) {
-        if (uv_index_max <= 2)
+        if (uv_index_max < 3)
             uvDescription = "Low"; // Green
-        else if (3 <= uv_index_max && uv_index_max <= 5)
+        else if (uv_index_max < 6) // && 3 <= uv_index_max
             uvDescription = "Moderate"; // Yellow
-        else if (6 <= uv_index_max && uv_index_max <= 7)
+        else if (uv_index_max < 8) // && 6 <= uv_index_max
             uvDescription = "High"; // Orange
-        else if (8 <= uv_index_max && uv_index_max <= 10)
+        else if (uv_index_max < 11) // && 8 <= uv_index_max
             uvDescription = "Vary high"; // Red
         else if (11 <= uv_index_max)
             uvDescription = "Extreme"; // Purple
