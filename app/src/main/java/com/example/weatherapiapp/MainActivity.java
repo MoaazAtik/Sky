@@ -33,7 +33,13 @@ import com.bumptech.glide.Glide;
 import com.example.weatherapiapp.databinding.ActivityMainBinding;
 
 import java.lang.reflect.Field;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 //#freeCodeCamp.org (YT) | REST API - Network Data
@@ -726,6 +732,9 @@ public class MainActivity extends AppCompatActivity {
         txtUvStatus.setText(weatherReportModelDetailed.getUvDescription());
         seekBarUvIndex.setProgress((int) weatherReportModelDetailed.getUv_index_max());
         sunTimeProgress = weatherReportModelDetailed.getTimePercentage();
+
+//        sunTimeProgress = 0.77f;
+
         txtWidgetSunTimeTitle.setText(weatherReportModelDetailed.getSunTimeTitle());
         sunTimePrimary = weatherReportModelDetailed.getSunTimePrimary();
         txtSunTimePrimary.setText(sunTimePrimary);
@@ -765,7 +774,8 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onTransitionChange(MotionLayout motionLayout, int startId, int endId, float progress) {
-            if (!firstFullSunTimeAnimation && progress > sunTimeProgress) {
+//            if (!firstFullSunTimeAnimation && progress > sunTimeProgress) {
+            if ( progress > sunTimeProgress) { // delete this
                 sunTimeMotionLayout.setProgress(sunTimeProgress);
             }
         }
