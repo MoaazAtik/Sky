@@ -327,6 +327,9 @@ public class WeatherDataService {
                     String parsedSunset = daily.getJSONArray("sunset").getString(0);
                     weatherReportModelDetailed.setSunset(getFormattedDateTime(6, parsedSunset));
                     weatherReportModelDetailed.setSunTimeTitlePrimarySecondary();
+
+                    weatherReportModelDetailed.setSunTimeProgress();
+
                     weatherReportModelDetailed.setWind_speed_10m((float) current.getDouble("wind_speed_10m"));
                     weatherReportModelDetailed.setWind_direction_10m(current.getInt("wind_direction_10m"));
                     weatherReportModelDetailed.setRain((float) current.getDouble("rain"));

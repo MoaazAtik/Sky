@@ -5,6 +5,7 @@ import android.util.Log;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 // Used in the Lower part of the bottom sheet
 public class WeatherReportModelDetailed {
@@ -18,6 +19,7 @@ public class WeatherReportModelDetailed {
     private float timePercentage; // Current Time as Percentage Float for Sun Time Animation
     private String sunrise;
     private String sunset;
+    private float sunTimeProgress; // Calculated value as Progress Percentage Float for Sun Time Animation
     private String sunTimeTitle; // Relative to is_day
     private String sunTimePrimary; // Relative to is_day
     private String sunTimeSecondary; // Relative to is_day
@@ -108,7 +110,6 @@ public class WeatherReportModelDetailed {
     public void setTime(String time) {
         this.time = time;
         setTimePercentage();
-        setSunTimeProgress();
     }
 
     public String getSunrise() {
@@ -267,6 +268,9 @@ public class WeatherReportModelDetailed {
      *
      * Sun Time Progress
      *
+     * Note: 1. It should be called only after is_day, time, sunrise, and sunset is assigned.
+     *       2. My getTime() that is defined in this class should not be confused with the one defined in java.util.Date.
+     *
      */
     public void setSunTimeProgress() {
 
@@ -327,23 +331,113 @@ public class WeatherReportModelDetailed {
 //        Log.d(TAG, "sunTimeProgress " + timePercentage);
 
 
-        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
         try {
+            SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
             Date sunrise = timeFormat.parse("06:00 AM");
             Date sunset = timeFormat.parse("08:00 PM");
-            Date current = timeFormat.parse("07:00 AM");
+            Date currentTime = timeFormat.parse("07:00 AM");
 
-            long upDurationMillis = sunset.getTime() - sunrise.getTime();
-            long downDurationMillis = 24 - upDurationMillis;
+            // todo: bug: getTime is subtracting 2 hours automatically. Why??
+            // I am facing this especially when getting a full day 24 hours in milliseconds (Ms)
+            // try Calendar.get(Calendar.HOUR_OF_DAY), and Calendar.get(Calendar.MINUTE) which I found in Date.getHours and getMinutes description
 
-            long upDurationHours = upDurationMillis / (60 * 60 * 1000);
-            long upDurationMinutes = (upDurationMillis % (60 * 60 * 1000)) / (60 * 1000);
-            String upDurationString = String.format("%02d:%02d", upDurationHours, upDurationMinutes);
-            SimpleDateFormat durationFormat = new SimpleDateFormat("HH:mm////"); ///
+            SimpleDateFormat format = new SimpleDateFormat("h:mm a", Locale.getDefault());
+            Date date0 = timeFormat.parse("00:00 AM");
+//            for (int i = 1; i < 26; i++) {
+//                String st;
+//                if (i <= 12) {
+//                    st = i + ":00" + "AM";
+//                } else {
+//                    st = i + ":00" + "PM";
+//                }
+//                Date date = timeFormat.parse(st);
+//                Log.d(TAG, "date "+date);
+//            }
 
-            long downDurationHours = downDurationMillis / (60 * 60 * 1000);
-            long downDurationMinutes = (downDurationMillis % (60 * 60 * 1000)) / (60 * 1000);
-            String downDurationString = String.format("%02d:%02d", downDurationHours, downDurationMinutes);
+            Date halfDay = timeFormat.parse("12:00 PM");
+            Log.d(TAG, "halfDay "+halfDay);
+            Log.d(TAG, "halfDay.getTime() "+halfDay.getTime());
+            long fullMs = halfDay.getTime() * 2; // 24 hours
+            Log.d(TAG, "fullMs "+fullMs);
+            long fullMs2 = 24 * 60 * 60 * 1000; // 24 hours
+            Log.d(TAG, "fullMs2 "+fullMs2);
+            Date one = timeFormat.parse("01:00 AM");
+            Log.d(TAG, "one "+one);
+            long oneMs = one.getTime();
+            Log.d(TAG, "oneMs "+oneMs);
+            long oneMs2 = 1 * 60 * 60 * 1000;
+            Log.d(TAG, "oneMs2 "+oneMs2);
+            long h = oneMs / (60 * 60 * 1000); // for log
+            Log.d(TAG, "h "+h);
+            long h2 = oneMs2 / (60 * 60 * 1000); // for log
+            Log.d(TAG, "h2 "+h2);
+            long m = (oneMs % (60 * 60 * 1000)) / (60 * 1000); // for log
+            Log.d(TAG, "m "+m);
+            long m2 = (oneMs2 % (60 * 60 * 1000)) / (60 * 1000); // for log
+            Log.d(TAG, "m2 "+m2);
+            SimpleDateFormat oFormat = new SimpleDateFormat("HH:mm", Locale.getDefault()); // for log
+            String s = String.format("%02d:%02d", h, m); // for log
+            Log.d(TAG, "s "+s);
+            String s2 = String.format("%02d:%02d", h2, m2); // for log
+            Log.d(TAG, "s2 "+s2);
+            String ss = h + ":" + m; // for log
+            Log.d(TAG, "ss "+ss);
+            String ss2 = h2 + ":" + m2; // for log
+            Log.d(TAG, "ss2 "+ss2);
+            Date o = oFormat.parse(s); // for log
+            Log.d(TAG, "o "+o);
+            Date oo = oFormat.parse(ss); // for log
+            Log.d(TAG, "oo "+oo);
+            Date o2 = oFormat.parse(s2); // for log
+            Log.d(TAG, "o2 "+o2);
+            Date oo2 = oFormat.parse(ss2); // for log
+            Log.d(TAG, "oo2 "+oo2);
+
+
+
+//            SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
+//            Date sunrise = timeFormat.parse(getSunrise());
+//            Date sunset = timeFormat.parse(getSunset());
+//            Date current = timeFormat.parse(getTime());
+
+//            Log.d(TAG, "sunrise "+sunrise);
+//            Log.d(TAG, "sunset "+sunset);
+//            Log.d(TAG, "currentTime "+currentTime);
+
+            long sunriseMs = sunrise.getTime();
+            long sunsetMs = sunset.getTime();
+            long currentTimeMs = currentTime.getTime();
+//            Log.d(TAG, "sunriseMs "+sunriseMs);
+//            Log.d(TAG, "sunsetMs "+sunsetMs);
+//            Log.d(TAG, "currentTimeMs "+currentTimeMs);
+
+//            long upDurationMs = sunset.getTime() - sunrise.getTime();
+//            long fullDayMs = halfDay.getTime() * 2; // 24 hours
+//            long downDurationMs = 24 - upDurationMs; // wrong
+            long upDurationMs = sunsetMs - sunriseMs;
+            long fullDayMs = 24 * 60 * 60 * 1000; // 24 hours
+            long downDurationMs = fullDayMs - upDurationMs;
+//            Log.d(TAG, "upDurationMs "+upDurationMs);
+//            Log.d(TAG, "fullDayMs "+fullDayMs);
+//            Log.d(TAG, "downDurationMs "+downDurationMs);
+
+            long upDurationHours = upDurationMs / (60 * 60 * 1000); // for log
+            long upDurationMinutes = (upDurationMs % (60 * 60 * 1000)) / (60 * 1000); // for log
+            SimpleDateFormat durationFormat = new SimpleDateFormat("HH:mm"); // for log
+            String upDurationString0 = String.format("%02d:%02d", upDurationHours, upDurationMinutes); // for log
+            String upDurationString = upDurationHours + ":" + upDurationMinutes; // for log
+            Date upDuration = durationFormat.parse(upDurationString); // for log
+//            Log.d(TAG, "upDurationHours "+upDurationHours);
+//            Log.d(TAG, "upDurationMinutes "+upDurationMinutes);
+//            Log.d(TAG, "upDurationString "+upDurationString);
+//            Log.d(TAG, "upDurationString0 "+upDurationString0);
+//            Log.d(TAG, "upDuration "+upDuration);
+
+            long downDurationHours = downDurationMs / (60 * 60 * 1000);
+            long downDurationMinutes = (downDurationMs % (60 * 60 * 1000)) / (60 * 1000);
+//            String downDurationString = String.format("%02d:%02d", downDurationHours, downDurationMinutes);
+            String downDurationString = downDurationHours + ":" + downDurationMinutes;
+            Date downDuration = durationFormat.parse(downDurationString);
 
             float minProgress = 0.17f;
             float endDownProgress = 0.23f;
@@ -351,41 +445,43 @@ public class WeatherReportModelDetailed {
             float maxProgress = 0.83f;
             float fullProgressRange = maxProgress - minProgress; // 0.66
             float upProgressRange = startDownProgress - endDownProgress; // 0.54
-            float downProgressRange = fullProgressRange - upProgressRange; // 0.12
+            float downProgressRange = fullProgressRange - upProgressRange; // 0.12 (0.06 * 2)
 
-            long currentToSunriseDistance = current.getTime() - sunrise.getTime();
-            long hoursCurrentToSunriseDistance = currentToSunriseDistance / (60 * 60 * 1000);
-            long minutesCurrentToSunriseDistance = (currentToSunriseDistance % (60 * 60 * 1000)) / (60 * 1000);
+
+            if (is_day == 1) { // Sun is Up
+
+                long currentToSunriseDistanceMs = currentTime.getTime() - sunrise.getTime();
+                long hoursCurrentToSunriseDistance = currentToSunriseDistanceMs / (60 * 60 * 1000);
+                long minutesCurrentToSunriseDistance = (currentToSunriseDistanceMs % (60 * 60 * 1000)) / (60 * 1000);
 //            String currentToSunriseDistanceString = String.format("%02d:%02d", hoursCurrentToSunriseDistance, minutesCurrentToSunriseDistance);
 //            hoursCurrentToSunriseDistance = ((hoursCurrentToSunriseDistance / 24) * 100) / 100;
 //            minutesCurrentToSunriseDistance = ((minutesCurrentToSunriseDistance / 60) * 100) / 10000;
 //            float upAdding = hoursCurrentToSunriseDistance + minutesCurrentToSunriseDistance;
-            float upAdding = (upProgressRange / upDurationMillis///) * currentToSunriseDistance;
-            float currentProgress;
+                float upAdding = (upProgressRange / upDurationMs) * currentToSunriseDistanceMs;
 
-            /*
-            Sun is Up
-             */
-            currentProgress = upAdding + endDownProgress;
+                sunTimeProgress = upAdding + endDownProgress;
 
+            } else { // Sun is Down
 
-            /*
-            Sun is Down
-             */
-            float downAdding = (downProgressRange / downDurationMillis///) * currentToSunriseDistance;
+                long currentToSunsetDistanceMs = currentTime.getTime() - sunset.getTime();
+                long hoursCurrentToSunsetDistance = currentToSunsetDistanceMs / (60 * 60 * 1000);
+                long minutesCurrentToSunsetDistance = (currentToSunsetDistanceMs % (60 * 60 * 1000)) / (60 * 1000);
 
+                if (currentToSunsetDistanceMs < 0) {
+                    currentToSunsetDistanceMs = (24 - (currentToSunsetDistanceMs * (-1))) - (downDurationMs / 2);
+                    float downAdding = (downProgressRange / downDurationMs) * currentToSunsetDistanceMs;
+                    sunTimeProgress = downAdding + endDownProgress;
+                } else { // (currentToSunsetDistanceMs >= 0)
+                    float downAdding = (downProgressRange / downDurationMs) * currentToSunsetDistanceMs;
+                    sunTimeProgress = downAdding + startDownProgress;
+                }
+            }
 
-//            long currentToSunsetDistance = current.getTime() - sunset.getTime();
-//            long hoursCurrentToSunsetDistance = currentToSunsetDistance / (60 * 60 * 1000);
-//            long minutesCurrentToSunsetDistance = (currentToSunsetDistance % (60 * 60 * 1000)) / (60 * 1000);
-//            String currentToSunsetDistanceString = String.format("%02d:%02d", hoursCurrentToSunsetDistance, minutesCurrentToSunsetDistance);
 
         } catch (ParseException e) {
             e.printStackTrace();
+            Log.d(TAG, "setSunTimeProgress: Catch " + e);
         }
-
-//        Log.d(TAG, "sunTimeProgress " + timePercentage);
-
     }
 
     /**
