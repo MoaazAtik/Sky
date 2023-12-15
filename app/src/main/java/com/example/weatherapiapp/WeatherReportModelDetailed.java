@@ -4,8 +4,10 @@ import android.util.Log;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 // Used in the Lower part of the bottom sheet
 public class WeatherReportModelDetailed {
@@ -341,8 +343,67 @@ public class WeatherReportModelDetailed {
             // I am facing this especially when getting a full day 24 hours in milliseconds (Ms)
             // try Calendar.get(Calendar.HOUR_OF_DAY), and Calendar.get(Calendar.MINUTE) which I found in Date.getHours and getMinutes description
 
-            SimpleDateFormat format = new SimpleDateFormat("h:mm a", Locale.getDefault());
-            Date date0 = timeFormat.parse("00:00 AM");
+            SimpleDateFormat f = new SimpleDateFormat("h:mm a", Locale.getDefault()); ///
+//            Log.d(TAG, "f.getTimeZone() b "+f.getTimeZone());
+
+//            f.setTimeZone(TimeZone.getTimeZone("UTC"));
+//            Log.d(TAG, "f.getTimeZone() a "+f.getTimeZone());
+//
+//            Calendar c = Calendar.getInstance();
+//            c.setTime(f.parse("10:00 AM"));
+//            Log.d(TAG, "c "+c);
+//            Log.d(TAG, "c.getTime() "+c.getTime());
+////            Log.d(TAG, "c.getTimeZone() "+c.getTimeZone());
+//            Calendar cw = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+            Calendar cw = Calendar.getInstance();///
+
+            cw.setTimeZone(TimeZone.getTimeZone("UTC"));
+//            cw.setTime(f.parse("01:00 AM"));
+            cw.set(2023, 12, 15, 1, 0, 0); // try this instead of f.parse
+            Calendar c2 = Calendar.getInstance();
+            c2.set(2023, 12, 15, 2, 0, 0);
+            Log.d(TAG, "subtract hour of day "+(c2.get(Calendar.HOUR_OF_DAY) - cw.get(Calendar.HOUR_OF_DAY))); // try this with MINUTES
+            Log.d(TAG, "subtract millis "+(c2.getTimeInMillis() - cw.getTimeInMillis())); // wrong output
+            Log.d(TAG, "cw "+cw);
+            Log.d(TAG, "cw.getTime() "+cw.getTime());
+            Log.d(TAG, "cw.getTimeInMillis() "+cw.getTimeInMillis());
+//            cw.setTimeInMillis(cw.getTimeInMillis() + cw.get(Calendar.ZONE_OFFSET)); // good option
+//            Log.d(TAG, "cw "+cw);
+//            Log.d(TAG, "cw.getTime() "+cw.getTime());
+//            Log.d(TAG, "cw.getTimeInMillis() "+cw.getTimeInMillis());
+            Log.d(TAG, "cw.get(Calendar.MILLISECOND) "+cw.get(Calendar.MILLISECOND));
+            Log.d(TAG, "cw.get(Calendar.HOUR) "+cw.get(Calendar.HOUR));
+            Log.d(TAG, "cw.get(Calendar.HOUR_OF_DAY) "+cw.get(Calendar.HOUR_OF_DAY));
+            Log.d(TAG, "cw.get(Calendar.ZONE_OFFSET) "+cw.get(Calendar.ZONE_OFFSET));
+            Log.d(TAG, "cw.get(Calendar.DST_OFFSET) "+cw.get(Calendar.DST_OFFSET));
+//            Log.d(TAG, "cw.getTimeZone() "+cw.getTimeZone()); //changing correctly
+
+
+//            SimpleDateFormat formatNoLocale = new SimpleDateFormat("h:mm a");
+//            Log.d(TAG, "formatNoLocale.getTimeZone() b "+formatNoLocale.getTimeZone()); // No diff relative to format.getTimeZone
+//            SimpleDateFormat format = new SimpleDateFormat("h:mm a", Locale.getDefault());
+////            Date date0 = timeFormat.parse("00:00 AM");
+//            Calendar date0 = Calendar.getInstance();
+//            Log.d(TAG, "date0.getTimeZone() b "+date0.getTimeZone());
+//            date0.setTime(timeFormat.parse("14:00 AM"));
+//            date0.setTimeZone(TimeZone.getTimeZone("UTC"));
+//
+//            Log.d(TAG, "date0.getTimeZone() a "+date0.getTimeZone());
+//            Log.d(TAG, "date0 "+date0);
+//            Log.d(TAG, "date0 getTime (Date) "+date0.getTime());
+////            long l0 = date0.getTime();
+//            long l0 = date0.getTimeInMillis();
+//            Log.d(TAG, "l0 "+l0);
+//            long h0 = l0 / (60 * 60 * 1000); // for log
+//            long m0 = (l0 % (60 * 60 * 1000)) / (60 * 1000); // for log
+//            String s0 = String.format("%02d:%02d", h0, m0); // for log
+//            Log.d(TAG, "s0 "+s0);
+//            SimpleDateFormat f = new SimpleDateFormat("HH:mm", Locale.getDefault()); // for log
+//            Date d1 = f.parse(s0);
+//            Log.d(TAG, "d1 "+d1);
+//            Log.d(TAG, "");
+
+            //
 //            for (int i = 1; i < 26; i++) {
 //                String st;
 //                if (i <= 12) {
@@ -353,45 +414,57 @@ public class WeatherReportModelDetailed {
 //                Date date = timeFormat.parse(st);
 //                Log.d(TAG, "date "+date);
 //            }
+            //
 
-            Date halfDay = timeFormat.parse("12:00 PM");
-            Log.d(TAG, "halfDay "+halfDay);
-            Log.d(TAG, "halfDay.getTime() "+halfDay.getTime());
-            long fullMs = halfDay.getTime() * 2; // 24 hours
-            Log.d(TAG, "fullMs "+fullMs);
-            long fullMs2 = 24 * 60 * 60 * 1000; // 24 hours
-            Log.d(TAG, "fullMs2 "+fullMs2);
-            Date one = timeFormat.parse("01:00 AM");
-            Log.d(TAG, "one "+one);
-            long oneMs = one.getTime();
-            Log.d(TAG, "oneMs "+oneMs);
-            long oneMs2 = 1 * 60 * 60 * 1000;
-            Log.d(TAG, "oneMs2 "+oneMs2);
-            long h = oneMs / (60 * 60 * 1000); // for log
-            Log.d(TAG, "h "+h);
-            long h2 = oneMs2 / (60 * 60 * 1000); // for log
-            Log.d(TAG, "h2 "+h2);
-            long m = (oneMs % (60 * 60 * 1000)) / (60 * 1000); // for log
-            Log.d(TAG, "m "+m);
-            long m2 = (oneMs2 % (60 * 60 * 1000)) / (60 * 1000); // for log
-            Log.d(TAG, "m2 "+m2);
-            SimpleDateFormat oFormat = new SimpleDateFormat("HH:mm", Locale.getDefault()); // for log
-            String s = String.format("%02d:%02d", h, m); // for log
-            Log.d(TAG, "s "+s);
-            String s2 = String.format("%02d:%02d", h2, m2); // for log
-            Log.d(TAG, "s2 "+s2);
-            String ss = h + ":" + m; // for log
-            Log.d(TAG, "ss "+ss);
-            String ss2 = h2 + ":" + m2; // for log
-            Log.d(TAG, "ss2 "+ss2);
-            Date o = oFormat.parse(s); // for log
-            Log.d(TAG, "o "+o);
-            Date oo = oFormat.parse(ss); // for log
-            Log.d(TAG, "oo "+oo);
-            Date o2 = oFormat.parse(s2); // for log
-            Log.d(TAG, "o2 "+o2);
-            Date oo2 = oFormat.parse(ss2); // for log
-            Log.d(TAG, "oo2 "+oo2);
+//            SimpleDateFormat fo = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+//            Log.d(TAG, "fo.getTimeZone().getRawOffset() "+fo.getTimeZone().getRawOffset());
+//            Log.d(TAG, "fo.getTimeZone().getDSTSavings() "+fo.getTimeZone().getDSTSavings());
+////            fo.setTimeZone(TimeZone.getTimeZone("UTC"));
+//            Log.d(TAG, "fo.getTimeZone().getRawOffset() after timezone "+fo.getTimeZone().getRawOffset());
+//            Log.d(TAG, "fo.getTimeZone().getDSTSavings() after timezone "+fo.getTimeZone().getDSTSavings());
+//            Date dd = fo.parse("01:00 AM");
+//            Log.d(TAG, "dd.getTimezoneOffset() "+dd.getTimezoneOffset());
+//            Log.d(TAG, "dd "+dd);
+//            Log.d(TAG, "dd.getTime() "+dd.getTime()); ///
+
+//            Date halfDay = timeFormat.parse("12:00 PM");
+//            Log.d(TAG, "halfDay "+halfDay);
+//            Log.d(TAG, "halfDay.getTime() "+halfDay.getTime());
+//            long fullMs = halfDay.getTime() * 2; // 24 hours
+//            Log.d(TAG, "fullMs "+fullMs);
+//            long fullMs2 = 24 * 60 * 60 * 1000; // 24 hours
+//            Log.d(TAG, "fullMs2 "+fullMs2);
+//            Date one = timeFormat.parse("01:00 AM");
+//            Log.d(TAG, "one "+one);
+//            long oneMs = one.getTime();
+//            Log.d(TAG, "oneMs "+oneMs);
+//            long oneMs2 = 1 * 60 * 60 * 1000;
+//            Log.d(TAG, "oneMs2 "+oneMs2);
+//            long h = oneMs / (60 * 60 * 1000); // for log
+//            Log.d(TAG, "h "+h);
+//            long h2 = oneMs2 / (60 * 60 * 1000); // for log
+//            Log.d(TAG, "h2 "+h2);
+//            long m = (oneMs % (60 * 60 * 1000)) / (60 * 1000); // for log
+//            Log.d(TAG, "m "+m);
+//            long m2 = (oneMs2 % (60 * 60 * 1000)) / (60 * 1000); // for log
+//            Log.d(TAG, "m2 "+m2);
+//            SimpleDateFormat oFormat = new SimpleDateFormat("HH:mm", Locale.getDefault()); // for log
+//            String s = String.format("%02d:%02d", h, m); // for log
+//            Log.d(TAG, "s "+s);
+//            String s2 = String.format("%02d:%02d", h2, m2); // for log
+//            Log.d(TAG, "s2 "+s2);
+//            String ss = h + ":" + m; // for log
+//            Log.d(TAG, "ss "+ss);
+//            String ss2 = h2 + ":" + m2; // for log
+//            Log.d(TAG, "ss2 "+ss2);
+//            Date o = oFormat.parse(s); // for log
+//            Log.d(TAG, "o "+o);
+//            Date oo = oFormat.parse(ss); // for log
+//            Log.d(TAG, "oo "+oo);
+//            Date o2 = oFormat.parse(s2); // for log
+//            Log.d(TAG, "o2 "+o2);
+//            Date oo2 = oFormat.parse(ss2); // for log
+//            Log.d(TAG, "oo2 "+oo2);
 
 
 
