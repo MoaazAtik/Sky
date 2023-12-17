@@ -2,8 +2,14 @@ package com.example.weatherapiapp;
 
 import android.util.Log;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.OffsetTime;
+import java.time.ZonedDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -272,6 +278,7 @@ public class WeatherReportModelDetailed {
      *
      * Note: 1. It should be called only after is_day, time, sunrise, and sunset is assigned.
      *       2. My getTime() that is defined in this class should not be confused with the one defined in java.util.Date.
+     *       Setting TimeZone to UTC for timeFormat is fixing time in Milliseconds(Ms). It is adding TimezoneOffset to the time. It is needed for the Ms of the 24-hour full day.
      *
      */
     public void setSunTimeProgress() {
@@ -335,48 +342,85 @@ public class WeatherReportModelDetailed {
 
         try {
             SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+            SimpleDateFormat tim = new SimpleDateFormat("HH:mm", Locale.getDefault());
+            tim.setTimeZone(TimeZone.getTimeZone("UTC"));
+            timeFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
             Date sunrise = timeFormat.parse("06:00 AM");
             Date sunset = timeFormat.parse("08:00 PM");
-            Date currentTime = timeFormat.parse("07:00 AM");
+//            Date currentTime = timeFormat.parse("07:00 AM");
+//            Date currentTime = timeFormat.parse("09:00 PM");
+            Date currentTime = timeFormat.parse("05:00 AM");
+            Date fullDay = tim.parse("24:00");
+            Log.d(TAG, "fullday " + fullDay);
+//            Calendar sunrise = Calendar.getInstance();
+//            sunrise.setTime(timeFormat.parse("06:00 AM"));
+//            Calendar sunset = Calendar.getInstance();
+//            sunset.setTime(timeFormat.parse("08:00 PM"));
+//            Calendar currentTime = Calendar.getInstance();
+//            currentTime.setTime(timeFormat.parse("07:00 AM"));
 
-            // todo: bug: getTime is subtracting 2 hours automatically. Why??
-            // I am facing this especially when getting a full day 24 hours in milliseconds (Ms)
-            // try Calendar.get(Calendar.HOUR_OF_DAY), and Calendar.get(Calendar.MINUTE) which I found in Date.getHours and getMinutes description
+            Calendar c = Calendar.getInstance();
+//            Calendar cc = Calendar.getInstance();
+//            int i = TimeZone.getDefault().getRawOffset();
+//            int i = Calendar.getInstance().getTimeZone().getRawOffset();
+//            int i = Calendar.getInstance().get(Calendar.ZONE_OFFSET);
+//            c.setTime(DateFormat.getTimeInstance(DateFormat.SHORT).parse("11"));
+            SimpleDateFormat f = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+//            Log.d(TAG, "f.getTimeZone() "+f.getTimeZone());
+//            Log.d(TAG, "c.getTimeZone() "+c.getTimeZone());
+            f.setTimeZone(TimeZone.getTimeZone("UTC"));
+            c.setTime(f.parse("24:00 AM"));
+//            c.setTime(new Date());
+//            int i = c.get(Calendar.ZONE_OFFSET);
+            long i = c.getTimeInMillis();
+//            long timeZoneOffset = (Calendar.get(Calendar.ZONE_OFFSET) + Calendar.get(Calendar.DST_OFFSET)) / (60 * 1000);
+//            long timeZoneOffset = (c.get(Calendar.ZONE_OFFSET) + c.get(Calendar.DST_OFFSET)) / (60 * 1000);
 
-            SimpleDateFormat f = new SimpleDateFormat("h:mm a", Locale.getDefault()); ///
-//            Log.d(TAG, "f.getTimeZone() b "+f.getTimeZone());
+//            Calendar cc = DateFormat.getTimeInstance().getCalendar();
+//            DateFormat d = DateFormat.getTimeInstance();
+////            d.setCalendar(cc);
+//            d.parse("-5000");
+//            Log.d(TAG, "DateFormat.getTimeInstance() "+d.parse("-50:00"));
+//            Log.d(TAG, "i "+i);
+//            Log.d(TAG, "i sunrise "+sunrise.getTime());
+//            Log.d(TAG, "timeZoneOffset "+timeZoneOffset);
 
-//            f.setTimeZone(TimeZone.getTimeZone("UTC"));
-//            Log.d(TAG, "f.getTimeZone() a "+f.getTimeZone());
+//            SimpleDateFormat f = new SimpleDateFormat("h:mm a", Locale.getDefault()); ///
+////            Log.d(TAG, "f.getTimeZone() b "+f.getTimeZone());
 //
-//            Calendar c = Calendar.getInstance();
-//            c.setTime(f.parse("10:00 AM"));
-//            Log.d(TAG, "c "+c);
-//            Log.d(TAG, "c.getTime() "+c.getTime());
-////            Log.d(TAG, "c.getTimeZone() "+c.getTimeZone());
-//            Calendar cw = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-            Calendar cw = Calendar.getInstance();///
-
-            cw.setTimeZone(TimeZone.getTimeZone("UTC"));
+////            f.setTimeZone(TimeZone.getTimeZone("UTC"));
+////            Log.d(TAG, "f.getTimeZone() a "+f.getTimeZone());
+////
+////            Calendar c = Calendar.getInstance();
+////            c.setTime(f.parse("10:00 AM"));
+////            Log.d(TAG, "c "+c);
+////            Log.d(TAG, "c.getTime() "+c.getTime());
+//////            Log.d(TAG, "c.getTimeZone() "+c.getTimeZone());
+////            Calendar cw = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+//            Calendar cw = Calendar.getInstance();///
+//
+////            cw.setTimeZone(TimeZone.getTimeZone("UTC"));//
 //            cw.setTime(f.parse("01:00 AM"));
-            cw.set(2023, 12, 15, 1, 0, 0); // try this instead of f.parse
-            Calendar c2 = Calendar.getInstance();
-            c2.set(2023, 12, 15, 2, 0, 0);
-            Log.d(TAG, "subtract hour of day "+(c2.get(Calendar.HOUR_OF_DAY) - cw.get(Calendar.HOUR_OF_DAY))); // try this with MINUTES
-            Log.d(TAG, "subtract millis "+(c2.getTimeInMillis() - cw.getTimeInMillis())); // wrong output
-            Log.d(TAG, "cw "+cw);
-            Log.d(TAG, "cw.getTime() "+cw.getTime());
-            Log.d(TAG, "cw.getTimeInMillis() "+cw.getTimeInMillis());
-//            cw.setTimeInMillis(cw.getTimeInMillis() + cw.get(Calendar.ZONE_OFFSET)); // good option
+////            cw.setTimeInMillis(3600000);
+////            cw.set(2023, 12, 15, 1, 0, 0); // try this instead of f.parse
+//            Calendar c2 = Calendar.getInstance();
+//            c2.setTime(f.parse("00:30 AM"));
+////            c2.set(2023, 12, 15, 1, 30, 0);
+//            Log.d(TAG, "subtract hour of day "+(c2.get(Calendar.HOUR_OF_DAY) - cw.get(Calendar.HOUR_OF_DAY))); // try this with MINUTES
+//            Log.d(TAG, "subtract millis "+(c2.getTimeInMillis() - cw.getTimeInMillis())); //
 //            Log.d(TAG, "cw "+cw);
 //            Log.d(TAG, "cw.getTime() "+cw.getTime());
 //            Log.d(TAG, "cw.getTimeInMillis() "+cw.getTimeInMillis());
-            Log.d(TAG, "cw.get(Calendar.MILLISECOND) "+cw.get(Calendar.MILLISECOND));
-            Log.d(TAG, "cw.get(Calendar.HOUR) "+cw.get(Calendar.HOUR));
-            Log.d(TAG, "cw.get(Calendar.HOUR_OF_DAY) "+cw.get(Calendar.HOUR_OF_DAY));
-            Log.d(TAG, "cw.get(Calendar.ZONE_OFFSET) "+cw.get(Calendar.ZONE_OFFSET));
-            Log.d(TAG, "cw.get(Calendar.DST_OFFSET) "+cw.get(Calendar.DST_OFFSET));
-//            Log.d(TAG, "cw.getTimeZone() "+cw.getTimeZone()); //changing correctly
+////            cw.setTimeInMillis(cw.getTimeInMillis() + cw.get(Calendar.ZONE_OFFSET)); // good option
+////            Log.d(TAG, "cw "+cw);
+////            Log.d(TAG, "cw.getTime() "+cw.getTime());
+////            Log.d(TAG, "cw.getTimeInMillis() "+cw.getTimeInMillis());
+//            Log.d(TAG, "cw.get(Calendar.MILLISECOND) "+cw.get(Calendar.MILLISECOND));
+//            Log.d(TAG, "cw.get(Calendar.HOUR) "+cw.get(Calendar.HOUR));
+//            Log.d(TAG, "cw.get(Calendar.HOUR_OF_DAY) "+cw.get(Calendar.HOUR_OF_DAY));
+//            Log.d(TAG, "cw.get(Calendar.ZONE_OFFSET) "+cw.get(Calendar.ZONE_OFFSET));
+//            Log.d(TAG, "cw.get(Calendar.DST_OFFSET) "+cw.get(Calendar.DST_OFFSET));
+////            Log.d(TAG, "cw.getTimeZone() "+cw.getTimeZone()); //changing correctly
 
 
 //            SimpleDateFormat formatNoLocale = new SimpleDateFormat("h:mm a");
@@ -466,8 +510,6 @@ public class WeatherReportModelDetailed {
 //            Date oo2 = oFormat.parse(ss2); // for log
 //            Log.d(TAG, "oo2 "+oo2);
 
-
-
 //            SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
 //            Date sunrise = timeFormat.parse(getSunrise());
 //            Date sunset = timeFormat.parse(getSunset());
@@ -480,37 +522,44 @@ public class WeatherReportModelDetailed {
             long sunriseMs = sunrise.getTime();
             long sunsetMs = sunset.getTime();
             long currentTimeMs = currentTime.getTime();
-//            Log.d(TAG, "sunriseMs "+sunriseMs);
-//            Log.d(TAG, "sunsetMs "+sunsetMs);
-//            Log.d(TAG, "currentTimeMs "+currentTimeMs);
+            long fullDayMs = fullDay.getTime();
+
+            Log.d(TAG, "sunriseMs " + sunriseMs);
+            Log.d(TAG, "sunsetMs " + sunsetMs);
+            Log.d(TAG, "currentTimeMs " + currentTimeMs);
+            Log.d(TAG, "fullDayMs " + fullDayMs);
 
 //            long upDurationMs = sunset.getTime() - sunrise.getTime();
 //            long fullDayMs = halfDay.getTime() * 2; // 24 hours
 //            long downDurationMs = 24 - upDurationMs; // wrong
             long upDurationMs = sunsetMs - sunriseMs;
-            long fullDayMs = 24 * 60 * 60 * 1000; // 24 hours
+//            long fullDayMs = 24 * 60 * 60 * 1000; // 24 hours
             long downDurationMs = fullDayMs - upDurationMs;
-//            Log.d(TAG, "upDurationMs "+upDurationMs);
-//            Log.d(TAG, "fullDayMs "+fullDayMs);
-//            Log.d(TAG, "downDurationMs "+downDurationMs);
+            Log.d(TAG, "upDurationMs " + upDurationMs);
+            Log.d(TAG, "fullDayMs " + fullDayMs);
+            Log.d(TAG, "downDurationMs " + downDurationMs);
 
             long upDurationHours = upDurationMs / (60 * 60 * 1000); // for log
+//            long upDurationHours = 1; // for log
             long upDurationMinutes = (upDurationMs % (60 * 60 * 1000)) / (60 * 1000); // for log
             SimpleDateFormat durationFormat = new SimpleDateFormat("HH:mm"); // for log
-            String upDurationString0 = String.format("%02d:%02d", upDurationHours, upDurationMinutes); // for log
-            String upDurationString = upDurationHours + ":" + upDurationMinutes; // for log
-            Date upDuration = durationFormat.parse(upDurationString); // for log
-//            Log.d(TAG, "upDurationHours "+upDurationHours);
-//            Log.d(TAG, "upDurationMinutes "+upDurationMinutes);
+            String upDurationString0 = String.format("%02d:%02d", upDurationHours, upDurationMinutes); // for log. Needed for Zero padding
+//            String upDurationString = upDurationHours + ":" + upDurationMinutes; // for log
+//            Date upDuration = durationFormat.parse(upDurationString0); // for log. Not needed
+            Log.d(TAG, "upDurationHours " + upDurationHours);
+            Log.d(TAG, "upDurationMinutes " + upDurationMinutes);
 //            Log.d(TAG, "upDurationString "+upDurationString);
-//            Log.d(TAG, "upDurationString0 "+upDurationString0);
+            Log.d(TAG, "upDurationString0 " + upDurationString0);
 //            Log.d(TAG, "upDuration "+upDuration);
 
             long downDurationHours = downDurationMs / (60 * 60 * 1000);
             long downDurationMinutes = (downDurationMs % (60 * 60 * 1000)) / (60 * 1000);
-//            String downDurationString = String.format("%02d:%02d", downDurationHours, downDurationMinutes);
-            String downDurationString = downDurationHours + ":" + downDurationMinutes;
-            Date downDuration = durationFormat.parse(downDurationString);
+            String downDurationString = String.format("%02d:%02d", downDurationHours, downDurationMinutes);
+//            String downDurationString = downDurationHours + ":" + downDurationMinutes;
+//            Date downDuration = durationFormat.parse(downDurationString);
+            Log.d(TAG, "downDurationHours " + downDurationHours);
+            Log.d(TAG, "downDurationMinutes " + downDurationMinutes);
+            Log.d(TAG, "downDurationString " + downDurationString);
 
             float minProgress = 0.17f;
             float endDownProgress = 0.23f;
@@ -521,35 +570,64 @@ public class WeatherReportModelDetailed {
             float downProgressRange = fullProgressRange - upProgressRange; // 0.12 (0.06 * 2)
 
 
+            long hoursCurrentToSunriseDistance = 0;
+            is_day = 0; //for log
+            Log.d(TAG, "is_day "+is_day);
             if (is_day == 1) { // Sun is Up
 
-                long currentToSunriseDistanceMs = currentTime.getTime() - sunrise.getTime();
-                long hoursCurrentToSunriseDistance = currentToSunriseDistanceMs / (60 * 60 * 1000);
-                long minutesCurrentToSunriseDistance = (currentToSunriseDistanceMs % (60 * 60 * 1000)) / (60 * 1000);
-//            String currentToSunriseDistanceString = String.format("%02d:%02d", hoursCurrentToSunriseDistance, minutesCurrentToSunriseDistance);
+//                long currentToSunriseDistanceMs = currentTime.getTime() - sunrise.getTime();
+                long currentToSunriseDistanceMs = currentTimeMs - sunriseMs;
+                hoursCurrentToSunriseDistance = currentToSunriseDistanceMs / (60 * 60 * 1000);
+                long minutesCurrentToSunriseDistance = (currentToSunriseDistanceMs % (60 * 60 * 1000)) / (60 * 1000); //for log
+                String currentToSunriseDistanceString = String.format("%02d:%02d", hoursCurrentToSunriseDistance, minutesCurrentToSunriseDistance);
+                Log.d(TAG, "currentToSunriseDistanceMs " + currentToSunriseDistanceMs);
+                Log.d(TAG, "currentToSunriseDistanceString " + currentToSunriseDistanceString);
 //            hoursCurrentToSunriseDistance = ((hoursCurrentToSunriseDistance / 24) * 100) / 100;
 //            minutesCurrentToSunriseDistance = ((minutesCurrentToSunriseDistance / 60) * 100) / 10000;
 //            float upAdding = hoursCurrentToSunriseDistance + minutesCurrentToSunriseDistance;
                 float upAdding = (upProgressRange / upDurationMs) * currentToSunriseDistanceMs;
+                Log.d(TAG, "upAdding " + upAdding);
 
                 sunTimeProgress = upAdding + endDownProgress;
 
             } else { // Sun is Down
 
-                long currentToSunsetDistanceMs = currentTime.getTime() - sunset.getTime();
-                long hoursCurrentToSunsetDistance = currentToSunsetDistanceMs / (60 * 60 * 1000);
-                long minutesCurrentToSunsetDistance = (currentToSunsetDistanceMs % (60 * 60 * 1000)) / (60 * 1000);
+//                long currentToSunsetDistanceMs = currentTime.getTime() - sunset.getTime();
+                long currentToSunsetDistanceMs = currentTimeMs - sunsetMs;
+                long hoursCurrentToSunsetDistance = currentToSunsetDistanceMs / (60 * 60 * 1000); //for log
+                long minutesCurrentToSunsetDistance = (currentToSunsetDistanceMs % (60 * 60 * 1000)) / (60 * 1000); //for log
+                String currentToSunsetDistanceString = String.format("%02d:%02d", hoursCurrentToSunsetDistance, minutesCurrentToSunsetDistance);
+                Log.d(TAG, "currentToSunsetDistanceMs " + currentToSunsetDistanceMs);
+                Log.d(TAG, "currentToSunsetDistanceString " + currentToSunsetDistanceString);
 
                 if (currentToSunsetDistanceMs < 0) {
-                    currentToSunsetDistanceMs = (24 - (currentToSunsetDistanceMs * (-1))) - (downDurationMs / 2);
+                    Log.d(TAG, "downDurationMs "+downDurationMs);
+                    Log.d(TAG, "(downDurationMs / 2) "+(downDurationMs / 2));
+                    Log.d(TAG, "(currentToSunsetDistanceMs * (-1)) "+(currentToSunsetDistanceMs * (-1)));
+//                    long x = 5 * (long)(-2);
+                    long x = 5 * 2;
+                    x = x * -1;
+                    Log.d(TAG, "x "+x * -1);
+                    Log.d(TAG, "(currentToSunsetDistanceMs * -1) "+(currentToSunsetDistanceMs * -1));
+                    Log.d(TAG, "(fullDayMs - (currentToSunsetDistanceMs * (-1))) "+(fullDayMs - (currentToSunsetDistanceMs * (-1))));
+//                    currentToSunsetDistanceMs = (24 - (currentToSunsetDistanceMs * (-1))) - (downDurationMs / 2);
+                    currentToSunsetDistanceMs = (fullDayMs - (currentToSunsetDistanceMs * (-1))) - (downDurationMs / 2);
+                    Log.d(TAG, "new currentToSunsetDistanceMs "+currentToSunsetDistanceMs);
                     float downAdding = (downProgressRange / downDurationMs) * currentToSunsetDistanceMs;
-                    sunTimeProgress = downAdding + endDownProgress;
+                    Log.d(TAG, "downAdding0 "+downAdding);
+                    Log.d(TAG, "minProgress "+minProgress);
+                    Log.d(TAG, "endDownProgress "+endDownProgress);
+//                    sunTimeProgress = downAdding + endDownProgress;
+                    sunTimeProgress = downAdding + minProgress; //probably
                 } else { // (currentToSunsetDistanceMs >= 0)
                     float downAdding = (downProgressRange / downDurationMs) * currentToSunsetDistanceMs;
+                    Log.d(TAG, "downAdding1 "+downAdding);
+                    Log.d(TAG, "startDownProgress "+startDownProgress);
+                    Log.d(TAG, "maxProgress "+maxProgress);
                     sunTimeProgress = downAdding + startDownProgress;
                 }
             }
-
+            Log.d(TAG, "sunTimeProgress " + sunTimeProgress);
 
         } catch (ParseException e) {
             e.printStackTrace();
