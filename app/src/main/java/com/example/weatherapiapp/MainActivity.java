@@ -732,9 +732,7 @@ public class MainActivity extends AppCompatActivity {
         txtUvStatus.setText(weatherReportModelDetailed.getUvDescription());
         seekBarUvIndex.setProgress((int) weatherReportModelDetailed.getUv_index_max());
 //        sunTimeProgress = weatherReportModelDetailed.getTimePercentage();
-
-        sunTimeProgress = 0.782f;
-
+        sunTimeProgress = weatherReportModelDetailed.getSunTimeProgress();
         txtWidgetSunTimeTitle.setText(weatherReportModelDetailed.getSunTimeTitle());
         sunTimePrimary = weatherReportModelDetailed.getSunTimePrimary();
         txtSunTimePrimary.setText(sunTimePrimary);

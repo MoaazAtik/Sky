@@ -27,7 +27,11 @@ public class WeatherReportModelDetailed {
     private float timePercentage; // Current Time as Percentage Float for Sun Time Animation
     private String sunrise;
     private String sunset;
-    private float sunTimeProgress; // Calculated value as Progress Percentage Float for Sun Time Animation
+    /*
+    sunTimeProgress is a Calculated value as Progress Percentage Float for Sun Time Animation.
+    Note: It should be set by calling setSunTimeProgress() manually after is_day, time, sunrise, and sunset is set.
+     */
+    private float sunTimeProgress;
     private String sunTimeTitle; // Relative to is_day
     private String sunTimePrimary; // Relative to is_day
     private String sunTimeSecondary; // Relative to is_day
@@ -117,7 +121,6 @@ public class WeatherReportModelDetailed {
 
     public void setTime(String time) {
         this.time = time;
-        setTimePercentage();
     }
 
     public String getSunrise() {
@@ -259,9 +262,14 @@ public class WeatherReportModelDetailed {
         this.timePercentage = timeHour + timeMinute;
     }
 
+    public float getSunTimeProgress() {
+        return sunTimeProgress;
+    }
+
     /**
-     * Duration Up: Get Duration When Sun is Up
-     * Duration Down: Get Duration When Sun is Down
+     * Duration Up: Duration When Sun is Up
+     * Duration Down: Duration When Sun is Down
+     * fullDay
      * Current Time (Time):
      * To get Duration Up, Get Duration from Sunrise to Sunset
      * To get Duration Down, Get Rest Duration by Subtracting Duration Up from a full day (24 Hours)
@@ -279,27 +287,30 @@ public class WeatherReportModelDetailed {
      * Note: 1. It should be called only after is_day, time, sunrise, and sunset is assigned.
      *       2. My getTime() that is defined in this class should not be confused with the one defined in java.util.Date.
      *       Setting TimeZone to UTC for timeFormat is fixing time in Milliseconds(Ms). It is adding TimezoneOffset to the time. It is needed for the Ms of the 24-hour full day.
+     *       date.getTime() is getting time in Ms correctly and that's what I need, although the hours I get when logging the date object are not correct, and I don't need them.
      *
      */
     public void setSunTimeProgress() {
         try {
-            SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
-            timeFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-            Date sunrise = timeFormat.parse("06:00 AM");
-            Date sunset = timeFormat.parse("08:00 PM");
+//            SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+//            timeFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+//            Date sunrise = timeFormat.parse("06:00 AM");
+//            Date sunset = timeFormat.parse("08:00 PM");
 //            Date currentTime = timeFormat.parse("07:00 AM");
-//            Date currentTime = timeFormat.parse("09:00 PM");
-            Date currentTime = timeFormat.parse("05:00 AM");
+////            Date currentTime = timeFormat.parse("09:00 PM");
+////            Date currentTime = timeFormat.parse("05:00 AM");
+//            Date fullDay = timeFormat.parse("24:00 AM");
+
+            SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
+            timeFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+            Date sunrise = timeFormat.parse(getSunrise());
+            Date sunset = timeFormat.parse(getSunset());
+            Date currentTime = timeFormat.parse(getTime());
             Date fullDay = timeFormat.parse("24:00 AM");
 
-//            SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
-//            Date sunrise = timeFormat.parse(getSunrise());
-//            Date sunset = timeFormat.parse(getSunset());
-//            Date current = timeFormat.parse(getTime());
-
-//            Log.d(TAG, "sunrise "+sunrise);
-//            Log.d(TAG, "sunset "+sunset);
-//            Log.d(TAG, "currentTime "+currentTime);
+            Log.d(TAG, "getSunrise() "+getSunrise());
+            Log.d(TAG, "getSunset() "+getSunset());
+            Log.d(TAG, "getTime() "+getTime());
 
             long sunriseMs = sunrise.getTime();
             long sunsetMs = sunset.getTime();
@@ -317,18 +328,34 @@ public class WeatherReportModelDetailed {
             Log.d(TAG, "fullDayMs " + fullDayMs);
             Log.d(TAG, "downDurationMs " + downDurationMs);
 
+            long sunriseHours = sunriseMs / (60 * 60 * 1000); // for log
+            long sunriseMinutes = (sunriseMs % (60 * 60 * 1000)) / (60 * 1000); // for log
+            String sunriseString = String.format("%02d:%02d", sunriseHours, sunriseMinutes); // for log. Needed for Zero padding
+            Log.d(TAG, "sunriseString "+sunriseString);
+
+            long sunsetHours = sunsetMs / (60 * 60 * 1000); // for log
+            long sunsetMinutes = (sunsetMs % (60 * 60 * 1000)) / (60 * 1000); // for log
+            String sunsetString = String.format("%02d:%02d", sunsetHours, sunsetMinutes); // for log. Needed for Zero padding
+            Log.d(TAG, "sunsetString "+sunsetString);
+
+            long currentTimeHours = currentTimeMs / (60 * 60 * 1000); // for log
+            long currentTimeMinutes = (currentTimeMs % (60 * 60 * 1000)) / (60 * 1000); // for log
+            String currentTimeString = String.format("%02d:%02d", currentTimeHours, currentTimeMinutes); // for log. Needed for Zero padding
+            Log.d(TAG, "currentTimeString "+currentTimeString);
+
+            long fullDayHours = fullDayMs / (60 * 60 * 1000); // for log
+            long fullDayMinutes = (fullDayMs % (60 * 60 * 1000)) / (60 * 1000); // for log
+            String fullDayString = String.format("%02d:%02d", fullDayHours, fullDayMinutes); // for log. Needed for Zero padding
+            Log.d(TAG, "fullDayString "+fullDayString);
+
             long upDurationHours = upDurationMs / (60 * 60 * 1000); // for log
             long upDurationMinutes = (upDurationMs % (60 * 60 * 1000)) / (60 * 1000); // for log
             String upDurationString = String.format("%02d:%02d", upDurationHours, upDurationMinutes); // for log. Needed for Zero padding
-            Log.d(TAG, "upDurationHours " + upDurationHours);
-            Log.d(TAG, "upDurationMinutes " + upDurationMinutes);
             Log.d(TAG, "upDurationString "+upDurationString);
 
             long downDurationHours = downDurationMs / (60 * 60 * 1000); //for log
             long downDurationMinutes = (downDurationMs % (60 * 60 * 1000)) / (60 * 1000); //for log
             String downDurationString = String.format("%02d:%02d", downDurationHours, downDurationMinutes); //for log
-            Log.d(TAG, "downDurationHours " + downDurationHours);
-            Log.d(TAG, "downDurationMinutes " + downDurationMinutes);
             Log.d(TAG, "downDurationString " + downDurationString);
 
             float minProgress = 0.17f;
@@ -340,7 +367,7 @@ public class WeatherReportModelDetailed {
             float downProgressRange = fullProgressRange - upProgressRange; // 0.12 (0.06 * 2)
 
 
-            is_day = 0; //for log
+//            is_day = 0; //for log
             Log.d(TAG, "is_day "+is_day);
             if (is_day == 1) { // Sun is Up
                 long currentToSunriseDistanceMs = currentTimeMs - sunriseMs;
