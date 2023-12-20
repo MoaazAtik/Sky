@@ -547,14 +547,12 @@ public class MainActivity extends AppCompatActivity {
                 0, new WeatherDataService.ListenerGetForecastByLatL<WeatherReportModelShort>() {
                     @Override
                     public void onError(String message) {
-                        Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
                         Log.d(TAG, "onError: getForecastShort " + message);
+                        Toast.makeText(MainActivity.this, "Couldn't get Main forecast", Toast.LENGTH_LONG).show();
                     }
 
                     @Override
                     public void onResponse(List<WeatherReportModelShort> weatherReportModels) {
-
-                        Toast.makeText(MainActivity.this, "O  K", Toast.LENGTH_SHORT).show();
                         WeatherReportModelShort weatherReportModelShort = weatherReportModels.get(0);
 
                         String temp = (int) weatherReportModelShort.getTemperature_2m() + "°";
@@ -563,8 +561,8 @@ public class MainActivity extends AppCompatActivity {
                         txtMainHTemp.setText(hTemp);
                         String lTemp = "L:" + (int) weatherReportModelShort.getTemperature_2m_min() + "°";
                         txtMainLTemp.setText(lTemp);
-                        String cityCountry = weatherReportModelShort.getCity() + ", " + weatherReportModelShort.getCountry();
-                        txtMainCity.setText(cityCountry);
+                        String city = weatherReportModelShort.getCity();
+                        txtMainCity.setText(city);
                         String conditionDescription = weatherReportModelShort.getConditionDescription();
                         txtMainConditionDescription.setText(conditionDescription);
                     }
@@ -580,6 +578,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onError(String message) {
                 Log.d(TAG, "onError: getForecastHourly " + message);
+                Toast.makeText(MainActivity.this, "Couldn't get Hourly forecast", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -599,6 +598,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onError(String message) {
                 Log.d(TAG, "onError: getForecastDaily " + message);
+                Toast.makeText(MainActivity.this, "Couldn't get Daily forecast", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -712,7 +712,8 @@ public class MainActivity extends AppCompatActivity {
         weatherDataService.getForecastByName(homeCity, 3, new WeatherDataService.ListenerGetForecastByLatL<WeatherReportModelDetailed>() {
             @Override
             public void onError(String message) {
-                Log.d(TAG, "onError: getForecastDetailed");
+                Log.d(TAG, "onError: getForecastDetailed " + message);
+                Toast.makeText(MainActivity.this, "Couldn't get Detailed forecast", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -771,8 +772,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onTransitionChange(MotionLayout motionLayout, int startId, int endId, float progress) {
-//            if (!firstFullSunTimeAnimation && progress > sunTimeProgress) {
-            if ( progress > sunTimeProgress) { // delete this
+            if (!firstFullSunTimeAnimation && progress > sunTimeProgress) {
                 sunTimeMotionLayout.setProgress(sunTimeProgress);
             }
         }

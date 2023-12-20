@@ -51,7 +51,7 @@ public class WeatherDataService {
      * @param listenerGetCityLatL
      */
     public void getCityLatL(String cityName, ListenerGetCityLatL listenerGetCityLatL) {
-        Log.d(TAG, "getCityLatL: ");
+//        Log.d(TAG, "getCityLatL: ");
         String url = QUERY_FOR_CITY_LATL + cityName;
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
@@ -85,7 +85,6 @@ public class WeatherDataService {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, "Something wrong happened :(", Toast.LENGTH_SHORT).show();
                 listenerGetCityLatL.onError(error.toString());
             }
         });
@@ -154,7 +153,6 @@ public class WeatherDataService {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, error.toString(), Toast.LENGTH_SHORT).show();
                 listenerGetForecastByLatL.onError(error.toString());
             }
         });
@@ -227,7 +225,6 @@ public class WeatherDataService {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, error.toString(), Toast.LENGTH_SHORT).show();
                 listenerGetForecastByLatL.onError(error.toString() );
             }
         });
@@ -285,7 +282,6 @@ public class WeatherDataService {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, error.toString(), Toast.LENGTH_SHORT).show();
                 listenerGetForecastByLatL.onError(error.toString());
             }
         });
@@ -369,6 +365,8 @@ public class WeatherDataService {
         getCityLatL(cityName, new ListenerGetCityLatL() {
             @Override
             public void onError(String message) {
+                Log.d(TAG, "onError: getCityLatL - getForecastByName " + message);
+                Toast.makeText(context, "Network issues", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -380,6 +378,7 @@ public class WeatherDataService {
                         getForecastByLatLShort(weatherReportModelShort, new ListenerGetForecastByLatL<WeatherReportModelShort>() {
                             @Override
                             public void onError(String message) {
+                                listenerGetForecastByLatL.onError(message);
                             }
 
                             @Override
@@ -392,6 +391,7 @@ public class WeatherDataService {
                         getForecastByLatLHourly(new ListenerGetForecastByLatL<WeatherReportModelHourly>() {
                             @Override
                             public void onError(String message) {
+                                listenerGetForecastByLatL.onError(message);
                             }
 
                             @Override
@@ -404,7 +404,7 @@ public class WeatherDataService {
                         getForecastByLatLDaily(new ListenerGetForecastByLatL<WeatherReportModelDaily>() {
                             @Override
                             public void onError(String message) {
-
+                                listenerGetForecastByLatL.onError(message);
                             }
 
                             @Override
@@ -417,7 +417,7 @@ public class WeatherDataService {
                         getForecastByLatLDetailed(new ListenerGetForecastByLatL<WeatherReportModelDetailed>() {
                             @Override
                             public void onError(String message) {
-
+                                listenerGetForecastByLatL.onError(message);
                             }
 
                             @Override
