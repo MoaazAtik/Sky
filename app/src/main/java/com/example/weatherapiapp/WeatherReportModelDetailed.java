@@ -24,7 +24,6 @@ public class WeatherReportModelDetailed {
     private String uvDescription; // Relative to uv_index_max
     private int is_day; // 0: Night, 1: Day. From Current weather.
     private String time; // Current Time for Sun Time Animation
-    private float timePercentage; // Current Time as Percentage Float for Sun Time Animation
     private String sunrise;
     private String sunset;
     /*
@@ -74,9 +73,9 @@ public class WeatherReportModelDetailed {
                 ", uvDescription=" + uvDescription +
                 ", is_day=" + is_day +
                 ", time=" + time +
-                ", timePercentage=" + timePercentage +
                 ", sunrise='" + sunrise + '\'' +
                 ", sunset='" + sunset + '\'' +
+                ", sunTimeProgress=" + sunTimeProgress +
                 ", sunTimeTitle=" + sunTimeTitle +
                 ", sunTimePrimary=" + sunTimePrimary +
                 ", sunTimeSecondary=" + sunTimeSecondary +
@@ -237,29 +236,6 @@ public class WeatherReportModelDetailed {
     public void setVisibility(float visibility) {
         this.visibility = visibility / 1000;
         setVisibilityDescription(visibility);
-    }
-
-    public float getTimePercentage() {
-        return timePercentage;
-    }
-
-    /**
-     * Set Time as Percentage Float by converting Current 24-hour-based Time String to a Float (0.0 to 1.0).
-     * It will be automatically called by setTime after assigning time.<p>
-     * Note: it should be called after time is assigned.
-     * <p></p>
-     * 1. Convert the 24-based hours (00 to 23) to a 100-based number (0 to 100).
-     * 2. Convert the 60-based minutes (00 to 59) to a 100-based number (0 to 100)
-     * 3. Divide Converted Hours by 100, and Converted Minutes by 10000
-     * 4. Add Divided Converted Minutes to Divided Converted Hours to achieve a number from 0.0 to 1.0.
-     */
-    public void setTimePercentage() {
-        float timeHour = Integer.parseInt(time.substring(time.indexOf('T') + 1, time.indexOf(':')));
-        float timeMinute = Integer.parseInt(time.substring(time.indexOf(':') + 1));
-
-        timeHour = ((timeHour / 24) * 100) / 100;
-        timeMinute = ((timeMinute / 60) * 100) / 10000;
-        this.timePercentage = timeHour + timeMinute;
     }
 
     public float getSunTimeProgress() {
