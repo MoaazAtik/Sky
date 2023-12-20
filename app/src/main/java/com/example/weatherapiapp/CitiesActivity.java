@@ -2,6 +2,7 @@ package com.example.weatherapiapp;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -57,6 +58,10 @@ public class CitiesActivity extends AppCompatActivity {
 
         prepareData();
 
+        findViewById(R.id.btn_back).setOnClickListener(v -> {
+            finish();
+        });
+
         findViewById(R.id.btn_cities_add_city).setOnClickListener(view -> {
             addingNewCity = true;
             getForecastShort(Objects.requireNonNull(etCityInput.getText()).toString());
@@ -79,8 +84,8 @@ public class CitiesActivity extends AppCompatActivity {
                 new WeatherDataService.ListenerGetForecastByLatL<WeatherReportModelShort>() {
                     @Override
                     public void onError(String message) {
-                        Toast.makeText(CitiesActivity.this, message, Toast.LENGTH_LONG).show();
                         Log.d(TAG, "onError: getForecastShort " + message);
+                        Toast.makeText(CitiesActivity.this, "Couldn't get City forecast", Toast.LENGTH_LONG).show();
                     }
 
                     @Override
@@ -162,7 +167,6 @@ public class CitiesActivity extends AppCompatActivity {
      * @param weatherReportModels that was gotten from Response of getForecastShort.
      */
     private void addCity(List<WeatherReportModelShort> weatherReportModels) {
-        Toast.makeText(CitiesActivity.this, "O  K", Toast.LENGTH_SHORT).show();
         WeatherReportModelShort weatherReportModelShort = weatherReportModels.get(0);
 
         /*

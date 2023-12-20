@@ -121,7 +121,6 @@ public class WeatherDataService {
                         "&daily=temperature_2m_max,temperature_2m_min" +
                         "&timezone=auto" +
                         "&forecast_days=1";
-        Toast.makeText(context, "Lat " + cityLat + "\nLon: " + cityLon, Toast.LENGTH_SHORT).show();
 
         List<WeatherReportModelShort> weatherReportModels = new ArrayList<>();
 
