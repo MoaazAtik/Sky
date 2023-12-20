@@ -321,12 +321,14 @@ public class WeatherDataService {
                     WeatherReportModelDetailed weatherReportModelDetailed = new WeatherReportModelDetailed();
                     weatherReportModelDetailed.setUv_index_max((float) daily.getJSONArray("uv_index_max").getDouble(0));
                     weatherReportModelDetailed.setIs_day(current.getInt("is_day"));
-                    weatherReportModelDetailed.setTime(current.getString("time"));
+                    String parsedTime = current.getString("time");
+                    weatherReportModelDetailed.setTime(getFormattedDateTime(6, parsedTime));
                     String parsedSunrise = daily.getJSONArray("sunrise").getString(0);
                     weatherReportModelDetailed.setSunrise(getFormattedDateTime(6, parsedSunrise));
                     String parsedSunset = daily.getJSONArray("sunset").getString(0);
                     weatherReportModelDetailed.setSunset(getFormattedDateTime(6, parsedSunset));
                     weatherReportModelDetailed.setSunTimeTitlePrimarySecondary();
+                    weatherReportModelDetailed.setSunTimeProgress();
                     weatherReportModelDetailed.setWind_speed_10m((float) current.getDouble("wind_speed_10m"));
                     weatherReportModelDetailed.setWind_direction_10m(current.getInt("wind_direction_10m"));
                     weatherReportModelDetailed.setRain((float) current.getDouble("rain"));

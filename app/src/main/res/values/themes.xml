@@ -14,5 +14,27 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
+        <!-- Context Menu theme -->
+        <item name="popupMenuBackground">@drawable/context_menu_background</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="fontFamily">@font/sf_pro_display_regular</item>
+        <item name="android:fontFamily">@font/sf_pro_display_regular</item>
+    </style>
+
+    <!-- Theme of Home city dialog. -->
+    <style name="MyDialogTheme" parent="Theme.Material3.DayNight.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+<!--        <item name="android:windowIsTranslucent">true</item>-->
+    </style>
+    <!-- Theme of the checkbox of the Home city dialog. -->
+<!--    <style name="MyCheckboxTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">-->
+    <style name="MyCheckboxTheme" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorSecondary">#FFF</item>
+    </style>
+    <!-- Theme of 'Cancel' button of the Home city dialog. -->
+<!--    <style name="MyCancelTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">-->
+    <style name="MyCancelTheme" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">#FFF</item>
     </style>
 </resources>

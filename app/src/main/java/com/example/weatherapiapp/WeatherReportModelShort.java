@@ -37,7 +37,8 @@ public class WeatherReportModelShort {
     @Override
     public String toString() {
 //        return super.toString();
-        return "Latitude: " + lat +
+        return "WeatherReportModelShort{" +
+                "Latitude: " + lat +
                 ", Longitude: " + lon +
                 ", City: " + city +
                 ", Country: " + country +

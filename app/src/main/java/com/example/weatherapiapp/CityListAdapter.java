@@ -1,7 +1,12 @@
 package com.example.weatherapiapp;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -11,12 +16,25 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
 public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.CityListViewHolder> {
 
-    public class CityListViewHolder extends RecyclerView.ViewHolder {
+    private static final String TAG = "CityListAdapter";
+
+    private Context mContext;
+    private List<WeatherReportModelShort> citiesList;
+    private RecyclerView mRecyclerView;
+
+    public CityListAdapter(Context context, List<WeatherReportModelShort> citiesList) {
+        this.mContext = context;
+        this.citiesList = citiesList;
+    }
+
+    public class CityListViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
 
         private TextView txtTemp;
         private TextView txtHTemp;
@@ -34,15 +52,37 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.CityLi
             txtCityCountry = itemView.findViewById(R.id.txt_city_country);
             txtCondition = itemView.findViewById(R.id.txt_city_condition);
             imgCondition = itemView.findViewById(R.id.img_city_condition);
+            itemView.setOnCreateContextMenuListener(this);
         }
-    }
 
-    private Context mContext;
-    private List<WeatherReportModelShort> citiesList;
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
 
-    public CityListAdapter(Context context, List<WeatherReportModelShort> citiesList) {
-        this.mContext = context;
-        this.citiesList = citiesList;
+            menu.add(0, 0, 0, "Set as home")
+                    .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(@NonNull MenuItem item) {
+                            // Save a preference "homeCity" to show to show it in the Main screen
+                            SharedPreferences preferences = mContext.getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                            CityListViewHolder holder = (CityListViewHolder) mRecyclerView.findViewHolderForAdapterPosition(getAdapterPosition());
+                            String cityCountryName = holder.txtCityCountry.getText().toString();
+                            preferences.edit()
+                                    .putString(
+                                            "homeCity",
+                                            cityCountryName)
+                                    .apply();
+                            return true;
+                        }
+                    });
+            menu.add(0, 0, 1, "Remove city")
+                    .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(@NonNull MenuItem item) {
+                            removeCity(getAdapterPosition());
+                            return true;
+                        }
+                    });
+        }
     }
 
     @NonNull
@@ -71,8 +111,41 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.CityLi
     }
 
     @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        mRecyclerView = recyclerView;
+    }
+
+    @Override
     public int getItemCount() {
         return citiesList.size();
+    }
+
+    /**
+     * Remove city from Recycler View and Shared Preferences.
+     * @param position The position of City in Recycler View to be removed.
+     */
+    private void removeCity(int position) {
+        String currentName = citiesList.get(position).getCity() + " - " + citiesList.get(position).getCountry()
+                + " ; ";
+        citiesList.remove(position);
+
+        // get the stored cities preferences (citiesCountriesNames). Otherwise, initialize a new one.
+        String citiesCountriesNames = mContext.getSharedPreferences("MyPrefs", MODE_PRIVATE)
+                .getString(
+                        "citiesCountriesNames",
+                        ""
+                );
+
+        citiesCountriesNames = citiesCountriesNames.replace(currentName, "");
+        mContext.getSharedPreferences("MyPrefs", MODE_PRIVATE)
+                .edit()
+                .putString("citiesCountriesNames", citiesCountriesNames)
+                .apply();
+
+        notifyItemRemoved(position);
+        Snackbar.make(mRecyclerView, "City removed", BaseTransientBottomBar.LENGTH_LONG)
+                .show();
     }
 
 }
