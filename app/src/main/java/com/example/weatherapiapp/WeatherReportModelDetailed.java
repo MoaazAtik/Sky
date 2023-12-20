@@ -268,12 +268,12 @@ public class WeatherReportModelDetailed {
 
     /**
      * Sets the Sun Time Progress.<p>
-     *
+     * <p>
      * Duration Up: Duration When Sun is Up.
      * Duration Down: Duration When Sun is Down.
      * To get Duration Up, Get Duration from Sunrise to Sunset
      * To get Duration Down, Get Rest Duration by Subtracting Duration Up from a full day (24 Hours).<p>
-     *
+     * <p>
      * The following values are from the Animation of sun_time_scene.<p>
      * minProgress (0.17): Minimum value where the Moon is Fully Visible on Screen.
      * endDownProgress (0.23): The value where Sun is right Below Horizon at the Beginning of Sunrise.
@@ -284,13 +284,14 @@ public class WeatherReportModelDetailed {
      * downProgressRange (0.12 = 0.06 * 2): The values where Sun is Down.
      * upAdding: The value that should be added to the value of progress at the Beginning of Sunrise.
      * downAdding: The value of that should be added to the value of progress at the Beginning of Sunset Or to minProgress.<p></p>
-     *
-     * Notes: 1. It should be called only after is_day, time, sunrise, and sunset is assigned.
-     *       2. My getTime() that is defined in this class should not be confused with the one defined in java.util.Date.
-     *       3. Setting TimeZone to UTC for timeFormat is fixing time in Milliseconds(Ms). It is adding TimezoneOffset to the time. It is needed for the Ms of the 24-hour full day.
-     *       4. date.getTime() is getting time in Ms correctly and that's what I need, although the hours I get when logging the date object are not correct, and I don't need them.
-     *       5. Api-parsed current time (time) is updated by Api every 15 minutes.
-     *       6. I spread the Down Duration Evenly on the available Down Progress. In other words, the Maximum (or Minimum) progress value represents Half of Down Duration, and doesn't necessarily represent 24:00 (or 00:00).
+     * <p>
+     * Notes:
+     * 1. It should be called only after is_day, time, sunrise, and sunset is assigned.
+     * 2. My getTime() that is defined in this class should not be confused with the one defined in java.util.Date.
+     * 3. Setting TimeZone to UTC for timeFormat is fixing time in Milliseconds(Ms). It is adding TimezoneOffset to the time. It is needed for the Ms of the 24-hour full day.
+     * 4. date.getTime() is getting time in Ms correctly and that's what I need, although the hours I get when logging the date object are not correct, and I don't need them.
+     * 5. Api-parsed current time (time) is updated by Api every 15 minutes.
+     * 6. I spread the Down Duration Evenly on the available Down Progress. In other words, the Maximum (or Minimum) progress value represents Half of Down Duration, and doesn't necessarily represent 24:00 (or 00:00).
      */
     public void setSunTimeProgress() {
         try {
@@ -310,9 +311,9 @@ public class WeatherReportModelDetailed {
             Date currentTime = timeFormat.parse(getTime());
             Date fullDay = timeFormat.parse("24:00 AM");
 
-            Log.d(TAG, "getSunrise() "+getSunrise());
-            Log.d(TAG, "getSunset() "+getSunset());
-            Log.d(TAG, "getTime() "+getTime());
+            Log.d(TAG, "getSunrise() " + getSunrise());
+            Log.d(TAG, "getSunset() " + getSunset());
+            Log.d(TAG, "getTime() " + getTime());
 
             long sunriseMs = sunrise.getTime();
             long sunsetMs = sunset.getTime();
@@ -333,27 +334,27 @@ public class WeatherReportModelDetailed {
             long sunriseHours = sunriseMs / (60 * 60 * 1000); // for log
             long sunriseMinutes = (sunriseMs % (60 * 60 * 1000)) / (60 * 1000); // for log
             String sunriseString = String.format("%02d:%02d", sunriseHours, sunriseMinutes); // for log. Needed for Zero padding
-            Log.d(TAG, "sunriseString "+sunriseString);
+            Log.d(TAG, "sunriseString " + sunriseString);
 
             long sunsetHours = sunsetMs / (60 * 60 * 1000); // for log
             long sunsetMinutes = (sunsetMs % (60 * 60 * 1000)) / (60 * 1000); // for log
             String sunsetString = String.format("%02d:%02d", sunsetHours, sunsetMinutes); // for log. Needed for Zero padding
-            Log.d(TAG, "sunsetString "+sunsetString);
+            Log.d(TAG, "sunsetString " + sunsetString);
 
             long currentTimeHours = currentTimeMs / (60 * 60 * 1000); // for log
             long currentTimeMinutes = (currentTimeMs % (60 * 60 * 1000)) / (60 * 1000); // for log
             String currentTimeString = String.format("%02d:%02d", currentTimeHours, currentTimeMinutes); // for log. Needed for Zero padding
-            Log.d(TAG, "currentTimeString "+currentTimeString);
+            Log.d(TAG, "currentTimeString " + currentTimeString);
 
             long fullDayHours = fullDayMs / (60 * 60 * 1000); // for log
             long fullDayMinutes = (fullDayMs % (60 * 60 * 1000)) / (60 * 1000); // for log
             String fullDayString = String.format("%02d:%02d", fullDayHours, fullDayMinutes); // for log. Needed for Zero padding
-            Log.d(TAG, "fullDayString "+fullDayString);
+            Log.d(TAG, "fullDayString " + fullDayString);
 
             long upDurationHours = upDurationMs / (60 * 60 * 1000); // for log
             long upDurationMinutes = (upDurationMs % (60 * 60 * 1000)) / (60 * 1000); // for log
             String upDurationString = String.format("%02d:%02d", upDurationHours, upDurationMinutes); // for log. Needed for Zero padding
-            Log.d(TAG, "upDurationString "+upDurationString);
+            Log.d(TAG, "upDurationString " + upDurationString);
 
             long downDurationHours = downDurationMs / (60 * 60 * 1000); //for log
             long downDurationMinutes = (downDurationMs % (60 * 60 * 1000)) / (60 * 1000); //for log
@@ -370,7 +371,7 @@ public class WeatherReportModelDetailed {
 
 
 //            is_day = 0; //for log
-            Log.d(TAG, "is_day "+is_day);
+            Log.d(TAG, "is_day " + is_day);
             if (is_day == 1) { // Sun is Up
                 long currentToSunriseDistanceMs = currentTimeMs - sunriseMs;
                 long hoursCurrentToSunriseDistance = currentToSunriseDistanceMs / (60 * 60 * 1000); //for log
@@ -389,16 +390,16 @@ public class WeatherReportModelDetailed {
                     currentToSunsetDistanceMs = (fullDayMs - (currentToSunsetDistanceMs * (-1))) - (downDurationMs / 2);
                     float downAdding = (downProgressRange / downDurationMs) * currentToSunsetDistanceMs;
                     Log.d(TAG, "currentToSunsetDistanceMs was < 0");
-                    Log.d(TAG, "downAdding "+downAdding);
-                    Log.d(TAG, "minProgress "+minProgress);
-                    Log.d(TAG, "endDownProgress "+endDownProgress);
+                    Log.d(TAG, "downAdding " + downAdding);
+                    Log.d(TAG, "minProgress " + minProgress);
+                    Log.d(TAG, "endDownProgress " + endDownProgress);
                     sunTimeProgress = downAdding + minProgress;
                 } else { // (currentToSunsetDistanceMs >= 0) // Nearer to Sunset
                     float downAdding = (downProgressRange / downDurationMs) * currentToSunsetDistanceMs;
                     Log.d(TAG, "currentToSunsetDistanceMs already >= 0");
-                    Log.d(TAG, "downAdding "+downAdding);
-                    Log.d(TAG, "startDownProgress "+startDownProgress);
-                    Log.d(TAG, "maxProgress "+maxProgress);
+                    Log.d(TAG, "downAdding " + downAdding);
+                    Log.d(TAG, "startDownProgress " + startDownProgress);
+                    Log.d(TAG, "maxProgress " + maxProgress);
                     sunTimeProgress = downAdding + startDownProgress;
                 }
                 long hoursCurrentToSunsetDistance = currentToSunsetDistanceMs / (60 * 60 * 1000); //for log
