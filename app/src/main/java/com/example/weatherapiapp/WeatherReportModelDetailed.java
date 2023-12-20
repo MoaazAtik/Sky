@@ -267,28 +267,30 @@ public class WeatherReportModelDetailed {
     }
 
     /**
-     * Duration Up: Duration When Sun is Up
-     * Duration Down: Duration When Sun is Down
-     * fullDay
-     * Current Time (Time):
+     * Sets the Sun Time Progress.<p>
+     *
+     * Duration Up: Duration When Sun is Up.
+     * Duration Down: Duration When Sun is Down.
      * To get Duration Up, Get Duration from Sunrise to Sunset
-     * To get Duration Down, Get Rest Duration by Subtracting Duration Up from a full day (24 Hours)
+     * To get Duration Down, Get Rest Duration by Subtracting Duration Up from a full day (24 Hours).<p>
      *
-     * Real Progress Range (Real Max Progress): From Min Progress (for visible moon): 0.17 to Max Progress: 0.83 (for visible moon)
+     * The following values are from the Animation of sun_time_scene.<p>
+     * minProgress (0.17): Minimum value where the Moon is Fully Visible on Screen.
+     * endDownProgress (0.23): The value where Sun is right Below Horizon at the Beginning of Sunrise.
+     * startDownProgress (0.77): The value where Sun is right Below Horizon at the End of Sunset.
+     * maxProgress (0.83): Maximum value where the Moon is Fully Visible on Screen.
+     * fullProgressRange (0.66): The values where Moon (or Sun) is Fully Visible on Screen.
+     * upProgressRange (0.54): The values where Sun is Up.
+     * downProgressRange (0.12 = 0.06 * 2): The values where Sun is Down.
+     * upAdding: The value that should be added to the value of progress at the Beginning of Sunrise.
+     * downAdding: The value of that should be added to the value of progress at the Beginning of Sunset Or to minProgress.<p></p>
      *
-     * Percentage Up: Make Duration Up covers the Percentage values from Mid Sunrise: 0.23, to Mid sunset: 0.77.
-     * Percentage Down: Make Duration Down covers the Percentage values
-     *      From Min Progress (for visible moon): 0.17 to Mid Sunrise: 0.23,
-     *      And from Mid sunset: 0.77 to Max Progress: 0.83 (for visible moon)
-     * These values are from the Animation of sun_time_scene.
-     *
-     * Sun Time Progress
-     *
-     * Note: 1. It should be called only after is_day, time, sunrise, and sunset is assigned.
+     * Notes: 1. It should be called only after is_day, time, sunrise, and sunset is assigned.
      *       2. My getTime() that is defined in this class should not be confused with the one defined in java.util.Date.
-     *       Setting TimeZone to UTC for timeFormat is fixing time in Milliseconds(Ms). It is adding TimezoneOffset to the time. It is needed for the Ms of the 24-hour full day.
-     *       date.getTime() is getting time in Ms correctly and that's what I need, although the hours I get when logging the date object are not correct, and I don't need them.
-     *
+     *       3. Setting TimeZone to UTC for timeFormat is fixing time in Milliseconds(Ms). It is adding TimezoneOffset to the time. It is needed for the Ms of the 24-hour full day.
+     *       4. date.getTime() is getting time in Ms correctly and that's what I need, although the hours I get when logging the date object are not correct, and I don't need them.
+     *       5. Api-parsed current time (time) is updated by Api every 15 minutes.
+     *       6. I spread the Down Duration Evenly on the available Down Progress. In other words, the Maximum (or Minimum) progress value represents Half of Down Duration, and doesn't necessarily represent 24:00 (or 00:00).
      */
     public void setSunTimeProgress() {
         try {
