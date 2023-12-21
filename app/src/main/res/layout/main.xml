@@ -64,7 +64,7 @@
             android:fontFamily="@font/sf_pro_display_thin"
             android:text="19°"
             android:textColor="@color/white"
-            android:textSize="96sp"
+            android:textSize="88sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txt_home_city" />
@@ -73,7 +73,7 @@
             android:id="@+id/txt_home_condition_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-50dp"
+            android:layout_marginTop="-40dp"
             android:fontFamily="@font/sf_pro_display_semibold"
             android:text="Mostly Clear"
             android:textColor="@color/condition"
@@ -85,7 +85,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-15dp">
+            android:layout_marginTop="-12dp">
 <!--            android:layout_width="wrap_content"-->
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -198,7 +198,7 @@
                     android:text="Hourly Forecast"
                     android:textAllCaps="false"
                     android:textColor="@color/light_grey_purple"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -214,7 +214,7 @@
                     android:text="Daily Forecast"
                     android:textAllCaps="false"
                     android:textColor="@color/light_grey_purple"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -258,7 +258,6 @@
                             android:id="@+id/hour_0_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="6dp"
                             android:text="12 AM"
                             android:textColor="@color/white"
                             android:textSize="15sp"
@@ -290,7 +289,7 @@
                             android:layout_height="wrap_content"
                             android:text="19°"
                             android:textColor="@color/white"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             app:fontFamily="@font/sf_pro_display_regular" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -309,7 +308,6 @@
                             android:id="@+id/hour_1_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="6dp"
                             android:text="NOW"
                             android:textColor="@color/white"
                             android:textSize="15sp"
@@ -339,7 +337,7 @@
                             android:layout_height="wrap_content"
                             android:text="1°"
                             android:textColor="@color/white"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             app:fontFamily="@font/sf_pro_display_regular" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -358,7 +356,6 @@
                             android:id="@+id/hour_2_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="6dp"
                             android:text="2 PM"
                             android:textColor="@color/white"
                             android:textSize="15sp"
@@ -388,7 +385,7 @@
                             android:layout_height="wrap_content"
                             android:text="-10°"
                             android:textColor="@color/white"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             app:fontFamily="@font/sf_pro_display_regular" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -407,7 +404,6 @@
                             android:id="@+id/hour_3_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="6dp"
                             android:text="3 PM"
                             android:textColor="@color/white"
                             android:textSize="15sp"
@@ -437,7 +433,7 @@
                             android:layout_height="wrap_content"
                             android:text="-10°"
                             android:textColor="@color/white"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             app:fontFamily="@font/sf_pro_display_regular" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -456,7 +452,6 @@
                             android:id="@+id/hour_4_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="6dp"
                             android:text="4 PM"
                             android:textColor="@color/white"
                             android:textSize="15sp"
@@ -486,7 +481,7 @@
                             android:layout_height="wrap_content"
                             android:text="-10°"
                             android:textColor="@color/white"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             app:fontFamily="@font/sf_pro_display_regular" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -505,7 +500,6 @@
                             android:id="@+id/hour_5_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="6dp"
                             android:text="5 PM"
                             android:textColor="@color/white"
                             android:textSize="15sp"
@@ -535,7 +529,7 @@
                             android:layout_height="wrap_content"
                             android:text="-10°"
                             android:textColor="@color/white"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             app:fontFamily="@font/sf_pro_display_regular" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -554,7 +548,6 @@
                             android:id="@+id/hour_6_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="6dp"
                             android:text="6 PM"
                             android:textColor="@color/white"
                             android:textSize="15sp"
@@ -584,7 +577,7 @@
                             android:layout_height="wrap_content"
                             android:text="-10°"
                             android:textColor="@color/white"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             app:fontFamily="@font/sf_pro_display_regular" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -604,7 +597,6 @@
                             android:id="@+id/hour_7_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="6dp"
                             android:text="7 PM"
                             android:textColor="@color/white"
                             android:textSize="15sp"
@@ -634,7 +626,7 @@
                             android:layout_height="wrap_content"
                             android:text="-10°"
                             android:textColor="@color/white"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             app:fontFamily="@font/sf_pro_display_regular" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -677,7 +669,6 @@
                             android:id="@+id/day_0_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="6dp"
                             android:text="MON"
                             android:textColor="@color/white"
                             android:textSize="15sp"
@@ -709,7 +700,7 @@
                             android:layout_height="wrap_content"
                             android:text="19°"
                             android:textColor="@color/white"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             app:fontFamily="@font/sf_pro_display_regular" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -728,7 +719,6 @@
                             android:id="@+id/day_1_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="6dp"
                             android:text="TUE"
                             android:textColor="@color/white"
                             android:textSize="15sp"
@@ -758,7 +748,7 @@
                             android:layout_height="wrap_content"
                             android:text="1°"
                             android:textColor="@color/white"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             app:fontFamily="@font/sf_pro_display_regular" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -777,7 +767,6 @@
                             android:id="@+id/day_2_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="6dp"
                             android:text="WED"
                             android:textColor="@color/white"
                             android:textSize="15sp"
@@ -807,7 +796,7 @@
                             android:layout_height="wrap_content"
                             android:text="-10°"
                             android:textColor="@color/white"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             app:fontFamily="@font/sf_pro_display_regular" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -826,7 +815,6 @@
                             android:id="@+id/day_3_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="6dp"
                             android:text="THUR"
                             android:textColor="@color/white"
                             android:textSize="15sp"
@@ -856,7 +844,7 @@
                             android:layout_height="wrap_content"
                             android:text="-10°"
                             android:textColor="@color/white"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             app:fontFamily="@font/sf_pro_display_regular" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -875,7 +863,6 @@
                             android:id="@+id/day_4_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="6dp"
                             android:text="FRI"
                             android:textColor="@color/white"
                             android:textSize="15sp"
@@ -905,7 +892,7 @@
                             android:layout_height="wrap_content"
                             android:text="-10°"
                             android:textColor="@color/white"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             app:fontFamily="@font/sf_pro_display_regular" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -924,7 +911,6 @@
                             android:id="@+id/day_5_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="6dp"
                             android:text="SAT"
                             android:textColor="@color/white"
                             android:textSize="15sp"
@@ -954,7 +940,7 @@
                             android:layout_height="wrap_content"
                             android:text="-10°"
                             android:textColor="@color/white"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             app:fontFamily="@font/sf_pro_display_regular" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -974,7 +960,6 @@
                             android:id="@+id/day_6_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="6dp"
                             android:text="SUN"
                             android:textColor="@color/white"
                             android:textSize="15sp"
@@ -1004,7 +989,7 @@
                             android:layout_height="wrap_content"
                             android:text="-10°"
                             android:textColor="@color/white"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             app:fontFamily="@font/sf_pro_display_regular" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -1053,32 +1038,37 @@
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/tabbar_front" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btn_home_plus"
             android:layout_width="120dp"
+            android:scaleX="0.9"
+            android:scaleY="0.9"
             android:layout_height="120dp"
-            android:layout_marginTop="-10dp"
-            android:background="@drawable/plus_button"
+            android:layout_marginTop="-14dp"
+            android:src="@drawable/plus_button"
+            android:background="@color/transparent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/tab_bar_front" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btn_home_expand"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_marginStart="28dp"
-            android:background="@drawable/expand"
+            android:src="@drawable/expand"
+            android:background="@color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/tab_bar_back" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btn_home_cities_list"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_marginEnd="28dp"
-            android:background="@drawable/bulleted_list"
+            android:src="@drawable/bulleted_list"
+            android:background="@color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tab_bar_back" />

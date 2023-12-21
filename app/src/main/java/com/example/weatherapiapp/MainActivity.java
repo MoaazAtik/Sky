@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.motion.widget.MotionLayout;
@@ -17,6 +18,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -99,9 +101,9 @@ public class MainActivity extends AppCompatActivity {
         HorizontalScrollView horizontalScrollViewDaily = findViewById(R.id.daily_forecast_sv);
         AppCompatImageView underline = findViewById(R.id.underline);
         ConstraintLayout tabBar = findViewById(R.id.tab_bar);
-        AppCompatButton btnHomePlus = findViewById(R.id.btn_home_plus);
-        AppCompatButton btnHomeExpand = findViewById(R.id.btn_home_expand);
-        AppCompatButton btnHomeCitiesList = findViewById(R.id.btn_home_cities_list);
+        AppCompatImageButton btnHomePlus = findViewById(R.id.btn_home_plus);
+        AppCompatImageButton btnHomeExpand = findViewById(R.id.btn_home_expand);
+        AppCompatImageButton btnHomeCitiesList = findViewById(R.id.btn_home_cities_list);
 
         txtMainCity = findViewById(R.id.txt_home_city);
         txtMainTemp = findViewById(R.id.txt_home_temp);
@@ -196,8 +198,9 @@ public class MainActivity extends AppCompatActivity {
         txtVisibilityDescription = findViewById(R.id.txt_visibility_description);
         seekBarUvIndex = findViewById(R.id.seekbar_uv_index);
 
-
-        showHomeCityDialog();
+        new Handler().postDelayed(
+                () -> showHomeCityDialog(),
+                3000);
 
         // Get current Home City Preference
         homeCity = getSharedPreferences("MyPrefs", MODE_PRIVATE)

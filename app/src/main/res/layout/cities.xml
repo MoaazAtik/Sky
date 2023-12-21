@@ -21,8 +21,8 @@
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btn_back"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:background="@color/transparent"
             android:src="@drawable/arrow_back"
             app:layout_constraintStart_toStartOf="parent"
@@ -40,11 +40,12 @@
             app:layout_constraintStart_toEndOf="@id/btn_back"
             app:layout_constraintTop_toTopOf="@id/btn_back" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btn_cities_add_city"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:background="@drawable/add_circle"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@color/transparent"
+            android:src="@drawable/add_circle"
             app:layout_constraintBottom_toBottomOf="@id/et_add_city"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/et_add_city" />
