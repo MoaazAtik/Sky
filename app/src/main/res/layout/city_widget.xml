@@ -11,11 +11,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="12dp"
         android:fontFamily="@font/sf_pro_display_regular"
         android:text="19°"
         android:textColor="@color/white"
-        android:textSize="70sp"
+        android:textSize="60sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,12 +24,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginBottom="-10dp"
+        android:layout_marginBottom="0dp"
         android:fontFamily="@font/sf_pro_display_regular"
         android:paddingEnd="10dp"
         android:text="H:24°"
         android:textColor="@color/pale_purple_city_hl_temp"
-        android:textSize="20sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@id/txt_city_country"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -40,7 +40,7 @@
         android:fontFamily="@font/sf_pro_display_regular"
         android:text="L:18°"
         android:textColor="@color/pale_purple_city_hl_temp"
-        android:textSize="20sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@id/txt_city_h_temp"
         app:layout_constraintTop_toTopOf="@id/txt_city_h_temp" />
 
@@ -48,11 +48,12 @@
         android:id="@+id/txt_city_country"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="14dp"
+        android:layout_marginBottom="22dp"
         android:fontFamily="@font/sf_pro_display_regular"
+        android:includeFontPadding="false"
         android:text="Montreal, Canada"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@id/txt_city_h_temp" />
 
@@ -62,16 +63,19 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:fontFamily="@font/sf_pro_display_regular"
+        android:includeFontPadding="false"
         android:text="Mid Rain"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@id/txt_city_country"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
         android:id="@+id/img_city_condition"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="-40dp"
+        android:layout_marginEnd="-18dp"
         android:src="@drawable/ic_condition_sun_cloud"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

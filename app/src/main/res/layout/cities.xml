@@ -19,11 +19,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.AppCompatButton
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btn_back"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:background="@drawable/arrow_back"
+            android:background="@color/transparent"
+            android:src="@drawable/arrow_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,7 +35,7 @@
             android:fontFamily="@font/sf_pro_display_regular"
             android:text="Weather"
             android:textColor="@color/white"
-            android:textSize="32sp"
+            android:textSize="28sp"
             app:layout_constraintBottom_toBottomOf="@id/btn_back"
             app:layout_constraintStart_toEndOf="@id/btn_back"
             app:layout_constraintTop_toTopOf="@id/btn_back" />
@@ -51,15 +52,15 @@
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/et_add_city"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="36dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="50dp"
             android:background="@drawable/search_field"
             android:drawableStart="@drawable/search"
-            android:drawablePadding="8dp"
+            android:drawablePadding="6dp"
             android:hint="Search for a city"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
             android:textColor="@color/white"
             android:textColorHint="@color/pale_blue_back_btn"
             app:layout_constraintStart_toStartOf="parent"
