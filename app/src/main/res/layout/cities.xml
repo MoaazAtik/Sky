@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/cities_layout_background"
     android:paddingStart="18dp"
-    android:paddingTop="18dp"
+    android:paddingTop="48dp"
     android:paddingEnd="18dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout

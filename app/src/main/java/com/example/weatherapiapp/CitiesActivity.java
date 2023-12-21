@@ -3,6 +3,7 @@ package com.example.weatherapiapp;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -43,6 +44,7 @@ public class CitiesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.cities);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         recyclerView = (RecyclerView) findViewById(R.id.rv_cities);
         citiesList = new ArrayList<>();
         adapter = new CityListAdapter(this, citiesList);
