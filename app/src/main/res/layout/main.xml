@@ -86,7 +86,7 @@
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="-12dp">
-<!--            android:layout_width="wrap_content"-->
+            <!--            android:layout_width="wrap_content"-->
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txt_home_h_temp"
@@ -99,8 +99,8 @@
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-<!--                android:text="H:24°   L:18°"-->
-<!--                android:layout_marginEnd="4dp"-->
+            <!--                android:text="H:24°   L:18°"-->
+            <!--                android:layout_marginEnd="4dp"-->
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txt_home_l_temp"
@@ -275,9 +275,9 @@
                             android:id="@+id/hour_0_precipitation"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="30%"
                             android:layout_marginTop="-4dp"
                             android:includeFontPadding="false"
+                            android:text="30%"
                             android:textColor="@color/turquoise_blue_precipitation"
                             android:textSize="13sp"
                             app:fontFamily="@font/sf_pro_display_regular" />
@@ -329,7 +329,7 @@
                             android:textColor="@color/turquoise_blue_precipitation"
                             android:textSize="13sp"
                             app:fontFamily="@font/sf_pro_display_regular" />
-<!--                        todo: maybe I need to specify the height for when the text is empty  -->
+                        <!--                        todo: maybe I need to specify the height for when the text is empty  -->
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/hour_1_temp"
@@ -372,9 +372,9 @@
                             android:id="@+id/hour_2_precipitation"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="30%"
                             android:layout_marginTop="-4dp"
                             android:includeFontPadding="false"
+                            android:text="30%"
                             android:textColor="@color/turquoise_blue_precipitation"
                             android:textSize="13sp"
                             app:fontFamily="@font/sf_pro_display_regular" />
@@ -420,9 +420,9 @@
                             android:id="@+id/hour_3_precipitation"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="30%"
                             android:layout_marginTop="-4dp"
                             android:includeFontPadding="false"
+                            android:text="30%"
                             android:textColor="@color/turquoise_blue_precipitation"
                             android:textSize="13sp"
                             app:fontFamily="@font/sf_pro_display_regular" />
@@ -468,9 +468,9 @@
                             android:id="@+id/hour_4_precipitation"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="30%"
                             android:layout_marginTop="-4dp"
                             android:includeFontPadding="false"
+                            android:text="30%"
                             android:textColor="@color/turquoise_blue_precipitation"
                             android:textSize="13sp"
                             app:fontFamily="@font/sf_pro_display_regular" />
@@ -516,9 +516,9 @@
                             android:id="@+id/hour_5_precipitation"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="30%"
                             android:layout_marginTop="-4dp"
                             android:includeFontPadding="false"
+                            android:text="30%"
                             android:textColor="@color/turquoise_blue_precipitation"
                             android:textSize="13sp"
                             app:fontFamily="@font/sf_pro_display_regular" />
@@ -564,9 +564,9 @@
                             android:id="@+id/hour_6_precipitation"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="30%"
                             android:layout_marginTop="-4dp"
                             android:includeFontPadding="false"
+                            android:text="30%"
                             android:textColor="@color/turquoise_blue_precipitation"
                             android:textSize="13sp"
                             app:fontFamily="@font/sf_pro_display_regular" />
@@ -613,9 +613,9 @@
                             android:id="@+id/hour_7_precipitation"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="30%"
                             android:layout_marginTop="-4dp"
                             android:includeFontPadding="false"
+                            android:text="30%"
                             android:textColor="@color/turquoise_blue_precipitation"
                             android:textSize="13sp"
                             app:fontFamily="@font/sf_pro_display_regular" />
@@ -686,9 +686,9 @@
                             android:id="@+id/day_0_precipitation"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="30%"
                             android:layout_marginTop="-4dp"
                             android:includeFontPadding="false"
+                            android:text="30%"
                             android:textColor="@color/turquoise_blue_precipitation"
                             android:textSize="13sp"
                             app:fontFamily="@font/sf_pro_display_regular" />
@@ -735,9 +735,9 @@
                             android:id="@+id/day_1_precipitation"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="30%"
                             android:layout_marginTop="-4dp"
                             android:includeFontPadding="false"
+                            android:text="30%"
                             android:textColor="@color/turquoise_blue_precipitation"
                             android:textSize="13sp"
                             app:fontFamily="@font/sf_pro_display_regular" />
@@ -783,9 +783,9 @@
                             android:id="@+id/day_2_precipitation"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="30%"
                             android:layout_marginTop="-4dp"
                             android:includeFontPadding="false"
+                            android:text="30%"
                             android:textColor="@color/turquoise_blue_precipitation"
                             android:textSize="13sp"
                             app:fontFamily="@font/sf_pro_display_regular" />
@@ -831,9 +831,9 @@
                             android:id="@+id/day_3_precipitation"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="30%"
                             android:layout_marginTop="-4dp"
                             android:includeFontPadding="false"
+                            android:text="30%"
                             android:textColor="@color/turquoise_blue_precipitation"
                             android:textSize="13sp"
                             app:fontFamily="@font/sf_pro_display_regular" />
@@ -879,9 +879,9 @@
                             android:id="@+id/day_4_precipitation"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="30%"
                             android:layout_marginTop="-4dp"
                             android:includeFontPadding="false"
+                            android:text="30%"
                             android:textColor="@color/turquoise_blue_precipitation"
                             android:textSize="13sp"
                             app:fontFamily="@font/sf_pro_display_regular" />
@@ -927,9 +927,9 @@
                             android:id="@+id/day_5_precipitation"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="30%"
                             android:layout_marginTop="-4dp"
                             android:includeFontPadding="false"
+                            android:text="30%"
                             android:textColor="@color/turquoise_blue_precipitation"
                             android:textSize="13sp"
                             app:fontFamily="@font/sf_pro_display_regular" />
@@ -976,9 +976,9 @@
                             android:id="@+id/day_6_precipitation"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="30%"
                             android:layout_marginTop="-4dp"
                             android:includeFontPadding="false"
+                            android:text="30%"
                             android:textColor="@color/turquoise_blue_precipitation"
                             android:textSize="13sp"
                             app:fontFamily="@font/sf_pro_display_regular" />
@@ -1041,12 +1041,12 @@
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btn_home_plus"
             android:layout_width="120dp"
-            android:scaleX="0.9"
-            android:scaleY="0.9"
             android:layout_height="120dp"
             android:layout_marginTop="-14dp"
-            android:src="@drawable/plus_button"
             android:background="@color/transparent"
+            android:scaleX="0.9"
+            android:scaleY="0.9"
+            android:src="@drawable/plus_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/tab_bar_front" />
@@ -1056,8 +1056,8 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginStart="28dp"
-            android:src="@drawable/expand"
             android:background="@color/transparent"
+            android:src="@drawable/expand"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/tab_bar_back" />
@@ -1067,8 +1067,8 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginEnd="28dp"
-            android:src="@drawable/bulleted_list"
             android:background="@color/transparent"
+            android:src="@drawable/bulleted_list"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tab_bar_back" />
