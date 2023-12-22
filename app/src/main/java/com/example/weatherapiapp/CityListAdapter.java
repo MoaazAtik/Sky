@@ -62,15 +62,7 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.CityLi
                     .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(@NonNull MenuItem item) {
-                            // Save a preference "homeCity" to show to show it in the Main screen
-                            SharedPreferences preferences = mContext.getSharedPreferences("MyPrefs", MODE_PRIVATE);
-                            CityListViewHolder holder = (CityListViewHolder) mRecyclerView.findViewHolderForAdapterPosition(getAdapterPosition());
-                            String cityCountryName = holder.txtCityCountry.getText().toString();
-                            preferences.edit()
-                                    .putString(
-                                            "homeCity",
-                                            cityCountryName)
-                                    .apply();
+                            changeHomeCity(getAdapterPosition());
                             return true;
                         }
                     });
@@ -119,6 +111,24 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.CityLi
     @Override
     public int getItemCount() {
         return citiesList.size();
+    }
+
+    /**
+     * Change Home city. That is the city which will be shown at Home screen.
+     * @param position The position of City in Recycler View to be set as home city.
+     */
+    private void changeHomeCity(int position) {
+        // Save a preference "homeCity" to show to show it in the Main screen
+        SharedPreferences preferences = mContext.getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        CityListViewHolder holder = (CityListViewHolder) mRecyclerView.findViewHolderForAdapterPosition(position);
+        String cityCountryName = holder.txtCityCountry.getText().toString();
+        preferences.edit()
+                .putString(
+                        "homeCity",
+                        cityCountryName)
+                .apply();
+        Snackbar.make(mRecyclerView, "Home city changed", BaseTransientBottomBar.LENGTH_LONG)
+                .show();
     }
 
     /**
