@@ -193,12 +193,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="13dp"
-                    android:background="#00FFFFFF"
-                    android:fontFamily="@font/sf_pro_display_semibold"
+                    android:background="@color/transparent"
+                    android:fontFamily="@font/sf_pro_text_semibold"
                     android:text="Hourly Forecast"
                     android:textAllCaps="false"
                     android:textColor="@color/light_grey_purple"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -209,12 +209,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="13dp"
                     android:layout_marginEnd="30dp"
-                    android:background="#00FFFFFF"
-                    android:fontFamily="@font/sf_pro_display_semibold"
+                    android:background="@color/transparent"
+                    android:fontFamily="@font/sf_pro_text_semibold"
                     android:text="Daily Forecast"
                     android:textAllCaps="false"
                     android:textColor="@color/light_grey_purple"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -258,10 +258,11 @@
                             android:id="@+id/hour_0_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingBottom="4dp"
                             android:text="12 AM"
                             android:textColor="@color/white"
                             android:textSize="15sp"
-                            app:fontFamily="@font/sf_pro_display_semibold" />
+                            app:fontFamily="@font/sf_pro_text_semibold" />
 
                         <!--                    Hour 0 condition-->
                         <androidx.appcompat.widget.AppCompatImageView
@@ -280,17 +281,18 @@
                             android:text="30%"
                             android:textColor="@color/turquoise_blue_precipitation"
                             android:textSize="13sp"
-                            app:fontFamily="@font/sf_pro_display_regular" />
+                            app:fontFamily="@font/sf_pro_text_semibold" />
 
                         <!--                    Hour 0 temperature-->
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/hour_0_temp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingTop="6dp"
                             android:text="19°"
                             android:textColor="@color/white"
                             android:textSize="18sp"
-                            app:fontFamily="@font/sf_pro_display_regular" />
+                            app:fontFamily="@font/sf_pro_text_regular" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <!--                Hour 1 forecast-->
@@ -308,10 +310,11 @@
                             android:id="@+id/hour_1_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingBottom="4dp"
                             android:text="NOW"
                             android:textColor="@color/white"
                             android:textSize="15sp"
-                            app:fontFamily="@font/sf_pro_display_semibold" />
+                            app:fontFamily="@font/sf_pro_text_semibold" />
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/hour_1_condition"
@@ -328,17 +331,18 @@
                             android:includeFontPadding="false"
                             android:textColor="@color/turquoise_blue_precipitation"
                             android:textSize="13sp"
-                            app:fontFamily="@font/sf_pro_display_regular" />
+                            app:fontFamily="@font/sf_pro_text_semibold" />
                         <!--                        todo: maybe I need to specify the height for when the text is empty  -->
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/hour_1_temp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingTop="6dp"
                             android:text="1°"
                             android:textColor="@color/white"
                             android:textSize="18sp"
-                            app:fontFamily="@font/sf_pro_display_regular" />
+                            app:fontFamily="@font/sf_pro_text_regular" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <!--                Hour 2 forecast-->
@@ -356,10 +360,11 @@
                             android:id="@+id/hour_2_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingBottom="4dp"
                             android:text="2 PM"
                             android:textColor="@color/white"
                             android:textSize="15sp"
-                            app:fontFamily="@font/sf_pro_display_semibold" />
+                            app:fontFamily="@font/sf_pro_text_semibold" />
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/hour_2_condition"
@@ -377,16 +382,17 @@
                             android:text="30%"
                             android:textColor="@color/turquoise_blue_precipitation"
                             android:textSize="13sp"
-                            app:fontFamily="@font/sf_pro_display_regular" />
+                            app:fontFamily="@font/sf_pro_text_semibold" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/hour_2_temp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingTop="6dp"
                             android:text="-10°"
                             android:textColor="@color/white"
                             android:textSize="18sp"
-                            app:fontFamily="@font/sf_pro_display_regular" />
+                            app:fontFamily="@font/sf_pro_text_regular" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <!--                Hour 3 forecast-->
@@ -404,10 +410,11 @@
                             android:id="@+id/hour_3_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingBottom="4dp"
                             android:text="3 PM"
                             android:textColor="@color/white"
                             android:textSize="15sp"
-                            app:fontFamily="@font/sf_pro_display_semibold" />
+                            app:fontFamily="@font/sf_pro_text_semibold" />
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/hour_3_condition"
@@ -425,16 +432,17 @@
                             android:text="30%"
                             android:textColor="@color/turquoise_blue_precipitation"
                             android:textSize="13sp"
-                            app:fontFamily="@font/sf_pro_display_regular" />
+                            app:fontFamily="@font/sf_pro_text_semibold" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/hour_3_temp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingTop="6dp"
                             android:text="-10°"
                             android:textColor="@color/white"
                             android:textSize="18sp"
-                            app:fontFamily="@font/sf_pro_display_regular" />
+                            app:fontFamily="@font/sf_pro_text_regular" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <!--                Hour 4 forecast-->
@@ -452,10 +460,11 @@
                             android:id="@+id/hour_4_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingBottom="4dp"
                             android:text="4 PM"
                             android:textColor="@color/white"
                             android:textSize="15sp"
-                            app:fontFamily="@font/sf_pro_display_semibold" />
+                            app:fontFamily="@font/sf_pro_text_semibold" />
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/hour_4_condition"
@@ -473,16 +482,17 @@
                             android:text="30%"
                             android:textColor="@color/turquoise_blue_precipitation"
                             android:textSize="13sp"
-                            app:fontFamily="@font/sf_pro_display_regular" />
+                            app:fontFamily="@font/sf_pro_text_semibold" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/hour_4_temp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingTop="6dp"
                             android:text="-10°"
                             android:textColor="@color/white"
                             android:textSize="18sp"
-                            app:fontFamily="@font/sf_pro_display_regular" />
+                            app:fontFamily="@font/sf_pro_text_regular" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <!--                Hour 5 forecast-->
@@ -500,10 +510,11 @@
                             android:id="@+id/hour_5_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingBottom="4dp"
                             android:text="5 PM"
                             android:textColor="@color/white"
                             android:textSize="15sp"
-                            app:fontFamily="@font/sf_pro_display_semibold" />
+                            app:fontFamily="@font/sf_pro_text_semibold" />
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/hour_5_condition"
@@ -521,16 +532,17 @@
                             android:text="30%"
                             android:textColor="@color/turquoise_blue_precipitation"
                             android:textSize="13sp"
-                            app:fontFamily="@font/sf_pro_display_regular" />
+                            app:fontFamily="@font/sf_pro_text_semibold" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/hour_5_temp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingTop="6dp"
                             android:text="-10°"
                             android:textColor="@color/white"
                             android:textSize="18sp"
-                            app:fontFamily="@font/sf_pro_display_regular" />
+                            app:fontFamily="@font/sf_pro_text_regular" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <!--                Hour 6 forecast-->
@@ -548,10 +560,11 @@
                             android:id="@+id/hour_6_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingBottom="4dp"
                             android:text="6 PM"
                             android:textColor="@color/white"
                             android:textSize="15sp"
-                            app:fontFamily="@font/sf_pro_display_semibold" />
+                            app:fontFamily="@font/sf_pro_text_semibold" />
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/hour_6_condition"
@@ -569,16 +582,17 @@
                             android:text="30%"
                             android:textColor="@color/turquoise_blue_precipitation"
                             android:textSize="13sp"
-                            app:fontFamily="@font/sf_pro_display_regular" />
+                            app:fontFamily="@font/sf_pro_text_semibold" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/hour_6_temp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingTop="6dp"
                             android:text="-10°"
                             android:textColor="@color/white"
                             android:textSize="18sp"
-                            app:fontFamily="@font/sf_pro_display_regular" />
+                            app:fontFamily="@font/sf_pro_text_regular" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <!--                Hour 7 forecast-->
@@ -597,10 +611,11 @@
                             android:id="@+id/hour_7_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingBottom="4dp"
                             android:text="7 PM"
                             android:textColor="@color/white"
                             android:textSize="15sp"
-                            app:fontFamily="@font/sf_pro_display_semibold" />
+                            app:fontFamily="@font/sf_pro_text_semibold" />
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/hour_7_condition"
@@ -618,16 +633,17 @@
                             android:text="30%"
                             android:textColor="@color/turquoise_blue_precipitation"
                             android:textSize="13sp"
-                            app:fontFamily="@font/sf_pro_display_regular" />
+                            app:fontFamily="@font/sf_pro_text_semibold" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/hour_7_temp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingTop="6dp"
                             android:text="-10°"
                             android:textColor="@color/white"
                             android:textSize="18sp"
-                            app:fontFamily="@font/sf_pro_display_regular" />
+                            app:fontFamily="@font/sf_pro_text_regular" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -669,10 +685,11 @@
                             android:id="@+id/day_0_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingBottom="4dp"
                             android:text="MON"
                             android:textColor="@color/white"
                             android:textSize="15sp"
-                            app:fontFamily="@font/sf_pro_display_semibold" />
+                            app:fontFamily="@font/sf_pro_text_semibold" />
 
                         <!--                    Day 0 condition-->
                         <androidx.appcompat.widget.AppCompatImageView
@@ -691,17 +708,18 @@
                             android:text="30%"
                             android:textColor="@color/turquoise_blue_precipitation"
                             android:textSize="13sp"
-                            app:fontFamily="@font/sf_pro_display_regular" />
+                            app:fontFamily="@font/sf_pro_text_semibold" />
 
                         <!--                    Day 0 temperature-->
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/day_0_temp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingTop="6dp"
                             android:text="19°"
                             android:textColor="@color/white"
                             android:textSize="18sp"
-                            app:fontFamily="@font/sf_pro_display_regular" />
+                            app:fontFamily="@font/sf_pro_text_regular" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <!--                Day 1 forecast-->
@@ -719,10 +737,11 @@
                             android:id="@+id/day_1_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingBottom="4dp"
                             android:text="TUE"
                             android:textColor="@color/white"
                             android:textSize="15sp"
-                            app:fontFamily="@font/sf_pro_display_semibold" />
+                            app:fontFamily="@font/sf_pro_text_semibold" />
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/day_1_condition"
@@ -740,16 +759,17 @@
                             android:text="30%"
                             android:textColor="@color/turquoise_blue_precipitation"
                             android:textSize="13sp"
-                            app:fontFamily="@font/sf_pro_display_regular" />
+                            app:fontFamily="@font/sf_pro_text_semibold" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/day_1_temp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingTop="6dp"
                             android:text="1°"
                             android:textColor="@color/white"
                             android:textSize="18sp"
-                            app:fontFamily="@font/sf_pro_display_regular" />
+                            app:fontFamily="@font/sf_pro_text_regular" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <!--                Day 2 forecast-->
@@ -767,10 +787,11 @@
                             android:id="@+id/day_2_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingBottom="4dp"
                             android:text="WED"
                             android:textColor="@color/white"
                             android:textSize="15sp"
-                            app:fontFamily="@font/sf_pro_display_semibold" />
+                            app:fontFamily="@font/sf_pro_text_semibold" />
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/day_2_condition"
@@ -788,16 +809,17 @@
                             android:text="30%"
                             android:textColor="@color/turquoise_blue_precipitation"
                             android:textSize="13sp"
-                            app:fontFamily="@font/sf_pro_display_regular" />
+                            app:fontFamily="@font/sf_pro_text_semibold" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/day_2_temp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingTop="6dp"
                             android:text="-10°"
                             android:textColor="@color/white"
                             android:textSize="18sp"
-                            app:fontFamily="@font/sf_pro_display_regular" />
+                            app:fontFamily="@font/sf_pro_text_regular" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <!--                Day 3 forecast-->
@@ -815,10 +837,11 @@
                             android:id="@+id/day_3_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingBottom="4dp"
                             android:text="THUR"
                             android:textColor="@color/white"
                             android:textSize="15sp"
-                            app:fontFamily="@font/sf_pro_display_semibold" />
+                            app:fontFamily="@font/sf_pro_text_semibold" />
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/day_3_condition"
@@ -836,16 +859,17 @@
                             android:text="30%"
                             android:textColor="@color/turquoise_blue_precipitation"
                             android:textSize="13sp"
-                            app:fontFamily="@font/sf_pro_display_regular" />
+                            app:fontFamily="@font/sf_pro_text_semibold" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/day_3_temp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingTop="6dp"
                             android:text="-10°"
                             android:textColor="@color/white"
                             android:textSize="18sp"
-                            app:fontFamily="@font/sf_pro_display_regular" />
+                            app:fontFamily="@font/sf_pro_text_regular" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <!--                Day 4 forecast-->
@@ -863,10 +887,11 @@
                             android:id="@+id/day_4_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingBottom="4dp"
                             android:text="FRI"
                             android:textColor="@color/white"
                             android:textSize="15sp"
-                            app:fontFamily="@font/sf_pro_display_semibold" />
+                            app:fontFamily="@font/sf_pro_text_semibold" />
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/day_4_condition"
@@ -884,16 +909,17 @@
                             android:text="30%"
                             android:textColor="@color/turquoise_blue_precipitation"
                             android:textSize="13sp"
-                            app:fontFamily="@font/sf_pro_display_regular" />
+                            app:fontFamily="@font/sf_pro_text_semibold" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/day_4_temp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingTop="6dp"
                             android:text="-10°"
                             android:textColor="@color/white"
                             android:textSize="18sp"
-                            app:fontFamily="@font/sf_pro_display_regular" />
+                            app:fontFamily="@font/sf_pro_text_regular" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <!--                Day 5 forecast-->
@@ -911,10 +937,11 @@
                             android:id="@+id/day_5_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingBottom="4dp"
                             android:text="SAT"
                             android:textColor="@color/white"
                             android:textSize="15sp"
-                            app:fontFamily="@font/sf_pro_display_semibold" />
+                            app:fontFamily="@font/sf_pro_text_semibold" />
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/day_5_condition"
@@ -932,16 +959,17 @@
                             android:text="30%"
                             android:textColor="@color/turquoise_blue_precipitation"
                             android:textSize="13sp"
-                            app:fontFamily="@font/sf_pro_display_regular" />
+                            app:fontFamily="@font/sf_pro_text_semibold" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/day_5_temp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingTop="6dp"
                             android:text="-10°"
                             android:textColor="@color/white"
                             android:textSize="18sp"
-                            app:fontFamily="@font/sf_pro_display_regular" />
+                            app:fontFamily="@font/sf_pro_text_regular" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <!--                Day 6 forecast-->
@@ -960,10 +988,11 @@
                             android:id="@+id/day_6_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingBottom="4dp"
                             android:text="SUN"
                             android:textColor="@color/white"
                             android:textSize="15sp"
-                            app:fontFamily="@font/sf_pro_display_semibold" />
+                            app:fontFamily="@font/sf_pro_text_semibold" />
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/day_6_condition"
@@ -981,16 +1010,17 @@
                             android:text="30%"
                             android:textColor="@color/turquoise_blue_precipitation"
                             android:textSize="13sp"
-                            app:fontFamily="@font/sf_pro_display_regular" />
+                            app:fontFamily="@font/sf_pro_text_semibold" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/day_6_temp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingTop="6dp"
                             android:text="-10°"
                             android:textColor="@color/white"
                             android:textSize="18sp"
-                            app:fontFamily="@font/sf_pro_display_regular" />
+                            app:fontFamily="@font/sf_pro_text_regular" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
