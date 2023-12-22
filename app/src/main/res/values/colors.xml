@@ -20,4 +20,6 @@
     <color name="middle_blue_sun_time_mountain">#FF4B6293</color>
     <color name="light_blue_sun_time_mountain">#FF8AA0CB</color>
     <color name="turquoise_blue_precipitation">#40CBD8</color>
+    <color name="blue_uv_bar">#3658B1</color>
+    <color name="pink_uv_bar">#E74394</color>
 </resources>
