@@ -3,18 +3,15 @@ package com.example.weatherapiapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.motion.widget.MotionLayout;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.app.DialogCompat;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
-import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -36,13 +33,7 @@ import com.bumptech.glide.Glide;
 import com.example.weatherapiapp.databinding.ActivityMainBinding;
 
 import java.lang.reflect.Field;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.Duration;
-import java.time.LocalTime;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
 //#freeCodeCamp.org (YT) | REST API - Network Data
@@ -86,10 +77,8 @@ public class MainActivity extends AppCompatActivity {
 //        binding = ActivityMainBinding.inflate(getLayoutInflater());
 //        View view = binding.getRoot();
 //        setContentView(view);
-        setContentView(R.layout.main);
+        setContentView(R.layout.activity_main);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-
-        Log.d(TAG, "onCreate: ");
 
         mainMotionLayout = findViewById(R.id.main_motion_layout);
         sunTimeMotionLayout = findViewById(R.id.sun_time);
@@ -367,96 +356,6 @@ public class MainActivity extends AppCompatActivity {
                     new Intent(MainActivity.this, CitiesActivity.class)
             );
         });
-
-
-        //Old buttons of activity_main (getWeather...)
-//        binding.btnGetCityLatL.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                weatherDataService.getCityLatL(binding.etDataInput.getText().toString(), new WeatherDataService.VolleyResponseListener() {
-//                    @Override
-//                    public void onError(String message) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onResponse(float cityLat2, float cityLon) {
-//                        //↑ this doesn't do anything if it's not called from Api response
-//                        /*
-//                        public void getCityLatL(String cityName, VolleyResponseListener volleyResponseListener) {...
-//
-//                            JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
-//
-//                                @Override
-//                                public void onResponse(JSONArray response) {
-//
-//                           ***         volleyResponseListener.onResponse(cityLat, cityLon);
-//                         */
-//
-//                        Toast.makeText(MainActivity.this, "Lat: " + cityLat2 + "\nLon: " + cityLon, Toast.LENGTH_LONG).show();
-//                    }
-//                });
-//
-//
-//            }//onClick
-//        });//setOnClickListener btn_getCityLatL
-//
-//
-//        binding.btnGetWeatherByLatL.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                float cityLat = 0, cityLon = 0;
-//
-//                try {
-//                    cityLat = Float.parseFloat(binding.etDataInput.getText().toString().substring(0, binding.etDataInput.getText().toString().indexOf(",")).trim());
-//                    cityLon = Float.parseFloat(binding.etDataInput.getText().toString().substring(binding.etDataInput.getText().toString().indexOf(",") + 1).trim());
-//                } catch (Exception e) {
-//                    Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_LONG).show();
-//                }
-//
-//
-//                weatherDataService.getCityForecastByLatL(cityLat, cityLon, new WeatherDataService.ForecastByLatLResponse() {
-//                    @Override
-//                    public void onError(String message) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onResponse(List<WeatherReportModel> weatherReportModels) {
-//                        ArrayAdapter arrayAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, weatherReportModels);
-//                        binding.lvWeatherReports.setAdapter(arrayAdapter);
-//                    }
-//                });
-//
-//            }//onClick
-//        });//setOnClickListener  btn_getWeatherByLatL
-//
-//
-//        binding.btnGetWeatherByCityName.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                weatherDataService.getCityForecastByName(binding.etDataInput.getText().toString(), new WeatherDataService.GetCityForecastByNameCallback() {
-//                    @Override
-//                    public void onError(String message) {
-//
-//                        Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
-//
-//                    }
-//
-//                    @Override
-//                    public void onResponse(List<WeatherReportModel> weatherReportModels) {
-//
-//                        ArrayAdapter arrayAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, weatherReportModels);
-//                        binding.lvWeatherReports.setAdapter(arrayAdapter);
-//
-//                    }
-//                });
-//
-//            }
-//        });//setOnClickListener btn_getWeatherByName
 
     }//onCreate
 
