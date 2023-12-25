@@ -446,8 +446,12 @@ public class MainActivity extends AppCompatActivity {
                         txtMainHTemp.setText(hTemp);
                         String lTemp = "L:" + (int) weatherReportModelShort.getTemperature_2m_min() + "°";
                         txtMainLTemp.setText(lTemp);
-                        String city = weatherReportModelShort.getCity();
-                        txtMainCity.setText(city);
+                        String cityOrCountry;
+                        if (weatherReportModelShort.getCity().equals(""))
+                            cityOrCountry = weatherReportModelShort.getCountry();
+                        else
+                            cityOrCountry = weatherReportModelShort.getCity();
+                        txtMainCity.setText(cityOrCountry);
                         String conditionDescription = weatherReportModelShort.getConditionDescription();
                         txtMainConditionDescription.setText(conditionDescription);
                     }

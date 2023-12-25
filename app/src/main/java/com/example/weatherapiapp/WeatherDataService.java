@@ -68,11 +68,16 @@ public class WeatherDataService {
                             weatherReportModelShort.setLat(cityLat);
                             weatherReportModelShort.setLon(cityLon);
                             String displayName = cityInfo.getString("display_name");
-                            Log.d(TAG, "onResponse: cityInfo "+cityInfo);
-                            Log.d(TAG, "onResponse: cityInfo displayName "+displayName);
-                            String city = displayName.substring(0, displayName.indexOf(','));
-                            Log.d(TAG, "onResponse: cityInfo city "+city);
-                            String country = displayName.substring(displayName.lastIndexOf(',') + 2);
+                            String addressType = cityInfo.getString("addresstype");
+                            String city;
+                            String country;
+                            if (addressType.equals("country")) {
+                                city = "";
+                                country = displayName;
+                            } else {
+                                city = displayName.substring(0, displayName.indexOf(','));
+                                country = displayName.substring(displayName.lastIndexOf(',') + 2);
+                            }
                             Log.d(TAG, "onResponse: getCityLatL " + city + " - " + country);
                             weatherReportModelShort.setCity(city);
                             weatherReportModelShort.setCountry(country);
