@@ -8,7 +8,6 @@
         motion:duration="3000"
         motion:motionInterpolator="linear"
         motion:pathMotionArc="startHorizontal">
-<!--        motion:motionInterpolator="bounce"-->
 
         <KeyFrameSet>
             <KeyPosition
@@ -46,9 +45,5 @@
             android:layout_marginStart="1dp"
             android:layout_marginTop="-4dp"
             android:rotation="360" />
-        <!--            motion:layout_constraintEnd_toEndOf="@id/wind_compass"-->
-        <!--            motion:layout_constraintTop_toTopOf="@id/wind_compass"-->
-        <!--            motion:layout_constraintStart_toStartOf="@id/wind_compass"-->
-        <!--            motion:layout_constraintBottom_toBottomOf="@id/wind_compass"-->
     </ConstraintSet>
 </MotionScene>

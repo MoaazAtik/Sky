@@ -14,7 +14,6 @@
                 motion:keyPositionType="pathRelative"
                 motion:motionTarget="@+id/thumb_night"
                 motion:percentY="-0.28" />
-            <!--               motion:percentY="-0.229" />-->
             <KeyPosition
                 motion:framePosition="50"
                 motion:keyPositionType="pathRelative"
@@ -25,7 +24,6 @@
                 android:alpha="0"
                 motion:framePosition="8"
                 motion:motionTarget="@+id/thumb_day" />
-            <!--               motion:framePosition="16"-->
             <KeyAttribute
                 android:alpha="1"
                 motion:framePosition="50"

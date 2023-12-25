@@ -10,7 +10,7 @@
     android:paddingBottom="32dp"
     tools:background="@drawable/bottom_sheet_open">
 
-    <!--        UV index widget-->
+    <!--  UV index widget  -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/uv_index"
         android:layout_width="164dp"
@@ -79,7 +79,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!--        Sun time widget-->
+    <!--  Sun time widget  -->
     <androidx.constraintlayout.motion.widget.MotionLayout
         android:id="@+id/sun_time"
         android:layout_width="164dp"
@@ -119,7 +119,7 @@
             app:layout_constraintStart_toStartOf="@id/widget_sun_time_title"
             app:layout_constraintTop_toBottomOf="@id/widget_sun_time_title" />
 
-        <!--            Mountain sun time progress-->
+        <!--  Mountain sun time progress  -->
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/mountain_sun_time_progress"
             android:layout_width="180dp"
@@ -131,7 +131,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/sun_time_mountain_progress" />
 
-        <!--            Moon - Thumb night of sun time progress -->
+        <!--  Moon - Thumb night of sun time progress   -->
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/thumb_night"
             android:layout_width="6dp"
@@ -142,7 +142,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/thumb_night_sun_time_bar" />
 
-        <!--            Sunshine - Thumb day of sun time progress -->
+        <!--  Sunshine - Thumb day of sun time progress   -->
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/thumb_day"
             android:layout_width="24dp"
@@ -170,7 +170,7 @@
 
     </androidx.constraintlayout.motion.widget.MotionLayout>
 
-    <!--        Wind widget-->
+    <!--  Wind widget  -->
     <androidx.constraintlayout.motion.widget.MotionLayout
         android:id="@+id/wind"
         android:layout_width="164dp"
@@ -182,7 +182,7 @@
         app:layout_constraintEnd_toStartOf="@id/rainfall"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/uv_index">
-        <!--        tools:showPaths="true"-->
+        <!--  tools:showPaths="true"  -->
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/widget_wind_title"
@@ -253,7 +253,7 @@
             app:srcCompat="@drawable/wind_direction_indicator" />
     </androidx.constraintlayout.motion.widget.MotionLayout>
 
-    <!--        Rainfall widget-->
+    <!--  Rainfall widget  -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/rainfall"
         android:layout_width="164dp"
@@ -322,7 +322,7 @@
             app:layout_constraintStart_toStartOf="@id/widget_rainfall_title" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!--        Feels like widget-->
+    <!--  Feels like widget  -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/feels_like"
         android:layout_width="164dp"
@@ -378,7 +378,7 @@
             app:layout_constraintStart_toStartOf="@id/widget_feels_like_title" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!--        Humidity widget-->
+    <!--  Humidity widget  -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/humidity"
         android:layout_width="164dp"
@@ -432,7 +432,7 @@
             app:layout_constraintStart_toStartOf="@id/widget_humidity_title" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!--        Visibility widget-->
+    <!--  Visibility widget  -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/visibility"
         android:layout_width="164dp"
@@ -488,7 +488,7 @@
             app:layout_constraintStart_toStartOf="@id/widget_visibility_title" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!--        Logo-->
+    <!--  Logo  -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/logo"
         android:layout_width="164dp"

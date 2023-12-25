@@ -68,7 +68,6 @@
             android:textColorHint="@color/pale_blue_back_btn"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_back" />
-        <!--            android:focusedByDefault="false"-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
@@ -98,7 +97,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-            <!--                tools:listitem="@layout/city_widget"-->
+            <!--  tools:listitem="@layout/city_widget"  -->
 
             <View
                 android:id="@+id/rv_bottom_padding"
@@ -111,25 +110,4 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
-    <!--    <androidx.appcompat.widget.AppCompatImageView-->
-    <!--        android:id="@+id/city_tab_bar_front"-->
-    <!--        android:layout_width="258dp"-->
-    <!--        android:layout_height="100dp"-->
-    <!--        android:scaleType="fitXY"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:srcCompat="@drawable/tabbar_front" />-->
-
-    <!--    <androidx.appcompat.widget.AppCompatButton-->
-    <!--        android:id="@+id/btn_cities_add_city"-->
-    <!--        android:layout_width="120dp"-->
-    <!--        android:layout_height="120dp"-->
-    <!--        android:layout_marginTop="-10dp"-->
-    <!--        android:background="@drawable/plus_button"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="@id/city_tab_bar_front" />-->
-
 </androidx.constraintlayout.widget.ConstraintLayout>
