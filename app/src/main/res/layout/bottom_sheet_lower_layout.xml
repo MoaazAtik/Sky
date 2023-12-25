@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="16dp"
+    android:paddingStart="8dp"
     android:paddingTop="32dp"
-    android:paddingEnd="16dp"
+    android:paddingEnd="8dp"
     android:paddingBottom="32dp"
     tools:background="@drawable/bottom_sheet_open">
 
@@ -218,6 +218,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:fontFamily="@font/sf_pro_text_regular"
+            android:gravity="center"
             android:text="9.7"
             android:textColor="@color/white"
             android:textSize="24sp"

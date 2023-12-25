@@ -49,6 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="-10dp"
             android:fontFamily="@font/sf_pro_display_regular"
+            android:gravity="center"
             android:text="Montreal"
             android:textColor="@color/white"
             android:textSize="34sp"

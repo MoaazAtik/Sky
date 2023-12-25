@@ -440,20 +440,20 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(List<WeatherReportModelShort> weatherReportModels) {
                         WeatherReportModelShort weatherReportModelShort = weatherReportModels.get(0);
 
-                        String temp = (int) weatherReportModelShort.getTemperature_2m() + "°";
-                        txtMainTemp.setText(temp);
-                        String hTemp = "H:" + (int) weatherReportModelShort.getTemperature_2m_max() + "°";
-                        txtMainHTemp.setText(hTemp);
-                        String lTemp = "L:" + (int) weatherReportModelShort.getTemperature_2m_min() + "°";
-                        txtMainLTemp.setText(lTemp);
                         String cityOrCountry;
                         if (weatherReportModelShort.getCity().equals(""))
                             cityOrCountry = weatherReportModelShort.getCountry();
                         else
                             cityOrCountry = weatherReportModelShort.getCity();
                         txtMainCity.setText(cityOrCountry);
+                        String temp = (int) weatherReportModelShort.getTemperature_2m() + "°";
+                        txtMainTemp.setText(temp);
                         String conditionDescription = weatherReportModelShort.getConditionDescription();
                         txtMainConditionDescription.setText(conditionDescription);
+                        String hTemp = "H:" + (int) weatherReportModelShort.getTemperature_2m_max() + "°";
+                        txtMainHTemp.setText(hTemp);
+                        String lTemp = "L:" + (int) weatherReportModelShort.getTemperature_2m_min() + "°";
+                        txtMainLTemp.setText(lTemp);
                     }
                 });
     } // getForecastShort
