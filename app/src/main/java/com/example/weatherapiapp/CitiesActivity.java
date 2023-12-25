@@ -134,9 +134,9 @@ public class CitiesActivity extends AppCompatActivity {
                 }
 
                 /*
-                Earlier Calls are not always providing earlier Responses which is Mixing the cities Order.
-                To fix this I utilized a Queue, created queueIsIdle boolean, and let the worker (background) Thread to Check repeatedly if the Queue is Idle API Calls.
-                This gives the calls some time to respond to ensures getting Responses in the order of Calling.
+                Earlier calls do not always yield earlier responses, leading to a mix-up in the order of cities.
+                To fix this I utilized a Queue, created queueIsIdle boolean, and let the worker (background) Thread to Check repeatedly if the Queue is Idle for API Calls.
+                This approach provides the calls with sufficient time to respond, ensuring that responses are received in the order of calling.
                  */
                 long startDequeueingTime = System.currentTimeMillis();
                 while (!namesQueue.isEmpty()) {

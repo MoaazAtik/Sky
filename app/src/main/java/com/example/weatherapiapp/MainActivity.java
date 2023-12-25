@@ -30,23 +30,18 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.weatherapiapp.databinding.ActivityMainBinding;
 
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Objects;
 
-//#freeCodeCamp.org (YT) | REST API - Network Data
 public class MainActivity extends AppCompatActivity {
 
     /*
      Get city latitude and longitude from nominatim.org, then get the city's weather from open-meteo.com
-     I used city latitude and longitude instead of city id.
      */
 
     private static final String TAG = "MainActivity";
-
-    private ActivityMainBinding binding;
 
     private MotionLayout mainMotionLayout, sunTimeMotionLayout, windMotionLayout;
     private AppCompatTextView txtMainCity, txtMainTemp, txtMainHTemp, txtMainLTemp, txtMainConditionDescription;
@@ -74,9 +69,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        binding = ActivityMainBinding.inflate(getLayoutInflater());
-//        View view = binding.getRoot();
-//        setContentView(view);
         setContentView(R.layout.activity_main);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
@@ -387,7 +379,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.MyDialogTheme);
 
         // Inflate a custom layout for the dialog content
@@ -419,16 +410,6 @@ public class MainActivity extends AppCompatActivity {
 
             dialog.dismiss();
         });
-
-//        // set OnDismissListener for the dialog
-//        // onDismiss will be called when btnCancel, device's back button, or outside the dialog box is clicked.
-//        // Eventually showMoreInformationDialog() is called in all situations even if btnFix is clicked.
-//        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-//            @Override
-//            public void onDismiss(DialogInterface dialog) {
-//                showMoreInformationDialog();
-//            }
-//        });
     }
 
     /**
@@ -535,7 +516,6 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i < weatherReportModels.size(); i++) {
 
-//            currentModel = (T) weatherReportModels.get(i); // do I need the casting?
             currentModel = weatherReportModels.get(i);
 
             if (hourlyOrDaily == 0) {

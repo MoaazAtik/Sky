@@ -26,8 +26,8 @@ public class ModifiedMotionLayout extends MotionLayout {
     }
 
     /*
-    I designed the MotionLayout not to intercept and consume (not passing to other views) touches by returning false,
-    except during swiping (scrolling/ACTION_MOVE), to allow the buttons on the Bottom Sheet to be clicked.
+    I designed the MotionLayout to refrain from intercepting and consuming touches (not passing them to other views) by returning false,
+    except during swiping (scrolling/ACTION_MOVE). This allows the buttons on the Bottom Sheet to be clicked.
      */
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {

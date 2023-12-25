@@ -36,7 +36,6 @@ public class WeatherReportModelShort {
     @NonNull
     @Override
     public String toString() {
-//        return super.toString();
         return "WeatherReportModelShort{" +
                 "Latitude: " + lat +
                 ", Longitude: " + lon +

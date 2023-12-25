@@ -41,7 +41,6 @@ public class WeatherDataService {
     public interface ListenerGetCityLatL {
         void onError(String message);
 
-//        void onResponse(float cityLat1, float cityLon);
         void onResponse(WeatherReportModelShort weatherReportModelShort);
     }
 
@@ -69,7 +68,10 @@ public class WeatherDataService {
                             weatherReportModelShort.setLat(cityLat);
                             weatherReportModelShort.setLon(cityLon);
                             String displayName = cityInfo.getString("display_name");
+                            Log.d(TAG, "onResponse: cityInfo "+cityInfo);
+                            Log.d(TAG, "onResponse: cityInfo displayName "+displayName);
                             String city = displayName.substring(0, displayName.indexOf(','));
+                            Log.d(TAG, "onResponse: cityInfo city "+city);
                             String country = displayName.substring(displayName.lastIndexOf(',') + 2);
                             Log.d(TAG, "onResponse: getCityLatL " + city + " - " + country);
                             weatherReportModelShort.setCity(city);
@@ -80,7 +82,6 @@ public class WeatherDataService {
                         }
 
                         listenerGetCityLatL.onResponse(weatherReportModelShort);
-                        //↑ actually this is doing the job (passing cityLat received from the Api to the MainActivity's onClick)
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -140,8 +141,6 @@ public class WeatherDataService {
                             weatherReportModelShort.setIs_day(current.getInt("is_day"));
                             weatherReportModelShort.setWeather_code(current.getInt("weather_code"));
 
-                            // maybe i will use a single weatherReportModel instead of a list
-//                            weatherReportModels.add(one_day_weather);
                             weatherReportModels.add(weatherReportModelShort);
                             listenerGetForecastByLatL.onResponse(weatherReportModels);
                         } catch (JSONException e) {
@@ -214,7 +213,7 @@ public class WeatherDataService {
                                 weatherReportModelHourly.setWeather_code(weather_code.getInt(i));
                                 weatherReportModels.add(weatherReportModelHourly);
                             }
-//                            Log.d(TAG, "onResponse: getForecastByLatLHourly Hourly weatherReportModels " + weatherReportModels);
+
                             listenerGetForecastByLatL.onResponse(weatherReportModels);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -271,7 +270,7 @@ public class WeatherDataService {
                                 weatherReportModelDaily.setWeather_code(weather_code.getInt(i));
                                 weatherReportModels.add(weatherReportModelDaily);
                             }
-//                            Log.d(TAG, "onResponse: getForecastByLatLDaily Daily weatherReportModels " + weatherReportModels);
+
                             listenerGetForecastByLatL.onResponse(weatherReportModels);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -337,7 +336,6 @@ public class WeatherDataService {
                     listenerGetForecastByLatL.onResponse(weatherReportModels);
 
                 } catch (JSONException e) {
-//                    throw new RuntimeException(e);
                     e.printStackTrace();
                     Log.d(TAG, "onResponse: getForecastByLatLDetailed " + e);
                 }
@@ -369,11 +367,9 @@ public class WeatherDataService {
             }
 
             @Override
-//            public void onResponse(float cityLat1, float cityLon) {
             public void onResponse(WeatherReportModelShort weatherReportModelShort) {
                 switch (forecastType) {
                     case 0:
-//                    getForecastByLatLShort(cityLat1, cityLon, new ListenerGetForecastByLatL<WeatherReportModelShort>() {
                         getForecastByLatLShort(weatherReportModelShort, new ListenerGetForecastByLatL<WeatherReportModelShort>() {
                             @Override
                             public void onError(String message) {
