@@ -1,86 +1,51 @@
-package com.example.weatherapiapp;
+package com.example.sky;
 
-import androidx.annotation.NonNull;
+// Used in the Upper part of the bottom sheet for Hourly forecasts
+public class WeatherReportModelHourly {
 
-public class WeatherReportModelShort {
+    private static final String TAG = "ModelHourly";
 
-    private float lat;
-    private float lon;
-    private String city;
-    private String country;
-    private float temperature_2m; // From Current weather.
-    private float temperature_2m_max;
-    private float temperature_2m_min;
-    private int is_day; // 0: Night, 1: Day. From Current weather.
+    private String time;
+    private float temperature_2m;
+    private int precipitation_probability;
+    private int is_day; // 0: Night, 1: Day.
     private int weather_code; // WMO Weather Code
 
     private String conditionDescription;
     private int conditionImageId;
 
-    public WeatherReportModelShort(float lat, float lon, String city, String country, float temperature_2m, float temperature_2m_max, float temperature_2m_min, int is_day, int weather_code, String conditionDescription) {
-        this.lat = lat;
-        this.lon = lon;
-        this.city = city;
-        this.country = country;
+    public WeatherReportModelHourly(String time, float temperature_2m, int precipitation_probability, int is_day, int weather_code, String conditionDescription, int conditionImageId) {
+        this.time = time;
         this.temperature_2m = temperature_2m;
-        this.temperature_2m_max = temperature_2m_max;
-        this.temperature_2m_min = temperature_2m_min;
+        this.precipitation_probability = precipitation_probability;
         this.is_day = is_day;
         this.weather_code = weather_code;
         this.conditionDescription = conditionDescription;
     }
 
-    public WeatherReportModelShort() {
+    public WeatherReportModelHourly() {
+
     }
 
-    @NonNull
     @Override
     public String toString() {
-        return "WeatherReportModelShort{" +
-                "Latitude: " + lat +
-                ", Longitude: " + lon +
-                ", City: " + city +
-                ", Country: " + country +
-                ", Temperature: " + temperature_2m +
-                ", Max Temperature: " + temperature_2m_max +
-                ", Min Temperature: " + temperature_2m_min +
+        return "WeatherReportModelHourly{" +
+                "time='" + time + '\'' +
+                ", temperature_2m=" + temperature_2m +
+                ", precipitation_probability=" + precipitation_probability +
                 ", is_day=" + is_day +
                 ", weather_code=" + weather_code +
-                ", conditionDescription='" + conditionDescription + '\'' +
-                ", conditionImageId=" + conditionImageId +
+                ", conditionDescription='" + conditionDescription +
+                ", conditionImageId='" + conditionImageId + '\'' +
                 '}';
     }
 
-    public float getLat() {
-        return lat;
+    public String getTime() {
+        return time;
     }
 
-    public void setLat(float lat) {
-        this.lat = lat;
-    }
-
-    public float getLon() {
-        return lon;
-    }
-
-    public void setLon(float lon) {
-        this.lon = lon;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public float getTemperature_2m() {
@@ -91,20 +56,12 @@ public class WeatherReportModelShort {
         this.temperature_2m = temperature_2m;
     }
 
-    public float getTemperature_2m_max() {
-        return temperature_2m_max;
+    public int getPrecipitation_probability() {
+        return precipitation_probability;
     }
 
-    public void setTemperature_2m_max(float temperature_2m_max) {
-        this.temperature_2m_max = temperature_2m_max;
-    }
-
-    public float getTemperature_2m_min() {
-        return temperature_2m_min;
-    }
-
-    public void setTemperature_2m_min(float temperature_2m_min) {
-        this.temperature_2m_min = temperature_2m_min;
+    public void setPrecipitation_probability(int precipitation_probability) {
+        this.precipitation_probability = precipitation_probability;
     }
 
     public int getIs_day() {

@@ -1,4 +1,4 @@
-package com.example.weatherapiapp;
+package com.example.sky;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;

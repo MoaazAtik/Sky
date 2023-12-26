@@ -1,4 +1,4 @@
-package com.example.weatherapiapp;
+package com.example.sky;
 
 import static android.content.Context.MODE_PRIVATE;
 

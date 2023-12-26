@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/app_icon_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.WeatherAPIApp"
+        android:theme="@style/Theme.Sky"
         tools:targetApi="34">
         <activity
             android:name=".MainActivity"

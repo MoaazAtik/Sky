@@ -1,4 +1,4 @@
-package com.example.weatherapiapp;
+package com.example.sky;
 
 import android.os.Bundle;
 import android.util.Log;
