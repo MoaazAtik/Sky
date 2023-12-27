@@ -5,44 +5,30 @@
     android:layout_height="wrap_content"
     android:background="@drawable/home_dialog_background"
     android:padding="24dp">
-    <!--    android:background="@color/dark_purple_widget_border"-->
 
     <TextView
         android:id="@+id/txt_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/sf_pro_display_semibold"
+        android:fontFamily="@font/sf_pro_text_semibold"
         android:text="Choose Home City"
-        android:textColor="@color/gray_widget_title"
+        android:textColor="@color/white"
         android:textSize="24sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txt_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/sf_pro_display_regular"
-        android:text="Set home city"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txt_title" />
 
     <CheckBox
         android:id="@+id/checkbox_dont_show_again"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16sp"
-        android:fontFamily="@font/sf_pro_display_regular"
+        android:fontFamily="@font/sf_pro_text_light"
         android:text="Don't show again"
         android:textColor="@color/white"
         android:textSize="16sp"
         android:theme="@style/MyCheckboxTheme"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txt_message" />
+        app:layout_constraintTop_toBottomOf="@id/txt_title" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_cancel"
@@ -50,7 +36,7 @@
         android:layout_width="110dp"
         android:layout_height="60dp"
         android:layout_marginEnd="16dp"
-        android:fontFamily="@font/sf_pro_display_regular"
+        android:fontFamily="@font/sf_pro_text_regular"
         android:text="Cancel"
         android:textSize="16sp"
         android:theme="@style/MyCancelTheme"
@@ -63,13 +49,12 @@
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_marginTop="32dp"
-        android:backgroundTint="@color/black"
-        android:fontFamily="@font/sf_pro_display_regular"
+        android:backgroundTint="@color/white"
+        android:fontFamily="@font/sf_pro_text_semibold"
         android:text="Set City"
+        android:textColor="#5A46B3"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/checkbox_dont_show_again" />
-    <!--        android:layout_width="140dp"-->
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,7 +8,6 @@
         motion:duration="3000"
         motion:motionInterpolator="linear"
         motion:pathMotionArc="startHorizontal">
-<!--        motion:motionInterpolator="bounce"-->
 
         <KeyFrameSet>
             <KeyPosition
@@ -17,21 +16,21 @@
                 motion:motionTarget="@+id/wind_direction_indicator"
                 motion:pathMotionArc="flip"
                 motion:percentX="0.88"
-                motion:percentY="0.615" />
+                motion:percentY="0.58" />
             <KeyPosition
                 motion:framePosition="50"
                 motion:keyPositionType="parentRelative"
                 motion:motionTarget="@+id/wind_direction_indicator"
                 motion:pathMotionArc="startHorizontal"
-                motion:percentX="0.512"
-                motion:percentY="0.99" />
+                motion:percentX="0.518"
+                motion:percentY="0.95" />
             <KeyPosition
                 motion:framePosition="75"
                 motion:keyPositionType="parentRelative"
                 motion:motionTarget="@+id/wind_direction_indicator"
                 motion:pathMotionArc="flip"
-                motion:percentX="0.12"
-                motion:percentY="0.63" />
+                motion:percentX="0.13"
+                motion:percentY="0.60" />
 
         </KeyFrameSet>
     </Transition>
@@ -46,9 +45,5 @@
             android:layout_marginStart="1dp"
             android:layout_marginTop="-4dp"
             android:rotation="360" />
-        <!--            motion:layout_constraintEnd_toEndOf="@id/wind_compass"-->
-        <!--            motion:layout_constraintTop_toTopOf="@id/wind_compass"-->
-        <!--            motion:layout_constraintStart_toStartOf="@id/wind_compass"-->
-        <!--            motion:layout_constraintBottom_toBottomOf="@id/wind_compass"-->
     </ConstraintSet>
 </MotionScene>

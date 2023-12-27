@@ -1,26 +1,26 @@
-package com.example.weatherapiapp;
+package com.example.sky;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.motion.widget.MotionLayout;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.app.DialogCompat;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
-import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
@@ -30,29 +30,18 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.weatherapiapp.databinding.ActivityMainBinding;
 
 import java.lang.reflect.Field;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.Duration;
-import java.time.LocalTime;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
-//#freeCodeCamp.org (YT) | REST API - Network Data
 public class MainActivity extends AppCompatActivity {
 
     /*
      Get city latitude and longitude from nominatim.org, then get the city's weather from open-meteo.com
-     I used city latitude and longitude instead of city id.
      */
 
     private static final String TAG = "MainActivity";
-
-    private ActivityMainBinding binding;
 
     private MotionLayout mainMotionLayout, sunTimeMotionLayout, windMotionLayout;
     private AppCompatTextView txtMainCity, txtMainTemp, txtMainHTemp, txtMainLTemp, txtMainConditionDescription;
@@ -80,12 +69,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        binding = ActivityMainBinding.inflate(getLayoutInflater());
-//        View view = binding.getRoot();
-//        setContentView(view);
-        setContentView(R.layout.main);
-
-        Log.d(TAG, "onCreate: ");
+        setContentView(R.layout.activity_main);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
         mainMotionLayout = findViewById(R.id.main_motion_layout);
         sunTimeMotionLayout = findViewById(R.id.sun_time);
@@ -97,9 +82,9 @@ public class MainActivity extends AppCompatActivity {
         HorizontalScrollView horizontalScrollViewDaily = findViewById(R.id.daily_forecast_sv);
         AppCompatImageView underline = findViewById(R.id.underline);
         ConstraintLayout tabBar = findViewById(R.id.tab_bar);
-        AppCompatButton btnHomePlus = findViewById(R.id.btn_home_plus);
-        AppCompatButton btnHomeExpand = findViewById(R.id.btn_home_expand);
-        AppCompatButton btnHomeCitiesList = findViewById(R.id.btn_home_cities_list);
+        AppCompatImageButton btnHomePlus = findViewById(R.id.btn_home_plus);
+        AppCompatImageButton btnHomeExpand = findViewById(R.id.btn_home_expand);
+        AppCompatImageButton btnHomeCitiesList = findViewById(R.id.btn_home_cities_list);
 
         txtMainCity = findViewById(R.id.txt_home_city);
         txtMainTemp = findViewById(R.id.txt_home_temp);
@@ -194,8 +179,9 @@ public class MainActivity extends AppCompatActivity {
         txtVisibilityDescription = findViewById(R.id.txt_visibility_description);
         seekBarUvIndex = findViewById(R.id.seekbar_uv_index);
 
-
-        showHomeCityDialog();
+        new Handler().postDelayed(
+                () -> showHomeCityDialog(),
+                3000);
 
         // Get current Home City Preference
         homeCity = getSharedPreferences("MyPrefs", MODE_PRIVATE)
@@ -363,96 +349,6 @@ public class MainActivity extends AppCompatActivity {
             );
         });
 
-
-        //Old buttons of activity_main (getWeather...)
-//        binding.btnGetCityLatL.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                weatherDataService.getCityLatL(binding.etDataInput.getText().toString(), new WeatherDataService.VolleyResponseListener() {
-//                    @Override
-//                    public void onError(String message) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onResponse(float cityLat2, float cityLon) {
-//                        //↑ this doesn't do anything if it's not called from Api response
-//                        /*
-//                        public void getCityLatL(String cityName, VolleyResponseListener volleyResponseListener) {...
-//
-//                            JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
-//
-//                                @Override
-//                                public void onResponse(JSONArray response) {
-//
-//                           ***         volleyResponseListener.onResponse(cityLat, cityLon);
-//                         */
-//
-//                        Toast.makeText(MainActivity.this, "Lat: " + cityLat2 + "\nLon: " + cityLon, Toast.LENGTH_LONG).show();
-//                    }
-//                });
-//
-//
-//            }//onClick
-//        });//setOnClickListener btn_getCityLatL
-//
-//
-//        binding.btnGetWeatherByLatL.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                float cityLat = 0, cityLon = 0;
-//
-//                try {
-//                    cityLat = Float.parseFloat(binding.etDataInput.getText().toString().substring(0, binding.etDataInput.getText().toString().indexOf(",")).trim());
-//                    cityLon = Float.parseFloat(binding.etDataInput.getText().toString().substring(binding.etDataInput.getText().toString().indexOf(",") + 1).trim());
-//                } catch (Exception e) {
-//                    Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_LONG).show();
-//                }
-//
-//
-//                weatherDataService.getCityForecastByLatL(cityLat, cityLon, new WeatherDataService.ForecastByLatLResponse() {
-//                    @Override
-//                    public void onError(String message) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onResponse(List<WeatherReportModel> weatherReportModels) {
-//                        ArrayAdapter arrayAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, weatherReportModels);
-//                        binding.lvWeatherReports.setAdapter(arrayAdapter);
-//                    }
-//                });
-//
-//            }//onClick
-//        });//setOnClickListener  btn_getWeatherByLatL
-//
-//
-//        binding.btnGetWeatherByCityName.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                weatherDataService.getCityForecastByName(binding.etDataInput.getText().toString(), new WeatherDataService.GetCityForecastByNameCallback() {
-//                    @Override
-//                    public void onError(String message) {
-//
-//                        Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
-//
-//                    }
-//
-//                    @Override
-//                    public void onResponse(List<WeatherReportModel> weatherReportModels) {
-//
-//                        ArrayAdapter arrayAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, weatherReportModels);
-//                        binding.lvWeatherReports.setAdapter(arrayAdapter);
-//
-//                    }
-//                });
-//
-//            }
-//        });//setOnClickListener btn_getWeatherByName
-
     }//onCreate
 
     @Override
@@ -483,7 +379,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.MyDialogTheme);
 
         // Inflate a custom layout for the dialog content
@@ -515,16 +410,6 @@ public class MainActivity extends AppCompatActivity {
 
             dialog.dismiss();
         });
-
-//        // set OnDismissListener for the dialog
-//        // onDismiss will be called when btnCancel, device's back button, or outside the dialog box is clicked.
-//        // Eventually showMoreInformationDialog() is called in all situations even if btnFix is clicked.
-//        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-//            @Override
-//            public void onDismiss(DialogInterface dialog) {
-//                showMoreInformationDialog();
-//            }
-//        });
     }
 
     /**
@@ -547,26 +432,28 @@ public class MainActivity extends AppCompatActivity {
                 0, new WeatherDataService.ListenerGetForecastByLatL<WeatherReportModelShort>() {
                     @Override
                     public void onError(String message) {
-                        Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
                         Log.d(TAG, "onError: getForecastShort " + message);
+                        Toast.makeText(MainActivity.this, "Couldn't get Main forecast", Toast.LENGTH_LONG).show();
                     }
 
                     @Override
                     public void onResponse(List<WeatherReportModelShort> weatherReportModels) {
-
-                        Toast.makeText(MainActivity.this, "O  K", Toast.LENGTH_SHORT).show();
                         WeatherReportModelShort weatherReportModelShort = weatherReportModels.get(0);
 
+                        String cityOrCountry;
+                        if (weatherReportModelShort.getCity().equals(""))
+                            cityOrCountry = weatherReportModelShort.getCountry();
+                        else
+                            cityOrCountry = weatherReportModelShort.getCity();
+                        txtMainCity.setText(cityOrCountry);
                         String temp = (int) weatherReportModelShort.getTemperature_2m() + "°";
                         txtMainTemp.setText(temp);
+                        String conditionDescription = weatherReportModelShort.getConditionDescription();
+                        txtMainConditionDescription.setText(conditionDescription);
                         String hTemp = "H:" + (int) weatherReportModelShort.getTemperature_2m_max() + "°";
                         txtMainHTemp.setText(hTemp);
                         String lTemp = "L:" + (int) weatherReportModelShort.getTemperature_2m_min() + "°";
                         txtMainLTemp.setText(lTemp);
-                        String cityCountry = weatherReportModelShort.getCity() + ", " + weatherReportModelShort.getCountry();
-                        txtMainCity.setText(cityCountry);
-                        String conditionDescription = weatherReportModelShort.getConditionDescription();
-                        txtMainConditionDescription.setText(conditionDescription);
                     }
                 });
     } // getForecastShort
@@ -580,6 +467,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onError(String message) {
                 Log.d(TAG, "onError: getForecastHourly " + message);
+                Toast.makeText(MainActivity.this, "Couldn't get Hourly forecast", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -599,6 +487,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onError(String message) {
                 Log.d(TAG, "onError: getForecastDaily " + message);
+                Toast.makeText(MainActivity.this, "Couldn't get Daily forecast", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -631,7 +520,6 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i < weatherReportModels.size(); i++) {
 
-//            currentModel = (T) weatherReportModels.get(i); // do I need the casting?
             currentModel = weatherReportModels.get(i);
 
             if (hourlyOrDaily == 0) {
@@ -712,7 +600,8 @@ public class MainActivity extends AppCompatActivity {
         weatherDataService.getForecastByName(homeCity, 3, new WeatherDataService.ListenerGetForecastByLatL<WeatherReportModelDetailed>() {
             @Override
             public void onError(String message) {
-                Log.d(TAG, "onError: getForecastDetailed");
+                Log.d(TAG, "onError: getForecastDetailed " + message);
+                Toast.makeText(MainActivity.this, "Couldn't get Detailed forecast", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -771,8 +660,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onTransitionChange(MotionLayout motionLayout, int startId, int endId, float progress) {
-//            if (!firstFullSunTimeAnimation && progress > sunTimeProgress) {
-            if ( progress > sunTimeProgress) { // delete this
+            if (!firstFullSunTimeAnimation && progress > sunTimeProgress) {
                 sunTimeMotionLayout.setProgress(sunTimeProgress);
             }
         }

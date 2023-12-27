@@ -1,42 +1,47 @@
-package com.example.weatherapiapp;
+package com.example.sky;
 
-// Used in the Upper part of the bottom sheet for Hourly forecasts
-public class WeatherReportModelHourly {
+// Used in the Upper part of the bottom sheet for Daily forecasts
+public class WeatherReportModelDaily {
 
-    private static final String TAG = "ModelHourly";
+    private static final String TAG = "ModelDaily";
 
     private String time;
-    private float temperature_2m;
-    private int precipitation_probability;
-    private int is_day; // 0: Night, 1: Day.
+    private float temperature_2m_max;
+    private float temperature_2m_min;
+    private float temperature_2m; // calculated
+    private int precipitation_probability_max;
+    private int is_day; // 0: Night, 1: Day. From Current weather.
     private int weather_code; // WMO Weather Code
 
     private String conditionDescription;
     private int conditionImageId;
 
-    public WeatherReportModelHourly(String time, float temperature_2m, int precipitation_probability, int is_day, int weather_code, String conditionDescription, int conditionImageId) {
+    public WeatherReportModelDaily(String time, float temperature_2m_max, float temperature_2m_min, int precipitation_probability_max, int is_day, int weather_code, String conditionDescription) {
         this.time = time;
-        this.temperature_2m = temperature_2m;
-        this.precipitation_probability = precipitation_probability;
+        this.temperature_2m_max = temperature_2m_max;
+        this.temperature_2m_min = temperature_2m_min;
+        this.precipitation_probability_max = precipitation_probability_max;
         this.is_day = is_day;
         this.weather_code = weather_code;
         this.conditionDescription = conditionDescription;
     }
 
-    public WeatherReportModelHourly() {
+    public WeatherReportModelDaily() {
 
     }
 
     @Override
     public String toString() {
-        return "WeatherReportModelHourly{" +
+        return "WeatherReportModelDaily{" +
                 "time='" + time + '\'' +
+                ", temperature_2m_max=" + temperature_2m_max +
+                ", temperature_2m_min=" + temperature_2m_min +
                 ", temperature_2m=" + temperature_2m +
-                ", precipitation_probability=" + precipitation_probability +
+                ", precipitation_probability_max=" + precipitation_probability_max +
                 ", is_day=" + is_day +
                 ", weather_code=" + weather_code +
-                ", conditionDescription='" + conditionDescription +
-                ", conditionImageId='" + conditionImageId + '\'' +
+                ", conditionDescription='" + conditionDescription + '\'' +
+                ", conditionImageId=" + conditionImageId +
                 '}';
     }
 
@@ -48,20 +53,37 @@ public class WeatherReportModelHourly {
         this.time = time;
     }
 
+    public float getTemperature_2m_max() {
+        return temperature_2m_max;
+    }
+
+    public void setTemperature_2m_max(float temperature_2m_max) {
+        this.temperature_2m_max = temperature_2m_max;
+    }
+
+    public float getTemperature_2m_min() {
+        return temperature_2m_min;
+    }
+
+    public void setTemperature_2m_min(float temperature_2m_min) {
+        this.temperature_2m_min = temperature_2m_min;
+    }
+
     public float getTemperature_2m() {
         return temperature_2m;
     }
 
-    public void setTemperature_2m(float temperature_2m) {
-        this.temperature_2m = temperature_2m;
+    // Calculated temperature
+    public void setTemperature_2m(float temperature_2m_max, float temperature_2m_min) {
+        this.temperature_2m = (temperature_2m_max + temperature_2m_min) / 2;
     }
 
-    public int getPrecipitation_probability() {
-        return precipitation_probability;
+    public int getPrecipitation_probability_max() {
+        return precipitation_probability_max;
     }
 
-    public void setPrecipitation_probability(int precipitation_probability) {
-        this.precipitation_probability = precipitation_probability;
+    public void setPrecipitation_probability_max(int precipitation_probability_max) {
+        this.precipitation_probability_max = precipitation_probability_max;
     }
 
     public int getIs_day() {

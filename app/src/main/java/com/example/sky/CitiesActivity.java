@@ -1,7 +1,8 @@
-package com.example.weatherapiapp;
+package com.example.sky;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -41,7 +42,8 @@ public class CitiesActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.cities);
+        setContentView(R.layout.activity_cities);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         recyclerView = (RecyclerView) findViewById(R.id.rv_cities);
         citiesList = new ArrayList<>();
         adapter = new CityListAdapter(this, citiesList);
@@ -56,6 +58,10 @@ public class CitiesActivity extends AppCompatActivity {
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
         prepareData();
+
+        findViewById(R.id.btn_back).setOnClickListener(v -> {
+            finish();
+        });
 
         findViewById(R.id.btn_cities_add_city).setOnClickListener(view -> {
             addingNewCity = true;
@@ -79,8 +85,8 @@ public class CitiesActivity extends AppCompatActivity {
                 new WeatherDataService.ListenerGetForecastByLatL<WeatherReportModelShort>() {
                     @Override
                     public void onError(String message) {
-                        Toast.makeText(CitiesActivity.this, message, Toast.LENGTH_LONG).show();
                         Log.d(TAG, "onError: getForecastShort " + message);
+                        Toast.makeText(CitiesActivity.this, "Couldn't get City forecast", Toast.LENGTH_LONG).show();
                     }
 
                     @Override
@@ -128,9 +134,9 @@ public class CitiesActivity extends AppCompatActivity {
                 }
 
                 /*
-                Earlier Calls are not always providing earlier Responses which is Mixing the cities Order.
-                To fix this I utilized a Queue, created queueIsIdle boolean, and let the worker (background) Thread to Check repeatedly if the Queue is Idle API Calls.
-                This gives the calls some time to respond to ensures getting Responses in the order of Calling.
+                Earlier calls do not always yield earlier responses, leading to a mix-up in the order of cities.
+                To fix this I utilized a Queue, created queueIsIdle boolean, and let the worker (background) Thread to Check repeatedly if the Queue is Idle for API Calls.
+                This approach provides the calls with sufficient time to respond, ensuring that responses are received in the order of calling.
                  */
                 long startDequeueingTime = System.currentTimeMillis();
                 while (!namesQueue.isEmpty()) {
@@ -162,7 +168,6 @@ public class CitiesActivity extends AppCompatActivity {
      * @param weatherReportModels that was gotten from Response of getForecastShort.
      */
     private void addCity(List<WeatherReportModelShort> weatherReportModels) {
-        Toast.makeText(CitiesActivity.this, "O  K", Toast.LENGTH_SHORT).show();
         WeatherReportModelShort weatherReportModelShort = weatherReportModels.get(0);
 
         /*
