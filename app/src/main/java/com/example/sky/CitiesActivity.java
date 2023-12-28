@@ -189,7 +189,8 @@ public class CitiesActivity extends AppCompatActivity {
                 .putString("citiesCountriesNames", citiesCountriesNames)
                 .apply();
 
-        adapter.notifyDataSetChanged();
+        adapter.notifyItemInserted(adapter.getItemCount() - 1);
+        recyclerView.scrollToPosition(adapter.getItemCount() - 1);
         if (addingNewCity)
             Snackbar.make(citiesLayout, "City added", BaseTransientBottomBar.LENGTH_LONG)
                     .show();

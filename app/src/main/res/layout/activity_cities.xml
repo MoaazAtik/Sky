@@ -11,6 +11,7 @@
     android:paddingTop="48dp"
     android:paddingEnd="18dp">
 
+    <!--  Top navigation and Search  -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cities_top_navigation"
         android:layout_width="match_parent"
@@ -70,44 +71,27 @@
             app:layout_constraintTop_toBottomOf="@id/btn_back" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ScrollView
+    <!--  Cities List  -->
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:fadingEdgeLength="20dp"
-        android:overScrollMode="never"
-        android:paddingStart="4dp"
-        android:paddingTop="30dp"
-        android:paddingEnd="4dp"
-        android:requiresFadingEdge="vertical"
-        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cities_top_navigation">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_cities"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_cities"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:overScrollMode="never"
-                android:scrollbars="none"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-            <!--  tools:listitem="@layout/city_widget"  -->
-
-            <View
-                android:id="@+id/rv_bottom_padding"
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:visibility="invisible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rv_cities" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+            android:layout_height="wrap_content"
+            android:fadingEdgeLength="20dp"
+            android:overScrollMode="never"
+            android:paddingStart="4dp"
+            android:paddingTop="30dp"
+            android:paddingEnd="4dp"
+            android:paddingBottom="4dp"
+            android:requiresFadingEdge="vertical"
+            android:scrollbars="none"
+            tools:listitem="@layout/city_widget" />
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
