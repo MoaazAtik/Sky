@@ -44,9 +44,9 @@
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btn_cities_add_city"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="@color/transparent"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/add_circle"
             app:layout_constraintBottom_toBottomOf="@id/et_add_city"
             app:layout_constraintEnd_toEndOf="parent"
@@ -62,9 +62,9 @@
             android:drawableStart="@drawable/search"
             android:drawablePadding="6dp"
             android:hint="Search for a city"
+            android:inputType="textCapSentences"
             android:paddingStart="6dp"
             android:paddingEnd="6dp"
-            android:singleLine="true"
             android:textColor="@color/white"
             android:textColorHint="@color/pale_blue_back_btn"
             app:layout_constraintStart_toStartOf="parent"

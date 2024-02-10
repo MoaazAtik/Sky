@@ -2,7 +2,11 @@ package com.example.sky;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -54,15 +58,25 @@ public class CitiesActivity extends AppCompatActivity {
         handleRecyclerView();
         prepareData();
 
+        // Button Back
         findViewById(R.id.btn_back).setOnClickListener(v -> {
             finish();
         });
 
+        // Button Add City
         findViewById(R.id.btn_cities_add_city).setOnClickListener(view -> {
+            clearFocusAndHideKeyboard(etCityInput);
             addingNewCity = true;
             getForecastShort(Objects.requireNonNull(etCityInput.getText()).toString());
         });
+        // Set Ime Options for etCityInput
+        etCityInput.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
+        // Root Layout
+        citiesLayout.setOnClickListener(v ->
+                // Clear Focus of etCityInput, and Hide Soft Keyboard when outside of etCityInput is clicked
+                clearFocusAndHideKeyboard(etCityInput)
+        );
     } //onCreate
 
     /**
@@ -238,7 +252,20 @@ public class CitiesActivity extends AppCompatActivity {
                 @Override
                 public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                     removeCity(viewHolder.getAdapterPosition());
+                    clearFocusAndHideKeyboard(etCityInput);
                 }
             };
 
+    /**
+     * Clear the Focus of the passed view, and Hide Soft (Virtual / Device's) Keyboard.
+     *
+     * @param view to clear its focus.
+     */
+    public void clearFocusAndHideKeyboard(View view) {
+        // Hide Soft (Virtual) Keyboard
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        // Clear Focus
+        view.clearFocus();
+    }
 }
