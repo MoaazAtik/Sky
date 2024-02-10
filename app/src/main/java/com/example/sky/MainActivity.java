@@ -324,26 +324,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*
-        When 'Plus' Button is clicked open CitiesActivity and Focus the EditText
-         */
+        // Button Plus
         btnHomePlus.setOnClickListener(v -> {
-            startActivity(
-                    new Intent(MainActivity.this, CitiesActivity.class)
-            );
+            // Open CitiesActivity and Focus the EditText to add a city
+            Intent intent = new Intent(MainActivity.this, CitiesActivity.class);
+            intent.putExtra("addCity", true);
+            startActivity(intent);
         });
 
-        /*
-        When 'Expand' Button is clicked Expand the Bottom Sheet
-         */
+        // Button Expand
         btnHomeExpand.setOnClickListener(v -> {
+            // Expand Bottom Sheet
             mainMotionLayout.transitionToEnd();
         });
 
-        /*
-        When 'Cities List' Button is clicked open CitiesActivity
-         */
+        // Button Cities List
         btnHomeCitiesList.setOnClickListener(v -> {
+            // Open CitiesActivity
             startActivity(
                     new Intent(MainActivity.this, CitiesActivity.class)
             );

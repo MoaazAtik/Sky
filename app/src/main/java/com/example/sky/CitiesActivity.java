@@ -58,6 +58,10 @@ public class CitiesActivity extends AppCompatActivity {
         handleRecyclerView();
         prepareData();
 
+        // Focus etCityInput if CitiesActivity is opened to add a city
+        if (getIntent().getBooleanExtra("addCity", false))
+            etCityInput.requestFocus();
+
         // Button Back
         findViewById(R.id.btn_back).setOnClickListener(v -> {
             finish();
