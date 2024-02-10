@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -50,13 +51,7 @@ public class CitiesActivity extends AppCompatActivity {
         citiesLayout = findViewById(R.id.cities_layout);
         etCityInput = findViewById(R.id.et_add_city);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callbackItemTouchHelper);
-        itemTouchHelper.attachToRecyclerView(recyclerView);
-
+        handleRecyclerView();
         prepareData();
 
         findViewById(R.id.btn_back).setOnClickListener(v -> {
@@ -95,6 +90,19 @@ public class CitiesActivity extends AppCompatActivity {
                     }
                 });
     } // getForecastShort
+
+    /**
+     * Build Recycler View and Handle Item Swipe events
+     */
+    private void handleRecyclerView() {
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(adapter);
+        // ItemTouchHelper to handle onSwiped
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callbackItemTouchHelper);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
+    }
 
     /**
      * Create City widgets at CitiesActivity Initialization based on Saved Shared Preferences. The work is done on a Background Thread.
