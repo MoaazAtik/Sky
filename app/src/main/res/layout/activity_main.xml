@@ -1072,7 +1072,7 @@
             android:background="@color/transparent"
             android:scaleX="0.9"
             android:scaleY="0.9"
-            android:src="@drawable/plus_button"
+            android:src="@drawable/bg_btn_plus"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/tab_bar_front" />
