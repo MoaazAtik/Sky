@@ -1,8 +1,9 @@
 package com.example.sky;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
@@ -57,10 +58,7 @@ public class CitiesActivity extends AppCompatActivity {
 
         handleRecyclerView();
         prepareData();
-
-        // Focus etCityInput if CitiesActivity is opened to add a city
-        if (getIntent().getBooleanExtra("addCity", false))
-            etCityInput.requestFocus();
+        delayUIActions();
 
         // Button Back
         findViewById(R.id.btn_back).setOnClickListener(v -> {
@@ -187,6 +185,26 @@ public class CitiesActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    /**
+     *  Make some delayed UI actions.
+     */
+    private void delayUIActions() {
+        new Handler(Looper.getMainLooper()).postDelayed(
+                () -> {
+                    // Hide initializing cities loader animation
+                    findViewById(R.id.lv_cities_loader).setVisibility(View.GONE);
+                    findViewById(R.id.img_bg_cities_loader).setVisibility(View.GONE);
+                    // Focus etCityInput if CitiesActivity is opened to add a city
+                    if (getIntent().getBooleanExtra("addCity", false)) {
+                        etCityInput.requestFocus();
+                        // Show Soft (Virtual) Keyboard
+                        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                        imm.showSoftInput(etCityInput, 0);
+                    }
+                },
+                2500);
     }
 
     /**

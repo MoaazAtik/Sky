@@ -179,6 +179,8 @@ public class MainActivity extends AppCompatActivity {
         txtVisibilityDescription = findViewById(R.id.txt_visibility_description);
         seekBarUvIndex = findViewById(R.id.seekbar_uv_index);
 
+        seekBarUvIndex.setEnabled(false);
+
         new Handler().postDelayed(
                 () -> showHomeCityDialog(),
                 3000);

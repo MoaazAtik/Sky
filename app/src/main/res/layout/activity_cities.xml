@@ -6,16 +6,16 @@
     android:id="@+id/cities_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/cities_layout_background"
-    android:paddingStart="18dp"
-    android:paddingTop="48dp"
-    android:paddingEnd="18dp">
+    android:background="@drawable/cities_layout_background">
 
     <!--  Top navigation and Search  -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cities_top_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -73,11 +73,11 @@
 
     <!--  Cities List  -->
     <FrameLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/cities_top_navigation"
+        app:layout_constraintStart_toStartOf="@id/cities_top_navigation"
         app:layout_constraintTop_toBottomOf="@id/cities_top_navigation">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -93,4 +93,37 @@
             android:scrollbars="none"
             tools:listitem="@layout/city_widget" />
     </FrameLayout>
+
+    <!--  Initializing Loader Animation Background  -->
+    <ImageView
+        android:id="@+id/img_bg_cities_loader"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="-18dp"
+        android:layout_marginTop="-48dp"
+        android:layout_marginEnd="-18dp"
+        android:contentDescription="Cities loader background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/bg_cities_loader"
+        tools:visibility="gone" />
+
+    <!--  Initializing Loader Animation  -->
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lv_cities_loader"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_rawRes="@raw/cities_loader"
+        app:lottie_speed="1.1"
+        tools:visibility="gone" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
