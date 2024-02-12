@@ -240,11 +240,11 @@
 
                     <!--  Hour 0 forecast (the first hour)  -->
                     <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="110dp"
+                        android:layout_height="180dp"
                         android:layout_marginStart="-20dp"
-                        android:layout_marginTop="-8dp"
-                        android:background="@drawable/temperature_pale_widget"
+                        android:layout_marginTop="-10dp"
+                        android:background="@drawable/bg_temperature_widget_pale"
                         android:gravity="center_horizontal"
                         android:orientation="vertical"
                         android:paddingTop="36dp">
@@ -293,11 +293,11 @@
 
                     <!--  Hour 1 forecast  -->
                     <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="110dp"
+                        android:layout_height="180dp"
                         android:layout_marginStart="-34dp"
-                        android:layout_marginTop="-8dp"
-                        android:background="@drawable/temperature_colorful_widget"
+                        android:layout_marginTop="-10dp"
+                        android:background="@drawable/bg_temperature_widget_colorful"
                         android:gravity="center_horizontal"
                         android:orientation="vertical"
                         android:paddingTop="36dp">
@@ -343,11 +343,11 @@
 
                     <!--  Hour 2 forecast  -->
                     <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="110dp"
+                        android:layout_height="180dp"
                         android:layout_marginStart="-34dp"
-                        android:layout_marginTop="-8dp"
-                        android:background="@drawable/temperature_pale_widget"
+                        android:layout_marginTop="-10dp"
+                        android:background="@drawable/bg_temperature_widget_pale"
                         android:gravity="center_horizontal"
                         android:orientation="vertical"
                         android:paddingTop="36dp">
@@ -393,11 +393,11 @@
 
                     <!--  Hour 3 forecast  -->
                     <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="110dp"
+                        android:layout_height="180dp"
                         android:layout_marginStart="-34dp"
-                        android:layout_marginTop="-8dp"
-                        android:background="@drawable/temperature_pale_widget"
+                        android:layout_marginTop="-10dp"
+                        android:background="@drawable/bg_temperature_widget_pale"
                         android:gravity="center_horizontal"
                         android:orientation="vertical"
                         android:paddingTop="36dp">
@@ -443,11 +443,11 @@
 
                     <!--  Hour 4 forecast  -->
                     <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="110dp"
+                        android:layout_height="180dp"
                         android:layout_marginStart="-34dp"
-                        android:layout_marginTop="-8dp"
-                        android:background="@drawable/temperature_pale_widget"
+                        android:layout_marginTop="-10dp"
+                        android:background="@drawable/bg_temperature_widget_pale"
                         android:gravity="center_horizontal"
                         android:orientation="vertical"
                         android:paddingTop="36dp">
@@ -493,11 +493,11 @@
 
                     <!--  Hour 5 forecast  -->
                     <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="110dp"
+                        android:layout_height="180dp"
                         android:layout_marginStart="-34dp"
-                        android:layout_marginTop="-8dp"
-                        android:background="@drawable/temperature_pale_widget"
+                        android:layout_marginTop="-10dp"
+                        android:background="@drawable/bg_temperature_widget_pale"
                         android:gravity="center_horizontal"
                         android:orientation="vertical"
                         android:paddingTop="36dp">
@@ -543,11 +543,11 @@
 
                     <!--  Hour 6 forecast  -->
                     <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="110dp"
+                        android:layout_height="180dp"
                         android:layout_marginStart="-34dp"
-                        android:layout_marginTop="-8dp"
-                        android:background="@drawable/temperature_pale_widget"
+                        android:layout_marginTop="-10dp"
+                        android:background="@drawable/bg_temperature_widget_pale"
                         android:gravity="center_horizontal"
                         android:orientation="vertical"
                         android:paddingTop="36dp">
@@ -593,12 +593,12 @@
 
                     <!--  Hour 7 forecast  -->
                     <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="110dp"
+                        android:layout_height="180dp"
                         android:layout_marginStart="-34dp"
-                        android:layout_marginTop="-8dp"
+                        android:layout_marginTop="-10dp"
                         android:layout_marginEnd="-16dp"
-                        android:background="@drawable/temperature_pale_widget"
+                        android:background="@drawable/bg_temperature_widget_pale"
                         android:gravity="center_horizontal"
                         android:orientation="vertical"
                         android:paddingTop="36dp">
@@ -667,11 +667,11 @@
 
                     <!--  Day 0 forecast (the first day)  -->
                     <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="110dp"
+                        android:layout_height="180dp"
                         android:layout_marginStart="-20dp"
-                        android:layout_marginTop="-8dp"
-                        android:background="@drawable/temperature_pale_widget"
+                        android:layout_marginTop="-10dp"
+                        android:background="@drawable/bg_temperature_widget_pale"
                         android:gravity="center_horizontal"
                         android:orientation="vertical"
                         android:paddingTop="36dp">
@@ -720,11 +720,11 @@
 
                     <!--  Day 1 forecast  -->
                     <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="110dp"
+                        android:layout_height="180dp"
                         android:layout_marginStart="-34dp"
-                        android:layout_marginTop="-8dp"
-                        android:background="@drawable/temperature_colorful_widget"
+                        android:layout_marginTop="-10dp"
+                        android:background="@drawable/bg_temperature_widget_colorful"
                         android:gravity="center_horizontal"
                         android:orientation="vertical"
                         android:paddingTop="36dp">
@@ -770,11 +770,11 @@
 
                     <!--  Day 2 forecast  -->
                     <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="110dp"
+                        android:layout_height="180dp"
                         android:layout_marginStart="-34dp"
-                        android:layout_marginTop="-8dp"
-                        android:background="@drawable/temperature_pale_widget"
+                        android:layout_marginTop="-10dp"
+                        android:background="@drawable/bg_temperature_widget_pale"
                         android:gravity="center_horizontal"
                         android:orientation="vertical"
                         android:paddingTop="36dp">
@@ -820,11 +820,11 @@
 
                     <!--  Day 3 forecast  -->
                     <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="110dp"
+                        android:layout_height="180dp"
                         android:layout_marginStart="-34dp"
-                        android:layout_marginTop="-8dp"
-                        android:background="@drawable/temperature_pale_widget"
+                        android:layout_marginTop="-10dp"
+                        android:background="@drawable/bg_temperature_widget_pale"
                         android:gravity="center_horizontal"
                         android:orientation="vertical"
                         android:paddingTop="36dp">
@@ -870,11 +870,11 @@
 
                     <!--  Day 4 forecast  -->
                     <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="110dp"
+                        android:layout_height="180dp"
                         android:layout_marginStart="-34dp"
-                        android:layout_marginTop="-8dp"
-                        android:background="@drawable/temperature_pale_widget"
+                        android:layout_marginTop="-10dp"
+                        android:background="@drawable/bg_temperature_widget_pale"
                         android:gravity="center_horizontal"
                         android:orientation="vertical"
                         android:paddingTop="36dp">
@@ -920,11 +920,11 @@
 
                     <!--  Day 5 forecast  -->
                     <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="110dp"
+                        android:layout_height="180dp"
                         android:layout_marginStart="-34dp"
-                        android:layout_marginTop="-8dp"
-                        android:background="@drawable/temperature_pale_widget"
+                        android:layout_marginTop="-10dp"
+                        android:background="@drawable/bg_temperature_widget_pale"
                         android:gravity="center_horizontal"
                         android:orientation="vertical"
                         android:paddingTop="36dp">
@@ -970,12 +970,12 @@
 
                     <!--  Day 6 forecast  -->
                     <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="110dp"
+                        android:layout_height="180dp"
                         android:layout_marginStart="-34dp"
-                        android:layout_marginTop="-8dp"
+                        android:layout_marginTop="-10dp"
                         android:layout_marginEnd="-16dp"
-                        android:background="@drawable/temperature_pale_widget"
+                        android:background="@drawable/bg_temperature_widget_pale"
                         android:gravity="center_horizontal"
                         android:orientation="vertical"
                         android:paddingTop="36dp">
