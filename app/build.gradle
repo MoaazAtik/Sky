@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.sky'
+    namespace 'com.thewhitewings.sky'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.sky"
+        applicationId "com.thewhitewings.sky"
         minSdk 21
         targetSdk 34
         versionCode 1

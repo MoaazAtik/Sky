@@ -1,4 +1,4 @@
-package com.example.sky;
+package com.thewhitewings.sky;
 
 // Used in the Upper part of the bottom sheet for Hourly forecasts
 public class WeatherReportModelHourly {

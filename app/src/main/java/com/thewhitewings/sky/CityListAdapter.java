@@ -1,4 +1,4 @@
-package com.example.sky;
+package com.thewhitewings.sky;
 
 import static android.content.Context.MODE_PRIVATE;
 

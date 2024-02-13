@@ -1,4 +1,4 @@
-package com.example.sky;
+package com.thewhitewings.sky;
 
 import android.content.Context;
 import android.util.Log;

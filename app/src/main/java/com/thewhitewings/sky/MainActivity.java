@@ -1,4 +1,4 @@
-package com.example.sky;
+package com.thewhitewings.sky;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
