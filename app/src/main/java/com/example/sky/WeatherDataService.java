@@ -332,6 +332,7 @@ public class WeatherDataService {
                     weatherReportModelDetailed.setWind_direction_10m(current.getInt("wind_direction_10m"));
                     weatherReportModelDetailed.setRain((float) current.getDouble("rain"));
                     weatherReportModelDetailed.setRain_sum((float) daily.getJSONArray("rain_sum").getDouble(0));
+                    weatherReportModelDetailed.setTemperature_2m((float) current.getDouble("temperature_2m"));
                     weatherReportModelDetailed.setApparent_temperature((float) current.getDouble("apparent_temperature"));
                     weatherReportModelDetailed.setRelative_humidity_2m(current.getInt("relative_humidity_2m"));
                     weatherReportModelDetailed.setDew_point_2m((float) current.getDouble("dew_point_2m"));

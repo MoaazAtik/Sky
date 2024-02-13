@@ -192,6 +192,13 @@ public class WeatherReportModelDetailed {
         return apparent_temperature;
     }
 
+    /**
+     * Set {@link #apparent_temperature} and call {@link #setApparent_temperatureDescription()} to set {@link #apparent_temperatureDescription}.
+     * <p></p>
+     * Important Note: it should be preceded by {@link #setTemperature_2m(float)} for {@link #setApparent_temperatureDescription()}.
+     *
+     * @param apparent_temperature apparent temperature float
+     */
     public void setApparent_temperature(float apparent_temperature) {
         this.apparent_temperature = apparent_temperature;
         setApparent_temperatureDescription();
@@ -516,14 +523,17 @@ public class WeatherReportModelDetailed {
     }
 
     /**
-     * Set the description of the apparent temperature by comparing it to the current temperature.
-     * It will be automatically called by setApparent_temperature after assigning apparent_temperature.
-     * Note: it should be called after temperature_2m and apparent_temperature is assigned.
+     * Set the description of the apparent temperature {@link #apparent_temperatureDescription} by comparing {@link #apparent_temperature} to the current temperature {@link #temperature_2m}.
+     * They are compared as Integers as they are shown to the user.
+     * <p></p>
+     * Note: It will be called automatically by {@link #setApparent_temperature}.
      */
-    public void setApparent_temperatureDescription() {
-        if (apparent_temperature < temperature_2m)
+    private void setApparent_temperatureDescription() {
+        int apparent_temperatureInt = (int) apparent_temperature;
+        int temperature_2mInt = (int) temperature_2m;
+        if (apparent_temperatureInt < temperature_2mInt)
             apparent_temperatureDescription = "Cooler" + " than the actual temperature.";
-        else if (apparent_temperature > temperature_2m)
+        else if (apparent_temperatureInt > temperature_2mInt)
             apparent_temperatureDescription = "Warmer" + " than the actual temperature.";
         else // apparent_temperature == temperature_2m
             apparent_temperatureDescription = "Similar to the actual temperature.";
