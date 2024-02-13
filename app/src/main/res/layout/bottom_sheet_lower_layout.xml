@@ -532,9 +532,12 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginTop="-14dp"
+            android:clickable="true"
+            android:contentDescription="Developer Logo"
+            android:focusable="true"
             app:layout_constraintEnd_toEndOf="@id/txt_logo_name"
             app:layout_constraintStart_toStartOf="@id/txt_logo_name"
             app:layout_constraintTop_toBottomOf="@id/txt_logo_name"
-            app:srcCompat="@drawable/logo" />
+            app:srcCompat="@drawable/logo_rippled" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
