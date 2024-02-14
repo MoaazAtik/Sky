@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -59,6 +61,7 @@ public class CitiesActivity extends AppCompatActivity {
         handleRecyclerView();
         prepareData();
         delayUIActions();
+        handleEtCityInput();
 
         // Button Back
         findViewById(R.id.btn_back).setOnClickListener(v -> {
@@ -71,8 +74,6 @@ public class CitiesActivity extends AppCompatActivity {
             addingNewCity = true;
             getForecastShort(Objects.requireNonNull(etCityInput.getText()).toString());
         });
-        // Set Ime Options for etCityInput
-        etCityInput.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
         // Root Layout
         citiesLayout.setOnClickListener(v ->
@@ -205,6 +206,22 @@ public class CitiesActivity extends AppCompatActivity {
                     }
                 },
                 2500);
+    }
+
+    /**
+     * Handle Edit Text of city input {@link #etCityInput}. Set Ime Option, and Handle Editor Action.
+     */
+    private void handleEtCityInput() {
+        etCityInput.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
+        etCityInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                clearFocusAndHideKeyboard(etCityInput);
+                addingNewCity = true;
+                getForecastShort(Objects.requireNonNull(etCityInput.getText()).toString());
+                return true;
+            }
+        });
     }
 
     /**

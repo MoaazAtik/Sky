@@ -393,7 +393,9 @@ public class MainActivity extends AppCompatActivity {
         // Handle the positive button (btn_fix) in the custom layout
         Button btnFix = (Button) dialogView.findViewById(R.id.btn_fix);
         btnFix.setOnClickListener(v -> {
+            // Open CitiesActivity and Focus the EditText to add a city
             Intent citiesIntent = new Intent(MainActivity.this, CitiesActivity.class);
+            citiesIntent.putExtra("addCity", true);
             MainActivity.this.startActivity(citiesIntent);
         });
 
