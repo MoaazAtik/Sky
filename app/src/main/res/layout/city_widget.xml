@@ -46,15 +46,19 @@
 
     <TextView
         android:id="@+id/txt_city_country"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="26dp"
         android:layout_marginBottom="22dp"
         android:fontFamily="@font/sf_pro_display_regular"
+        android:gravity="bottom"
         android:includeFontPadding="false"
+        android:paddingEnd="8dp"
         android:text="Montreal, Canada"
         android:textColor="@color/white"
-        android:textSize="18sp"
+        app:autoSizeMaxTextSize="18sp"
+        app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/txt_city_condition"
         app:layout_constraintStart_toStartOf="@id/txt_city_h_temp" />
 
     <TextView
