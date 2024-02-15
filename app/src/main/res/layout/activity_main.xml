@@ -53,9 +53,6 @@
             android:textColor="@color/white"
             app:autoSizeMaxTextSize="34sp"
             app:autoSizeTextType="uniform"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             tools:text="Montreal" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -66,10 +63,7 @@
             android:fontFamily="@font/sf_pro_display_thin"
             android:text="19°"
             android:textColor="@color/white"
-            android:textSize="88sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_home_city" />
+            android:textSize="88sp" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txt_home_condition_description"
@@ -79,13 +73,10 @@
             android:fontFamily="@font/sf_pro_display_semibold"
             android:text="Mostly Clear"
             android:textColor="@color/condition"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_home_temp" />
+            android:textSize="20sp" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="120dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="-12dp">
 
@@ -93,26 +84,21 @@
                 android:id="@+id/txt_home_h_temp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
+                android:layout_marginEnd="18dp"
                 android:fontFamily="@font/sf_pro_display_semibold"
                 android:text="H:24°"
                 android:textColor="@color/white"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textSize="20sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txt_home_l_temp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
                 android:fontFamily="@font/sf_pro_display_semibold"
                 android:text="L:18°"
                 android:textColor="@color/white"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                android:textSize="20sp" />
+        </LinearLayout>
     </LinearLayout>
 
     <!--  Background collapsed bottom sheet  -->
