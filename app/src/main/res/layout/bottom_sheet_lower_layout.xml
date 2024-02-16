@@ -108,8 +108,9 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txt_sun_time_primary"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
             android:fontFamily="@font/sf_pro_display_regular"
             android:lines="1"
             android:text="5:28 AM"
