@@ -1,6 +1,7 @@
 # Sky 🌤️
 
-**Sky** is a sleek weather app with elegant design and delightful animations, providing you with essential weather updates and forecasts in a cozy interface.<br>
+**Sky** is a sleek weather app with elegant design and delightful animations, providing you with essential weather updates and forecasts in a cozy interface.
+
 Supported by **The White Wings**🪽. Play Store [link](https://play.google.com/store/apps/dev?id=6456450686494659010)
 
 <br>
@@ -48,8 +49,12 @@ On the Main Screen:
  - **Main Home City Information:** View the name of your home city, current temperature, weather condition description, and today's highest and lowest temperatures.
  - **Hourly and Daily Forecasts:** Access detailed forecasts for the upcoming hours and days with just a tap on *"Daily Forecast"* or *"Hourly Forecast"* in the Collapsed Bottom Sheet.
 
+<br>
+
 In the Expanded Bottom Sheet:
  - **Detailed Forecast:** Explore comprehensive weather information, including UV index, sunrise and sunset times, wind speed and direction, rainfall, feels like temperature, humidity, dew point, and visibility.
+
+<br>
 
 On the Cities Screen:
  - **Search and Add Cities:** Utilize the search field to discover and add new cities quickly.
