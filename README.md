@@ -78,7 +78,7 @@ Click the image below to watch the full app demo on YouTube ⬇️
    - **Glide**: For efficient image loading and caching.
    - **SharedPreferences**: For storing and retrieving user's cities list.
 
- - **Development Tools:** Figma, PlaygroundAI, Lottie Animations, Git, and Android Studio.
+ - **Development Tools:** Postman, Figma, PlaygroundAI, Lottie Animations, Git, and Android Studio.
 
  - **APIs:**
    - OpenStreetMap's Nominatim API: Provides the Latitude and Longitude Coordinates of the provided city/location. API [link](https://nominatim.org/release-docs/develop/api/Overview/)
