@@ -72,10 +72,13 @@ Click the image below to watch the full app demo on YouTube ⬇️
 ## Utilized Technologies 🔧
  - **Programming Language:** Java
 
+ - **UI**: Android Views with XML
+
  - **Frameworks/Libraries:**
    - **Volley**: For making **REST API** calls.
    - **Motion Layout** and **ObjectAnimator**: For creating smooth animations.
    - **Glide**: For efficient image loading and caching.
+   - **View Binding**: For better interactions with the Android Views.
    - **SharedPreferences**: For storing and retrieving user's cities list.
 
  - **Development Tools:** Postman, Figma, PlaygroundAI, Lottie Animations, Git, and Android Studio.
