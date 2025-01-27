@@ -6,6 +6,18 @@ Supported by **The White Wings**🪽. Play Store [link](https://play.google.com/
 
 <br>
 
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/fabdbd35-38c3-4bce-a14c-64309fb93c2f" alt="Home Screen" width="250"/>
+  <img src="https://github.com/user-attachments/assets/44a1132b-1429-478d-86fc-124570bfa4f6" alt="Forecast Details Screen" width="250"/>
+  <img src="https://github.com/user-attachments/assets/5a33a921-c3a6-4554-8c18-5b58f55f3d2df" alt="Cities" width="250"/>
+</div>
+
+<div align="center">
+  Screenshots
+</div>
+
+<br>
+
 ## Navigate Your Journey of exploring Sky 🗺️
  1. [Why Should I Always Check the Sky?](#why-should-i-always-check-the-sky-)
  2. [Quick Start](#quick-start-)
