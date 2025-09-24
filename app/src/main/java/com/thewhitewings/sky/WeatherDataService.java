@@ -51,7 +51,8 @@ public class WeatherDataService {
      * Get city latitude and longitude, and assign them to cityLat and cityLon fields.
      * @param cityName Provided country, city, town name.<br>
      *                 <b>Important Note</b>: Separate city and country with a
-     *                 comma ",".
+     *                 comma ",". It's important when you search for cities and storing cities in
+     *                 SharedPreferences via 'CitiesActivity.addCity()'.
      *                 Spaces between city and country names are ignored.
      *                 Spaces within some city names (eg, San Francisco) are
      *                 required.

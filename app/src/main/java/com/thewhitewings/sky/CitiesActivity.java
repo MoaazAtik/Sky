@@ -242,8 +242,10 @@ public class CitiesActivity extends AppCompatActivity {
         }
 
         citiesList.add(weatherReportModelShort);
+        // Important note: city and country names should be separated by a comma "," at least
+        // for Open Meteo's Geocoding API
         citiesCountriesNames +=
-                weatherReportModelShort.getCity() + " - " + weatherReportModelShort.getCountry()
+                weatherReportModelShort.getCity() + " , " + weatherReportModelShort.getCountry()
                         + " ; ";
         getSharedPreferences("MyPrefs", MODE_PRIVATE)
                 .edit()
