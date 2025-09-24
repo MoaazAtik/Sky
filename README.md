@@ -84,8 +84,8 @@ Click the image below to watch the full app demo on YouTube ⬇️
  - **Development Tools:** Postman, Figma, PlaygroundAI, Lottie Animations, Git, and Android Studio.
 
  - **APIs:**
-   - OpenStreetMap's Nominatim API: Provides the Latitude and Longitude Coordinates of the provided city/location. API [link](https://nominatim.org/release-docs/develop/api/Overview/)
-   - Open Meteo API: Offers Weather data based on the provided Coordinates. API [link](https://open-meteo.com/)
+   - Open Meteo's Geocoding API: Provides the Geocoding (Latitude and Longitude Coordinates) of the provided city/location. API [link](https://open-meteo.com/en/docs/geocoding-api)
+   - Open Meteo's Weather Forecast API: Offers Weather data based on the provided Coordinates. API [link](https://open-meteo.com/en/docs)
 
 Special thanks to DesignCode for their exceptional work in crafting the intuitive and visually appealing design of Sky.
 

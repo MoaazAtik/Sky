@@ -38,7 +38,8 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
 
     /*
-     Get city latitude and longitude from nominatim.org, then get the city's weather from open-meteo.com
+     Get city Geocoding (latitude and longitude), then get the city's weather forecast
+     from open-meteo.com
      */
 
     private static final String TAG = "MainActivity";

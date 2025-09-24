@@ -27,7 +27,10 @@ public class WeatherDataService {
     Context context;
     float cityLat, cityLon;
 
-    public static final String QUERY_FOR_CITY_LATL = "https://nominatim.openstreetmap.org/search?format=json&q=";
+    public static final String QUERY_FOR_CITY_LATL =
+            "https://geocoding-api.open-meteo.com/v1/search?"
+                    + "count=1"
+                    + "&name=";
     public String QUERY_FOR_FORECAST_BY_LATL_SHORT;
     public String QUERY_FOR_FORECAST_BY_LATL_HOURLY;
     public String QUERY_FOR_FORECAST_BY_LATL_DAILY;
@@ -46,37 +49,39 @@ public class WeatherDataService {
 
     /**
      * Get city latitude and longitude, and assign them to cityLat and cityLon fields.
-     * @param cityName Provided country, city, town name.
+     * @param cityName Provided country, city, town name.<br>
+     *                 <b>Important Note</b>: Separate city and country with a
+     *                 comma ",".
+     *                 Spaces between city and country names are ignored.
+     *                 Spaces within some city names (eg, San Francisco) are
+     *                 required.
      * @param listenerGetCityLatL
      */
     public void getCityLatL(String cityName, ListenerGetCityLatL listenerGetCityLatL) {
-//        Log.d(TAG, "getCityLatL: ");
         String url = QUERY_FOR_CITY_LATL + cityName;
 
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONArray>() {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(JSONArray response) {
-
+                    public void onResponse(JSONObject response) {
                         cityLat = 0;
                         cityLon = 0;
                         WeatherReportModelShort weatherReportModelShort = new WeatherReportModelShort();
                         try {
-                            JSONObject cityInfo = response.getJSONObject(0);
-                            cityLat = Float.parseFloat(cityInfo.getString("lat"));
-                            cityLon = Float.parseFloat(cityInfo.getString("lon"));
+                            JSONArray results = response.getJSONArray("results");
+                            JSONObject cityInfo = results.getJSONObject(0);
+                            cityLat = (float) cityInfo.getDouble("latitude");
+                            cityLon = (float) cityInfo.getDouble("longitude");
                             weatherReportModelShort.setLat(cityLat);
                             weatherReportModelShort.setLon(cityLon);
-                            String displayName = cityInfo.getString("display_name");
-                            String addressType = cityInfo.getString("addresstype");
+                            String name = cityInfo.getString("name");
+                            String country = cityInfo.getString("country");
+                            String addressType = (name.equals(country)) ? "country" : "cityOrElse";
                             String city;
-                            String country;
                             if (addressType.equals("country")) {
                                 city = "";
-                                country = displayName;
                             } else {
-                                city = displayName.substring(0, displayName.indexOf(','));
-                                country = displayName.substring(displayName.lastIndexOf(',') + 2);
+                                city = name;
                             }
                             Log.d(TAG, "onResponse: getCityLatL " + city + " - " + country);
                             weatherReportModelShort.setCity(city);
@@ -368,7 +373,7 @@ public class WeatherDataService {
         getCityLatL(cityName, new ListenerGetCityLatL() {
             @Override
             public void onError(String message) {
-                Log.d(TAG, "onError: getCityLatL - getForecastByName " + message);
+                  Log.d(TAG, "onError: getCityLatL - getForecastByName " + message);
                 Toast.makeText(context, "Network issues", Toast.LENGTH_SHORT).show();
             }
 
